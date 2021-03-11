@@ -1,9 +1,10 @@
 # SWOT-EA-2021
 This subdirectory contains content developed by the PO.DAAC and presented at the SWOT Early Adopters workshop in March 2021.
 
-<p><center>
-<img src="browse.png" width="70%" border="1px" />
-<figcaption><i>End result of the procedure demonstrated during the SWOT EA Workshop, part 1</figcaption></i></center></p>
+<p align="center">
+<img src="browse.png" width="75%" border="1px" />
+<br>
+<i>End result of the procedure demonstrated during the SWOT EA Workshop, part 1</i></p>
 
 **Recommended use:** Build a Python environment from in the [*environment.yml*](environment.yml) file. It includes all Python + Jupyter dependencies. Full instructions given below in *Requirements*.
 
