@@ -25,7 +25,7 @@ This subdirectory contains content developed by the PO.DAAC and presented at the
 
 ## <u>Part 2 - Explore coastal processes with satellite data in the cloud</u>
 
-[*Estuary_explore_incloud_zarr.ipynb*](Estuary_explore_incloud_zarr.ipynb)
+[*Estuary_explore_incloud_zarr.ipynb*](Estuary_explore_incloud_zarr.ipynb) -- *This notebook was developed to be executed in the AWS environment since it leveraged cloud-optimized data formats.*
 
 ### What?
 
