@@ -10,7 +10,7 @@ This subdirectory contains content developed by the PO.DAAC and presented at the
 
 ## <u>Part 1 - Co-locate satellite and in-situ data for cross-validation</u>
 
-[*Colocate_satellite_insitu_ocean.ipynb*](Colocate_satellite_insitu_ocean.ipynb)
+[*Colocate_satellite_insitu_ocean.ipynb*](Colocate_satellite_insitu_ocean.ipynb) -- *This notebook can be executed either locally or in AWS cloud. (If running locally, the data download will pull data from the cloud and save it to your local compute space where the notebook is running from. If running in AWS cloud, the data will ‘download’ to your user AWS cloud compute space you may have set up.)*
 
 ### What?
 
@@ -25,7 +25,7 @@ This subdirectory contains content developed by the PO.DAAC and presented at the
 
 ## <u>Part 2 - Explore coastal processes with satellite data in the cloud</u>
 
-[*Estuary_explore_incloud_zarr.ipynb*](Estuary_explore_incloud_zarr.ipynb)
+[*Estuary_explore_incloud_zarr.ipynb*](Estuary_explore_incloud_zarr.ipynb) -- *This notebook was developed to be executed in the AWS environment since it leveraged cloud-optimized data formats.*
 
 ### What?
 
@@ -33,18 +33,17 @@ This subdirectory contains content developed by the PO.DAAC and presented at the
 
 ### How?
 
-* Search for LWE (GRACE/GRACE-FO) and river discharge data (MEaSUREs Pre-SWOT)
-* Access LWE dataset in Zarr format from Earthdata Cloud (AWS)
-* Access river discharge dataset from PODAAC on prem data pool
+* Search for LWE thickness (GRACE/GRACE-FO) and river discharge data (MEaSUREs Pre-SWOT)
+* Access LWE thickness dataset in Zarr format from Earthdata Cloud (AWS)
+* Access river discharge dataset from PODAAC on premise data archive
 * Subset both, plot and compare coincident data.
 
 ## Requirements
 
 ### Earthdata Login
 
-You'll be prompted for your NASA Earthdata login credentials (username/password) at the beginning of each notebook. See here for more information about how to sign up for an Earthdata account:
+You'll be prompted for your NASA Earthdata login credentials (username/password) at the beginning of each notebook. See here for more information about how to sign up for a free Earthdata account: https://urs.earthdata.nasa.gov/ 
 
-    https://earthdata.nasa.gov/
 
 ### Python 3 environment
 
