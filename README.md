@@ -1,2 +1,2 @@
 # tutorials
-A place to find tutorials on how to use PO.DAAC tools and services
+A place to find cloud relevant tutorials on how to use PO.DAAC and Earthdata tools and services.
