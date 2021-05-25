@@ -12,7 +12,6 @@ Most tutorials in this repository take the form of python notebooks. [Jupyter](h
 |Amazon River Estuary Exploration|[notebook](./notebooks/AmazonRiver_Estuary_Exploration.ipynb)|||
 |MODIS L2P SST Datacube|[notebook](./notebooks/MODIS_L2P_SST_DataCube.ipynb)||Harmony, GDAL NCO|
 |HUC Feature Translation Service Examples|[notebook](./notebooks/HUC%20Feature%20Translation%20Service%20Examples.ipynb)||CMR, FTS|
-|ECCO In-region analysis|[notebook](./notebooks/in-region-analysis/ecco-zarr.ipynb)||Harmony, ZARR|
 |Subsetting Swath data with Harmony |[notebook](./notebooks/harmony%20subsetting/Harmony%20L2%20Subsetter.ipynb)||Harmony|
 |CMR Tutorials|[notebook](./notebooks/podaac_cmr_tutorial.ipynb)||CMR|
 |CMR Shapefile Search|[notebook](./notebooks/Podaac_CMR_Shapefile_Search.ipynb)||CMR|
