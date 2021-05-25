@@ -20,6 +20,6 @@ Most tutorials in this repository take the form of python notebooks. [Jupyter](h
 |Using a shapefile to search MODIS data in CMR|[notebook](./notebooks/PODAAC_CMR_Shapefile_Search_MODIS_UAT.ipynb)||CMR|
 |Pre-SWOT ECCO-based Simulation data example|[notebook](./notebooks/Pre-SWOT_Numerical_Simulation_Demo.ipynb)|||
 |Accessiing near-real time Sentinel-6 MF data|[notebook](./notebooks/sentinel-6/Access_Sentinel6_NRT.ipynb)||CMR, download|
-|Accessing Sentinel-6 data by cycle and pass|[notebook](./notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.ipynb)| For more recent, python script, see [here] (https://github.com/podaac/sentinel6)|CMR, download|
+|Accessing Sentinel-6 data by cycle and pass|[notebook](./notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.ipynb)| For more recent, python script, see [here](https://github.com/podaac/sentinel6)|CMR, download|
 |Subsetting and plotting swath data in the cloud|[notebook](./notebooks/Cloud%20L2SS%20subset%20and%20plot%20-%20JH.ipynb)||Harmony, Subsetting|
 |Regridding swath data in the cloud|[notebook](./notebooks/l2-regridding/reprojection%20notebook.ipynb)||Harmony, Regridding|
