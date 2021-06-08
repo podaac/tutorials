@@ -10,7 +10,7 @@ Most tutorials in this repository take the form of python notebooks. [Jupyter](h
 | Notebook| Link | Summary | Services and Tools |
 |----|-----| ----| ----|
 |Amazon River Estuary Exploration|[notebook](./notebooks/AmazonRiver_Estuary_Exploration.ipynb)|Explore relationship between oceanography and hydrology data in the Amazon Estuary from the on-prem and Earthdata Cloud archives|CMR, OPeNDAP|
-|MODIS L2P SST Datacube|[notebook](./notebooks/MODIS_L2P_SST_DataCube.ipynb)|How to created a gridded "Data Cube", essentialy an ARD, from native Level 2P sea surface temperature (SST) data from MODIS Aqua|Harmony, GDAL NCO|
+|MODIS L2P SST Datacube|[notebook](./notebooks/MODIS_L2P_SST_DataCube.ipynb)|How to create a gridded "Data Cube", essentially an ARD, from native Level 2P sea surface temperature (SST) data from MODIS Aqua|Harmony, GDAL NCO|
 |HUC Feature Translation Service Examples|[notebook](./notebooks/HUC%20Feature%20Translation%20Service%20Examples.ipynb)||CMR, FTS|
 |Estuary exploration in the cloud using ZARR|[notebook](./notebooks/SWOT-EA-2021/Estuary_explore_inCloud_zarr.ipynb)|Analyze relationships between river height and land water equivalent thickness in the Amazon River estuary in the cloud, using cloud optimized format (zarr).|Harmony, ZARR|
 |Co-locating satellite and in-situ data|[notebook](./notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.ipynb)|Co-locate in-situ measurements and satellite data near the European coast for cross-validation of data or model validation.|CMR, Harmony L2 Subsetter|
