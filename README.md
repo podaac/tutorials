@@ -23,3 +23,4 @@ Most tutorials in this repository take the form of python notebooks. [Jupyter](h
 |Accessing Sentinel-6 data by cycle and pass|[notebook](./notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.ipynb)| For more recent, python script, see [here](https://github.com/podaac/sentinel6)|CMR, download|
 |Subsetting and plotting swath data in the cloud|[notebook](./notebooks/Cloud%20L2SS%20subset%20and%20plot%20-%20JH.ipynb)||Harmony, Subsetting|
 |Regridding swath data in the cloud|[notebook](./notebooks/l2-regridding/reprojection%20notebook.ipynb)||Harmony, Regridding|
+|Subsetting via OPeNDAP in the cloud|[notebook](./notebooks/opendap/MUR-OPeNDAP.ipynb)||Subsetting, OPeNDAP|
