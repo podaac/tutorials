@@ -25,3 +25,6 @@ Most tutorials in this repository take the form of python notebooks. [Jupyter](h
 |Regridding swath data in the cloud|[notebook](./notebooks/l2-regridding/reprojection%20notebook.ipynb)||Harmony, Regridding|
 |Subsetting via OPeNDAP in the cloud|[notebook](./notebooks/opendap/MUR-OPeNDAP.ipynb)||Subsetting, OPeNDAP|
 |Batch Download PODAAC Data|[notebook](./notebooks/batch_download_podaac_data.md)|Instructions for HTTPS download from the PO.DAAC and NASA Earthdata||
+| Data Access using R| [R script](./notebooks/cloudwebinar/data_access_R.R) | Simple starter script for direct S3 access using R from within aws| Direct cloud access|
+| Data Access using Python| [Python script](./notebooks/cloudwebinar/cloud_direct_access_s3.py) | Simple starter script for direct S3 access using python from within aws| Direct cloud access|
+| Obtaining subset using Harmony API| [Python script](./notebooks/cloudwebinar/harmony_subset.py) | Sample starter script for subsetting data using Harmony API leveraging the Harmony module| Harmony, ZARR,Subsetting|
