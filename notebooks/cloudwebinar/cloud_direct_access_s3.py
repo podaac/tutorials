@@ -5,48 +5,18 @@
 
 import s3fs
 import requests
-from urllib import request
-from http.cookiejar import CookieJar
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
-from json import dumps
-from io import StringIO
 from os.path import dirname, join
-import netrc
 import cartopy
 import cartopy.crs as ccrs
 import cartopy.feature as cfeat
-
-#########Setting up earthdata login credentials 
-def setup_earthdata_login_auth(endpoint):
-    """
-    Set up the request library so that it authenticates against the given Earthdata Login
-    endpoint and is able to track cookies between requests.  This looks in the .netrc file 
-    first and if no credentials are found, it prompts for them.
-
-    Valid endpoints:
-        urs.earthdata.nasa.gov - Earthdata Login production
-    """
-    try:
-        username, _, password = netrc.netrc().authenticators(endpoint)
-    except (FileNotFoundError, TypeError):
-        # FileNotFound = There's no .netrc file
-        # TypeError = The endpoint isn't in the netrc file, causing the above to try unpacking None
-        print("There's no .netrc file or the The endpoint isn't in the netrc file")
-
-    manager = request.HTTPPasswordMgrWithDefaultRealm()
-    manager.add_password(None, endpoint, username, password)
-    auth = request.HTTPBasicAuthHandler(manager)
-
-    jar = CookieJar()
-    processor = request.HTTPCookieProcessor(jar)
-    opener = request.build_opener(auth, processor)
-    request.install_opener(opener)
+import earthdata
 
 ###############################################################################
-edl="urs.earthdata.nasa.gov"
-setup_earthdata_login_auth(edl)
+from earthdata import Auth 
+auth = Auth().login()
 
 def begin_s3_direct_access():
     url="https://archive.podaac.earthdata.nasa.gov/s3credentials"
