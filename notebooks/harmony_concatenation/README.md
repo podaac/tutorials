@@ -19,8 +19,6 @@ Activate the Conda environment
 conda activate harmony-concat
 ```
 
-Install Harmony-py v0.3.1. This may need to be installed [from source](https://github.com/nasa/harmony-py#installing-development--example-dependencies).
-
 ## Run the Jupyter notebook
 
 ```shell script
