@@ -30,7 +30,7 @@ def find_dataset(provider='podaac',
     entries=[]
     for collection in collections:
         
-        title=f'{collection["short_name"]}|{collection["dataset_id"]}|{collection["id"]}'
+        title="%50s %100s %20s"%(collection["short_name"],collection["dataset_id"][:97],collection["id"])
         match=1
         for kw in keywords:
             match *= kw.lower() in title.lower()
