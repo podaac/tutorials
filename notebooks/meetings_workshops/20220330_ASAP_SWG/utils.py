@@ -15,7 +15,8 @@ def find_dataset(provider='podaac',
     
     
     """
-    
+    import pandas as pd
+
     if 'podaac' in provider.lower().replace('.',''):
         provider='POCLOUD'
         
@@ -27,7 +28,11 @@ def find_dataset(provider='podaac',
     
     collections = response.json()['feed']['entry']
     
-    entries=[]
+    entries={}
+    entries['short_name']=[]
+    entries['long_name']=[]
+    entries['concept_id']=[]
+    
     for collection in collections:
         
         title="%s %s %s"%(collection["short_name"],collection["dataset_id"][:97],collection["id"])
@@ -36,12 +41,12 @@ def find_dataset(provider='podaac',
             match *= kw.lower() in title.lower()
             
         if match==1:
-            print(title)
-            entries.append({'short_name':collection["short_name"],
-                            'concept_id':collection["id"]})
+            entries['short_name'].append(collection["short_name"])
+            entries['concept_id'].append(collection["id"])
+            entries['long_name'].append(collection["dataset_id"])
     
     
-    return entries
+    return pd.DataFrame(entries)
 
 def direct_s3(provider='podaac'):
     import requests,s3fs
