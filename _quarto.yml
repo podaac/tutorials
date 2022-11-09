@@ -1,0 +1,96 @@
+project: 
+  type: website
+  output-dir: _site
+ 
+execute:
+  freeze: true  # never re-execute computational content during project render, needed for .qmd and .rmd since quarto does not render .ipynb by default
+  
+website: 
+  page-navigation: true
+  title: "PO.DAAC Cookbook" 
+  site-url: "https://podaac.github.io/tutorials/" 
+  repo-url: https://github.com/podaac/tutorials
+  repo-actions: [edit, issue]
+  
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; PO.DAAC, 2022"
+    
+  sidebar:
+    logo: "images/podaac-logo.png"
+    pinned: true
+    align: center
+    tools: 
+      - icon: globe
+        href: https://podaac.jpl.nasa.gov/
+        text: "PO.DAAC Website"
+      - icon: github
+        href: https://github.com/podaac/tutorials
+        text: "Github Repository"        
+    
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
+      - href: quarto_text/index.qmd
+        text: "Welcome"
+      - href: quarto_text/HowTo.qmd 
+        text: "How To's"
+      - section: quarto_text/Tutorials.qmd 
+        contents:
+          - section: "Dataset Specific Examples"
+            contents:
+              - text: "SWOT"
+                href: 
+              - text: "ECCO" 
+                href: 
+              - text: "MODIS" 
+                href:   
+              - text: "GRACE/FO" 
+                href: 
+              - text: "Sentinel-6 MF" 
+                href: 
+          - section: "Cloud vs. Local Workflows"
+            contents:
+              - text:  
+                href:     
+          - section: "Pairing Cloud and Non-cloud Data"
+            contents:
+              - text:  
+                href: 
+          - section: "Cloud-optimized Examples"
+            contents: 
+              - text: "zarr-eosdis-store library"
+                href: 
+              - text: "zarr2netCDF" 
+                href: 
+      - href: quarto_text/Workshops.qmd
+        text: "Workshops"
+      - section: quarto_text/Webinars.qmd
+        contents:
+          - text: 
+            href:
+          - text: 
+            href:  
+      - section: quarto_text/TechGuides.qmd
+        contents:
+          - text: 
+            href:
+          - text: 
+            href: 
+
+format:
+  html:
+    theme:
+      light: [cosmo, theme.scss] # from https://github.com/sta210-s22/website/blob/main/_quarto.yml
+      dark: [cosmo, theme-dark.scss]
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+
+
+filters:
+  - include-files.lua
+  - quarto
+
+  
