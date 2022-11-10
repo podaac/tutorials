@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook – s6_opendap_access_gridding</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../../" class="sidebar-logo-link">
+      <img src="../../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Tutorials Github Repository" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">How To</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../Tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Dataset Specific Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  SWOT
+  </li>
+          <li class="sidebar-item">
+  ECCO
+  </li>
+          <li class="sidebar-item">
+  MODIS
+  </li>
+          <li class="sidebar-item">
+  GRACE/FO
+  </li>
+          <li class="sidebar-item">
+  Sentinel-6 MF
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Cloud vs.&nbsp;Local Workflows</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Pairing Cloud and Non-cloud Data</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Cloud-optimized Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  zarr-eosdis-store library
+  </li>
+          <li class="sidebar-item">
+  zarr2netCDF
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">Workshops</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../Webinars.html" class="sidebar-item-text sidebar-link">Webinars</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../TechGuides.html" class="sidebar-item-text sidebar-link">Tech Guides</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sentinel-6-mf-l2-altimetry-opendap-access-and-gridding" id="toc-sentinel-6-mf-l2-altimetry-opendap-access-and-gridding" class="nav-link active" data-scroll-target="#sentinel-6-mf-l2-altimetry-opendap-access-and-gridding">Sentinel-6 MF L2 Altimetry: OPeNDAP Access and Gridding</a>
+  <ul class="collapse">
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a>
+  <ul class="collapse">
+  <li><a href="#about-the-mission" id="toc-about-the-mission" class="nav-link" data-scroll-target="#about-the-mission">About the mission</a></li>
+  <li><a href="#about-the-data" id="toc-about-the-data" class="nav-link" data-scroll-target="#about-the-data">About the data</a></li>
+  </ul></li>
+  <li><a href="#discovery" id="toc-discovery" class="nav-link" data-scroll-target="#discovery">Discovery</a>
+  <ul class="collapse">
+  <li><a href="#search-for-filesgranules" id="toc-search-for-filesgranules" class="nav-link" data-scroll-target="#search-for-filesgranules">Search for files/granules</a></li>
+  </ul></li>
+  <li><a href="#access" id="toc-access" class="nav-link" data-scroll-target="#access">Access</a>
+  <ul class="collapse">
+  <li><a href="#explore-dataset-variables" id="toc-explore-dataset-variables" class="nav-link" data-scroll-target="#explore-dataset-variables">Explore dataset variables</a></li>
+  <li><a href="#get-subsets-from-opendap" id="toc-get-subsets-from-opendap" class="nav-link" data-scroll-target="#get-subsets-from-opendap">Get subsets from OPeNDAP</a></li>
+  <li><a href="#open-plot-ssh-time-series" id="toc-open-plot-ssh-time-series" class="nav-link" data-scroll-target="#open-plot-ssh-time-series">Open, plot ssh time series</a></li>
+  </ul></li>
+  <li><a href="#process" id="toc-process" class="nav-link" data-scroll-target="#process">Process</a>
+  <ul class="collapse">
+  <li><a href="#degree-grid-from-ecco-v4r4-int" id="toc-degree-grid-from-ecco-v4r4-int" class="nav-link" data-scroll-target="#degree-grid-from-ecco-v4r4-int">0.5-degree grid from ECCO V4r4 (int)</a></li>
+  <li><a href="#get-ssha-variable-on-0.5-degree-grid" id="toc-get-ssha-variable-on-0.5-degree-grid" class="nav-link" data-scroll-target="#get-ssha-variable-on-0.5-degree-grid">Get ssha variable on 0.5-degree grid</a></li>
+  <li><a href="#plot-gridded-ssha-gridding-statistics" id="toc-plot-gridded-ssha-gridding-statistics" class="nav-link" data-scroll-target="#plot-gridded-ssha-gridding-statistics">Plot gridded ssha, gridding statistics</a></li>
+  </ul></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a>
+  <ul class="collapse">
+  <li><a href="#sentinel-6a-mf" id="toc-sentinel-6a-mf" class="nav-link" data-scroll-target="#sentinel-6a-mf">Sentinel-6A MF</a></li>
+  <li><a href="#ocean-surface-topography" id="toc-ocean-surface-topography" class="nav-link" data-scroll-target="#ocean-surface-topography">Ocean Surface Topography</a></li>
+  <li><a href="#earthdata-cloud-services-overview" id="toc-earthdata-cloud-services-overview" class="nav-link" data-scroll-target="#earthdata-cloud-services-overview">Earthdata Cloud Services Overview</a></li>
+  <li><a href="#python-api-references" id="toc-python-api-references" class="nav-link" data-scroll-target="#python-api-references">Python API References</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!rm *.nc*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="sentinel-6-mf-l2-altimetry-opendap-access-and-gridding" class="level1">
+<h1>Sentinel-6 MF L2 Altimetry: OPeNDAP Access and Gridding</h1>
+<p>In this tutorial you will learn how to access variable subsets from OPeNDAP in the Cloud.</p>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<p>This workflow was developed using Python 3.9 (and tested against versions 3.7, 3.8). The <a href="https://pyresample.readthedocs.io/en/latest/installation.html"><code>pyresample</code></a> package is the only remaining dependency besides common packages like <code>numpy</code> and <code>xarray</code>. You may uncomment the first line of the following cell to install <em>pyresample</em>, if necessary. Then, import all the required Python packages.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!python -m pip install numpy pyresample xarray</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tqdm</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyresample <span class="im">as</span> pr</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> concurrent.futures <span class="im">import</span> ThreadPoolExecutor</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyresample.kd_tree <span class="im">import</span> resample_gauss</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>cmr <span class="op">=</span> <span class="st">"cmr.earthdata.nasa.gov"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_collection(url: <span class="bu">str</span><span class="op">=</span><span class="ss">f"https://</span><span class="sc">{</span>cmr<span class="sc">}</span><span class="ss">/search/collections.umm_json"</span>, <span class="op">**</span>params):</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> requests.get(url, params).json().get(<span class="st">"items"</span>)[<span class="dv">0</span>]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_opendap(record: <span class="bu">dict</span>):</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> url <span class="kw">in</span> record.get(<span class="st">"RelatedUrls"</span>):</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'opendap.earthdata.nasa.gov'</span> <span class="kw">in</span> url.get(<span class="st">"URL"</span>):</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> url.get(<span class="st">"URL"</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_granules(ShortName: <span class="bu">str</span>, provider: <span class="bu">str</span><span class="op">=</span><span class="st">"POCLOUD"</span>, page_size: <span class="bu">int</span><span class="op">=</span><span class="dv">200</span>, <span class="op">**</span>kwargs):</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="ss">f"https://</span><span class="sc">{</span>cmr<span class="sc">}</span><span class="ss">/search/granules.umm_json"</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="bu">dict</span>(ShortName<span class="op">=</span>ShortName, provider<span class="op">=</span><span class="st">"POCLOUD"</span>, page_size<span class="op">=</span>page_size)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    granules <span class="op">=</span> pd.DataFrame(requests.get(url, {<span class="op">**</span>params,<span class="op">**</span>kwargs}).json().get(<span class="st">"items"</span>))</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    granules[<span class="st">'GranuleUR'</span>] <span class="op">=</span> granules.umm.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.get(<span class="st">"GranuleUR"</span>))</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    granules[<span class="st">'OPeNDAP'</span>] <span class="op">=</span> granules.umm.<span class="bu">apply</span>(get_opendap)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    coverage <span class="op">=</span> granules.umm.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.get(<span class="st">"TemporalExtent"</span>).get(<span class="st">"RangeDateTime"</span>).values()).<span class="bu">apply</span>(<span class="bu">list</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    granules[<span class="st">'Start'</span>] <span class="op">=</span> coverage.<span class="bu">apply</span>(<span class="bu">sorted</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x[<span class="dv">0</span>])</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    granules[<span class="st">'End'</span>] <span class="op">=</span> coverage.<span class="bu">apply</span>(<span class="bu">sorted</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x[<span class="dv">1</span>])</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> granules</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
+<section id="about-the-mission" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-mission">About the mission</h3>
+<p>This demo uses data acquired by the Sentinel-6A Michael Freilich (S6A) satellite altimetry mission, which provides precise measurements of ocean surface height. It is the latest iteration in a series of missions, which together provide an uninterupted sea surface height record going back more than 30 years.</p>
+<p>Satellite altimetry is a precise science carried out by <a href="#Ocean-Surface-Topography">Ocean Surface Topography</a> researchers through the Jason-series radar altimetry missions. Instrument specifications, operational procedures, data calibration and analysis are sometimes referred to colloquially as “along-track altimetry” (a term that I find useful to understanding the data provided at level 2, like in the dataset we use here).</p>
+<p>Learn more through resources linked in the <a href="%5B#Sentinel-6A-MF">Appendix</a>).</p>
+</section>
+<section id="about-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-data">About the data</h3>
+<p>In a nutshell:</p>
+<ul>
+<li><strong>What?</strong> calibrated sea surface height measurements,</li>
+<li><strong>Where?</strong> from -66.0 to 66.0 degrees latitude,</li>
+<li><strong>When?</strong> beginning in June 2021,</li>
+<li><strong>How?</strong> global coverage acquired every 10 days (1 cycle of 128 orbits)</li>
+</ul>
+<p><img src="https://podaac.jpl.nasa.gov/Podaac/thumbnails/JASON_CS_S6A_L2_ALT_LR_RED_OST_NRT_F.jpg" width="80%"></p>
+<p><i>Figure: depicted data structure for level-2 along-track altimetry datasets from Sentinel-6A</i></p>
+<p>PO.DAAC typically refers to datasets by their <em>ShortName</em>: <strong><em>JASON_CS_S6A_L2_ALT_LR_RED_OST_NRT_F</em></strong>. The <em>ShortName</em> contains the following info for all Sentinel-6 datasets at level 2:</p>
+<ul>
+<li><strong>JASON_CS:</strong> referring to Jason Continuity of Service (Jason-CS), the mission series/instrument class;</li>
+<li><strong>S6A:</strong> referring to Sentinel-6A (instead of Sentinel-6B, which is expected to launch in 2025);</li>
+<li><strong>L2:</strong> Level 2, the data processing level;</li>
+<li><strong>ALT:</strong> Altimetry, the data product type and application;</li>
+<li><strong>LR:</strong> Low Resolution, versus High Resolution (HR);</li>
+<li><strong>RED:</strong> Reduced, the smaller of two datasets distributed at Level 2 (the other being <em>Standard</em>, which contains more variables)</li>
+<li><strong>OST:</strong> Ocean Surface Topography, the science domain/team/community;</li>
+<li><strong>NRT:</strong> Near Real Time, the data latency; i.e.&nbsp;accessible within 3 hours (vs.&nbsp;STC or NTC; lower latencies)</li>
+</ul>
+</section>
+</section>
+<section id="discovery" class="level2">
+<h2 class="anchored" data-anchor-id="discovery">Discovery</h2>
+<p>The unique ‘concept-id’ assigned to each PO.DAAC dataset, or ‘collection’, within the Earthdata system is functionally the same as the ShortName in the context of PO.DAAC’s collections in the cloud (because we also assign unique ShortNames). This cell is downloading metadata to retrieve that identifier from an external source, then download metadata about the series of files that make up the time series for the cycle specified by the variable ‘cycle’, and merging to table.</p>
+<section id="search-for-filesgranules" class="level3">
+<h3 class="anchored" data-anchor-id="search-for-filesgranules">Search for files/granules</h3>
+<p>Pick any cycle after cycle 25, which was around the time of the first release of data from S6A. (This cell calls three functions defined in the cell above.)</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cycle <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"JASON_CS_S6A_L2_ALT_LR_RED_OST_NRT_F"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>concept_id <span class="op">=</span> get_collection(ShortName<span class="op">=</span>name).get(<span class="st">"meta"</span>).get(<span class="st">"concept-id"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>granules <span class="op">=</span> get_granules(name, cycle<span class="op">=</span>cycle)  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>granules[[<span class="st">'GranuleUR'</span>, <span class="st">'Start'</span>, <span class="st">'End'</span>]].set_index(<span class="st">"GranuleUR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Start</th>
+      <th>End</th>
+    </tr>
+    <tr>
+      <th>GranuleUR</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_001_20210713T162644_20210713T182234_F02</th>
+      <td>2021-07-13T16:26:44.514Z</td>
+      <td>2021-07-13T18:22:34.471Z</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_003_20210713T182234_20210713T201839_F02</th>
+      <td>2021-07-13T18:22:34.522Z</td>
+      <td>2021-07-13T20:18:39.482Z</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_006_20210713T201839_20210713T215450_F02</th>
+      <td>2021-07-13T20:18:39.532Z</td>
+      <td>2021-07-13T21:54:50.473Z</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_007_20210713T215450_20210713T234732_F02</th>
+      <td>2021-07-13T21:54:50.523Z</td>
+      <td>2021-07-13T23:47:32.482Z</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_009_20210713T234732_20210714T014224_F02</th>
+      <td>2021-07-13T23:47:32.533Z</td>
+      <td>2021-07-14T01:42:24.454Z</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_245_20210723T050533_20210723T064603_F02</th>
+      <td>2021-07-23T05:05:33.543Z</td>
+      <td>2021-07-23T06:46:03.471Z</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_247_20210723T064603_20210723T083817_F02</th>
+      <td>2021-07-23T06:46:03.521Z</td>
+      <td>2021-07-23T08:38:17.483Z</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_249_20210723T083817_20210723T103256_F02</th>
+      <td>2021-07-23T08:38:17.533Z</td>
+      <td>2021-07-23T10:32:56.490Z</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_251_20210723T103256_20210723T122904_F02</th>
+      <td>2021-07-23T10:32:56.540Z</td>
+      <td>2021-07-23T12:29:04.459Z</td>
+    </tr>
+    <tr>
+      <th>S6A_P4_2__LR_RED__NR_025_253_20210723T122904_20210723T142514_F02</th>
+      <td>2021-07-23T12:29:04.509Z</td>
+      <td>2021-07-23T14:25:14.452Z</td>
+    </tr>
+  </tbody>
+</table>
+<p>125 rows × 2 columns</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="access" class="level2">
+<h2 class="anchored" data-anchor-id="access">Access</h2>
+<p>These functions have nothing to do with Earthdata or PO.DAAC services, all Python 3 standard library except for tqdm and wget:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download(source: <span class="bu">str</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    target <span class="op">=</span> os.path.basename(source.split(<span class="st">"?"</span>)[<span class="dv">0</span>])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.isfile(target):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">!</span>wget <span class="op">--</span>quiet <span class="op">--</span><span class="cf">continue</span> <span class="op">--</span>output<span class="op">-</span>document $target $source</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> target</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download_all(urls: <span class="bu">list</span>, max_workers: <span class="bu">int</span><span class="op">=</span><span class="dv">12</span>):</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> ThreadPoolExecutor(max_workers<span class="op">=</span>max_workers) <span class="im">as</span> pool:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        workers <span class="op">=</span> pool.<span class="bu">map</span>(download, urls)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">list</span>(tqdm.tqdm(workers, total<span class="op">=</span><span class="bu">len</span>(urls)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="explore-dataset-variables" class="level3">
+<h3 class="anchored" data-anchor-id="explore-dataset-variables">Explore dataset variables</h3>
+<p>The S6A level 2 altimetry datasets include variables for sea surface height anomaly (SSHA), significant wave height (SWH), wind speed, others.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>opendap_url <span class="op">=</span> <span class="ss">f"https://opendap.earthdata.nasa.gov/collections/</span><span class="sc">{</span>concept_id<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>urls <span class="op">=</span> granules.GranuleUR.<span class="bu">apply</span>(<span class="kw">lambda</span> f: <span class="ss">f"</span><span class="sc">{</span>opendap_url<span class="sc">}</span><span class="ss">/granules/</span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">.nc4"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>urls.iloc[<span class="dv">0</span>].replace(<span class="st">".nc4"</span>, <span class="st">".html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>'https://opendap.earthdata.nasa.gov/collections/C1968980576-POCLOUD/granules/S6A_P4_2__LR_RED__NR_025_001_20210713T162644_20210713T182234_F02.html'</code></pre>
+</div>
+</div>
+</section>
+<section id="get-subsets-from-opendap" class="level3">
+<h3 class="anchored" data-anchor-id="get-subsets-from-opendap">Get subsets from OPeNDAP</h3>
+<p>Prepare the full request urls by adding a comma-delimited list of variables, after the question mark <code>?</code>.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>variables <span class="op">=</span> [<span class="st">'data_01_time'</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">'data_01_longitude'</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">'data_01_latitude'</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">'data_01_ku_ssha'</span>]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">","</span>.join(variables)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>reqs <span class="op">=</span> urls.<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">?</span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(reqs.iloc[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>https://opendap.earthdata.nasa.gov/collections/C1968980576-POCLOUD/granules/S6A_P4_2__LR_RED__NR_025_001_20210713T162644_20210713T182234_F02.nc4?data_01_time,data_01_longitude,data_01_latitude,data_01_ku_ssha</code></pre>
+</div>
+</div>
+<p>The function(s) below download granules from a remote <code>source</code> to a local <code>target</code> file, and reliably manage simultaneous streaming downloads divided between multiple threads.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> download_all(urls<span class="op">=</span>reqs, max_workers<span class="op">=</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>100%|██████████| 125/125 [00:53&lt;00:00,  2.32it/s]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>du <span class="op">-</span>sh .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>16M .</code></pre>
+</div>
+</div>
+<p><strong>Why this way?</strong></p>
+<p>To be explained…</p>
+<p><strong>Will it scale?</strong></p>
+<p>The source netcdf files range from 2500KB to 3000KB per file. The OPeNDAP subsets that we just downloaded are around 100KB a pop. It took less than 10 minutes to download the same subsets for ~1700 files, that covers a period of roughly You can extrapolate to a reasonable estimate for time series of any length (even the whole mission).</p>
+<p>Total size of the source data is ~4.25GB, based on:</p>
+<pre><code>2500KB x 1700 = 4250000KB (4250 megabytes)</code></pre>
+<p>versus, total size of the subset time series:</p>
+<pre><code>100KB  x 1700 =  17000KB  (170 megabytes)</code></pre>
+<p>Plot it to put this in context, because our goal is to produce one global grid for the entire cycle of data that we just downloaded.</p>
+</section>
+<section id="open-plot-ssh-time-series" class="level3">
+<h3 class="anchored" data-anchor-id="open-plot-ssh-time-series">Open, plot ssh time series</h3>
+<p>Sort the list of subset files to ensure they concatenate in proper order. Call <code>open_mfdataset</code> on the list to open all the subsets in memory as one dataset in xarray.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_mfdataset(<span class="bu">sorted</span>(files), engine<span class="op">=</span><span class="st">"netcdf4"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt;
+Dimensions:            (data_01_time: 827001)
+Coordinates:
+  * data_01_time       (data_01_time) datetime64[ns] 2021-07-13T16:26:45 ... ...
+Data variables:
+    data_01_longitude  (data_01_time) float64 dask.array&lt;chunksize=(6950,), meta=np.ndarray&gt;
+    data_01_latitude   (data_01_time) float64 dask.array&lt;chunksize=(6950,), meta=np.ndarray&gt;
+    data_01_ku_ssha    (data_01_time) float64 dask.array&lt;chunksize=(6950,), meta=np.ndarray&gt;
+Attributes: (12/63)
+    Convention:                             CF-1.7
+    institution:                            EUMETSAT
+    references:                             Sentinel-6_Jason-CS ALT Generic P...
+    contact:                                ops@eumetsat.int
+    radiometer_sensor_name:                 AMR-C
+    doris_sensor_name:                      DORIS
+    ...                                     ...
+    xref_solid_earth_tide:                  S6__P4_2__SETD_AX_20151008T000000...
+    xref_surface_classification:            S6__P4____SURF_AX_20151008T000000...
+    xref_wind_speed_alt:                    S6A_P4_2__WNDL_AX_20151008T000000...
+    product_name:                           S6A_P4_2__LR______20210713T162644...
+    history:                                2021-07-13 18:38:07 : Creation\n2...
+    history_json:                           [{"$schema":"https:\/\/harmony.ea...</code></pre>
+</div>
+</div>
+<p>Two prerequisites to plot based on personal preference:</p>
+<ol type="1">
+<li>rename all the variables to drop the group names (because I just think they’re too long as is)</li>
+<li>get a tuple with two timestamps for the start and end of the time series coverage for the cycle</li>
+</ol>
+<p>Plot the cycle as a series on a geographic plot, which should look just like the one at the top of this notebook:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>new_variable_names <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x.split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>], variables))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>map_variable_names <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(variables, new_variable_names))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> ds.rename(map_variable_names).set_coords([<span class="st">'time'</span>,<span class="st">'longitude'</span>,<span class="st">'latitude'</span>])  <span class="co"># rename variables</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>timeframe <span class="op">=</span> (<span class="bu">str</span>(ds.time.data[<span class="dv">0</span>]).split(<span class="st">'T'</span>)[<span class="dv">0</span>],</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>             <span class="bu">str</span>(ds.time.data[<span class="op">-</span><span class="dv">1</span>]).split(<span class="st">'T'</span>)[<span class="dv">0</span>])  <span class="co"># get timestamps tuple</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>ds.plot.scatter(y<span class="op">=</span><span class="st">"latitude"</span>, x<span class="op">=</span><span class="st">"longitude"</span>, hue<span class="op">=</span><span class="st">"ssha"</span>, </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                vmin<span class="op">=-</span><span class="fl">0.4</span>, vmax<span class="op">=</span><span class="fl">0.4</span>, cmap<span class="op">=</span><span class="st">"jet"</span>, levels<span class="op">=</span><span class="dv">9</span>, </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                aspect<span class="op">=</span><span class="fl">2.5</span>, size<span class="op">=</span><span class="dv">6</span>, s<span class="op">=</span><span class="dv">1</span>, )</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="op">-</span><span class="fl">67.</span>, <span class="fl">67.</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="fl">0.</span>, <span class="fl">360.</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f"ssha for cycle </span><span class="sc">{</span>cycle<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>timeframe<span class="sc">}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>Text(0.5, 1.0, "ssha for cycle 25 (('2021-07-13', '2021-07-23'))")</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="S6_OPeNDAP_Access_Gridding_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="process" class="level2">
+<h2 class="anchored" data-anchor-id="process">Process</h2>
+<section id="degree-grid-from-ecco-v4r4-int" class="level3">
+<h3 class="anchored" data-anchor-id="degree-grid-from-ecco-v4r4-int">0.5-degree grid from ECCO V4r4 (int)</h3>
+<blockquote class="blockquote">
+<p><em>Acknowledgement: <a href="https://pyresample.readthedocs.io/en/latest/api/pyresample"><em>pyresample</em></a> approach shared by Ian Fenty, NASA JPL/ECCO.</em></p>
+</blockquote>
+<p>ECCO V4r4 products are distributed in two spatial formats. One set of collections provides the ocean state estimates on the native model grid (LLC0090) and the other provides them after interpolating to a regular grid defined in geographic coordinates with horizontal cell size of 0.5-degrees. The latitude/longitude grid is distributed as its own collection in one netcdf file: https://search.earthdata.nasa.gov/search/granules?p=C2013583732-POCLOUD</p>
+<p>Download the ECCO grid geometry netcdf from its https download endpoint in NASA Earthdata Cloud. Open the file and print the header content for the <code>maskC</code> variable, which contains a boolean mask representing the wet/dry state of the area contained in each cell of a 3d grid with dimensions mapped to <code>Z</code>, <code>latitude</code>, and <code>longitude</code>.</p>
+<div class="cell" data-tags="[]" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ecco_file <span class="op">=</span> download(<span class="st">"https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"ECCO_L4_GEOMETRY_05DEG_V4R4/GRID_GEOMETRY_ECCO_V4r4_latlon_0p50deg.nc"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ecco_grid <span class="op">=</span> xr.open_dataset(ecco_file).isel(Z<span class="op">=</span><span class="dv">0</span>)  <span class="co"># select 0 on z-axis</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>ecco_mask <span class="op">=</span> ecco_grid.maskC</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ecco_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt;
+Dimensions:         (latitude: 360, longitude: 720, nv: 2)
+Coordinates:
+    Z               float32 -5.0
+  * latitude        (latitude) float32 -89.75 -89.25 -88.75 ... 89.25 89.75
+  * longitude       (longitude) float32 -179.8 -179.2 -178.8 ... 179.2 179.8
+    latitude_bnds   (latitude, nv) float32 ...
+    longitude_bnds  (longitude, nv) float32 ...
+    Z_bnds          (nv) float32 ...
+Dimensions without coordinates: nv
+Data variables:
+    hFacC           (latitude, longitude) float64 ...
+    Depth           (latitude, longitude) float64 ...
+    area            (latitude, longitude) float64 ...
+    drF             float32 ...
+    maskC           (latitude, longitude) bool ...
+Attributes: (12/57)
+    acknowledgement:                 This research was carried out by the Jet...
+    author:                          Ian Fenty and Ou Wang
+    cdm_data_type:                   Grid
+    comment:                         Fields provided on a regular lat-lon gri...
+    Conventions:                     CF-1.8, ACDD-1.3
+    coordinates_comment:             Note: the global 'coordinates' attribute...
+    ...                              ...
+    references:                      ECCO Consortium, Fukumori, I., Wang, O.,...
+    source:                          The ECCO V4r4 state estimate was produce...
+    standard_name_vocabulary:        NetCDF Climate and Forecast (CF) Metadat...
+    summary:                         This dataset provides geometric paramete...
+    title:                           ECCO Geometry Parameters for the 0.5 deg...
+    uuid:                            b4795c62-86e5-11eb-9c5f-f8f21e2ee3e0</code></pre>
+</div>
+</div>
+</section>
+<section id="get-ssha-variable-on-0.5-degree-grid" class="level3">
+<h3 class="anchored" data-anchor-id="get-ssha-variable-on-0.5-degree-grid">Get ssha variable on 0.5-degree grid</h3>
+<p>Resample <em>ssha</em> data using kd-tree gaussian weighting neighbour approach. Define a function that implements the following steps:</p>
+<ol type="1">
+<li>Generate two 2d arrays of lats/lons using the permuted 1d coordinates from an input gridded dataset.</li>
+<li>Define the target grid geometry using the 2d arrays of lats/lons.</li>
+<li>Define the source grid geometry using the 1d arrays of lats/lons from an input dataset.</li>
+</ol>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> l2alt2grid(source: xr.DataArray, target: xr.DataArray, <span class="op">**</span>options):</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    nans <span class="op">=</span> <span class="op">~</span>np.isnan(source.values)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> source.values[nans]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    lats <span class="op">=</span> source.latitude.values[nans]</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    lons <span class="op">=</span> (source.longitude.values[nans] <span class="op">+</span> <span class="dv">180</span>) <span class="op">%</span> <span class="dv">360</span> <span class="op">-</span> <span class="dv">180</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    src <span class="op">=</span> pr.SwathDefinition(lons, lats)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    lons1d <span class="op">=</span> target.longitude.values</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    lats1d <span class="op">=</span> target.latitude.values</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    lons2d, lats2d <span class="op">=</span> np.meshgrid(lons1d, lats1d)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    tgt <span class="op">=</span> pr.SwathDefinition(lons2d, lats2d)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> warnings.catch_warnings():</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>        warnings.filterwarnings(<span class="st">"ignore"</span>, category<span class="op">=</span><span class="pp">UserWarning</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>        res, std, cnt <span class="op">=</span> resample_gauss(src, data, tgt, <span class="op">**</span>options)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    coords <span class="op">=</span> {<span class="st">'latitude'</span>: lats1d, <span class="st">'longitude'</span>: lons1d}</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (xr.DataArray(res, coords<span class="op">=</span>coords),</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>            xr.DataArray(std, coords<span class="op">=</span>coords),</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>            xr.DataArray(cnt, coords<span class="op">=</span>coords), )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set the gridding parameters in the python dictionary below; then pass it to the function as the last of three required positional arguments (the first two are the source dataset and the dataset that provides the target grid geometry).</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gridding_options <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    radius_of_influence <span class="op">=</span> <span class="dv">175000</span>,  </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    sigmas              <span class="op">=</span> <span class="dv">25000</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    neighbours          <span class="op">=</span> <span class="dv">100</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    fill_value          <span class="op">=</span> np.nan,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    with_uncert         <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>result, stddev, counts <span class="op">=</span> l2alt2grid(ds.ssha, ecco_mask, <span class="op">**</span>gridding_options)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>result.shape <span class="op">==</span> (ecco_grid.latitude.size, </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>                 ecco_grid.longitude.size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>True</code></pre>
+</div>
+</div>
+</section>
+<section id="plot-gridded-ssha-gridding-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="plot-gridded-ssha-gridding-statistics">Plot gridded ssha, gridding statistics</h3>
+<p>Plot each array for the output ‘grid’ and the grid statistics ‘stddev’ and ‘counts’.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>result.sel(latitude<span class="op">=</span><span class="bu">slice</span>(<span class="op">-</span><span class="fl">66.</span>,<span class="fl">66.</span>)).plot(cmap<span class="op">=</span><span class="st">"jet"</span>, vmin<span class="op">=-</span><span class="fl">0.4</span>, vmax<span class="op">=</span><span class="fl">0.4</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>&lt;matplotlib.collections.QuadMesh at 0x7f47d0256520&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="S6_OPeNDAP_Access_Gridding_files/figure-html/cell-15-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Look at this plot and adjust gridding parameters as needed to refine ssha grid.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>stddev.sel(latitude<span class="op">=</span><span class="bu">slice</span>(<span class="op">-</span><span class="fl">67.</span>,<span class="fl">67.</span>)).plot(cmap<span class="op">=</span><span class="st">"jet"</span>, robust<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>&lt;matplotlib.collections.QuadMesh at 0x7f47e0302e50&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="S6_OPeNDAP_Access_Gridding_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>a guess: the yellow areas with lower counts correspond to pass positions at the start/end of the cycle.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>counts.sel(latitude<span class="op">=</span><span class="bu">slice</span>(<span class="op">-</span><span class="fl">67.</span>,<span class="fl">67.</span>)).plot(cmap<span class="op">=</span><span class="st">"jet"</span>, robust<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>&lt;matplotlib.collections.QuadMesh at 0x7f47d0f560a0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="S6_OPeNDAP_Access_Gridding_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>result.sel(latitude<span class="op">=</span><span class="bu">slice</span>(<span class="op">-</span><span class="fl">66.</span>,<span class="fl">66.</span>)).to_pandas().T.describe().T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>latitude</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>-65.75</th>
+      <td>304.0</td>
+      <td>0.209026</td>
+      <td>0.830608</td>
+      <td>-1.471174</td>
+      <td>-0.069080</td>
+      <td>0.039957</td>
+      <td>0.259600</td>
+      <td>6.104942</td>
+    </tr>
+    <tr>
+      <th>-65.25</th>
+      <td>316.0</td>
+      <td>0.216497</td>
+      <td>0.479879</td>
+      <td>-0.793696</td>
+      <td>0.002569</td>
+      <td>0.080189</td>
+      <td>0.301957</td>
+      <td>3.173239</td>
+    </tr>
+    <tr>
+      <th>-64.75</th>
+      <td>326.0</td>
+      <td>0.218253</td>
+      <td>0.465126</td>
+      <td>-0.593413</td>
+      <td>0.008729</td>
+      <td>0.085963</td>
+      <td>0.296550</td>
+      <td>2.885002</td>
+    </tr>
+    <tr>
+      <th>-64.25</th>
+      <td>332.0</td>
+      <td>0.090540</td>
+      <td>0.453919</td>
+      <td>-0.909328</td>
+      <td>-0.030323</td>
+      <td>0.040090</td>
+      <td>0.097437</td>
+      <td>2.914544</td>
+    </tr>
+    <tr>
+      <th>-63.75</th>
+      <td>371.0</td>
+      <td>0.029598</td>
+      <td>0.379806</td>
+      <td>-0.884937</td>
+      <td>-0.064511</td>
+      <td>0.001728</td>
+      <td>0.062316</td>
+      <td>2.879200</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>63.75</th>
+      <td>310.0</td>
+      <td>0.034539</td>
+      <td>0.133022</td>
+      <td>-0.580132</td>
+      <td>-0.010876</td>
+      <td>0.038027</td>
+      <td>0.081060</td>
+      <td>0.806144</td>
+    </tr>
+    <tr>
+      <th>64.25</th>
+      <td>314.0</td>
+      <td>0.018076</td>
+      <td>0.118825</td>
+      <td>-0.690086</td>
+      <td>-0.016610</td>
+      <td>0.036694</td>
+      <td>0.077421</td>
+      <td>0.286705</td>
+    </tr>
+    <tr>
+      <th>64.75</th>
+      <td>311.0</td>
+      <td>-0.085785</td>
+      <td>1.264886</td>
+      <td>-19.397700</td>
+      <td>-0.022718</td>
+      <td>0.041526</td>
+      <td>0.080252</td>
+      <td>1.397690</td>
+    </tr>
+    <tr>
+      <th>65.25</th>
+      <td>307.0</td>
+      <td>4.177751</td>
+      <td>42.431829</td>
+      <td>-23.955439</td>
+      <td>-0.043362</td>
+      <td>0.043002</td>
+      <td>0.090967</td>
+      <td>505.812000</td>
+    </tr>
+    <tr>
+      <th>65.75</th>
+      <td>290.0</td>
+      <td>3.392658</td>
+      <td>34.873463</td>
+      <td>-10.643720</td>
+      <td>-0.075147</td>
+      <td>0.058857</td>
+      <td>0.105139</td>
+      <td>430.164759</td>
+    </tr>
+  </tbody>
+</table>
+<p>264 rows × 8 columns</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="appendix" class="level2">
+<h2 class="anchored" data-anchor-id="appendix">Appendix</h2>
+<section id="sentinel-6a-mf" class="level3">
+<h3 class="anchored" data-anchor-id="sentinel-6a-mf">Sentinel-6A MF</h3>
+<p>The Sentinel-6A Michael Freilich radar altimeter mission, or Sentinel-6, produces high-precision measurements of global sea-level. You can learn about the mission and ocean altimetry applications and datasets through the following links:</p>
+<ul>
+<li>https://www.nasa.gov/sentinel-6</li>
+<li>https://sealevel.jpl.nasa.gov/missions/jasoncs/</li>
+<li>https://sentinel-6.cnes.fr/en/JASON-CS/index.htm</li>
+<li>https://podaac.jpl.nasa.gov/Sentinel-6</li>
+</ul>
+</section>
+<section id="ocean-surface-topography" class="level3">
+<h3 class="anchored" data-anchor-id="ocean-surface-topography">Ocean Surface Topography</h3>
+<p>The primary contribution of satellite altimetry to satellite oceanography has been to:</p>
+<ul>
+<li>Improve the knowledge of ocean tides and develop global tide models.</li>
+<li>Monitor the variation of global mean sea level and its relationship to changes in ocean mass and heat content.</li>
+<li>Map the general circulation variability of the ocean, including the ocean mesoscale, over decades and in near real-time using multi-satellite altimetric sampling.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://podaac.jpl.nasa.gov/sites/default/files/content/PO.DAAC_SAT_Timeline_high_res.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">altimetry</figcaption><p></p>
+</figure>
+</div>
+<p>The Surface Water Ocean Topography (SWOT) mission represents the next-generation of sea surface height observation. It will bring together oceanography and hydrology to focus on gaining a better understanding of the world’s oceans and its terrestrial surface waters. U.S. and French oceanographers and hydrologists have joined forces to develop this new space mission to make the first global survey of Earth’s surface water, observe the fine details of the ocean’s surface topography and measure how water bodies change over time. The payload on SWOT will include a Jason-class radar altimeter that will serve to extend the time series of sea surface height data into the future, beyond the lifespan of Sentinel-6 MF, which is introduced immediately below. Read more about SWOT at: https://podaac.jpl.nasa.gov/SWOT/</p>
+</section>
+<section id="earthdata-cloud-services-overview" class="level3">
+<h3 class="anchored" data-anchor-id="earthdata-cloud-services-overview">Earthdata Cloud Services Overview</h3>
+<p>This workflow example downloads subsets of the netcdf datasets via OPeNDAP for massive efficiency gains (network/compute).</p>
+<p><strong>Access for direct download:</strong></p>
+<ul>
+<li>Browse and download granules through Earthdata Search – https://search.earthdata.nasa.gov/search/granules?p=C1968980576-POCLOUD</li>
+<li>Browse and download granules from HTTPS endpoints – https://cmr.earthdata.nasa.gov/virtual-directory/collections/C1968980576-POCLOUD</li>
+<li>Browse and download granules from S3 endpoints (example forthcoming, assuming s3 direct access has been enabled for the collection)</li>
+</ul>
+<p><strong>Access through data services:</strong></p>
+<p>Data and metadata are also accessible in reduced forms through higher-level cloud data services, for example:</p>
+<ul>
+<li>https://harmony.earthdata.nasa.gov/ – Data reduction via on-demand subsetting and other high-level reformatting
+<ul>
+<li>Interface to backend services such as data file format conversion, subsetting at L2+, regridding and reprojection at L3+, and more.</li>
+<li>Compatibility depends on the data processing level and data/file format, and so their expected behavior vary also.</li>
+<li>Services available through Harmony API reduce the technical burden on users by covering certain low-level data transformations that a user would normally have to apply themselves, even to simply subset a dataset from OPeNDAP.</li>
+</ul></li>
+<li>https://opendap.earthdata.nasa.gov/ – Data reduction via basic subsetting along coordinate dimensions and by variable
+<ul>
+<li>Requires more familiarity with the contents of the target dataset, as well knowledge of how to select for data along the dimensions which correspond to space/time coordinates fitting the geographic and temporal coverage of interest.</li>
+<li>User Guide: https://opendap.github.io/documentation/UserGuideComprehensive.html</li>
+</ul></li>
+</ul>
+</section>
+<section id="python-api-references" class="level3">
+<h3 class="anchored" data-anchor-id="python-api-references">Python API References</h3>
+<ul>
+<li><em>Bash</em>
+<ul>
+<li>https://www.gnu.org/software/coreutils/manual/html_node/du-invocation.html</li>
+</ul></li>
+<li><em>Python</em>
+<ul>
+<li>https://docs.python.org/3/library/functions.html#map<br>
+</li>
+<li>https://docs.python.org/3/library/functions.html#zip</li>
+<li>https://docs.python.org/3/library/concurrent.futures.html#threadpoolexecutor</li>
+</ul></li>
+<li><em>numpy</em> (https://numpy.org/doc/stable/reference)
+<ul>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.data.html">numpy.ndarray.data</a><br>
+</li>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.where.html">numpy.where</a><br>
+</li>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.isnan.html">numpy.isnan</a><br>
+</li>
+<li><a href="https://numpy.org/doc/stable/reference/arrays.datetime.html">datetimes</a><br>
+</li>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html">numpy.sum</a><br>
+</li>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.nansum.html">numpy.nansum</a><br>
+</li>
+</ul></li>
+<li><em>xarray</em> (https://xarray.pydata.org/en/stable)
+<ul>
+<li><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html">xarray.DataArray</a><br>
+</li>
+<li><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.values.html">xarray.DataArray.values</a><br>
+</li>
+<li><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.mean.html">xarray.DataArray.mean</a><br>
+</li>
+<li><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.isel.html">xarray.DataArray.isel</a></li>
+<li><a href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataset.html">xarray.open_dataset</a></li>
+<li><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.plot.html">xarray.DataArray.plot</a></li>
+<li><a href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.rename.html">xarray.Dataset.rename</a></li>
+</ul></li>
+<li><em>pyresample</em>
+<ul>
+<li><a href="https://pyresample.readthedocs.io/en/latest/api/pyresample.html#pyresample.geometry.SwathDefinition">pyresample.geometry.SwathDefinition</a></li>
+<li><a href="https://pyresample.readthedocs.io/en/latest/api/pyresample.html#pyresample.kd_tree.resample_gauss">pyresample.kd_tree.resample_gauss</a></li>
+</ul></li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-PO.DAAC, 2022</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook – podaac_cmr_shapefile_search</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../" class="sidebar-logo-link">
+      <img src="../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Tutorials Github Repository" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">How To</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Dataset Specific Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  SWOT
+  </li>
+          <li class="sidebar-item">
+  ECCO
+  </li>
+          <li class="sidebar-item">
+  MODIS
+  </li>
+          <li class="sidebar-item">
+  GRACE/FO
+  </li>
+          <li class="sidebar-item">
+  Sentinel-6 MF
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Cloud vs.&nbsp;Local Workflows</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Pairing Cloud and Non-cloud Data</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Cloud-optimized Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  zarr-eosdis-store library
+  </li>
+          <li class="sidebar-item">
+  zarr2netCDF
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">Workshops</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Webinars.html" class="sidebar-item-text sidebar-link">Webinars</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../TechGuides.html" class="sidebar-item-text sidebar-link">Tech Guides</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#this-notebook-is-no-longer-up-to-date-a-newer-version-exists-here" id="toc-this-notebook-is-no-longer-up-to-date-a-newer-version-exists-here" class="nav-link active" data-scroll-target="#this-notebook-is-no-longer-up-to-date-a-newer-version-exists-here">This Notebook is no longer up to date, a newer version exists here</a>
+  <ul class="collapse">
+  <li><a href="#shapefile-search-in-the-common-metadata-repository-cmr" id="toc-shapefile-search-in-the-common-metadata-repository-cmr" class="nav-link" data-scroll-target="#shapefile-search-in-the-common-metadata-repository-cmr">Shapefile Search in the Common Metadata Repository (CMR)</a></li>
+  <li><a href="#python-tutorial-shapefile-search" id="toc-python-tutorial-shapefile-search" class="nav-link" data-scroll-target="#python-tutorial-shapefile-search">Python tutorial shapefile search</a></li>
+  <li><a href="#curl-command-line-syntax" id="toc-curl-command-line-syntax" class="nav-link" data-scroll-target="#curl-command-line-syntax">Curl command line syntax</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/Podaac_CMR_Shapefile_Search.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="this-notebook-is-no-longer-up-to-date-a-newer-version-exists-here" class="level1">
+<h1>This Notebook is no longer up to date, a newer version exists <a href="https://github.com/podaac/tutorials/blob/master/notebooks/PODAAC_CMR_Shapefile_Search_MODIS_UAT.ipynb">here</a></h1>
+<section id="shapefile-search-in-the-common-metadata-repository-cmr" class="level2">
+<h2 class="anchored" data-anchor-id="shapefile-search-in-the-common-metadata-repository-cmr">Shapefile Search in the Common Metadata Repository (CMR)</h2>
+<p>CMR allows the upload of ESRI Shapefiles via command line for granule and collection level search. To use this functionality from the command line, we can use curl or python to do our search. This example will run through the curl command line program and a python request for doing shapefile search.</p>
+<p>Prerequisites:</p>
+<ul>
+<li>a valid ESRI Shapefile</li>
+<li>(optional) Collection identifier (concept-id) for granule level search</li>
+</ul>
+<p>We will use a shapefile located in the github/podaac source repository for this search: https://github.com/podaac/tutorials/blob/master/notebooks/resources/gulf_shapefile.zip</p>
+<p>For more information on collections, granules, and concept-ids, please refer to the following tutorial:</p>
+<p>https://github.com/podaac/tutorials/blob/master/notebooks/podaac_cmr_tutorial.ipynb</p>
+<p>For our tutorial, we will be using a <strong>TEST</strong> collection available at the cmr uat environment. This is an environment, open to the public, where new functionality is released and users can submit feedback on it before it makes its way to the operational system.</p>
+<p>This collection is an L2 collection titled AMSR2-REMSS-L2P-v8a, from the Advanced Microwave Scanning Radiometer 2. It has the concept id:</p>
+<p><strong>C1225996408-POCUMULUS</strong></p>
+</section>
+<section id="python-tutorial-shapefile-search" class="level2">
+<h2 class="anchored" data-anchor-id="python-tutorial-shapefile-search">Python tutorial shapefile search</h2>
+<p>The following snippet will use the ‘requests’ library along with the shapefile available at github to perform a shapefile search on the CMR. It will return values that overlap or intersect the shapefile provided.</p>
+<div class="cell" data-scrolled="true" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pprint</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the URL of the CMR searvice</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://cmr.uat.earthdata.nasa.gov/search/granules.json'</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#The shapefile we want to use in our search</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>shp_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'resources/gulf_shapefile.zip'</span>, <span class="st">'rb'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#need to declare the file and the type we are uploading</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> {<span class="st">'shapefile'</span>:(<span class="st">'gulf_shapefile.zip'</span>,shp_file, <span class="st">'application/shapefile+zip'</span>)}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#used to define parameters such as the concept-id and things like temporal searches</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>parameters <span class="op">=</span> {<span class="st">'echo_collection_id'</span>:<span class="st">'C1225996408-POCUMULUS'</span>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(url, files<span class="op">=</span>files, params<span class="op">=</span>parameters)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>pp <span class="op">=</span> pprint.PrettyPrinter(indent<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>pp.pprint(response.json())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{ 'feed': { 'entry': [ { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019017-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180101055616-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29921-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.21 -163.74 -72.95 -180 -75.43 '
+                                         '-180 -74.21 -163.74'],
+                                       [ '-72.95 180 -69.22 161.56 -63.56 '
+                                         '148.24 -59.74 142.63 -54.76 137.29 '
+                                         '-43.19 129.21 -28.81 123 -9.39 '
+                                         '117.38 70.28 101.89 78.71 98.84 83.8 '
+                                         '94.5 85.75 90.5 87.14 84.43 88.59 '
+                                         '63.9 89.12 2.26 88.28 -48.29 87.12 '
+                                         '-61.14 85.38 -68.1 82.54 -72.63 '
+                                         '77.71 -75.93 63.62 -80.05 9.8 -89.82 '
+                                         '-15.54 -95.55 -35.84 -102.3 -50.51 '
+                                         '-110.4 -56.3 -115.37 -60.99 -120.88 '
+                                         '-64.95 -127.37 -68.22 -135.08 -70.76 '
+                                         '-143.97 -72.76 -155.11 -74.35 -180 '
+                                         '-89.345 -180 -88.32 -113.33 -86.69 '
+                                         '-101.61 -83.86 -95.95 -79.32 -92.73 '
+                                         '-70.2 -89.86 -10.6 -79.24 16.19 '
+                                         '-73.27 33.1 -67.88 46.23 -61.6 52.76 '
+                                         '-57.05 57.86 -52.26 62.64 -46.04 '
+                                         '66.5 -38.81 69.5 -30.55 71.71 -21.38 '
+                                         '74.26 1.26 73.75 29.71 72.1 42.61 '
+                                         '69.64 53.42 66.25 62.72 62.36 69.82 '
+                                         '57.32 76.19 51.2 81.62 37.2 89.55 '
+                                         '18.32 96.04 -10.4 102.56 -70.39 '
+                                         '113.28 -79.49 116.19 -83.94 119.43 '
+                                         '-86.33 123.83 -87.89 131.86 -86.97 '
+                                         '131.68 -85.71 133.93 -81.4 147.95 '
+                                         '-77.84 164.04 -75.43 180 -72.95 180'],
+                                       [ '-74.35 180 -74.81 162.65 -77.45 '
+                                         '142.63 -82.89 118.89 -85.78 110.18 '
+                                         '-87.46 107.84 -88.13 109.51 -88.85 '
+                                         '123.7 -89.345 180 -74.35 180']],
+                         'time_end': '2018-01-01T07:34:24.000Z',
+                         'time_start': '2018-01-01T05:56:16.000Z',
+                         'title': '20180101055616-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29921-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019025-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180101055616-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29921-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.21 -163.74 -72.95 -180 -75.43 '
+                                         '-180 -74.21 -163.74'],
+                                       [ '-72.95 180 -69.22 161.56 -63.56 '
+                                         '148.24 -59.74 142.63 -54.76 137.29 '
+                                         '-43.19 129.21 -28.81 123 -9.39 '
+                                         '117.38 70.28 101.89 78.71 98.84 83.8 '
+                                         '94.5 85.75 90.5 87.14 84.43 88.59 '
+                                         '63.9 89.12 2.26 88.28 -48.29 87.12 '
+                                         '-61.14 85.38 -68.1 82.54 -72.63 '
+                                         '77.71 -75.93 63.62 -80.05 9.8 -89.82 '
+                                         '-15.54 -95.55 -35.84 -102.3 -50.51 '
+                                         '-110.4 -56.3 -115.37 -60.99 -120.88 '
+                                         '-64.95 -127.37 -68.22 -135.08 -70.76 '
+                                         '-143.97 -72.76 -155.11 -74.35 -180 '
+                                         '-89.345 -180 -88.32 -113.33 -86.69 '
+                                         '-101.61 -83.86 -95.95 -79.32 -92.73 '
+                                         '-70.2 -89.86 -10.6 -79.24 16.19 '
+                                         '-73.27 33.1 -67.88 46.23 -61.6 52.76 '
+                                         '-57.05 57.86 -52.26 62.64 -46.04 '
+                                         '66.5 -38.81 69.5 -30.55 71.71 -21.38 '
+                                         '74.26 1.26 73.75 29.71 72.1 42.61 '
+                                         '69.64 53.42 66.25 62.72 62.36 69.82 '
+                                         '57.32 76.19 51.2 81.62 37.2 89.55 '
+                                         '18.32 96.04 -10.4 102.56 -70.39 '
+                                         '113.28 -79.49 116.19 -83.94 119.43 '
+                                         '-86.33 123.83 -87.89 131.86 -86.97 '
+                                         '131.68 -85.71 133.93 -81.4 147.95 '
+                                         '-77.84 164.04 -75.43 180 -72.95 180'],
+                                       [ '-74.35 180 -74.81 162.65 -77.45 '
+                                         '142.63 -82.89 118.89 -85.78 110.18 '
+                                         '-87.46 107.84 -88.13 109.51 -88.85 '
+                                         '123.7 -89.345 180 -74.35 180']],
+                         'time_end': '2018-01-01T07:34:24.000Z',
+                         'time_start': '2018-01-01T05:56:16.000Z',
+                         'title': '20180101055616-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29921-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019035-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180101073424-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29922-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.22 171.81 -71.94 148.49 -69.79 '
+                                         '138.81 -66.95 130.42 -63.4 123.24 '
+                                         '-58.95 116.94 -54.1 111.97 -47.48 '
+                                         '107.01 -35.17 100.7 -19.62 95.36 '
+                                         '6.62 89.13 68.41 77.65 78.55 74.21 '
+                                         '83.9 69.64 85.85 65.49 87.07 60.19 '
+                                         '88.53 41.02 89.13 -17.61 88.42 '
+                                         '-70.04 87.45 -83.52 85.98 -91.12 '
+                                         '83.68 -96 80.02 -99.4 73.84 -102.16 '
+                                         '63.79 -104.74 12.85 -113.95 -9.83 '
+                                         '-118.81 -26.65 -123.58 -39.75 '
+                                         '-128.78 -46.92 -132.69 -53.16 -137.2 '
+                                         '-58.22 -142.13 -62.28 -147.47 -68.66 '
+                                         '-161.1 -72.78 -180 -89.27 -180 -88 '
+                                         '-134.22 -86.44 -125.51 -83.43 '
+                                         '-120.22 -78.08 -116.92 -67.8 -114.05 '
+                                         '-11.42 -104.12 16.09 -98.02 33.61 '
+                                         '-92.4 46.98 -85.86 53.32 -81.31 '
+                                         '58.48 -76.29 62.85 -70.43 66.69 '
+                                         '-63.09 69.49 -55.3 71.89 -45.14 '
+                                         '74.33 -21.85 73.7 5.56 71.97 18.61 '
+                                         '69.53 29.07 66.26 37.97 62.3 45.19 '
+                                         '56.93 51.87 50.63 57.32 36.78 65.01 '
+                                         '18.07 71.39 -9.84 77.73 -70.37 88.55 '
+                                         '-79.38 91.41 -84.28 95.11 -86.49 '
+                                         '99.58 -87.96 107.74 -87.46 107.2 '
+                                         '-86.78 107.65 -84.55 112.84 -79.08 '
+                                         '133.65 -75.67 153.77 -74.22 171.81'],
+                                       [ '-72.78 180 -74.16 163.81 -74.47 '
+                                         '142.46 -76.41 124.18 -82.12 96.85 '
+                                         '-85.44 86.21 -87.44 83.04 -88.28 '
+                                         '86.77 -88.98 104.28 -89.27 180 '
+                                         '-72.78 180']],
+                         'time_end': '2018-01-01T09:12:32.000Z',
+                         'time_start': '2018-01-01T07:34:24.000Z',
+                         'title': '20180101073424-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29922-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019044-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180101073424-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29922-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.22 171.81 -71.94 148.49 -69.79 '
+                                         '138.81 -66.95 130.42 -63.4 123.24 '
+                                         '-58.95 116.94 -54.1 111.97 -47.48 '
+                                         '107.01 -35.17 100.7 -19.62 95.36 '
+                                         '6.62 89.13 68.41 77.65 78.55 74.21 '
+                                         '83.9 69.64 85.85 65.49 87.07 60.19 '
+                                         '88.53 41.02 89.13 -17.61 88.42 '
+                                         '-70.04 87.45 -83.52 85.98 -91.12 '
+                                         '83.68 -96 80.02 -99.4 73.84 -102.16 '
+                                         '63.79 -104.74 12.85 -113.95 -9.83 '
+                                         '-118.81 -26.65 -123.58 -39.75 '
+                                         '-128.78 -46.92 -132.69 -53.16 -137.2 '
+                                         '-58.22 -142.13 -62.28 -147.47 -68.66 '
+                                         '-161.1 -72.78 -180 -89.27 -180 -88 '
+                                         '-134.22 -86.44 -125.51 -83.43 '
+                                         '-120.22 -78.08 -116.92 -67.8 -114.05 '
+                                         '-11.42 -104.12 16.09 -98.02 33.61 '
+                                         '-92.4 46.98 -85.86 53.32 -81.31 '
+                                         '58.48 -76.29 62.85 -70.43 66.69 '
+                                         '-63.09 69.49 -55.3 71.89 -45.14 '
+                                         '74.33 -21.85 73.7 5.56 71.97 18.61 '
+                                         '69.53 29.07 66.26 37.97 62.3 45.19 '
+                                         '56.93 51.87 50.63 57.32 36.78 65.01 '
+                                         '18.07 71.39 -9.84 77.73 -70.37 88.55 '
+                                         '-79.38 91.41 -84.28 95.11 -86.49 '
+                                         '99.58 -87.96 107.74 -87.46 107.2 '
+                                         '-86.78 107.65 -84.55 112.84 -79.08 '
+                                         '133.65 -75.67 153.77 -74.22 171.81'],
+                                       [ '-72.78 180 -74.16 163.81 -74.47 '
+                                         '142.46 -76.41 124.18 -82.12 96.85 '
+                                         '-85.44 86.21 -87.44 83.04 -88.28 '
+                                         '86.77 -88.98 104.28 -89.27 180 '
+                                         '-72.78 180']],
+                         'time_end': '2018-01-01T09:12:32.000Z',
+                         'time_start': '2018-01-01T07:34:24.000Z',
+                         'title': '20180101073424-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29922-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019166-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180101190744-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29929-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.21 -1.46 -72.04 -23.96 -69.92 '
+                                         '-33.75 -66.97 -42.57 -63.13 -50.25 '
+                                         '-58.82 -56.26 -53.8 -61.33 -47.43 '
+                                         '-66.07 -34.33 -72.69 -17.51 -78.28 '
+                                         '9.29 -84.45 66.85 -95.03 76.82 '
+                                         '-98.04 82.72 -101.93 86.09 -108.38 '
+                                         '87.97 -121.1 89.125 -180 74.425 -180 '
+                                         '72.23 -155.91 69.98 -145.56 66.92 '
+                                         '-136.58 63.1 -129.1 58.66 -123.05 '
+                                         '52.6 -117.23 45.46 -112.36 32.12 '
+                                         '-106.16 14.74 -100.76 -11.22 -95.05 '
+                                         '-67.9 -85.05 -77.9 -82.27 -83.51 '
+                                         '-78.82 -86.43 -73.65 -87.9 -65.83 '
+                                         '-87.4 -66.26 -86.64 -65.61 -84.74 '
+                                         '-61.18 -79.16 -40.22 -75.68 -19.8 '
+                                         '-74.21 -1.46'],
+                                       [ '89.125 180 87.97 108.97 86.09 96.25 '
+                                         '84.41 92.13 82.01 89.09 76.55 85.8 '
+                                         '67.4 83.03 1.78 70.78 -28.39 62.78 '
+                                         '-40.33 57.89 -49.33 52.67 -56.69 '
+                                         '46.47 -62.03 39.85 -67.44 29.25 '
+                                         '-71.31 15.73 -73.7 -1.74 -74.4 '
+                                         '-29.25 -76.7 -50.58 -82.44 -77.2 '
+                                         '-85.71 -87.33 -87.64 -89.77 -88.55 '
+                                         '-81.87 -89.13 -60.16 -89 30.94 '
+                                         '-87.72 55.24 -86.5 61.28 -84.56 '
+                                         '65.41 -79.57 69.39 -70.1 72.4 -10.41 '
+                                         '83.03 17.18 89.23 34.68 94.98 47.93 '
+                                         '101.69 55.14 107.24 60.68 113.37 '
+                                         '65.19 120.66 68.47 128.47 71.32 '
+                                         '138.92 73.35 151.82 74.425 180 '
+                                         '89.125 180']],
+                         'time_end': '2018-01-01T20:45:52.000Z',
+                         'time_start': '2018-01-01T19:07:44.000Z',
+                         'title': '20180101190744-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29929-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019177-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180101190744-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29929-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.21 -1.46 -72.04 -23.96 -69.92 '
+                                         '-33.75 -66.97 -42.57 -63.13 -50.25 '
+                                         '-58.82 -56.26 -53.8 -61.33 -47.43 '
+                                         '-66.07 -34.33 -72.69 -17.51 -78.28 '
+                                         '9.29 -84.45 66.85 -95.03 76.82 '
+                                         '-98.04 82.72 -101.93 86.09 -108.38 '
+                                         '87.97 -121.1 89.125 -180 74.425 -180 '
+                                         '72.23 -155.91 69.98 -145.56 66.92 '
+                                         '-136.58 63.1 -129.1 58.66 -123.05 '
+                                         '52.6 -117.23 45.46 -112.36 32.12 '
+                                         '-106.16 14.74 -100.76 -11.22 -95.05 '
+                                         '-67.9 -85.05 -77.9 -82.27 -83.51 '
+                                         '-78.82 -86.43 -73.65 -87.9 -65.83 '
+                                         '-87.4 -66.26 -86.64 -65.61 -84.74 '
+                                         '-61.18 -79.16 -40.22 -75.68 -19.8 '
+                                         '-74.21 -1.46'],
+                                       [ '89.125 180 87.97 108.97 86.09 96.25 '
+                                         '84.41 92.13 82.01 89.09 76.55 85.8 '
+                                         '67.4 83.03 1.78 70.78 -28.39 62.78 '
+                                         '-40.33 57.89 -49.33 52.67 -56.69 '
+                                         '46.47 -62.03 39.85 -67.44 29.25 '
+                                         '-71.31 15.73 -73.7 -1.74 -74.4 '
+                                         '-29.25 -76.7 -50.58 -82.44 -77.2 '
+                                         '-85.71 -87.33 -87.64 -89.77 -88.55 '
+                                         '-81.87 -89.13 -60.16 -89 30.94 '
+                                         '-87.72 55.24 -86.5 61.28 -84.56 '
+                                         '65.41 -79.57 69.39 -70.1 72.4 -10.41 '
+                                         '83.03 17.18 89.23 34.68 94.98 47.93 '
+                                         '101.69 55.14 107.24 60.68 113.37 '
+                                         '65.19 120.66 68.47 128.47 71.32 '
+                                         '138.92 73.35 151.82 74.425 180 '
+                                         '89.125 180']],
+                         'time_end': '2018-01-01T20:45:52.000Z',
+                         'time_start': '2018-01-01T19:07:44.000Z',
+                         'title': '20180101190744-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29929-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019292-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180102063856-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29936-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.21 -174.4 -73.94 -180 -74.49 '
+                                         '-180 -74.21 -174.4'],
+                                       [ '-73.94 180 -71.16 158.38 -65.85 '
+                                         '141.81 -61.9 134.77 -57.83 129.56 '
+                                         '-52.6 124.61 -46.45 120.27 -32.53 '
+                                         '113.55 -11.75 107.15 71.67 90.69 '
+                                         '79.47 87.6 83.85 83.62 85.62 80.07 '
+                                         '87.1 73.89 88.63 51.91 89.13 -5.76 '
+                                         '88.39 -56.72 87.42 -69.84 85.51 '
+                                         '-78.59 82.58 -83.41 77.66 -86.77 '
+                                         '62.95 -91.01 9.93 -100.61 -14.69 '
+                                         '-106.14 -34.84 -112.7 -49.47 -120.47 '
+                                         '-54.98 -124.9 -59.88 -130.22 -63.77 '
+                                         '-136.01 -67.03 -142.74 -71.63 '
+                                         '-158.94 -74.055 -180 -89.335 -180 '
+                                         '-88.28 -123.56 -86.56 -111.97 -83.55 '
+                                         '-106.43 -78.38 -103.13 -69.17 '
+                                         '-100.44 -10.46 -90.03 15.61 -84.24 '
+                                         '32.88 -78.78 46.78 -72.08 53.29 '
+                                         '-67.43 58.61 -62.23 63.12 -56.09 '
+                                         '66.6 -49.39 69.41 -41.66 71.78 '
+                                         '-31.83 74.3 -8.73 73.71 19.36 72.12 '
+                                         '31.66 69.67 42.5 66.42 51.52 62.25 '
+                                         '59.17 57.2 65.5 50.91 71.02 37.07 '
+                                         '78.79 18.99 85.04 -8.01 91.28 -70.43 '
+                                         '102.47 -79.62 105.43 -84.25 108.98 '
+                                         '-86.46 113.39 -87.93 121.38 -86.84 '
+                                         '121.28 -85.34 124.33 -80.58 140.73 '
+                                         '-77.17 157.28 -74.49 180 -73.94 180'],
+                                       [ '-74.055 180 -74.41 157.17 -76.67 '
+                                         '136.15 -82.24 110.07 -85.49 99.75 '
+                                         '-87.5 96.71 -88.95 117.04 -89.335 '
+                                         '180 -74.055 180']],
+                         'time_end': '2018-01-02T08:17:04.000Z',
+                         'time_start': '2018-01-02T06:38:56.000Z',
+                         'title': '20180102063856-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29936-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019300-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180102063856-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29936-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.21 -174.4 -73.94 -180 -74.49 '
+                                         '-180 -74.21 -174.4'],
+                                       [ '-73.94 180 -71.16 158.38 -65.85 '
+                                         '141.81 -61.9 134.77 -57.83 129.56 '
+                                         '-52.6 124.61 -46.45 120.27 -32.53 '
+                                         '113.55 -11.75 107.15 71.67 90.69 '
+                                         '79.47 87.6 83.85 83.62 85.62 80.07 '
+                                         '87.1 73.89 88.63 51.91 89.13 -5.76 '
+                                         '88.39 -56.72 87.42 -69.84 85.51 '
+                                         '-78.59 82.58 -83.41 77.66 -86.77 '
+                                         '62.95 -91.01 9.93 -100.61 -14.69 '
+                                         '-106.14 -34.84 -112.7 -49.47 -120.47 '
+                                         '-54.98 -124.9 -59.88 -130.22 -63.77 '
+                                         '-136.01 -67.03 -142.74 -71.63 '
+                                         '-158.94 -74.055 -180 -89.335 -180 '
+                                         '-88.28 -123.56 -86.56 -111.97 -83.55 '
+                                         '-106.43 -78.38 -103.13 -69.17 '
+                                         '-100.44 -10.46 -90.03 15.61 -84.24 '
+                                         '32.88 -78.78 46.78 -72.08 53.29 '
+                                         '-67.43 58.61 -62.23 63.12 -56.09 '
+                                         '66.6 -49.39 69.41 -41.66 71.78 '
+                                         '-31.83 74.3 -8.73 73.71 19.36 72.12 '
+                                         '31.66 69.67 42.5 66.42 51.52 62.25 '
+                                         '59.17 57.2 65.5 50.91 71.02 37.07 '
+                                         '78.79 18.99 85.04 -8.01 91.28 -70.43 '
+                                         '102.47 -79.62 105.43 -84.25 108.98 '
+                                         '-86.46 113.39 -87.93 121.38 -86.84 '
+                                         '121.28 -85.34 124.33 -80.58 140.73 '
+                                         '-77.17 157.28 -74.49 180 -73.94 180'],
+                                       [ '-74.055 180 -74.41 157.17 -76.67 '
+                                         '136.15 -82.24 110.07 -85.49 99.75 '
+                                         '-87.5 96.71 -88.95 117.04 -89.335 '
+                                         '180 -74.055 180']],
+                         'time_end': '2018-01-02T08:17:04.000Z',
+                         'time_start': '2018-01-02T06:38:56.000Z',
+                         'title': '20180102063856-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29936-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019411-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180102181008-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29943-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.22 12.67 -72.07 -9.88 -69.9 '
+                                         '-19.92 -67.08 -28.4 -63.4 -35.9 '
+                                         '-58.95 -42.2 -53.53 -47.66 -47.65 '
+                                         '-52.02 -34.56 -58.69 -17.31 -64.43 '
+                                         '8.06 -70.3 67.96 -81.39 77.65 -84.51 '
+                                         '83.02 -88.37 86.38 -95.57 88.07 '
+                                         '-108.72 89.12 -180 74.365 -180 74.38 '
+                                         '-164.66 73.43 -150.84 71.69 -139.02 '
+                                         '68.87 -127.94 65.36 -119.27 60.86 '
+                                         '-111.89 55.65 -106 48.87 -100.59 '
+                                         '35.47 -93.58 18.07 -87.75 -9.48 '
+                                         '-81.48 -70.19 -70.63 -79.47 -67.68 '
+                                         '-84.1 -64.24 -86.49 -59.54 -87.96 '
+                                         '-51.37 -87.37 -51.91 -86.7 -51.35 '
+                                         '-84.71 -46.76 -79.14 -25.78 -75.63 '
+                                         '-5.06 -74.22 12.67'],
+                                       [ '89.12 180 88.7 139.61 87.61 118.89 '
+                                         '85.45 108.25 81.36 102.44 76.26 '
+                                         '99.59 67.2 96.89 2.66 84.87 -26.48 '
+                                         '77.33 -38.2 72.8 -48.19 67.35 -55.84 '
+                                         '61.23 -61.53 54.49 -67.4 43.27 '
+                                         '-71.52 28.58 -73.78 11.11 -74.43 '
+                                         '-16.08 -76.59 -36.18 -82.49 -63.69 '
+                                         '-85.68 -73.58 -87.61 -76.1 -88.52 '
+                                         '-68.49 -89.11 -47.72 -89.02 43.7 '
+                                         '-87.75 68.92 -86.53 75.08 -84.68 '
+                                         '79.14 -81.03 82.51 -73.53 85.44 9.28 '
+                                         '101.12 29.92 107.08 45.19 113.93 '
+                                         '52.33 118.74 58.08 124.12 62.55 '
+                                         '129.96 66.35 136.99 69.31 144.96 '
+                                         '71.84 155.45 74.365 180 89.12 180']],
+                         'time_end': '2018-01-02T19:48:16.000Z',
+                         'time_start': '2018-01-02T18:10:08.000Z',
+                         'title': '20180102181008-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29943-v02.0-fv01.0.nc'},
+                       { 'browse_flag': False,
+                         'collection_concept_id': 'C1225996408-POCUMULUS',
+                         'coordinate_system': 'CARTESIAN',
+                         'data_center': 'POCUMULUS',
+                         'dataset_id': 'PODAAC-GHAM2-2PR8A',
+                         'day_night_flag': 'UNSPECIFIED',
+                         'granule_size': '1.0242048E7',
+                         'id': 'G1226019419-POCUMULUS',
+                         'links': [ { 'href': 's3://podaac-dev-l2ss-samples/20180102181008-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29943-v02.0-fv01.0.nc',
+                                      'hreflang': 'en-US',
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'http://data.nodc.noaa.gov/cgi-bin/nph-dods/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L2P/AMSR2/REMSS/v8a',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/IDL/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://suzaku.eorc.jaxa.jp/GCOM_W/w_amsr2/whats_amsr2.html',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/OceanTemperature/ghrsst/docs/GDS20r5.pdf',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://ghrsst.jpl.nasa.gov',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'https://podaac.jpl.nasa.gov/SeaSurfaceTemperature',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'http://podaac-tools.jpl.nasa.gov/hitide/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/R/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://podaac.jpl.nasa.gov/ws/search/granule/?datasetId=PODAAC-GHAM2-2PR8A',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/data#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/matlab/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'},
+                                    { 'href': 'http://www.remss.com/missions/amsr/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/documentation#'},
+                                    { 'href': 'ftp://podaac.jpl.nasa.gov/allData/ghrsst/sw/generic_nc_readers/python/',
+                                      'hreflang': 'en-US',
+                                      'inherited': True,
+                                      'rel': 'http://esipfed.org/ns/fedsearch/1.1/metadata#'}],
+                         'online_access_flag': True,
+                         'original_format': 'UMM_JSON',
+                         'polygons': [ [ '-74.22 12.67 -72.07 -9.88 -69.9 '
+                                         '-19.92 -67.08 -28.4 -63.4 -35.9 '
+                                         '-58.95 -42.2 -53.53 -47.66 -47.65 '
+                                         '-52.02 -34.56 -58.69 -17.31 -64.43 '
+                                         '8.06 -70.3 67.96 -81.39 77.65 -84.51 '
+                                         '83.02 -88.37 86.38 -95.57 88.07 '
+                                         '-108.72 89.12 -180 74.365 -180 74.38 '
+                                         '-164.66 73.43 -150.84 71.69 -139.02 '
+                                         '68.87 -127.94 65.36 -119.27 60.86 '
+                                         '-111.89 55.65 -106 48.87 -100.59 '
+                                         '35.47 -93.58 18.07 -87.75 -9.48 '
+                                         '-81.48 -70.19 -70.63 -79.47 -67.68 '
+                                         '-84.1 -64.24 -86.49 -59.54 -87.96 '
+                                         '-51.37 -87.37 -51.91 -86.7 -51.35 '
+                                         '-84.71 -46.76 -79.14 -25.78 -75.63 '
+                                         '-5.06 -74.22 12.67'],
+                                       [ '89.12 180 88.7 139.61 87.61 118.89 '
+                                         '85.45 108.25 81.36 102.44 76.26 '
+                                         '99.59 67.2 96.89 2.66 84.87 -26.48 '
+                                         '77.33 -38.2 72.8 -48.19 67.35 -55.84 '
+                                         '61.23 -61.53 54.49 -67.4 43.27 '
+                                         '-71.52 28.58 -73.78 11.11 -74.43 '
+                                         '-16.08 -76.59 -36.18 -82.49 -63.69 '
+                                         '-85.68 -73.58 -87.61 -76.1 -88.52 '
+                                         '-68.49 -89.11 -47.72 -89.02 43.7 '
+                                         '-87.75 68.92 -86.53 75.08 -84.68 '
+                                         '79.14 -81.03 82.51 -73.53 85.44 9.28 '
+                                         '101.12 29.92 107.08 45.19 113.93 '
+                                         '52.33 118.74 58.08 124.12 62.55 '
+                                         '129.96 66.35 136.99 69.31 144.96 '
+                                         '71.84 155.45 74.365 180 89.12 180']],
+                         'time_end': '2018-01-02T19:48:16.000Z',
+                         'time_start': '2018-01-02T18:10:08.000Z',
+                         'title': '20180102181008-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29943-v02.0-fv01.0.nc'}],
+            'id': 'https://cmr.uat.earthdata.nasa.gov:443/search/granules.json',
+            'title': 'ECHO granule metadata',
+            'updated': '2020-05-18T21:41:56.223Z'}}</code></pre>
+</div>
+</div>
+</section>
+<section id="curl-command-line-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="curl-command-line-syntax">Curl command line syntax</h2>
+<p>This command submits the same request as the Python example above, returning search results in JSON format for Granules that share spatial coverage with the input shapefile (<a href="resources/gulf_shapefile.zip"><code>resources/gulf_shapefile.zip</code></a>) and belong to the target Collection (<code>echo_collection_id=C1225996408-POCUMULUS</code>):</p>
+<pre class="shell"><code>curl -XPOST "https://cmr.uat.earthdata.nasa.gov/search/granules.json" -F "shapefile=@resources/gulf_shapefile.zip;type=application/shapefile+zip" -F "echo_collection_id=C1225996408-POCUMULUS" -F "pretty=true"</code></pre>
+<p>The (truncated) results:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"feed"</span> <span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"updated"</span> <span class="fu">:</span> <span class="st">"2020-05-18T22:09:58.452Z"</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"id"</span> <span class="fu">:</span> <span class="st">"https://cmr.uat.earthdata.nasa.gov:443/search/granules.json"</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"title"</span> <span class="fu">:</span> <span class="st">"ECHO granule metadata"</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"entry"</span> <span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"time_start"</span> <span class="fu">:</span> <span class="st">"2018-01-01T05:56:16.000Z"</span><span class="fu">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"granule_size"</span> <span class="fu">:</span> <span class="st">"1.0242048E7"</span><span class="fu">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"online_access_flag"</span> <span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span> <span class="fu">:</span> <span class="st">"G1226019017-POCUMULUS"</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"day_night_flag"</span> <span class="fu">:</span> <span class="st">"UNSPECIFIED"</span><span class="fu">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"browse_flag"</span> <span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"time_end"</span> <span class="fu">:</span> <span class="st">"2018-01-01T07:34:24.000Z"</span><span class="fu">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"coordinate_system"</span> <span class="fu">:</span> <span class="st">"CARTESIAN"</span><span class="fu">,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"polygons"</span> <span class="fu">:</span> <span class="ot">[</span> <span class="ot">[</span> <span class="st">"-74.21 -163.74 -72.95 -180 -75.43 -180 -74.21 -163.74"</span> <span class="ot">],</span> <span class="ot">[</span> <span class="st">"-72.95 180 -69.22 161.56 -63.56 148.24 -59.74 142.63 -54.76 137.29 -43.19 129.21 -28.81 123 -9.39 117.38 70.28 101.89 78.71 98.84 83.8 94.5 85.75 90.5 87.14 84.43 88.59 63.9 89.12 2.26 88.28 -48.29 87.12 -61.14 85.38 -68.1 82.54 -72.63 77.71 -75.93 63.62 -80.05 9.8 -89.82 -15.54 -95.55 -35.84 -102.3 -50.51 -110.4 -56.3 -115.37 -60.99 -120.88 -64.95 -127.37 -68.22 -135.08 -70.76 -143.97 -72.76 -155.11 -74.35 -180 -89.345 -180 -88.32 -113.33 -86.69 -101.61 -83.86 -95.95 -79.32 -92.73 -70.2 -89.86 -10.6 -79.24 16.19 -73.27 33.1 -67.88 46.23 -61.6 52.76 -57.05 57.86 -52.26 62.64 -46.04 66.5 -38.81 69.5 -30.55 71.71 -21.38 74.26 1.26 73.75 29.71 72.1 42.61 69.64 53.42 66.25 62.72 62.36 69.82 57.32 76.19 51.2 81.62 37.2 89.55 18.32 96.04 -10.4 102.56 -70.39 113.28 -79.49 116.19 -83.94 119.43 -86.33 123.83 -87.89 131.86 -86.97 131.68 -85.71 133.93 -81.4 147.95 -77.84 164.04 -75.43 180 -72.95 180"</span> <span class="ot">],</span> <span class="ot">[</span> <span class="st">"-74.35 180 -74.81 162.65 -77.45 142.63 -82.89 118.89 -85.78 110.18 -87.46 107.84 -88.13 109.51 -88.85 123.7 -89.345 180 -74.35 180"</span> <span class="ot">]</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"original_format"</span> <span class="fu">:</span> <span class="st">"UMM_JSON"</span><span class="fu">,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"collection_concept_id"</span> <span class="fu">:</span> <span class="st">"C1225996408-POCUMULUS"</span><span class="fu">,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"data_center"</span> <span class="fu">:</span> <span class="st">"POCUMULUS"</span><span class="fu">,</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"links"</span> <span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"rel"</span> <span class="fu">:</span> <span class="st">"http://esipfed.org/ns/fedsearch/1.1/data#"</span><span class="fu">,</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"hreflang"</span> <span class="fu">:</span> <span class="st">"en-US"</span><span class="fu">,</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"href"</span> <span class="fu">:</span> <span class="st">"s3://podaac-dev-l2ss-samples/20180101055616-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29921-v02.0-fv01.0.nc"</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>      <span class="er">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command gets the same listing again with <code>curl</code>, this time returning the search results in their native xml format:</p>
+<pre class="shell"><code>curl -XPOST "https://cmr.uat.earthdata.nasa.gov/search/granules" -F "shapefile=@resources/gulf_shapefile.zip;type=application/shapefile+zip" -F "echo_collection_id=C1225996408-POCUMULUS" -F "pretty=true"</code></pre>
+<p>The (truncated) results:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">results</span>&gt;</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">hits</span>&gt;1912&lt;/<span class="kw">hits</span>&gt;</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">took</span>&gt;970&lt;/<span class="kw">took</span>&gt;</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">references</span>&gt;</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">reference</span>&gt;</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">name</span>&gt;20180101055616-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29921-v02.0-fv01.0.nc&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">id</span>&gt;G1226019017-POCUMULUS&lt;/<span class="kw">id</span>&gt;</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">location</span>&gt;https://cmr.uat.earthdata.nasa.gov:443/search/concepts/G1226019017-POCUMULUS/1&lt;/<span class="kw">location</span>&gt;</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">revision-id</span>&gt;1&lt;/<span class="kw">revision-id</span>&gt;</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">reference</span>&gt;</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">reference</span>&gt;</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">name</span>&gt;20180101055616-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_v08_r29921-v02.0-fv01.0.nc&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">id</span>&gt;G1226019025-POCUMULUS&lt;/<span class="kw">id</span>&gt;</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">location</span>&gt;https://cmr.uat.earthdata.nasa.gov:443/search/concepts/G1226019025-POCUMULUS/1&lt;/<span class="kw">location</span>&gt;</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">revision-id</span>&gt;1&lt;/<span class="kw">revision-id</span>&gt;</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">reference</span>&gt;</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">reference</span>&gt;</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">name</span>&gt;20180101073424-REMSS-L2P_GHRSST-SSTsubskin-AMSR2-L2B_rt_r29922-v02.0-fv01.0.nc&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">id</span>&gt;G1226019035-POCUMULUS&lt;/<span class="kw">id</span>&gt;</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">location</span>&gt;https://cmr.uat.earthdata.nasa.gov:443/search/concepts/G1226019035-POCUMULUS/1&lt;/<span class="kw">location</span>&gt;</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">revision-id</span>&gt;1&lt;/<span class="kw">revision-id</span>&gt;</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">reference</span>&gt;</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-PO.DAAC, 2022</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
