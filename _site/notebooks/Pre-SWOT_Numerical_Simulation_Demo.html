@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook – pre-swot_numerical_simulation_demo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../" class="sidebar-logo-link">
+      <img src="../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Tutorials Github Repository" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">How To</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Dataset Specific Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  SWOT
+  </li>
+          <li class="sidebar-item">
+  ECCO
+  </li>
+          <li class="sidebar-item">
+  MODIS
+  </li>
+          <li class="sidebar-item">
+  GRACE/FO
+  </li>
+          <li class="sidebar-item">
+  Sentinel-6 MF
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Cloud vs.&nbsp;Local Workflows</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Pairing Cloud and Non-cloud Data</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Cloud-optimized Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  zarr-eosdis-store library
+  </li>
+          <li class="sidebar-item">
+  zarr2netCDF
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">Workshops</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Webinars.html" class="sidebar-item-text sidebar-link">Webinars</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../TechGuides.html" class="sidebar-item-text sidebar-link">Tech Guides</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#pre-swot-numerical-simulation-version-1-user-guide-demo" id="toc-pre-swot-numerical-simulation-version-1-user-guide-demo" class="nav-link active" data-scroll-target="#pre-swot-numerical-simulation-version-1-user-guide-demo">PRE-SWOT NUMERICAL SIMULATION VERSION 1 User Guide Demo</a>
+  <ul class="collapse">
+  <li><a href="#plot-eight-2d-fields." id="toc-plot-eight-2d-fields." class="nav-link" data-scroll-target="#plot-eight-2d-fields.">Plot eight 2D fields.</a></li>
+  <li><a href="#plot-a-3d-field-based-temperature" id="toc-plot-a-3d-field-based-temperature" class="nav-link" data-scroll-target="#plot-a-3d-field-based-temperature">Plot a 3D field based (temperature)</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/Pre-SWOT_Numerical_Simulation_Demo.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="pre-swot-numerical-simulation-version-1-user-guide-demo" class="level1">
+<h1>PRE-SWOT NUMERICAL SIMULATION VERSION 1 User Guide Demo</h1>
+<p>Author: Jinbo Wang <a href="mailto:Jinbo.Wang@jpl.nasa.gov" class="email">Jinbo.Wang@jpl.nasa.gov</a>, Jack McNelis <a href="mailto:jack.mcnelis@jpl.nasa.gov" class="email">jack.mcnelis@jpl.nasa.gov</a></p>
+<p>This is a demonstration of accessing the ECCO-BASED PRE-SWOT NUMERICAL SIMULATION. The dataset can be found following https://search.earthdata.nasa.gov/search?q=pocloud%20pre-swot.</p>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:05:12.067386Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:05:12.063970Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pylab <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> netrc <span class="im">import</span> netrc</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> platform <span class="im">import</span> system</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> getpass <span class="im">import</span> getpass</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> http.cookiejar <span class="im">import</span> CookieJar</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os.path <span class="im">import</span> expanduser, join</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ShortName <span class="op">=</span> <span class="st">"MITgcm_LLC4320_Pre-SWOT_JPL_L4_ACC_SMST_v1.0"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> <span class="st">"LLC4320_pre-SWOT_ACC_SMST_20111221.nc"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Earthdata Login</strong></p>
+<p>Authenticate with your Earthdata Login/URS credentials by configuring a <em>.netrc</em> file in your home directory.</p>
+<pre><code>machine urs.earthdata.nasa.gov username myusername password mypassword</code></pre>
+<blockquote class="blockquote">
+<p><em>Note this next cell first tries to establish in-region acccess to the netCDF file in S3. (It assumes that you are running the notebook inside AWS EC2 in the <code>aws-west-2</code> region.) Upon failure, it assumes that you are running from your local machine, and so it tries to download and open the file the normal way.</em></p>
+</blockquote>
+<p>Run the next cell to authenticate. (You might be prompted for your Earthdata Login username and password.)</p>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:05:15.394294Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:05:15.386751Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> setup_earthdata_login_auth(endpoint: <span class="bu">str</span><span class="op">=</span><span class="st">'urs.earthdata.nasa.gov'</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    netrc_name <span class="op">=</span> <span class="st">"_netrc"</span> <span class="cf">if</span> system()<span class="op">==</span><span class="st">"Windows"</span> <span class="cf">else</span> <span class="st">".netrc"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        username, _, password <span class="op">=</span> netrc(<span class="bu">file</span><span class="op">=</span>join(expanduser(<span class="st">'~'</span>), netrc_name)).authenticators(endpoint)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> (<span class="pp">FileNotFoundError</span>, <span class="pp">TypeError</span>):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Please provide your Earthdata Login credentials for access.'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Your info will only be passed to </span><span class="sc">%s</span><span class="st"> and will not be exposed in Jupyter.'</span> <span class="op">%</span> (endpoint))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        username <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Username: '</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        password <span class="op">=</span> getpass(<span class="st">'Password: '</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    manager <span class="op">=</span> request.HTTPPasswordMgrWithDefaultRealm()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    manager.add_password(<span class="va">None</span>, endpoint, username, password)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    auth <span class="op">=</span> request.HTTPBasicAuthHandler(manager)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    jar <span class="op">=</span> CookieJar()</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    processor <span class="op">=</span> request.HTTPCookieProcessor(jar)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    opener <span class="op">=</span> request.build_opener(auth, processor)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    request.install_opener(opener)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>setup_earthdata_login_auth()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Please provide your Earthdata Login credentials for access.
+Your info will only be passed to urs.earthdata.nasa.gov and will not be exposed in Jupyter.</code></pre>
+</div>
+<div class="cell-output cell-output-stdin">
+<pre><code>Username:  marscreature
+Password:  ·············</code></pre>
+</div>
+</div>
+<p>You should now be able to download the file at the following link:</p>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:04:22.369397Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:04:22.366570Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>https_access <span class="op">=</span> <span class="ss">f"https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/</span><span class="sc">{</span>ShortName<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>target_file<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(https_access)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/MITgcm_LLC4320_Pre-SWOT_JPL_L4_ACC_SMST_v1.0/LLC4320_pre-SWOT_ACC_SMST_2011122?.nc</code></pre>
+</div>
+</div>
+<p><strong>Open the dataset</strong></p>
+<p>Run the next cell to access/open the netCDF file with <em>xarray</em>:</p>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:13:16.768337Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:10:07.226411Z&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> begin_s3_direct_access():</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Returns s3fs object for accessing datasets stored in S3."""</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(<span class="st">"https://archive.podaac.earthdata.nasa.gov/s3credentials"</span>).json()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s3fs.S3FileSystem(key<span class="op">=</span>response[<span class="st">'accessKeyId'</span>],</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                             secret<span class="op">=</span>response[<span class="st">'secretAccessKey'</span>],</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                             token<span class="op">=</span>response[<span class="st">'sessionToken'</span>], </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                             client_kwargs<span class="op">=</span>{<span class="st">'region_name'</span>:<span class="st">'us-west-2'</span>})</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    fs <span class="op">=</span> begin_s3_direct_access()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load netCDF with 's3fs' and 'xarray' upon successful connection to S3:</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> xr.open_dataset(fs.<span class="bu">open</span>(<span class="ss">f"podaac-ops-cumulus-protected/</span><span class="sc">{</span>ShortName<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>target_file<span class="sc">}</span><span class="ss">"</span>))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span>:</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Failed to establish AWS in-region access. Downloading to local disk instead."</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    request.urlretrieve(https_access, target_file)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load netCDF with 'xarray' after download completes:</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> xr.open_dataset(target_file)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Failed to establish AWS in-region access. Downloading to local disk instead.
+&lt;xarray.Dataset&gt;
+Dimensions:   (i: 192, i_g: 192, j: 349, j_g: 349, k: 84, k_l: 84, k_p1: 85, k_u: 84, nb: 2, time: 24)
+Coordinates:
+  * j_g       (j_g) float32 0.0 1.0 2.0 3.0 4.0 ... 345.0 346.0 347.0 348.0
+  * i         (i) float32 0.0 1.0 2.0 3.0 4.0 ... 187.0 188.0 189.0 190.0 191.0
+  * i_g       (i_g) float32 0.0 1.0 2.0 3.0 4.0 ... 188.0 189.0 190.0 191.0
+  * j         (j) float32 0.0 1.0 2.0 3.0 4.0 ... 344.0 345.0 346.0 347.0 348.0
+  * k         (k) int32 0 1 2 3 4 5 6 7 8 9 10 ... 74 75 76 77 78 79 80 81 82 83
+  * k_u       (k_u) int32 0 1 2 3 4 5 6 7 8 9 ... 74 75 76 77 78 79 80 81 82 83
+  * k_l       (k_l) int32 0 1 2 3 4 5 6 7 8 9 ... 74 75 76 77 78 79 80 81 82 83
+  * k_p1      (k_p1) int32 0 1 2 3 4 5 6 7 8 9 ... 75 76 77 78 79 80 81 82 83 84
+  * nb        (nb) int32 0 1
+  * time      (time) datetime64[ns] 2011-12-21 ... 2011-12-21T23:00:00
+Data variables:
+    XC        (j, i) float32 ...
+    YC        (j, i) float32 ...
+    DXV       (j, i) float32 ...
+    DYU       (j, i) float32 ...
+    Depth     (j, i) float32 ...
+    AngleSN   (j, i) float32 ...
+    AngleCS   (j, i) float32 ...
+    DXC       (j, i_g) float32 ...
+    DYG       (j, i_g) float32 ...
+    DYC       (j_g, i) float32 ...
+    DXG       (j_g, i) float32 ...
+    XG        (j_g, i_g) float32 ...
+    YG        (j_g, i_g) float32 ...
+    RAZ       (j_g, i_g) float32 ...
+    XC_bnds   (j, i, nb) float64 ...
+    YC_bnds   (j, i, nb) float64 ...
+    Z         (k) float32 ...
+    Zp1       (k_p1) float32 ...
+    Zu        (k_u) float32 ...
+    Zl        (k_l) float32 ...
+    Z_bnds    (k, nb) float32 ...
+    Eta       (time, j, i) float64 ...
+    KPPhbl    (time, j, i) float64 ...
+    PhiBot    (time, j, i) float64 ...
+    oceFWflx  (time, j, i) float64 ...
+    oceQnet   (time, j, i) float64 ...
+    oceQsw    (time, j, i) float64 ...
+    oceSflux  (time, j, i) float64 ...
+    oceTAUX   (time, j, i_g) float64 ...
+    oceTAUY   (time, j_g, i) float64 ...
+    Theta     (time, k, j, i) float64 ...
+    Salt      (time, k, j, i) float64 ...
+    U         (time, k, j, i_g) float32 ...
+    V         (time, k, j_g, i) float64 ...
+    W         (time, k_l, j, i) float64 ...
+Attributes:
+    acknowledgement:                 This research was carried out by the Jet...
+    author:                          Dimitris Menemenlis et al.
+    contributor:                     Chris Hill, Christopher E. Henze, Jinbo ...
+    contributor_role:                MITgcm developer, AMES supercomputer sup...
+    cdm_data_type:                   Grid
+    Conventions:                     CF-1.7, ACDD-1.3
+    creator_email:                   menemenlis@jpl.nasa.gov
+    creator_institution:             NASA Jet Propulsion Laboratory (JPL)
+    creator_name:                    Dimitris Menemelis et al.
+    creator_type:                    group
+    creator_url:                     https://science.jpl.nasa.gov/people/Mene...
+    date_created:                    2021-01-20T00:00:00
+    date_issued:                     2021-01-20T00:00:00
+    date_metadata_modified:          2021-01-20T00:00:00
+    geospatial_lat_max:              -53.00567
+    geospatial_lat_min:              -56.989952
+    geospatial_lat_units:            degrees_north
+    geospatial_lon_max:              154.28125
+    geospatial_lon_min:              150.30208
+    geospatial_lon_units:            degrees_east
+    geospatial_bounds_crs:           EPSG:4326
+    geospatial_vertical_max:         0
+    geospatial_vertical_min:         -6134.5
+    geospatial_vertical_positive:    up
+    geospatial_vertical_resolution:  variable
+    geospatial_vertical_units:       meter
+    history:                         Inaugural release of LLC4320 regions to ...
+    id:                              MITgcm_LLC4320_Pre-SWOT_JPL_L4_ACC_SMST_...
+    institution:                     NASA Jet Propulsion Laboratory (JPL)
+    instrument_vocabulary:           GCMD instrument keywords
+    keywords:                        EARTH SCIENCE SERVICES &gt; MODELS &gt; EARTH ...
+    keywords_vocabulary:             NASA Global Change Master Directory (GCM...
+    license:                         Public Domain
+    metadata_link:                   http://podaac.jpl.nasa.gov/ws/metadata/d...
+    naming_authority:                gov.nasa.jpl
+    platform_vocabulary:             GCMD platform keywords
+    processing_level:                L4
+    product_time_coverage_end:       2012-11-15T00:00:00
+    product_time_coverage_start:     2011-09-13T00:00:00
+    product_version:                 1.0
+    program:                         NASA Physical Oceanography
+    project:                         Surface Water and Ocean Topography (SWOT...
+    publisher_email:                 podaac@podaac.jpl.nasa.gov
+    publisher_institution:           PO.DAAC
+    publisher_name:                  Physical Oceanography Distributed Active...
+    publisher_type:                  institution
+    publisher_url:                   https://podaac.jpl.nasa.gov
+    source:                          MITgcm simulation
+    standard_name_vocabulary:        NetCDF Climate and Forecast (CF) Metadat...
+    summary:                         This is a subset of a global ocean simul...
+    time_coverage_end:               2011-12-21 23:00:00
+    time_coverage_start:             2011-12-21 00:00:00
+    title:                           LLC4320 regional Southern Ocean
+    geospatial_lon_resolution:       variable
+    geospatial_lat_resolution:       variable
+    platform:                        MITgcm</code></pre>
+</div>
+</div>
+<section id="plot-eight-2d-fields." class="level2">
+<h2 class="anchored" data-anchor-id="plot-eight-2d-fields.">Plot eight 2D fields.</h2>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:14:50.423644Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:14:47.940424Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig,ax<span class="op">=</span>plt.subplots(<span class="dv">3</span>,<span class="dv">3</span>,figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">16</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>varn<span class="op">=</span>[<span class="st">'Eta'</span>,<span class="st">'KPPhbl'</span>,<span class="st">'PhiBot'</span>,<span class="st">'oceFWflx'</span>,<span class="st">'oceQnet'</span>,<span class="st">'oceQsw'</span>,<span class="st">'oceSflux'</span>,<span class="st">'oceTAUY'</span>,<span class="st">'oceTAUX'</span>]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        dd[varn[i<span class="op">*</span><span class="dv">3</span><span class="op">+</span>j]][<span class="dv">0</span>,...].plot(ax<span class="op">=</span>ax[j,i])</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        ax[j,i].set_title(varn[i<span class="op">*</span><span class="dv">3</span><span class="op">+</span>j])</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Pre-SWOT_Numerical_Simulation_Demo_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="plot-a-3d-field-based-temperature" class="level2">
+<h2 class="anchored" data-anchor-id="plot-a-3d-field-based-temperature">Plot a 3D field based (temperature)</h2>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:14:55.117714Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:14:54.151224Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig,ax<span class="op">=</span>plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>theta<span class="op">=</span>dd[<span class="st">'Theta'</span>][:]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>theta.coords[<span class="st">'k'</span>]<span class="op">=</span>dd[<span class="st">'Z'</span>].data</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>theta[<span class="dv">0</span>,<span class="dv">0</span>,...].plot(ax<span class="op">=</span>ax[<span class="dv">0</span>])</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].vlines(<span class="dv">100</span>,<span class="dv">0</span>,<span class="dv">400</span>,colors<span class="op">=</span><span class="st">'w'</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>theta[<span class="dv">0</span>,:,:,<span class="dv">100</span>].plot(ax<span class="op">=</span>ax[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>&lt;matplotlib.collections.QuadMesh at 0x7f9110022550&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Pre-SWOT_Numerical_Simulation_Demo_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-PO.DAAC, 2022</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

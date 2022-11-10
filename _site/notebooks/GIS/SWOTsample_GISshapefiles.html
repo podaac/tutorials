@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook – swotsample_gisshapefiles</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../" class="sidebar-logo-link">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Tutorials Github Repository" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">How To</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../Tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Dataset Specific Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  SWOT
+  </li>
+          <li class="sidebar-item">
+  ECCO
+  </li>
+          <li class="sidebar-item">
+  MODIS
+  </li>
+          <li class="sidebar-item">
+  GRACE/FO
+  </li>
+          <li class="sidebar-item">
+  Sentinel-6 MF
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Cloud vs.&nbsp;Local Workflows</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Pairing Cloud and Non-cloud Data</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Cloud-optimized Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  zarr-eosdis-store library
+  </li>
+          <li class="sidebar-item">
+  zarr2netCDF
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">Workshops</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../Webinars.html" class="sidebar-item-text sidebar-link">Webinars</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../TechGuides.html" class="sidebar-item-text sidebar-link">Tech Guides</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#swot-simulated-north-american-continent-hydrology-dataset" id="toc-swot-simulated-north-american-continent-hydrology-dataset" class="nav-link active" data-scroll-target="#swot-simulated-north-american-continent-hydrology-dataset">SWOT Simulated North American Continent Hydrology Dataset</a>
+  <ul class="collapse">
+  <li><a href="#finding-ways-to-visualize-swot-simulated-shapefile-dataset" id="toc-finding-ways-to-visualize-swot-simulated-shapefile-dataset" class="nav-link" data-scroll-target="#finding-ways-to-visualize-swot-simulated-shapefile-dataset">Finding ways to visualize SWOT Simulated Shapefile Dataset</a>
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives:</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset:</a></li>
+  <li><a href="#setting-up-environments" id="toc-setting-up-environments" class="nav-link" data-scroll-target="#setting-up-environments">Setting up Environments</a></li>
+  <li><a href="#libraries-needed" id="toc-libraries-needed" class="nav-link" data-scroll-target="#libraries-needed">Libraries Needed</a></li>
+  <li><a href="#opening-a-single-shapefile" id="toc-opening-a-single-shapefile" class="nav-link" data-scroll-target="#opening-a-single-shapefile">Opening a Single Shapefile</a></li>
+  <li><a href="#converting-a-shapefile" id="toc-converting-a-shapefile" class="nav-link" data-scroll-target="#converting-a-shapefile">Converting a Shapefile</a></li>
+  <li><a href="#plotting-a-shapefile" id="toc-plotting-a-shapefile" class="nav-link" data-scroll-target="#plotting-a-shapefile">Plotting a Shapefile</a></li>
+  <li><a href="#shapefile-attribute-visualization" id="toc-shapefile-attribute-visualization" class="nav-link" data-scroll-target="#shapefile-attribute-visualization">Shapefile Attribute Visualization</a></li>
+  <li><a href="#you-can-also-specifiy-which-row-of-attributes-you-would-like-to-plot-using-pandas-.loc-or-.iloc." id="toc-you-can-also-specifiy-which-row-of-attributes-you-would-like-to-plot-using-pandas-.loc-or-.iloc." class="nav-link" data-scroll-target="#you-can-also-specifiy-which-row-of-attributes-you-would-like-to-plot-using-pandas-.loc-or-.iloc.">You can also specifiy which row of attributes you would like to plot using Pandas ‘.loc’ or ‘.iloc’.</a></li>
+  <li><a href="#querying-a-shapefile" id="toc-querying-a-shapefile" class="nav-link" data-scroll-target="#querying-a-shapefile">Querying a Shapefile</a></li>
+  <li><a href="#you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." id="toc-you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." class="nav-link" data-scroll-target="#you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters.">You can specify river reaches that have a water surface elevation greater than 35 meters.</a></li>
+  </ul></li>
+  <li><a href="#bonus" id="toc-bonus" class="nav-link" data-scroll-target="#bonus">Bonus</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/GIS/SWOTsample_GISshapefiles.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="swot-simulated-north-american-continent-hydrology-dataset" class="level1">
+<h1>SWOT Simulated North American Continent Hydrology Dataset</h1>
+<section id="finding-ways-to-visualize-swot-simulated-shapefile-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="finding-ways-to-visualize-swot-simulated-shapefile-dataset">Finding ways to visualize SWOT Simulated Shapefile Dataset</h2>
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning Objectives:</h3>
+<ul>
+<li>Accessing SWOT shapefile hydrology dataset and visualizing it locally.</li>
+<li>Accessing &amp; visualizing dataset through the use of Geopandas &amp; Matplotlib.</li>
+</ul>
+<p>This tutorial is looking to explore geospatial libraries and visualizing vector datasets without the use of a GIS desktop software.</p>
+</section>
+<section id="dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset">Dataset:</h3>
+<p>SWOT_SIMULATED_NA_CONTINENT_L2_HR_RIVERSP_V1:</p>
+<blockquote class="blockquote">
+<p>DOI: <a href="https://doi.org/10.5067/KARIN-2RSP1">https://doi.org/10.5067/KARIN-2RSP1</a></p>
+</blockquote>
+<p>This SWOT simulated river data includes shapefiles of River Nodes and River Reaches. Shapefiles of SWOT sample data can be downloaded <a href="https://search.earthdata.nasa.gov/search/granules?p=C2263384307-POCLOUD&amp;pg%5B0%5D%5Bv%5D=f&amp;pg%5B0%5D%5Bgsk%5D=-start_date&amp;q=SWOT%20simulated&amp;tl=1666291003.129!3!!">here</a>. The single file this notebook will perform most analysis on can be downloaded <a href="https://search.earthdata.nasa.gov/projects?p=C2263384307-POCLOUD!C2263384307-POCLOUD&amp;pg%5B1%5D%5Ba%5D=2295808672!POCLOUD&amp;pg%5B1%5D%5Bv%5D=t&amp;pg%5B1%5D%5Bgsk%5D=-start_date&amp;pg%5B1%5D%5Bm%5D=download&amp;q=SWOT%20simulated&amp;tl=1666291003!3!!">here</a>.</p>
+</section>
+<section id="setting-up-environments" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-environments">Setting up Environments</h3>
+<ul>
+<li>Prior to running the notebook, the environments must be set correctly.</li>
+<li>This notebook can be ran using both Python 3.9 and 3.10 as long as the libraries are correctly installed.</li>
+<li>Utilizing Anaconda Navigator to create your enviroments. Accessing the Conda-Forge channel to install geopsatial libraries.</li>
+<li>GDAL and GeoPandas will direct and install majority of the libraries you will need, but some libraries will need to be installed by searching them individually.</li>
+</ul>
+</section>
+<section id="libraries-needed" class="level3">
+<h3 class="anchored" data-anchor-id="libraries-needed">Libraries Needed</h3>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="opening-a-single-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="opening-a-single-shapefile">Opening a Single Shapefile</h3>
+<p>Using Geopandas to open &amp; read a single shapefile. (Change the path to your pre-downloaded shapefile)</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>River <span class="op">=</span> gpd.read_file(<span class="st">'C:\SWOT\SWOT_River_Reaches\SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.shp'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>River</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>reach_id</th>
+      <th>time</th>
+      <th>time_tai</th>
+      <th>time_str</th>
+      <th>p_lat</th>
+      <th>p_lon</th>
+      <th>river_name</th>
+      <th>wse</th>
+      <th>wse_u</th>
+      <th>wse_r_u</th>
+      <th>...</th>
+      <th>p_width</th>
+      <th>p_wid_var</th>
+      <th>p_n_nodes</th>
+      <th>p_dist_out</th>
+      <th>p_length</th>
+      <th>p_maf</th>
+      <th>p_dam_id</th>
+      <th>p_n_ch_max</th>
+      <th>p_n_ch_mod</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>74225000301</td>
+      <td>7.138265e+08</td>
+      <td>7.138265e+08</td>
+      <td>2022-08-14T21:0806Z</td>
+      <td>33.916062</td>
+      <td>-95.560044</td>
+      <td>no_data</td>
+      <td>3.495055e+01</td>
+      <td>-1.000000e+12</td>
+      <td>2.515300e-01</td>
+      <td>...</td>
+      <td>156.0</td>
+      <td>3097.993819</td>
+      <td>54</td>
+      <td>1461998.230</td>
+      <td>10753.251601</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-95.53934 33.88031, -95.53966 33.8...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>74225000311</td>
+      <td>7.138265e+08</td>
+      <td>7.138265e+08</td>
+      <td>2022-08-14T21:0806Z</td>
+      <td>33.906781</td>
+      <td>-95.654646</td>
+      <td>no_data</td>
+      <td>3.405308e+01</td>
+      <td>-1.000000e+12</td>
+      <td>5.495000e-02</td>
+      <td>...</td>
+      <td>175.0</td>
+      <td>3701.568090</td>
+      <td>79</td>
+      <td>1477859.906</td>
+      <td>15861.676389</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-95.59665 33.94170, -95.59665 33.9...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>74225000321</td>
+      <td>7.138265e+08</td>
+      <td>7.138265e+08</td>
+      <td>2022-08-14T21:0807Z</td>
+      <td>33.870673</td>
+      <td>-95.762974</td>
+      <td>no_data</td>
+      <td>3.364557e+01</td>
+      <td>-1.000000e+12</td>
+      <td>2.726000e-02</td>
+      <td>...</td>
+      <td>183.0</td>
+      <td>3908.298409</td>
+      <td>68</td>
+      <td>1491552.334</td>
+      <td>13692.428266</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>4</td>
+      <td>1</td>
+      <td>LINESTRING (-95.72430 33.89448, -95.72463 33.8...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>74225000331</td>
+      <td>7.138265e+08</td>
+      <td>7.138265e+08</td>
+      <td>2022-08-14T21:0807Z</td>
+      <td>33.851562</td>
+      <td>-95.845656</td>
+      <td>no_data</td>
+      <td>3.345162e+01</td>
+      <td>-1.000000e+12</td>
+      <td>3.449000e-02</td>
+      <td>...</td>
+      <td>148.0</td>
+      <td>3991.344178</td>
+      <td>61</td>
+      <td>1503740.939</td>
+      <td>12188.604492</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-95.80786 33.86129, -95.80818 33.8...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>74225000341</td>
+      <td>7.138265e+08</td>
+      <td>7.138265e+08</td>
+      <td>2022-08-14T21:0806Z</td>
+      <td>33.866701</td>
+      <td>-95.946894</td>
+      <td>no_data</td>
+      <td>3.316602e+01</td>
+      <td>-1.000000e+12</td>
+      <td>2.511000e-02</td>
+      <td>...</td>
+      <td>175.0</td>
+      <td>4193.042490</td>
+      <td>61</td>
+      <td>1515895.262</td>
+      <td>12154.323029</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>LINESTRING (-95.89671 33.87151, -95.89704 33.8...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>480</th>
+      <td>75165000211</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>no_data</td>
+      <td>30.433862</td>
+      <td>-96.288294</td>
+      <td>no_data</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>...</td>
+      <td>80.0</td>
+      <td>370.935908</td>
+      <td>53</td>
+      <td>418067.216</td>
+      <td>10666.156902</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (-96.27241 30.40543, -96.27215 30.4...</td>
+    </tr>
+    <tr>
+      <th>481</th>
+      <td>75165000221</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>no_data</td>
+      <td>30.479698</td>
+      <td>-96.336497</td>
+      <td>no_data</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>...</td>
+      <td>84.0</td>
+      <td>415.828931</td>
+      <td>53</td>
+      <td>428691.064</td>
+      <td>10623.847758</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-96.31719 30.45052, -96.31751 30.4...</td>
+    </tr>
+    <tr>
+      <th>482</th>
+      <td>75165000231</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>no_data</td>
+      <td>30.531514</td>
+      <td>-96.369330</td>
+      <td>no_data</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>...</td>
+      <td>67.0</td>
+      <td>475.710190</td>
+      <td>65</td>
+      <td>441697.761</td>
+      <td>13006.697340</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (-96.35467 30.51265, -96.35491 30.5...</td>
+    </tr>
+    <tr>
+      <th>483</th>
+      <td>75165000241</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>no_data</td>
+      <td>30.560974</td>
+      <td>-96.417506</td>
+      <td>no_data</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>...</td>
+      <td>80.0</td>
+      <td>373.408224</td>
+      <td>49</td>
+      <td>451539.432</td>
+      <td>9841.670412</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (-96.39119 30.53292, -96.39150 30.5...</td>
+    </tr>
+    <tr>
+      <th>484</th>
+      <td>75165000251</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>no_data</td>
+      <td>30.591646</td>
+      <td>-96.453558</td>
+      <td>no_data</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>...</td>
+      <td>84.0</td>
+      <td>551.788513</td>
+      <td>49</td>
+      <td>461358.159</td>
+      <td>9818.727520</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-96.42988 30.58532, -96.42977 30.5...</td>
+    </tr>
+  </tbody>
+</table>
+<p>485 rows × 111 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="converting-a-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="converting-a-shapefile">Converting a Shapefile</h3>
+<p>If you want a more in depth view of the datasets attributes you can convert it to a CSV.</p>
+<p>Also if you would like to open up the dataset as a GeoJSON, Geopandas can help transform the dataset.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>River.to_csv(<span class="st">"C:\SWOT\SWOT_Attributes.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>River.to_file(<span class="st">"C:\SWOT\SWOT.json"</span>, driver<span class="op">=</span><span class="st">'GeoJSON'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-a-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-a-shapefile">Plotting a Shapefile</h3>
+<p>Using Matplotlib to plot the shapefiles, then adding a basemap for context using the library Contextily.</p>
+<p>Contextily offers a list of basemap providers that can be easily visualized.</p>
+<p>https://contextily.readthedocs.io/en/latest/intro_guide.html</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>River.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.OpenTopoMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOTsample_GISshapefiles_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="shapefile-attribute-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="shapefile-attribute-visualization">Shapefile Attribute Visualization</h3>
+<p>Shapefiles have various attributes or variables with each column signifiying individual data values.</p>
+<p>Previously we plotted by showcasing all the river reaches of that shapefile on the map.</p>
+<p>You can also plot a shapefile based on a specific variable.</p>
+<p>Within Matplotlib you can specifiy the column parameter based on the column within the data’s attributes.</p>
+<p>For the example below, we will look at the column ‘wse’ which stands for water surface elevation.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First, we set all -999999999999 values to nan so that the color variation shows for the simulated values</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>River[<span class="st">"wse"</span>] <span class="op">=</span> River.wse.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="cf">if</span> x <span class="op">&gt;</span> <span class="op">-</span><span class="dv">10</span> <span class="cf">else</span> np.nan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">25</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>River.plot(column<span class="op">=</span><span class="st">'wse'</span>, ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOTsample_GISshapefiles_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="you-can-also-specifiy-which-row-of-attributes-you-would-like-to-plot-using-pandas-.loc-or-.iloc." class="level3">
+<h3 class="anchored" data-anchor-id="you-can-also-specifiy-which-row-of-attributes-you-would-like-to-plot-using-pandas-.loc-or-.iloc.">You can also specifiy which row of attributes you would like to plot using Pandas ‘.loc’ or ‘.iloc’.</h3>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>River.loc[<span class="dv">1</span>:<span class="dv">5</span>].plot(column<span class="op">=</span><span class="st">'wse'</span>,ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOTsample_GISshapefiles_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="querying-a-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="querying-a-shapefile">Querying a Shapefile</h3>
+<p>If you want to search for a specific reach id or a specific length of river reach that is possible through a spatial query using Geopandas.</p>
+<p>Utilizing comparison operators (&gt;, &lt;, ==, &gt;=, &lt;=).</p>
+<p>You can zoom into a particular river reach by specifying it’s row of attributes. Here we specify reach id# ‘75165000221’ which is a section of the Brazos River in Texas.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Query <span class="op">=</span> River.query(<span class="st">"reach_id == '75165000221'"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Query</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>reach_id</th>
+      <th>time</th>
+      <th>time_tai</th>
+      <th>time_str</th>
+      <th>p_lat</th>
+      <th>p_lon</th>
+      <th>river_name</th>
+      <th>wse</th>
+      <th>wse_u</th>
+      <th>wse_r_u</th>
+      <th>...</th>
+      <th>p_width</th>
+      <th>p_wid_var</th>
+      <th>p_n_nodes</th>
+      <th>p_dist_out</th>
+      <th>p_length</th>
+      <th>p_maf</th>
+      <th>p_dam_id</th>
+      <th>p_n_ch_max</th>
+      <th>p_n_ch_mod</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>481</th>
+      <td>75165000221</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>no_data</td>
+      <td>30.479698</td>
+      <td>-96.336497</td>
+      <td>no_data</td>
+      <td>NaN</td>
+      <td>-1.000000e+12</td>
+      <td>-1.000000e+12</td>
+      <td>...</td>
+      <td>84.0</td>
+      <td>415.828931</td>
+      <td>53</td>
+      <td>428691.064</td>
+      <td>10623.847758</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-96.31719 30.45052, -96.31751 30.4...</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 111 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Query.plot(ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.Esri.NatGeoWorldMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOTsample_GISshapefiles_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." class="level3">
+<h3 class="anchored" data-anchor-id="you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters.">You can specify river reaches that have a water surface elevation greater than 35 meters.</h3>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>WSE <span class="op">=</span> River.query(<span class="st">'wse &gt; 35'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>WSE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>reach_id</th>
+      <th>time</th>
+      <th>time_tai</th>
+      <th>time_str</th>
+      <th>p_lat</th>
+      <th>p_lon</th>
+      <th>river_name</th>
+      <th>wse</th>
+      <th>wse_u</th>
+      <th>wse_r_u</th>
+      <th>...</th>
+      <th>p_width</th>
+      <th>p_wid_var</th>
+      <th>p_n_nodes</th>
+      <th>p_dist_out</th>
+      <th>p_length</th>
+      <th>p_maf</th>
+      <th>p_dam_id</th>
+      <th>p_n_ch_max</th>
+      <th>p_n_ch_mod</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>47</th>
+      <td>74242200111</td>
+      <td>7.138265e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0741Z</td>
+      <td>35.317087</td>
+      <td>-96.025428</td>
+      <td>no_data</td>
+      <td>35.15211</td>
+      <td>-1.000000e+12</td>
+      <td>0.37004</td>
+      <td>...</td>
+      <td>75.0</td>
+      <td>2698.101164</td>
+      <td>66</td>
+      <td>1825209.708</td>
+      <td>13152.428425</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-95.97846 35.30313, -95.97879 35.3...</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>74242200131</td>
+      <td>7.138265e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0741Z</td>
+      <td>35.272401</td>
+      <td>-96.149649</td>
+      <td>no_data</td>
+      <td>35.44462</td>
+      <td>-1.000000e+12</td>
+      <td>0.55727</td>
+      <td>...</td>
+      <td>80.0</td>
+      <td>571.014323</td>
+      <td>46</td>
+      <td>1843850.674</td>
+      <td>9289.513641</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-96.14746 35.30464, -96.14721 35.3...</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>74242200141</td>
+      <td>7.138265e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0741Z</td>
+      <td>35.275389</td>
+      <td>-96.208073</td>
+      <td>no_data</td>
+      <td>35.21224</td>
+      <td>-1.000000e+12</td>
+      <td>0.16871</td>
+      <td>...</td>
+      <td>80.0</td>
+      <td>402.586845</td>
+      <td>68</td>
+      <td>1857401.869</td>
+      <td>13551.195121</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-96.17403 35.26340, -96.17436 35.2...</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>74242300041</td>
+      <td>7.138265e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0744Z</td>
+      <td>35.164566</td>
+      <td>-95.879457</td>
+      <td>no_data</td>
+      <td>35.37206</td>
+      <td>-1.000000e+12</td>
+      <td>0.62036</td>
+      <td>...</td>
+      <td>107.0</td>
+      <td>1305.874486</td>
+      <td>42</td>
+      <td>1793769.436</td>
+      <td>8357.799096</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>LINESTRING (-95.84938 35.18503, -95.84964 35.1...</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>74242300251</td>
+      <td>7.138265e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0740Z</td>
+      <td>35.153209</td>
+      <td>-97.436113</td>
+      <td>no_data</td>
+      <td>39.51928</td>
+      <td>-1.000000e+12</td>
+      <td>1.35283</td>
+      <td>...</td>
+      <td>108.0</td>
+      <td>829.919971</td>
+      <td>51</td>
+      <td>2029738.323</td>
+      <td>10121.780860</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-97.40017 35.12675, -97.40043 35.1...</td>
+    </tr>
+    <tr>
+      <th>124</th>
+      <td>74248100191</td>
+      <td>7.138264e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0727Z</td>
+      <td>36.047936</td>
+      <td>-96.814971</td>
+      <td>no_data</td>
+      <td>35.15695</td>
+      <td>-1.000000e+12</td>
+      <td>0.06185</td>
+      <td>...</td>
+      <td>148.5</td>
+      <td>985.453315</td>
+      <td>78</td>
+      <td>2054425.795</td>
+      <td>15640.389075</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-96.76674 36.05285, -96.76707 36.0...</td>
+    </tr>
+    <tr>
+      <th>165</th>
+      <td>74249200121</td>
+      <td>7.138264e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0712Z</td>
+      <td>36.707171</td>
+      <td>-97.847587</td>
+      <td>no_data</td>
+      <td>39.86618</td>
+      <td>-1.000000e+12</td>
+      <td>0.06973</td>
+      <td>...</td>
+      <td>123.0</td>
+      <td>832.564957</td>
+      <td>57</td>
+      <td>2166118.950</td>
+      <td>11377.423667</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-97.79766 36.69311, -97.79800 36.6...</td>
+    </tr>
+    <tr>
+      <th>166</th>
+      <td>74249200131</td>
+      <td>7.138264e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0712Z</td>
+      <td>36.719942</td>
+      <td>-97.930131</td>
+      <td>no_data</td>
+      <td>45.34975</td>
+      <td>-1.000000e+12</td>
+      <td>7.46494</td>
+      <td>...</td>
+      <td>124.0</td>
+      <td>1741.611817</td>
+      <td>42</td>
+      <td>2174504.465</td>
+      <td>8385.514839</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>LINESTRING (-97.88911 36.73196, -97.88945 36.7...</td>
+    </tr>
+    <tr>
+      <th>210</th>
+      <td>74249300261</td>
+      <td>7.138264e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0658Z</td>
+      <td>37.559008</td>
+      <td>-97.698991</td>
+      <td>no_data</td>
+      <td>37.31830</td>
+      <td>-1.000000e+12</td>
+      <td>0.00428</td>
+      <td>...</td>
+      <td>92.0</td>
+      <td>1200.772490</td>
+      <td>51</td>
+      <td>2303196.062</td>
+      <td>10149.015676</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-97.66441 37.53530, -97.66475 37.5...</td>
+    </tr>
+    <tr>
+      <th>215</th>
+      <td>74249300311</td>
+      <td>7.138264e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0656Z</td>
+      <td>37.627488</td>
+      <td>-98.028303</td>
+      <td>no_data</td>
+      <td>36.33513</td>
+      <td>-1.000000e+12</td>
+      <td>2.16842</td>
+      <td>...</td>
+      <td>63.0</td>
+      <td>233.823669</td>
+      <td>42</td>
+      <td>2349425.456</td>
+      <td>8384.876289</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (-97.98686 37.61930, -97.98720 37.6...</td>
+    </tr>
+    <tr>
+      <th>216</th>
+      <td>74249300321</td>
+      <td>7.138264e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0656Z</td>
+      <td>37.638600</td>
+      <td>-98.106747</td>
+      <td>no_data</td>
+      <td>36.09641</td>
+      <td>-1.000000e+12</td>
+      <td>0.11889</td>
+      <td>...</td>
+      <td>63.0</td>
+      <td>631.220135</td>
+      <td>44</td>
+      <td>2358152.710</td>
+      <td>8727.253685</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>LINESTRING (-98.06652 37.63738, -98.06686 37.6...</td>
+    </tr>
+    <tr>
+      <th>242</th>
+      <td>74249300801</td>
+      <td>7.138264e+08</td>
+      <td>7.138264e+08</td>
+      <td>2022-08-14T21:0708Z</td>
+      <td>37.113844</td>
+      <td>-96.957548</td>
+      <td>no_data</td>
+      <td>35.05791</td>
+      <td>-1.000000e+12</td>
+      <td>0.06902</td>
+      <td>...</td>
+      <td>63.0</td>
+      <td>296.741419</td>
+      <td>51</td>
+      <td>2182848.997</td>
+      <td>10283.378299</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (-96.99444 37.10534, -96.99410 37.1...</td>
+    </tr>
+    <tr>
+      <th>269</th>
+      <td>74294200271</td>
+      <td>7.138263e+08</td>
+      <td>7.138263e+08</td>
+      <td>2022-08-14T21:0541Z</td>
+      <td>42.078318</td>
+      <td>-97.931605</td>
+      <td>no_data</td>
+      <td>37.77142</td>
+      <td>-1.000000e+12</td>
+      <td>1.41024</td>
+      <td>...</td>
+      <td>51.0</td>
+      <td>282.977781</td>
+      <td>55</td>
+      <td>3285195.849</td>
+      <td>11099.394970</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-97.88812 42.07337, -97.88833 42.0...</td>
+    </tr>
+    <tr>
+      <th>275</th>
+      <td>74294400061</td>
+      <td>7.138264e+08</td>
+      <td>7.138263e+08</td>
+      <td>2022-08-14T21:0553Z</td>
+      <td>41.392167</td>
+      <td>-97.835479</td>
+      <td>no_data</td>
+      <td>39.74193</td>
+      <td>-1.000000e+12</td>
+      <td>0.00000</td>
+      <td>...</td>
+      <td>152.0</td>
+      <td>5864.605686</td>
+      <td>77</td>
+      <td>3188369.749</td>
+      <td>15443.567738</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-97.76012 41.40875, -97.76048 41.4...</td>
+    </tr>
+    <tr>
+      <th>349</th>
+      <td>74295600201</td>
+      <td>7.138263e+08</td>
+      <td>7.138263e+08</td>
+      <td>2022-08-14T21:0524Z</td>
+      <td>42.760592</td>
+      <td>-99.870893</td>
+      <td>no_data</td>
+      <td>40.82342</td>
+      <td>-1.000000e+12</td>
+      <td>2.88420</td>
+      <td>...</td>
+      <td>228.0</td>
+      <td>5909.679915</td>
+      <td>54</td>
+      <td>3570218.378</td>
+      <td>10722.387331</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-99.81652 42.74292, -99.81689 42.7...</td>
+    </tr>
+    <tr>
+      <th>386</th>
+      <td>74295800141</td>
+      <td>7.138263e+08</td>
+      <td>7.138263e+08</td>
+      <td>2022-08-14T21:0507Z</td>
+      <td>43.699405</td>
+      <td>-100.216124</td>
+      <td>no_data</td>
+      <td>38.30095</td>
+      <td>-1.000000e+12</td>
+      <td>10.35277</td>
+      <td>...</td>
+      <td>127.0</td>
+      <td>1214.735618</td>
+      <td>47</td>
+      <td>3695005.134</td>
+      <td>9362.384395</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (-100.18767 43.70568, -100.18804 43...</td>
+    </tr>
+    <tr>
+      <th>441</th>
+      <td>75140100401</td>
+      <td>7.138265e+08</td>
+      <td>7.138265e+08</td>
+      <td>2022-08-14T21:0849Z</td>
+      <td>31.378090</td>
+      <td>-95.684602</td>
+      <td>no_data</td>
+      <td>44.96841</td>
+      <td>-1.000000e+12</td>
+      <td>0.00208</td>
+      <td>...</td>
+      <td>80.0</td>
+      <td>375.277777</td>
+      <td>82</td>
+      <td>399697.389</td>
+      <td>16375.887635</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (-95.65686 31.34060, -95.65687 31.3...</td>
+    </tr>
+    <tr>
+      <th>455</th>
+      <td>75140300011</td>
+      <td>7.138265e+08</td>
+      <td>7.138265e+08</td>
+      <td>2022-08-14T21:0839Z</td>
+      <td>31.899540</td>
+      <td>-96.012439</td>
+      <td>no_data</td>
+      <td>35.29524</td>
+      <td>-1.000000e+12</td>
+      <td>0.00000</td>
+      <td>...</td>
+      <td>67.0</td>
+      <td>511.629791</td>
+      <td>79</td>
+      <td>538860.706</td>
+      <td>15891.038850</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (-96.00043 31.86864, -96.00043 31.8...</td>
+    </tr>
+    <tr>
+      <th>473</th>
+      <td>75165000141</td>
+      <td>7.138265e+08</td>
+      <td>7.138265e+08</td>
+      <td>2022-08-14T21:0907Z</td>
+      <td>30.226423</td>
+      <td>-96.104246</td>
+      <td>no_data</td>
+      <td>52.37545</td>
+      <td>-1.000000e+12</td>
+      <td>5.08629</td>
+      <td>...</td>
+      <td>92.0</td>
+      <td>858.963903</td>
+      <td>48</td>
+      <td>351257.312</td>
+      <td>9672.898906</td>
+      <td>-1.000000e+12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (-96.12550 30.21370, -96.12531 30.2...</td>
+    </tr>
+  </tbody>
+</table>
+<p>19 rows × 111 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>WSE.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.Esri.NatGeoWorldMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOTsample_GISshapefiles_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="bonus" class="level2">
+<h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
+<p>Opening a folder with multiple shapefiles</p>
+<ul>
+<li>If you have multiple River Reaches or Nodes in a folder, it is possible to visualize all on one map.</li>
+<li>Utilizing both Glob and Pathlib libraries to read the folder, then using Pandas concat to merge the reaches to its own variable.</li>
+<li>Matplotlib Basemap offers the customization ability to create your own basemap.</li>
+</ul>
+<p>https://matplotlib.org/basemap/users/geography.html</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Direct folder path of shapefiles</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"C:</span><span class="ch">\\</span><span class="st">SWOT</span><span class="ch">\\</span><span class="st">SWOT_River_Reaches"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># State filename extension to look for within the folder, in this case .shp which is the shapefile</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>shapefiles <span class="op">=</span> folder.glob(<span class="st">"*.shp"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge/Combine multiple shapefiles in folder into one</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> pd.concat([</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    gpd.read_file(shp)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> shp <span class="kw">in</span> shapefiles</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>]).pipe(gpd.GeoDataFrame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.basemap <span class="im">import</span> Basemap </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>gdf.plot(ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>, color <span class="op">=</span> <span class="st">'black'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> Basemap(llcrnrlon<span class="op">=-</span><span class="dv">130</span>, llcrnrlat<span class="op">=</span><span class="dv">20</span>, urcrnrlon<span class="op">=-</span><span class="fl">65.</span>,urcrnrlat<span class="op">=</span><span class="fl">52.</span>, lat_0 <span class="op">=</span> <span class="fl">40.</span>, lon_0 <span class="op">=</span> <span class="op">-</span><span class="dv">80</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span>.drawmapboundary(fill_color<span class="op">=</span><span class="st">'lightblue'</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span>.fillcontinents(color<span class="op">=</span><span class="st">'tan'</span>,lake_color<span class="op">=</span><span class="st">'lightblue'</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span>.drawcountries(color<span class="op">=</span><span class="st">'grey'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span>.drawstates(color<span class="op">=</span><span class="st">'lightgrey'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>&lt;matplotlib.collections.LineCollection at 0x251e1a4ce80&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOTsample_GISshapefiles_files/figure-html/cell-15-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
+<ul>
+<li>This notebook has helped showcase how to visualize shapefile data without the use of a GIS desktop software.</li>
+<li>Showcasing different ways of plotting based on variables and adding context to the map.</li>
+<li>Local visualization was the first step, but the next goal is to move towards utilizing the cloud.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-PO.DAAC, 2022</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
