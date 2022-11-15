@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook – oisss_l4_multimission_monthly_v1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">How To’s</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">Dataset Specific</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">SWOT</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Search</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/SWORD_River_Demo.html" class="sidebar-item-text sidebar-link">By SWORD ID</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/HUC Feature Translation Service Examples-updated-20210804.html" class="sidebar-item-text sidebar-link">By HUC ID</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  Download/Subscribe
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">In-cloud Access</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">Sample SWOT Hydrology Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  Sample SWOT Oceanography Data
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOTsample_GISshapefiles.html" class="sidebar-item-text sidebar-link">GIS Workflows</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Transform Data</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOTsample_CSVconversion.html" class="sidebar-item-text sidebar-link">Hydrology Time Series</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  Subset by Bounding Box
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">ECCO</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">Sentinel-6 MF</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">Access by Cycle/Pass</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">Access NRT Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">OPeNDAP Access</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  GRACE/FO
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">Cloud vs. Local Workflows</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">Estuary Example</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">Cloud</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">Local</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">Reservoir Example</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">Cloud</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">Local</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/PairingCloudNoncloudData.html" class="sidebar-item-text sidebar-link">Pairing Cloud and Non-cloud Data</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">River Heights Comparison</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">Ocean Satellite &amp; In-situ Comparison</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">Cloud Optimized Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  zarr-eosdis-store library
+  </li>
+          <li class="sidebar-item">
+  zarr2netCDF
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">Workshops</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">Webinars</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">Tech Guides</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">Contribute</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#direct-s3-data-access-tutorial-multi-mission-optimally-interpolated-sea-surface-salinity-global-monthly-dataset-v1" id="toc-direct-s3-data-access-tutorial-multi-mission-optimally-interpolated-sea-surface-salinity-global-monthly-dataset-v1" class="nav-link active" data-scroll-target="#direct-s3-data-access-tutorial-multi-mission-optimally-interpolated-sea-surface-salinity-global-monthly-dataset-v1">Direct S3 Data Access tutorial (Multi-Mission Optimally Interpolated Sea Surface Salinity Global Monthly Dataset V1)</a>
+  <ul class="collapse">
+  <li><a href="#content" id="toc-content" class="nav-link" data-scroll-target="#content">Content</a>
+  <ul class="collapse">
+  <li><a href="#specify-parameters" id="toc-specify-parameters" class="nav-link" data-scroll-target="#specify-parameters">Specify parameters</a></li>
+  </ul></li>
+  <li><a href="#direct-s3-access" id="toc-direct-s3-access" class="nav-link" data-scroll-target="#direct-s3-access">Direct S3 access</a></li>
+  <li><a href="#explore-the-file-system." id="toc-explore-the-file-system." class="nav-link" data-scroll-target="#explore-the-file-system.">Explore the file system.</a></li>
+  <li><a href="#plot-an-example" id="toc-plot-an-example" class="nav-link" data-scroll-target="#plot-an-example">Plot an example</a>
+  <ul class="collapse">
+  <li><a href="#load-all-files-to-plot-a-time-series" id="toc-load-all-files-to-plot-a-time-series" class="nav-link" data-scroll-target="#load-all-files-to-plot-a-time-series">Load all files to plot a time series</a></li>
+  </ul></li>
+  <li><a href="#plot-a-time-series-at-a-point-in-the-california-current." id="toc-plot-a-time-series-at-a-point-in-the-california-current." class="nav-link" data-scroll-target="#plot-a-time-series-at-a-point-in-the-california-current.">Plot a time series at a point in the california current.</a></li>
+  </ul></li>
+  <li><a href="#demonstrate-opendap" id="toc-demonstrate-opendap" class="nav-link" data-scroll-target="#demonstrate-opendap">Demonstrate opendap</a></li>
+  <li><a href="#direct-download-using-data-downloader" id="toc-direct-download-using-data-downloader" class="nav-link" data-scroll-target="#direct-download-using-data-downloader">Direct download using data-downloader</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/datasets/OISSS_L4_multimission_monthly_v1.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="direct-s3-data-access-tutorial-multi-mission-optimally-interpolated-sea-surface-salinity-global-monthly-dataset-v1" class="level1">
+<h1>Direct S3 Data Access tutorial (Multi-Mission Optimally Interpolated Sea Surface Salinity Global Monthly Dataset V1)</h1>
+<p>This tutorial only works in a jupyterhub hosted at AWS US-WEST-2.</p>
+<p><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/a32b8e44-2-419d3300-7fdc-404c-afae-9e97155fb347.png" class="img-fluid" alt="image.png"><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/a32b8e44-1-2438e8b8-d128-41b5-b06d-53fb2efee43a.png" class="img-fluid" alt="image.png"></p>
+<ul>
+<li><strong>User guide</strong>: http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB/OISSS_Product_Notes.pdf</li>
+<li><strong>DOI</strong> <a href="https://podaac.jpl.nasa.gov/dataset/OISSS_L4_multimission_monthly_v1?ids=&amp;values=&amp;search=oisss&amp;provider=POCLOUD">10.5067/SMP10-4UMCS</a></li>
+<li><strong>Short Name</strong>: OISSS_L4_multimission_monthly_v1</li>
+<li><strong>Description</strong></li>
+</ul>
+<pre><code>This is a level 4 product on a 0.25-degree spatial and monthly temporal grid. The product is the monthly mean of the level 4 OISSS dataset using three satellite missions: the Aquarius/SAC-D, Soil Moisture Active Passive (SMAP) and Soil Moisture and Ocean Salinity (SMOS) using Optimal Interpolation (OI) with a 7-day decorrelation time scale. This dataset is produced by the International Pacific Research Center (IPRC) of the University of Hawaii at Manoa in collaboration with the Remote Sensing Systems (RSS), Santa Rosa, California. More details can be found in the users guide and Addendum I to the product Technical Notes.
+Version 1.0</code></pre>
+<ul>
+<li><p><strong>Data Citation</strong> (Please insert the following two citations in your reference) &gt;1. IPRC/SOEST University of Hawaii, Manoa. 2022. Multi-Mission Optimally Interpolated Sea Surface Salinity Global Monthly Dataset V1. Ver. 1.0. PO.DAAC, CA, USA. Dataset accessed [YYYY-MM-DD] at https://doi.org/10.5067/SMP10-4UMCS &gt;2. Melnichenko, O., P. Hacker., N. Maximenko, G. Lagerloef, and J. Potemra. 2021., 121. doi:10.1002/2015JC011343</p></li>
+<li><p><strong>Data revision history</strong></p></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Release Date</th>
+<th>Data Provider</th>
+<th>PODAAC Point of Contact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>V1</td>
+<td>2/17/2022</td>
+<td>O. Melnichenko</td>
+<td>Yibo Jiang</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Acknowledgement</strong></li>
+</ul>
+<section id="content" class="level2">
+<h2 class="anchored" data-anchor-id="content">Content</h2>
+<section id="specify-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="specify-parameters">Specify parameters</h3>
+<p>The following parameters are used for this particular dataset.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Short_name is used to identify a specific dataset in NASA Earthdata. </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>short_name<span class="op">=</span><span class="st">'OISSS_L4_multimission_monthly_v1'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="direct-s3-access" class="level2">
+<h2 class="anchored" data-anchor-id="direct-s3-access">Direct S3 access</h2>
+<p>Use EarthData Login (EDL) to get a direct S3 access. Direct S3 access is only available to users running in AWS, us-west-2 region. All other access must come from HTTP requests for PO.DAAC data.</p>
+<p>Create an EDL following this <a href="https://earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/earthdata-login">link</a>.</p>
+<p>Create a .netrc file in the home folder following <a href="https://urs.earthdata.nasa.gov/documentation/for_users/data_access/curl_and_wget">these instructions</a>.</p>
+<p><strong>.netrc</strong> is essential to enable the following blocks.</p>
+<div class="cell" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_S3FileSystem():</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> requests,s3fs</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    s3_cred_endpoint <span class="op">=</span> {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'podaac'</span>:<span class="st">'https://archive.podaac.earthdata.nasa.gov/s3credentials'</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'lpdaac'</span>:<span class="st">'https://data.lpdaac.earthdatacloud.nasa.gov/s3credentials'</span>}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    temp_creds_url <span class="op">=</span> s3_cred_endpoint[<span class="st">'podaac'</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    creds <span class="op">=</span> requests.get(temp_creds_url).json()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    s3 <span class="op">=</span> s3fs.S3FileSystem(anon<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                           key<span class="op">=</span>creds[<span class="st">'accessKeyId'</span>],</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                           secret<span class="op">=</span>creds[<span class="st">'secretAccessKey'</span>], </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                           token<span class="op">=</span>creds[<span class="st">'sessionToken'</span>])</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s3</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>s3sys<span class="op">=</span>init_S3FileSystem()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="explore-the-file-system." class="level2">
+<h2 class="anchored" data-anchor-id="explore-the-file-system.">Explore the file system.</h2>
+<div class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pprint</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#s3://podaac-ops-cumulus-protected is the PODAAC S3 bucket. </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#s3://podaac-ops-cumulus-protected/{short_name} is the path to this dataset. </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#This dataset is organized by year.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>years<span class="op">=</span>s3sys.glob(<span class="st">"s3://podaac-ops-cumulus-protected/</span><span class="sc">%s</span><span class="st">/*"</span><span class="op">%</span>short_name)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>pprint.pprint(years)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year <span class="kw">in</span> years:</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    fns<span class="op">=</span> s3sys.glob(year<span class="op">+</span><span class="st">"/*nc"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Year </span><span class="sc">%s</span><span class="st">: total files (granules) </span><span class="sc">%i</span><span class="st">."</span><span class="op">%</span>(year.split(<span class="st">'/'</span>)[<span class="op">-</span><span class="dv">1</span>], <span class="bu">len</span>(fns)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2011',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2012',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2013',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2014',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2015',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2016',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2017',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2018',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2019',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2020',
+ 'podaac-ops-cumulus-protected/OISSS_L4_multimission_monthly_v1/2021']
+Year 2011: total files (granules) 4.
+Year 2012: total files (granules) 12.
+Year 2013: total files (granules) 12.
+Year 2014: total files (granules) 12.
+Year 2015: total files (granules) 12.
+Year 2016: total files (granules) 12.
+Year 2017: total files (granules) 12.
+Year 2018: total files (granules) 12.
+Year 2019: total files (granules) 12.
+Year 2020: total files (granules) 12.
+Year 2021: total files (granules) 8.</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fns<span class="op">=</span> s3sys.glob(<span class="st">"s3://podaac-ops-cumulus-protected/</span><span class="sc">%s</span><span class="st">/*/*nc"</span><span class="op">%</span>short_name)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Open all </span><span class="sc">%i</span><span class="st"> files."</span><span class="op">%</span><span class="bu">len</span>(fns))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#pprint.pprint(fns)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span>xr.open_dataset(s3sys.<span class="bu">open</span>(fns[<span class="dv">0</span>]))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Open all 120 files.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt;
+Dimensions:          (longitude: 1440, latitude: 720, time: 1)
+Coordinates:
+  * longitude        (longitude) float32 -179.9 -179.6 -179.4 ... 179.6 179.9
+  * latitude         (latitude) float32 -89.88 -89.62 -89.38 ... 89.62 89.88
+  * time             (time) datetime64[ns] 2011-09-16
+Data variables:
+    sss              (latitude, longitude, time) float32 ...
+    sss_uncertainty  (latitude, longitude, time) float32 ...
+    sss_climatology  (latitude, longitude, time) float32 ...
+    sss_anomaly      (latitude, longitude, time) float32 ...
+Attributes: (12/42)
+    Conventions:                   CF-1.8, ACDD-1.3
+    standard_name_vocabulary:      CF Standard Name Table v27
+    Title:                         Multi-Mission Optimally Interpolated Sea S...
+    Short_Name:                    OISSS_L4_multimission_v1_monthly
+    Version:                       V1.0
+    Processing_Level:              Level 4
+    ...                            ...
+    geospatial_lat_resolution:     [0.25]
+    geospatial_lat_units:          degrees_north
+    geospatial_lon_min:            [-180.]
+    geospatial_lon_max:            [180.]
+    geospatial_lon_resolution:     [0.25]
+    geospatial_lon_units:          degrees_east</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-6a74e8f3-e96a-46e4-bc5a-5b13e6c6d813" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-6a74e8f3-e96a-46e4-bc5a-5b13e6c6d813" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">longitude</span>: 1440</li><li><span class="xr-has-index">latitude</span>: 720</li><li><span class="xr-has-index">time</span>: 1</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-ed93441e-6a91-4678-9161-7ea411671a0a" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-ed93441e-6a91-4678-9161-7ea411671a0a" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">longitude</span></div><div class="xr-var-dims">(longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-179.9 -179.6 ... 179.6 179.9</div><input id="attrs-24172ea4-ef11-4383-bac2-283bd653ff10" class="xr-var-attrs-in" type="checkbox"><label for="attrs-24172ea4-ef11-4383-bac2-283bd653ff10" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4d5b409d-2230-49f7-ab5b-ae770a6e91a3" class="xr-var-data-in" type="checkbox"><label for="data-4d5b409d-2230-49f7-ab5b-ae770a6e91a3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>valid_min :</span></dt><dd>[-180.]</dd><dt><span>valid_max :</span></dt><dd>[180.]</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd></dl></div><div class="xr-var-data"><pre>array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875],
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">latitude</span></div><div class="xr-var-dims">(latitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-89.88 -89.62 ... 89.62 89.88</div><input id="attrs-f76e7f19-f0e7-479e-9d97-cbea1fda3651" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f76e7f19-f0e7-479e-9d97-cbea1fda3651" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fbfeeb93-4eaf-4c64-a451-efd70c575861" class="xr-var-data-in" type="checkbox"><label for="data-fbfeeb93-4eaf-4c64-a451-efd70c575861" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>valid_min :</span></dt><dd>[-90.]</dd><dt><span>valid_max :</span></dt><dd>[90.]</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd></dl></div><div class="xr-var-data"><pre>array([-89.875, -89.625, -89.375, ...,  89.375,  89.625,  89.875],
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2011-09-16</div><input id="attrs-957d6b6b-a8ff-4b0e-847d-70ce9274690c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-957d6b6b-a8ff-4b0e-847d-70ce9274690c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3e641adf-456e-4aff-a797-9c9ccdf42804" class="xr-var-data-in" type="checkbox"><label for="data-3e641adf-456e-4aff-a797-9c9ccdf42804" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>reference time of analyzed variable field corresponding to the center of the product time interval</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>axis :</span></dt><dd>T</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd></dl></div><div class="xr-var-data"><pre>array(['2011-09-16T00:00:00.000000000'], dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-e4c14113-b8bd-43ed-aa3e-8be5d026fb17" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-e4c14113-b8bd-43ed-aa3e-8be5d026fb17" class="xr-section-summary">Data variables: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>sss</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-5abfb223-c4a2-4d31-b9c7-78d521d1ecad" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5abfb223-c4a2-4d31-b9c7-78d521d1ecad" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4234d18b-2f61-4cf3-8f84-ddb77b59fa22" class="xr-var-data-in" type="checkbox"><label for="data-4234d18b-2f61-4cf3-8f84-ddb77b59fa22" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>multi-mission OISSS monthly average</dd><dt><span>standard_name :</span></dt><dd>sea_surface_salinity</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>[0.]</dd><dt><span>valid_max :</span></dt><dd>[45.]</dd><dt><span>add_factor :</span></dt><dd>[0.]</dd><dt><span>coverage_content_type :</span></dt><dd>physicalMeasurement</dd></dl></div><div class="xr-var-data"><pre>[1036800 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>sss_uncertainty</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-bf3fa4cd-5e33-4461-893b-afb425bf1858" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bf3fa4cd-5e33-4461-893b-afb425bf1858" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0414e842-5059-4e36-8d3e-dbb4a9b3cdda" class="xr-var-data-in" type="checkbox"><label for="data-0414e842-5059-4e36-8d3e-dbb4a9b3cdda" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>estimated empirical uncertainty of multi-mission OISSS monthly average</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>[0.]</dd><dt><span>valid_max :</span></dt><dd>[45.]</dd><dt><span>add_factor :</span></dt><dd>[0.]</dd><dt><span>coverage_content_type :</span></dt><dd>qualityInformation</dd></dl></div><div class="xr-var-data"><pre>[1036800 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>sss_climatology</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-6df7b612-540b-4a26-b84a-0e112ff70b33" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6df7b612-540b-4a26-b84a-0e112ff70b33" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9d582bd9-0c04-4a1d-941c-1dabe0cc199a" class="xr-var-data-in" type="checkbox"><label for="data-9d582bd9-0c04-4a1d-941c-1dabe0cc199a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>monthly climatological sea surface salinity based on multi-mission OISSS dataset from 09/2011 to 08/2021</dd><dt><span>standard_name :</span></dt><dd>sea_surface_salinity</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>[0.]</dd><dt><span>valid_max :</span></dt><dd>[45.]</dd><dt><span>add_factor :</span></dt><dd>[0.]</dd><dt><span>coverage_content_type :</span></dt><dd>qualityInformation</dd></dl></div><div class="xr-var-data"><pre>[1036800 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>sss_anomaly</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-9ae59d3c-49d6-497a-883b-9e52d2408bfe" class="xr-var-attrs-in" type="checkbox"><label for="attrs-9ae59d3c-49d6-497a-883b-9e52d2408bfe" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ee6e5350-8570-4808-a4d5-cd43a1473c98" class="xr-var-data-in" type="checkbox"><label for="data-ee6e5350-8570-4808-a4d5-cd43a1473c98" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>sea surface salinity anomaly relative to the product-based monthly climatology</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>[-10.]</dd><dt><span>valid_max :</span></dt><dd>[10.]</dd><dt><span>add_factor :</span></dt><dd>[0.]</dd><dt><span>coverage_content_type :</span></dt><dd>qualityInformation</dd></dl></div><div class="xr-var-data"><pre>[1036800 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-0ad003fa-98ce-4ff2-ac89-6f882b55397d" class="xr-section-summary-in" type="checkbox"><label for="section-0ad003fa-98ce-4ff2-ac89-6f882b55397d" class="xr-section-summary">Attributes: <span>(42)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.8, ACDD-1.3</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v27</dd><dt><span>Title :</span></dt><dd>Multi-Mission Optimally Interpolated Sea Surface Salinity Global Dataset V1.0 Monthly</dd><dt><span>Short_Name :</span></dt><dd>OISSS_L4_multimission_v1_monthly</dd><dt><span>Version :</span></dt><dd>V1.0</dd><dt><span>Processing_Level :</span></dt><dd>Level 4</dd><dt><span>source :</span></dt><dd>Aquarius V5.0 Level 2 SSS; SMAP RSS V4.0 Level 2 SSS_40km; SMOS Level 2 SSS L2OS version 662</dd><dt><span>sourse_of_input_Aquarius_SSS :</span></dt><dd>Aquarius Official Release Level 2 Sea Surface Salinity &amp; Wind Speed Cal Data V5.0. Distributed by PO.DAAC at https://podaac.jpl.nasa.gov/dataset/AQUARIUS_L2_SSS_CAL_V5</dd><dt><span>sourse_of_input_SMAP_SSS :</span></dt><dd>Meissner, T., F. Wentz, A. Manaster, R. Lindsley, 2019. Remote Sensing Systems SMAP L2C Sea Surface Salinity, Version 4.0 Validated Release, Remote Sensing Systems, Santa Rosa, CA, USA, Available online at www.remss.com/missions/smap.</dd><dt><span>sourse_of_input_SMOS_SSS :</span></dt><dd>ESA SMOS online dissemination service at https://smos-diss.eo.esa.int/oads/access</dd><dt><span>platform :</span></dt><dd>Aquarius/SAC-D, SMAP, SMOS</dd><dt><span>instrument :</span></dt><dd>Aquarius radiometer, SMAP radiometer, SMOS MIRAS</dd><dt><span>Creation_Date :</span></dt><dd>2022-02-15T02:49:51Z</dd><dt><span>Creator_Name :</span></dt><dd>Oleg Melnichenko</dd><dt><span>Creator_Email :</span></dt><dd>oleg@hawaii.edu</dd><dt><span>Creator_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Project :</span></dt><dd>NASA Ocean Salinity</dd><dt><span>Keywords :</span></dt><dd>Sea Surface Salinity, SSS, Aquarius, SMAP, Optimum Interpolation, OISSS</dd><dt><span>Keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>Institution :</span></dt><dd>IPRC/SOEST, University of Hawaii, Honolulu, HI; Remote Sensing Systems (RSS), Santa Rosa, CA</dd><dt><span>Publisher_Name :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Publisher_Email :</span></dt><dd>oleg@hawaii.edu</dd><dt><span>Publisher_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Dataset_Citation_Authors :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Dataset_Citation_Year :</span></dt><dd>2021</dd><dt><span>Dataset_Citation_Product :</span></dt><dd>Aquarius/SMAP Sea Surface Salinity Optimum Interpolation Analysis</dd><dt><span>Technical_Notes :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB/OISSS_Product_Notes.pdf</dd><dt><span>year_of_observation :</span></dt><dd>2011</dd><dt><span>month_of_observation :</span></dt><dd>9</dd><dt><span>center_day_of_observation :</span></dt><dd>16</dd><dt><span>time_coverage_start :</span></dt><dd>2011-09-01T12:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2011-09-30T12:00:00Z</dd><dt><span>time_coverage_resolution :</span></dt><dd>P1M</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>geospatial_lat_min :</span></dt><dd>[-90.]</dd><dt><span>geospatial_lat_max :</span></dt><dd>[90.]</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>[0.25]</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_min :</span></dt><dd>[-180.]</dd><dt><span>geospatial_lon_max :</span></dt><dd>[180.]</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>[0.25]</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+<section id="plot-an-example" class="level2">
+<h2 class="anchored" data-anchor-id="plot-an-example">Plot an example</h2>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">5</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'sss'</span>][:,:,<span class="dv">0</span>].plot(cmap<span class="op">=</span>plt.cm.jet,vmin<span class="op">=</span><span class="dv">30</span>,vmax<span class="op">=</span><span class="dv">37</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>&lt;matplotlib.collections.QuadMesh at 0x7f0de88b7af0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pylab <span class="im">as</span> plt</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fig,ax<span class="op">=</span>plt.subplots(<span class="dv">2</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">vars</span><span class="op">=</span>d.keys()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>axx<span class="op">=</span>ax.flatten()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#set the colorbar limit</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>clim<span class="op">=</span>[[<span class="dv">30</span>,<span class="dv">37</span>],[<span class="dv">0</span>,<span class="fl">0.1</span>],[<span class="dv">30</span>,<span class="dv">37</span>],[<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>]]</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,var <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">vars</span>):</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    d[var][:,:,<span class="dv">0</span>].plot(ax<span class="op">=</span>axx[i],cmap<span class="op">=</span><span class="st">'jet'</span>,vmin<span class="op">=</span>clim[i][<span class="dv">0</span>],vmax<span class="op">=</span>clim[i][<span class="dv">1</span>])</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    axx[i].set_title(var)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="load-all-files-to-plot-a-time-series" class="level3">
+<h3 class="anchored" data-anchor-id="load-all-files-to-plot-a-time-series">Load all files to plot a time series</h3>
+<div class="cell" data-tags="[]" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fileset <span class="op">=</span> [s3sys.<span class="bu">open</span>(<span class="bu">file</span>) <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> fns]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> xr.open_mfdataset(fileset ,concat_dim<span class="op">=</span><span class="st">'time'</span>,combine<span class="op">=</span><span class="st">'nested'</span>,engine<span class="op">=</span><span class="st">'h5netcdf'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt;
+Dimensions:          (longitude: 1440, latitude: 720, time: 120)
+Coordinates:
+  * longitude        (longitude) float32 -179.9 -179.6 -179.4 ... 179.6 179.9
+  * latitude         (latitude) float32 -89.88 -89.62 -89.38 ... 89.62 89.88
+  * time             (time) datetime64[ns] 2011-09-16 2011-10-16 ... 2021-08-16
+Data variables:
+    sss              (latitude, longitude, time) float32 dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;
+    sss_uncertainty  (latitude, longitude, time) float32 dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;
+    sss_climatology  (latitude, longitude, time) float32 dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;
+    sss_anomaly      (latitude, longitude, time) float32 dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;
+Attributes: (12/42)
+    Conventions:                   CF-1.8, ACDD-1.3
+    standard_name_vocabulary:      CF Standard Name Table v27
+    Title:                         Multi-Mission Optimally Interpolated Sea S...
+    Short_Name:                    OISSS_L4_multimission_v1_monthly
+    Version:                       V1.0
+    Processing_Level:              Level 4
+    ...                            ...
+    geospatial_lat_resolution:     [0.25]
+    geospatial_lat_units:          degrees_north
+    geospatial_lon_min:            [-180.]
+    geospatial_lon_max:            [180.]
+    geospatial_lon_resolution:     [0.25]
+    geospatial_lon_units:          degrees_east</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-764bc565-8022-4665-921e-6ec039ef5378" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-764bc565-8022-4665-921e-6ec039ef5378" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">longitude</span>: 1440</li><li><span class="xr-has-index">latitude</span>: 720</li><li><span class="xr-has-index">time</span>: 120</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-60029cc8-1214-44fd-ad4e-057f195fcb8a" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-60029cc8-1214-44fd-ad4e-057f195fcb8a" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">longitude</span></div><div class="xr-var-dims">(longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-179.9 -179.6 ... 179.6 179.9</div><input id="attrs-7b72a966-481f-420e-b275-da7a26b6ff48" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7b72a966-481f-420e-b275-da7a26b6ff48" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f7860401-3d6d-4e22-92e2-f604bf7ec6ca" class="xr-var-data-in" type="checkbox"><label for="data-f7860401-3d6d-4e22-92e2-f604bf7ec6ca" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>valid_min :</span></dt><dd>[-180.]</dd><dt><span>valid_max :</span></dt><dd>[180.]</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd></dl></div><div class="xr-var-data"><pre>array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875],
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">latitude</span></div><div class="xr-var-dims">(latitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-89.88 -89.62 ... 89.62 89.88</div><input id="attrs-b8fdf54d-a33c-42f7-b053-f04588ca8a45" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b8fdf54d-a33c-42f7-b053-f04588ca8a45" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ee5edc9d-5650-4907-a10e-e55c38ca51ba" class="xr-var-data-in" type="checkbox"><label for="data-ee5edc9d-5650-4907-a10e-e55c38ca51ba" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>valid_min :</span></dt><dd>[-90.]</dd><dt><span>valid_max :</span></dt><dd>[90.]</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd></dl></div><div class="xr-var-data"><pre>array([-89.875, -89.625, -89.375, ...,  89.375,  89.625,  89.875],
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2011-09-16 ... 2021-08-16</div><input id="attrs-80d66ee7-3cf2-4836-a465-77bbc5b26b27" class="xr-var-attrs-in" type="checkbox"><label for="attrs-80d66ee7-3cf2-4836-a465-77bbc5b26b27" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-38e1cc56-681a-4b7c-bc56-0e18c67a4bd0" class="xr-var-data-in" type="checkbox"><label for="data-38e1cc56-681a-4b7c-bc56-0e18c67a4bd0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>reference time of analyzed variable field corresponding to the center of the product time interval</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>axis :</span></dt><dd>T</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd></dl></div><div class="xr-var-data"><pre>array(['2011-09-16T00:00:00.000000000', '2011-10-16T00:00:00.000000000',
+       '2011-11-16T00:00:00.000000000', '2011-12-16T00:00:00.000000000',
+       '2012-01-16T00:00:00.000000000', '2012-02-15T00:00:00.000000000',
+       '2012-03-16T00:00:00.000000000', '2012-04-16T00:00:00.000000000',
+       '2012-05-16T00:00:00.000000000', '2012-06-16T00:00:00.000000000',
+       '2012-07-16T00:00:00.000000000', '2012-08-16T00:00:00.000000000',
+       '2012-09-16T00:00:00.000000000', '2012-10-16T00:00:00.000000000',
+       '2012-11-16T00:00:00.000000000', '2012-12-16T00:00:00.000000000',
+       '2013-01-16T00:00:00.000000000', '2013-02-15T00:00:00.000000000',
+       '2013-03-16T00:00:00.000000000', '2013-04-16T00:00:00.000000000',
+       '2013-05-16T00:00:00.000000000', '2013-06-16T00:00:00.000000000',
+       '2013-07-16T00:00:00.000000000', '2013-08-16T00:00:00.000000000',
+       '2013-09-16T00:00:00.000000000', '2013-10-16T00:00:00.000000000',
+       '2013-11-16T00:00:00.000000000', '2013-12-16T00:00:00.000000000',
+       '2014-01-16T00:00:00.000000000', '2014-02-15T00:00:00.000000000',
+       '2014-03-16T00:00:00.000000000', '2014-04-16T00:00:00.000000000',
+       '2014-05-16T00:00:00.000000000', '2014-06-16T00:00:00.000000000',
+       '2014-07-16T00:00:00.000000000', '2014-08-16T00:00:00.000000000',
+       '2014-09-16T00:00:00.000000000', '2014-10-16T00:00:00.000000000',
+       '2014-11-16T00:00:00.000000000', '2014-12-16T00:00:00.000000000',
+       '2015-01-16T00:00:00.000000000', '2015-02-15T00:00:00.000000000',
+       '2015-03-16T00:00:00.000000000', '2015-04-16T00:00:00.000000000',
+       '2015-05-16T00:00:00.000000000', '2015-06-16T00:00:00.000000000',
+       '2015-07-16T00:00:00.000000000', '2015-08-16T00:00:00.000000000',
+       '2015-09-16T00:00:00.000000000', '2015-10-16T00:00:00.000000000',
+       '2015-11-16T00:00:00.000000000', '2015-12-16T00:00:00.000000000',
+       '2016-01-16T00:00:00.000000000', '2016-02-15T00:00:00.000000000',
+       '2016-03-15T00:00:00.000000000', '2016-04-15T00:00:00.000000000',
+       '2016-05-15T00:00:00.000000000', '2016-06-15T00:00:00.000000000',
+       '2016-07-15T00:00:00.000000000', '2016-08-15T00:00:00.000000000',
+       '2016-09-15T00:00:00.000000000', '2016-10-15T00:00:00.000000000',
+       '2016-11-15T00:00:00.000000000', '2016-12-16T00:00:00.000000000',
+       '2017-01-16T00:00:00.000000000', '2017-02-15T00:00:00.000000000',
+       '2017-03-16T00:00:00.000000000', '2017-04-16T00:00:00.000000000',
+       '2017-05-16T00:00:00.000000000', '2017-06-16T00:00:00.000000000',
+       '2017-07-16T00:00:00.000000000', '2017-08-16T00:00:00.000000000',
+       '2017-09-16T00:00:00.000000000', '2017-10-16T00:00:00.000000000',
+       '2017-11-16T00:00:00.000000000', '2017-12-16T00:00:00.000000000',
+       '2018-01-16T00:00:00.000000000', '2018-02-15T00:00:00.000000000',
+       '2018-03-16T00:00:00.000000000', '2018-04-16T00:00:00.000000000',
+       '2018-05-16T00:00:00.000000000', '2018-06-16T00:00:00.000000000',
+       '2018-07-16T00:00:00.000000000', '2018-08-16T00:00:00.000000000',
+       '2018-09-16T00:00:00.000000000', '2018-10-16T00:00:00.000000000',
+       '2018-11-16T00:00:00.000000000', '2018-12-16T00:00:00.000000000',
+       '2019-01-16T00:00:00.000000000', '2019-02-15T00:00:00.000000000',
+       '2019-03-16T00:00:00.000000000', '2019-04-16T00:00:00.000000000',
+       '2019-05-16T00:00:00.000000000', '2019-06-16T00:00:00.000000000',
+       '2019-07-16T00:00:00.000000000', '2019-08-16T00:00:00.000000000',
+       '2019-09-16T00:00:00.000000000', '2019-10-16T00:00:00.000000000',
+       '2019-11-16T00:00:00.000000000', '2019-12-16T00:00:00.000000000',
+       '2020-01-16T00:00:00.000000000', '2020-02-15T00:00:00.000000000',
+       '2020-03-15T00:00:00.000000000', '2020-04-15T00:00:00.000000000',
+       '2020-05-15T00:00:00.000000000', '2020-06-15T00:00:00.000000000',
+       '2020-07-15T00:00:00.000000000', '2020-08-15T00:00:00.000000000',
+       '2020-09-15T00:00:00.000000000', '2020-10-15T00:00:00.000000000',
+       '2020-11-15T00:00:00.000000000', '2020-12-16T00:00:00.000000000',
+       '2021-01-16T00:00:00.000000000', '2021-02-15T00:00:00.000000000',
+       '2021-03-16T00:00:00.000000000', '2021-04-16T00:00:00.000000000',
+       '2021-05-16T00:00:00.000000000', '2021-06-16T00:00:00.000000000',
+       '2021-07-16T00:00:00.000000000', '2021-08-16T00:00:00.000000000'],
+      dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-1df42546-2fa4-401e-aee2-8d54ff698bd2" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-1df42546-2fa4-401e-aee2-8d54ff698bd2" class="xr-section-summary">Data variables: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>sss</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;</div><input id="attrs-eaefda2e-2fab-4f52-a88a-ee31574e7635" class="xr-var-attrs-in" type="checkbox"><label for="attrs-eaefda2e-2fab-4f52-a88a-ee31574e7635" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-67b2367e-69bf-49ec-80a6-a73195a3fba7" class="xr-var-data-in" type="checkbox"><label for="data-67b2367e-69bf-49ec-80a6-a73195a3fba7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>multi-mission OISSS monthly average</dd><dt><span>standard_name :</span></dt><dd>sea_surface_salinity</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>[0.]</dd><dt><span>valid_max :</span></dt><dd>[45.]</dd><dt><span>add_factor :</span></dt><dd>[0.]</dd><dt><span>coverage_content_type :</span></dt><dd>physicalMeasurement</dd></dl></div><div class="xr-var-data"><table>
+    <tbody><tr>
+        <td>
+            <table>
+                <thead>
+                    <tr>
+                        <td> </td>
+                        <th> Array </th>
+                        <th> Chunk </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <th> Bytes </th>
+                        <td> 474.61 MiB </td>
+                        <td> 3.96 MiB </td>
+                    </tr>
+                    
+                    <tr>
+                        <th> Shape </th>
+                        <td> (720, 1440, 120) </td>
+                        <td> (720, 1440, 1) </td>
+                    </tr>
+                    <tr>
+                        <th> Count </th>
+                        <td> 360 Tasks </td>
+                        <td> 120 Chunks </td>
+                    </tr>
+                    <tr>
+                    <th> Type </th>
+                    <td> float32 </td>
+                    <td> numpy.ndarray </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+        <svg width="132" height="205" style="stroke:rgb(0,0,0);stroke-width:1">
+
+  <!-- Horizontal lines -->
+  <line x1="10" y1="0" x2="45" y2="35" style="stroke-width:2"></line>
+  <line x1="10" y1="120" x2="45" y2="155" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line>
+  <line x1="45" y1="35" x2="45" y2="155" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="10.0,0.0 45.294117647058826,35.294117647058826 45.294117647058826,155.29411764705884 10.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon>
+
+  <!-- Horizontal lines -->
+  <line x1="10" y1="0" x2="47" y2="0" style="stroke-width:2"></line>
+  <line x1="45" y1="35" x2="82" y2="35" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="10" y1="0" x2="45" y2="35" style="stroke-width:2"></line>
+  <line x1="11" y1="0" x2="47" y2="35"></line>
+  <line x1="13" y1="0" x2="49" y2="35"></line>
+  <line x1="15" y1="0" x2="50" y2="35"></line>
+  <line x1="17" y1="0" x2="53" y2="35"></line>
+  <line x1="19" y1="0" x2="54" y2="35"></line>
+  <line x1="21" y1="0" x2="56" y2="35"></line>
+  <line x1="23" y1="0" x2="59" y2="35"></line>
+  <line x1="25" y1="0" x2="60" y2="35"></line>
+  <line x1="27" y1="0" x2="62" y2="35"></line>
+  <line x1="29" y1="0" x2="65" y2="35"></line>
+  <line x1="31" y1="0" x2="66" y2="35"></line>
+  <line x1="33" y1="0" x2="68" y2="35"></line>
+  <line x1="35" y1="0" x2="70" y2="35"></line>
+  <line x1="37" y1="0" x2="72" y2="35"></line>
+  <line x1="39" y1="0" x2="74" y2="35"></line>
+  <line x1="41" y1="0" x2="76" y2="35"></line>
+  <line x1="43" y1="0" x2="78" y2="35"></line>
+  <line x1="45" y1="0" x2="80" y2="35"></line>
+  <line x1="47" y1="0" x2="82" y2="35" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="10.0,0.0 47.56358655585696,0.0 82.85770420291578,35.294117647058826 45.294117647058826,35.294117647058826" style="fill:#8B4903A0;stroke-width:0"></polygon>
+
+  <!-- Horizontal lines -->
+  <line x1="45" y1="35" x2="82" y2="35" style="stroke-width:2"></line>
+  <line x1="45" y1="155" x2="82" y2="155" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="45" y1="35" x2="45" y2="155" style="stroke-width:2"></line>
+  <line x1="47" y1="35" x2="47" y2="155"></line>
+  <line x1="49" y1="35" x2="49" y2="155"></line>
+  <line x1="50" y1="35" x2="50" y2="155"></line>
+  <line x1="53" y1="35" x2="53" y2="155"></line>
+  <line x1="54" y1="35" x2="54" y2="155"></line>
+  <line x1="56" y1="35" x2="56" y2="155"></line>
+  <line x1="59" y1="35" x2="59" y2="155"></line>
+  <line x1="60" y1="35" x2="60" y2="155"></line>
+  <line x1="62" y1="35" x2="62" y2="155"></line>
+  <line x1="65" y1="35" x2="65" y2="155"></line>
+  <line x1="66" y1="35" x2="66" y2="155"></line>
+  <line x1="68" y1="35" x2="68" y2="155"></line>
+  <line x1="70" y1="35" x2="70" y2="155"></line>
+  <line x1="72" y1="35" x2="72" y2="155"></line>
+  <line x1="74" y1="35" x2="74" y2="155"></line>
+  <line x1="76" y1="35" x2="76" y2="155"></line>
+  <line x1="78" y1="35" x2="78" y2="155"></line>
+  <line x1="80" y1="35" x2="80" y2="155"></line>
+  <line x1="82" y1="35" x2="82" y2="155" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="45.294117647058826,35.294117647058826 82.85770420291578,35.294117647058826 82.85770420291578,155.29411764705884 45.294117647058826,155.29411764705884" style="fill:#8B4903A0;stroke-width:0"></polygon>
+
+  <!-- Text -->
+  <text x="64.075911" y="175.294118" font-size="1.0rem" font-weight="100" text-anchor="middle">120</text>
+  <text x="102.857704" y="95.294118" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,102.857704,95.294118)">1440</text>
+  <text x="17.647059" y="157.647059" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,17.647059,157.647059)">720</text>
+</svg>
+        </td>
+    </tr>
+</tbody></table></div></li><li class="xr-var-item"><div class="xr-var-name"><span>sss_uncertainty</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;</div><input id="attrs-6eb52f6d-0aef-4511-978f-4342283b9ed8" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6eb52f6d-0aef-4511-978f-4342283b9ed8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-62946c37-bfa2-47fd-bfb4-7c5536c9d13c" class="xr-var-data-in" type="checkbox"><label for="data-62946c37-bfa2-47fd-bfb4-7c5536c9d13c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>estimated empirical uncertainty of multi-mission OISSS monthly average</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>[0.]</dd><dt><span>valid_max :</span></dt><dd>[45.]</dd><dt><span>add_factor :</span></dt><dd>[0.]</dd><dt><span>coverage_content_type :</span></dt><dd>qualityInformation</dd></dl></div><div class="xr-var-data"><table>
+    <tbody><tr>
+        <td>
+            <table>
+                <thead>
+                    <tr>
+                        <td> </td>
+                        <th> Array </th>
+                        <th> Chunk </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <th> Bytes </th>
+                        <td> 474.61 MiB </td>
+                        <td> 3.96 MiB </td>
+                    </tr>
+                    
+                    <tr>
+                        <th> Shape </th>
+                        <td> (720, 1440, 120) </td>
+                        <td> (720, 1440, 1) </td>
+                    </tr>
+                    <tr>
+                        <th> Count </th>
+                        <td> 360 Tasks </td>
+                        <td> 120 Chunks </td>
+                    </tr>
+                    <tr>
+                    <th> Type </th>
+                    <td> float32 </td>
+                    <td> numpy.ndarray </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+        <svg width="132" height="205" style="stroke:rgb(0,0,0);stroke-width:1">
+
+  <!-- Horizontal lines -->
+  <line x1="10" y1="0" x2="45" y2="35" style="stroke-width:2"></line>
+  <line x1="10" y1="120" x2="45" y2="155" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line>
+  <line x1="45" y1="35" x2="45" y2="155" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="10.0,0.0 45.294117647058826,35.294117647058826 45.294117647058826,155.29411764705884 10.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon>
+
+  <!-- Horizontal lines -->
+  <line x1="10" y1="0" x2="47" y2="0" style="stroke-width:2"></line>
+  <line x1="45" y1="35" x2="82" y2="35" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="10" y1="0" x2="45" y2="35" style="stroke-width:2"></line>
+  <line x1="11" y1="0" x2="47" y2="35"></line>
+  <line x1="13" y1="0" x2="49" y2="35"></line>
+  <line x1="15" y1="0" x2="50" y2="35"></line>
+  <line x1="17" y1="0" x2="53" y2="35"></line>
+  <line x1="19" y1="0" x2="54" y2="35"></line>
+  <line x1="21" y1="0" x2="56" y2="35"></line>
+  <line x1="23" y1="0" x2="59" y2="35"></line>
+  <line x1="25" y1="0" x2="60" y2="35"></line>
+  <line x1="27" y1="0" x2="62" y2="35"></line>
+  <line x1="29" y1="0" x2="65" y2="35"></line>
+  <line x1="31" y1="0" x2="66" y2="35"></line>
+  <line x1="33" y1="0" x2="68" y2="35"></line>
+  <line x1="35" y1="0" x2="70" y2="35"></line>
+  <line x1="37" y1="0" x2="72" y2="35"></line>
+  <line x1="39" y1="0" x2="74" y2="35"></line>
+  <line x1="41" y1="0" x2="76" y2="35"></line>
+  <line x1="43" y1="0" x2="78" y2="35"></line>
+  <line x1="45" y1="0" x2="80" y2="35"></line>
+  <line x1="47" y1="0" x2="82" y2="35" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="10.0,0.0 47.56358655585696,0.0 82.85770420291578,35.294117647058826 45.294117647058826,35.294117647058826" style="fill:#8B4903A0;stroke-width:0"></polygon>
+
+  <!-- Horizontal lines -->
+  <line x1="45" y1="35" x2="82" y2="35" style="stroke-width:2"></line>
+  <line x1="45" y1="155" x2="82" y2="155" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="45" y1="35" x2="45" y2="155" style="stroke-width:2"></line>
+  <line x1="47" y1="35" x2="47" y2="155"></line>
+  <line x1="49" y1="35" x2="49" y2="155"></line>
+  <line x1="50" y1="35" x2="50" y2="155"></line>
+  <line x1="53" y1="35" x2="53" y2="155"></line>
+  <line x1="54" y1="35" x2="54" y2="155"></line>
+  <line x1="56" y1="35" x2="56" y2="155"></line>
+  <line x1="59" y1="35" x2="59" y2="155"></line>
+  <line x1="60" y1="35" x2="60" y2="155"></line>
+  <line x1="62" y1="35" x2="62" y2="155"></line>
+  <line x1="65" y1="35" x2="65" y2="155"></line>
+  <line x1="66" y1="35" x2="66" y2="155"></line>
+  <line x1="68" y1="35" x2="68" y2="155"></line>
+  <line x1="70" y1="35" x2="70" y2="155"></line>
+  <line x1="72" y1="35" x2="72" y2="155"></line>
+  <line x1="74" y1="35" x2="74" y2="155"></line>
+  <line x1="76" y1="35" x2="76" y2="155"></line>
+  <line x1="78" y1="35" x2="78" y2="155"></line>
+  <line x1="80" y1="35" x2="80" y2="155"></line>
+  <line x1="82" y1="35" x2="82" y2="155" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="45.294117647058826,35.294117647058826 82.85770420291578,35.294117647058826 82.85770420291578,155.29411764705884 45.294117647058826,155.29411764705884" style="fill:#8B4903A0;stroke-width:0"></polygon>
+
+  <!-- Text -->
+  <text x="64.075911" y="175.294118" font-size="1.0rem" font-weight="100" text-anchor="middle">120</text>
+  <text x="102.857704" y="95.294118" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,102.857704,95.294118)">1440</text>
+  <text x="17.647059" y="157.647059" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,17.647059,157.647059)">720</text>
+</svg>
+        </td>
+    </tr>
+</tbody></table></div></li><li class="xr-var-item"><div class="xr-var-name"><span>sss_climatology</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;</div><input id="attrs-9ab73e07-ad5c-4e2f-9714-79378f2744c7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-9ab73e07-ad5c-4e2f-9714-79378f2744c7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-cbd969ff-0a93-4389-9d05-019c104206cf" class="xr-var-data-in" type="checkbox"><label for="data-cbd969ff-0a93-4389-9d05-019c104206cf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>monthly climatological sea surface salinity based on multi-mission OISSS dataset from 09/2011 to 08/2021</dd><dt><span>standard_name :</span></dt><dd>sea_surface_salinity</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>[0.]</dd><dt><span>valid_max :</span></dt><dd>[45.]</dd><dt><span>add_factor :</span></dt><dd>[0.]</dd><dt><span>coverage_content_type :</span></dt><dd>qualityInformation</dd></dl></div><div class="xr-var-data"><table>
+    <tbody><tr>
+        <td>
+            <table>
+                <thead>
+                    <tr>
+                        <td> </td>
+                        <th> Array </th>
+                        <th> Chunk </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <th> Bytes </th>
+                        <td> 474.61 MiB </td>
+                        <td> 3.96 MiB </td>
+                    </tr>
+                    
+                    <tr>
+                        <th> Shape </th>
+                        <td> (720, 1440, 120) </td>
+                        <td> (720, 1440, 1) </td>
+                    </tr>
+                    <tr>
+                        <th> Count </th>
+                        <td> 360 Tasks </td>
+                        <td> 120 Chunks </td>
+                    </tr>
+                    <tr>
+                    <th> Type </th>
+                    <td> float32 </td>
+                    <td> numpy.ndarray </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+        <svg width="132" height="205" style="stroke:rgb(0,0,0);stroke-width:1">
+
+  <!-- Horizontal lines -->
+  <line x1="10" y1="0" x2="45" y2="35" style="stroke-width:2"></line>
+  <line x1="10" y1="120" x2="45" y2="155" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line>
+  <line x1="45" y1="35" x2="45" y2="155" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="10.0,0.0 45.294117647058826,35.294117647058826 45.294117647058826,155.29411764705884 10.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon>
+
+  <!-- Horizontal lines -->
+  <line x1="10" y1="0" x2="47" y2="0" style="stroke-width:2"></line>
+  <line x1="45" y1="35" x2="82" y2="35" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="10" y1="0" x2="45" y2="35" style="stroke-width:2"></line>
+  <line x1="11" y1="0" x2="47" y2="35"></line>
+  <line x1="13" y1="0" x2="49" y2="35"></line>
+  <line x1="15" y1="0" x2="50" y2="35"></line>
+  <line x1="17" y1="0" x2="53" y2="35"></line>
+  <line x1="19" y1="0" x2="54" y2="35"></line>
+  <line x1="21" y1="0" x2="56" y2="35"></line>
+  <line x1="23" y1="0" x2="59" y2="35"></line>
+  <line x1="25" y1="0" x2="60" y2="35"></line>
+  <line x1="27" y1="0" x2="62" y2="35"></line>
+  <line x1="29" y1="0" x2="65" y2="35"></line>
+  <line x1="31" y1="0" x2="66" y2="35"></line>
+  <line x1="33" y1="0" x2="68" y2="35"></line>
+  <line x1="35" y1="0" x2="70" y2="35"></line>
+  <line x1="37" y1="0" x2="72" y2="35"></line>
+  <line x1="39" y1="0" x2="74" y2="35"></line>
+  <line x1="41" y1="0" x2="76" y2="35"></line>
+  <line x1="43" y1="0" x2="78" y2="35"></line>
+  <line x1="45" y1="0" x2="80" y2="35"></line>
+  <line x1="47" y1="0" x2="82" y2="35" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="10.0,0.0 47.56358655585696,0.0 82.85770420291578,35.294117647058826 45.294117647058826,35.294117647058826" style="fill:#8B4903A0;stroke-width:0"></polygon>
+
+  <!-- Horizontal lines -->
+  <line x1="45" y1="35" x2="82" y2="35" style="stroke-width:2"></line>
+  <line x1="45" y1="155" x2="82" y2="155" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="45" y1="35" x2="45" y2="155" style="stroke-width:2"></line>
+  <line x1="47" y1="35" x2="47" y2="155"></line>
+  <line x1="49" y1="35" x2="49" y2="155"></line>
+  <line x1="50" y1="35" x2="50" y2="155"></line>
+  <line x1="53" y1="35" x2="53" y2="155"></line>
+  <line x1="54" y1="35" x2="54" y2="155"></line>
+  <line x1="56" y1="35" x2="56" y2="155"></line>
+  <line x1="59" y1="35" x2="59" y2="155"></line>
+  <line x1="60" y1="35" x2="60" y2="155"></line>
+  <line x1="62" y1="35" x2="62" y2="155"></line>
+  <line x1="65" y1="35" x2="65" y2="155"></line>
+  <line x1="66" y1="35" x2="66" y2="155"></line>
+  <line x1="68" y1="35" x2="68" y2="155"></line>
+  <line x1="70" y1="35" x2="70" y2="155"></line>
+  <line x1="72" y1="35" x2="72" y2="155"></line>
+  <line x1="74" y1="35" x2="74" y2="155"></line>
+  <line x1="76" y1="35" x2="76" y2="155"></line>
+  <line x1="78" y1="35" x2="78" y2="155"></line>
+  <line x1="80" y1="35" x2="80" y2="155"></line>
+  <line x1="82" y1="35" x2="82" y2="155" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="45.294117647058826,35.294117647058826 82.85770420291578,35.294117647058826 82.85770420291578,155.29411764705884 45.294117647058826,155.29411764705884" style="fill:#8B4903A0;stroke-width:0"></polygon>
+
+  <!-- Text -->
+  <text x="64.075911" y="175.294118" font-size="1.0rem" font-weight="100" text-anchor="middle">120</text>
+  <text x="102.857704" y="95.294118" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,102.857704,95.294118)">1440</text>
+  <text x="17.647059" y="157.647059" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,17.647059,157.647059)">720</text>
+</svg>
+        </td>
+    </tr>
+</tbody></table></div></li><li class="xr-var-item"><div class="xr-var-name"><span>sss_anomaly</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;</div><input id="attrs-3578b14f-0863-4539-9173-879413495035" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3578b14f-0863-4539-9173-879413495035" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9edd8c77-18c9-4e95-a681-15c4214e8fcb" class="xr-var-data-in" type="checkbox"><label for="data-9edd8c77-18c9-4e95-a681-15c4214e8fcb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>sea surface salinity anomaly relative to the product-based monthly climatology</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>[-10.]</dd><dt><span>valid_max :</span></dt><dd>[10.]</dd><dt><span>add_factor :</span></dt><dd>[0.]</dd><dt><span>coverage_content_type :</span></dt><dd>qualityInformation</dd></dl></div><div class="xr-var-data"><table>
+    <tbody><tr>
+        <td>
+            <table>
+                <thead>
+                    <tr>
+                        <td> </td>
+                        <th> Array </th>
+                        <th> Chunk </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <th> Bytes </th>
+                        <td> 474.61 MiB </td>
+                        <td> 3.96 MiB </td>
+                    </tr>
+                    
+                    <tr>
+                        <th> Shape </th>
+                        <td> (720, 1440, 120) </td>
+                        <td> (720, 1440, 1) </td>
+                    </tr>
+                    <tr>
+                        <th> Count </th>
+                        <td> 360 Tasks </td>
+                        <td> 120 Chunks </td>
+                    </tr>
+                    <tr>
+                    <th> Type </th>
+                    <td> float32 </td>
+                    <td> numpy.ndarray </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+        <svg width="132" height="205" style="stroke:rgb(0,0,0);stroke-width:1">
+
+  <!-- Horizontal lines -->
+  <line x1="10" y1="0" x2="45" y2="35" style="stroke-width:2"></line>
+  <line x1="10" y1="120" x2="45" y2="155" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line>
+  <line x1="45" y1="35" x2="45" y2="155" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="10.0,0.0 45.294117647058826,35.294117647058826 45.294117647058826,155.29411764705884 10.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon>
+
+  <!-- Horizontal lines -->
+  <line x1="10" y1="0" x2="47" y2="0" style="stroke-width:2"></line>
+  <line x1="45" y1="35" x2="82" y2="35" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="10" y1="0" x2="45" y2="35" style="stroke-width:2"></line>
+  <line x1="11" y1="0" x2="47" y2="35"></line>
+  <line x1="13" y1="0" x2="49" y2="35"></line>
+  <line x1="15" y1="0" x2="50" y2="35"></line>
+  <line x1="17" y1="0" x2="53" y2="35"></line>
+  <line x1="19" y1="0" x2="54" y2="35"></line>
+  <line x1="21" y1="0" x2="56" y2="35"></line>
+  <line x1="23" y1="0" x2="59" y2="35"></line>
+  <line x1="25" y1="0" x2="60" y2="35"></line>
+  <line x1="27" y1="0" x2="62" y2="35"></line>
+  <line x1="29" y1="0" x2="65" y2="35"></line>
+  <line x1="31" y1="0" x2="66" y2="35"></line>
+  <line x1="33" y1="0" x2="68" y2="35"></line>
+  <line x1="35" y1="0" x2="70" y2="35"></line>
+  <line x1="37" y1="0" x2="72" y2="35"></line>
+  <line x1="39" y1="0" x2="74" y2="35"></line>
+  <line x1="41" y1="0" x2="76" y2="35"></line>
+  <line x1="43" y1="0" x2="78" y2="35"></line>
+  <line x1="45" y1="0" x2="80" y2="35"></line>
+  <line x1="47" y1="0" x2="82" y2="35" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="10.0,0.0 47.56358655585696,0.0 82.85770420291578,35.294117647058826 45.294117647058826,35.294117647058826" style="fill:#8B4903A0;stroke-width:0"></polygon>
+
+  <!-- Horizontal lines -->
+  <line x1="45" y1="35" x2="82" y2="35" style="stroke-width:2"></line>
+  <line x1="45" y1="155" x2="82" y2="155" style="stroke-width:2"></line>
+
+  <!-- Vertical lines -->
+  <line x1="45" y1="35" x2="45" y2="155" style="stroke-width:2"></line>
+  <line x1="47" y1="35" x2="47" y2="155"></line>
+  <line x1="49" y1="35" x2="49" y2="155"></line>
+  <line x1="50" y1="35" x2="50" y2="155"></line>
+  <line x1="53" y1="35" x2="53" y2="155"></line>
+  <line x1="54" y1="35" x2="54" y2="155"></line>
+  <line x1="56" y1="35" x2="56" y2="155"></line>
+  <line x1="59" y1="35" x2="59" y2="155"></line>
+  <line x1="60" y1="35" x2="60" y2="155"></line>
+  <line x1="62" y1="35" x2="62" y2="155"></line>
+  <line x1="65" y1="35" x2="65" y2="155"></line>
+  <line x1="66" y1="35" x2="66" y2="155"></line>
+  <line x1="68" y1="35" x2="68" y2="155"></line>
+  <line x1="70" y1="35" x2="70" y2="155"></line>
+  <line x1="72" y1="35" x2="72" y2="155"></line>
+  <line x1="74" y1="35" x2="74" y2="155"></line>
+  <line x1="76" y1="35" x2="76" y2="155"></line>
+  <line x1="78" y1="35" x2="78" y2="155"></line>
+  <line x1="80" y1="35" x2="80" y2="155"></line>
+  <line x1="82" y1="35" x2="82" y2="155" style="stroke-width:2"></line>
+
+  <!-- Colored Rectangle -->
+  <polygon points="45.294117647058826,35.294117647058826 82.85770420291578,35.294117647058826 82.85770420291578,155.29411764705884 45.294117647058826,155.29411764705884" style="fill:#8B4903A0;stroke-width:0"></polygon>
+
+  <!-- Text -->
+  <text x="64.075911" y="175.294118" font-size="1.0rem" font-weight="100" text-anchor="middle">120</text>
+  <text x="102.857704" y="95.294118" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,102.857704,95.294118)">1440</text>
+  <text x="17.647059" y="157.647059" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,17.647059,157.647059)">720</text>
+</svg>
+        </td>
+    </tr>
+</tbody></table></div></li></ul></div></li><li class="xr-section-item"><input id="section-389ff53b-c903-4514-98ef-08aba606df2c" class="xr-section-summary-in" type="checkbox"><label for="section-389ff53b-c903-4514-98ef-08aba606df2c" class="xr-section-summary">Attributes: <span>(42)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.8, ACDD-1.3</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v27</dd><dt><span>Title :</span></dt><dd>Multi-Mission Optimally Interpolated Sea Surface Salinity Global Dataset V1.0 Monthly</dd><dt><span>Short_Name :</span></dt><dd>OISSS_L4_multimission_v1_monthly</dd><dt><span>Version :</span></dt><dd>V1.0</dd><dt><span>Processing_Level :</span></dt><dd>Level 4</dd><dt><span>source :</span></dt><dd>Aquarius V5.0 Level 2 SSS; SMAP RSS V4.0 Level 2 SSS_40km; SMOS Level 2 SSS L2OS version 662</dd><dt><span>sourse_of_input_Aquarius_SSS :</span></dt><dd>Aquarius Official Release Level 2 Sea Surface Salinity &amp; Wind Speed Cal Data V5.0. Distributed by PO.DAAC at https://podaac.jpl.nasa.gov/dataset/AQUARIUS_L2_SSS_CAL_V5</dd><dt><span>sourse_of_input_SMAP_SSS :</span></dt><dd>Meissner, T., F. Wentz, A. Manaster, R. Lindsley, 2019. Remote Sensing Systems SMAP L2C Sea Surface Salinity, Version 4.0 Validated Release, Remote Sensing Systems, Santa Rosa, CA, USA, Available online at www.remss.com/missions/smap.</dd><dt><span>sourse_of_input_SMOS_SSS :</span></dt><dd>ESA SMOS online dissemination service at https://smos-diss.eo.esa.int/oads/access</dd><dt><span>platform :</span></dt><dd>Aquarius/SAC-D, SMAP, SMOS</dd><dt><span>instrument :</span></dt><dd>Aquarius radiometer, SMAP radiometer, SMOS MIRAS</dd><dt><span>Creation_Date :</span></dt><dd>2022-02-15T02:49:51Z</dd><dt><span>Creator_Name :</span></dt><dd>Oleg Melnichenko</dd><dt><span>Creator_Email :</span></dt><dd>oleg@hawaii.edu</dd><dt><span>Creator_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Project :</span></dt><dd>NASA Ocean Salinity</dd><dt><span>Keywords :</span></dt><dd>Sea Surface Salinity, SSS, Aquarius, SMAP, Optimum Interpolation, OISSS</dd><dt><span>Keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>Institution :</span></dt><dd>IPRC/SOEST, University of Hawaii, Honolulu, HI; Remote Sensing Systems (RSS), Santa Rosa, CA</dd><dt><span>Publisher_Name :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Publisher_Email :</span></dt><dd>oleg@hawaii.edu</dd><dt><span>Publisher_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Dataset_Citation_Authors :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Dataset_Citation_Year :</span></dt><dd>2021</dd><dt><span>Dataset_Citation_Product :</span></dt><dd>Aquarius/SMAP Sea Surface Salinity Optimum Interpolation Analysis</dd><dt><span>Technical_Notes :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB/OISSS_Product_Notes.pdf</dd><dt><span>year_of_observation :</span></dt><dd>2011</dd><dt><span>month_of_observation :</span></dt><dd>9</dd><dt><span>center_day_of_observation :</span></dt><dd>16</dd><dt><span>time_coverage_start :</span></dt><dd>2011-09-01T12:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2011-09-30T12:00:00Z</dd><dt><span>time_coverage_resolution :</span></dt><dd>P1M</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>geospatial_lat_min :</span></dt><dd>[-90.]</dd><dt><span>geospatial_lat_max :</span></dt><dd>[90.]</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>[0.25]</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_min :</span></dt><dd>[-180.]</dd><dt><span>geospatial_lon_max :</span></dt><dd>[180.]</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>[0.25]</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+</section>
+<section id="plot-a-time-series-at-a-point-in-the-california-current." class="level2">
+<h2 class="anchored" data-anchor-id="plot-a-time-series-at-a-point-in-the-california-current.">Plot a time series at a point in the california current.</h2>
+<p>Plot the time series of the SSS at (124W, 35N).</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">4</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'sss'</span>].interp(latitude<span class="op">=</span><span class="dv">35</span>,longitude<span class="op">=-</span><span class="dv">124</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="demonstrate-opendap" class="level1">
+<h1>Demonstrate opendap</h1>
+</section>
+<section id="direct-download-using-data-downloader" class="level1">
+<h1>Direct download using data-downloader</h1>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
