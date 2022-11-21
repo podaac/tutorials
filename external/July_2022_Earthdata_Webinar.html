@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook – july_2022_earthdata_webinar</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../quarto_text/TechGuides.html" rel="next">
+<link href="../quarto_text/Webinars.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">Cheatsheets &amp; Guides</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">How To’s</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">Dataset Specific</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">SWOT</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Search</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/SWORD_River_Demo.html" class="sidebar-item-text sidebar-link">By SWORD ID</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/HUC Feature Translation Service Examples-updated-20210804.html" class="sidebar-item-text sidebar-link">By HUC ID</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  Download/Subscribe
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">In-cloud Access</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">Sample SWOT Hydrology Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../external/Direct_Access_SWOT_sim_Oceanography.html" class="sidebar-item-text sidebar-link">Sample SWOT Oceanography Data</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/GIS/SWOTsample_GISshapefiles.html" class="sidebar-item-text sidebar-link">GIS Workflows</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Transform Data</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/GIS/SWOTsample_CSVconversion.html" class="sidebar-item-text sidebar-link">Hydrology Time Series</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  Subset by Bounding Box
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">ECCO</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">Sentinel-6 MF</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">Access by Cycle/Pass</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">Access NRT Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">OPeNDAP Access</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">Cloud vs. Local Workflows</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">Estuary Example</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">Cloud</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">Local</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">Reservoir Example</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">Cloud</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">Local</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto_text/PairingCloudNoncloudData.html" class="sidebar-item-text sidebar-link">Pairing Cloud and Non-cloud Data</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">River Heights Comparison</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">Ocean Satellite &amp; In-situ Comparison</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">Cloud Optimized Examples</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">zarr-eosdis-store library</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">zarr2netCDF</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">Workshops</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">Webinars</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link active">July 2022 Earthdata Webinar Notebook</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">Tech Guides</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  How to set up and run a Jupyter Notebook in AWS
+  </li>
+          <li class="sidebar-item">
+  How to set up a Jupyter Lab in AWS
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../external/Introduction_to_xarray.html" class="sidebar-item-text sidebar-link">Introduction to Xarray</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">Contribute</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#earthdata-webinar" id="toc-earthdata-webinar" class="nav-link active" data-scroll-target="#earthdata-webinar">Earthdata Webinar</a></li>
+  <li><a href="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" id="toc-moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" class="nav-link" data-scroll-target="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud">Moving Code to the Data: Analyzing Sea Level Rise Using Earth Data in the Cloud</a>
+  <ul class="collapse">
+  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a>
+  <ul class="collapse">
+  <li><a href="#target-audience" id="toc-target-audience" class="nav-link" data-scroll-target="#target-audience">Target audience</a></li>
+  <li><a href="#important-terms" id="toc-important-terms" class="nav-link" data-scroll-target="#important-terms">Important terms</a></li>
+  </ul></li>
+  <li><a href="#step-1-get-an-aws-account" id="toc-step-1-get-an-aws-account" class="nav-link" data-scroll-target="#step-1-get-an-aws-account">Step 1 – Get an AWS account</a></li>
+  <li><a href="#step-2---start-an-ec2" id="toc-step-2---start-an-ec2" class="nav-link" data-scroll-target="#step-2---start-an-ec2">Step 2 - Start an EC2</a></li>
+  <li><a href="#step-3---login-and-install-the-necessary-software-and-prepare-earthdata-login-.netrc" id="toc-step-3---login-and-install-the-necessary-software-and-prepare-earthdata-login-.netrc" class="nav-link" data-scroll-target="#step-3---login-and-install-the-necessary-software-and-prepare-earthdata-login-.netrc">Step 3 - Login and install the necessary software and prepare EarthData Login (.netrc)</a></li>
+  <li><a href="#step-4---set-up-a-jupyter-lab" id="toc-step-4---set-up-a-jupyter-lab" class="nav-link" data-scroll-target="#step-4---set-up-a-jupyter-lab">Step 4 - Set up a jupyter-lab</a></li>
+  <li><a href="#the-interface-to-the-aws-simple-storage-service-s3-file-system-stores-all-nasa-earthdata" id="toc-the-interface-to-the-aws-simple-storage-service-s3-file-system-stores-all-nasa-earthdata" class="nav-link" data-scroll-target="#the-interface-to-the-aws-simple-storage-service-s3-file-system-stores-all-nasa-earthdata">The interface to the AWS Simple Storage Service (S3) file system (stores all NASA Earthdata)</a>
+  <ul class="collapse">
+  <li><a href="#aws-credentials-with-edl" id="toc-aws-credentials-with-edl" class="nav-link" data-scroll-target="#aws-credentials-with-edl">AWS credentials with EDL</a></li>
+  </ul></li>
+  <li><a href="#use-s3fs.glob-to-get-all-file-names" id="toc-use-s3fs.glob-to-get-all-file-names" class="nav-link" data-scroll-target="#use-s3fs.glob-to-get-all-file-names">Use s3fs.glob to get all file names</a>
+  <ul class="collapse">
+  <li><a href="#plot-an-example" id="toc-plot-an-example" class="nav-link" data-scroll-target="#plot-an-example">Plot an example</a></li>
+  </ul></li>
+  <li><a href="#calculate-the-global-mean-ssha" id="toc-calculate-the-global-mean-ssha" class="nav-link" data-scroll-target="#calculate-the-global-mean-ssha">Calculate the global mean SSHA</a></li>
+  <li><a href="#demonstrate-using-a-single-thread" id="toc-demonstrate-using-a-single-thread" class="nav-link" data-scroll-target="#demonstrate-using-a-single-thread">Demonstrate using a single thread</a>
+  <ul class="collapse">
+  <li><a href="#add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl" id="toc-add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl" class="nav-link" data-scroll-target="#add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl">Add the GMSL from Frederikse et al.&nbsp;https://podaac.jpl.nasa.gov/dataset/JPL_RECON_GMSL</a></li>
+  </ul></li>
+  <li><a href="#step-6-run-an-apache-web-server-to-show-the-result" id="toc-step-6-run-an-apache-web-server-to-show-the-result" class="nav-link" data-scroll-target="#step-6-run-an-apache-web-server-to-show-the-result">Step 6 – Run an apache web server to show the result</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
+  <ul class="collapse">
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#lesson-learned" id="toc-lesson-learned" class="nav-link" data-scroll-target="#lesson-learned">Lesson Learned</a></li>
+  <li><a href="#future-development-stay-tuned" id="toc-future-development-stay-tuned" class="nav-link" data-scroll-target="#future-development-stay-tuned">Future development (stay tuned)</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/external/July_2022_Earthdata_Webinar.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="earthdata-webinar" class="level1">
+<h1>Earthdata Webinar</h1>
+<p>imported on: <strong>2022-11-21</strong></p>
+<p>
+This notebook is from a different repository in NASA’s PO.DAAC, the-coding-club
+</p>
+<blockquote class="blockquote">
+<p>The original source for this document is <a href="https://github.com/podaac/the-coding-club">https://github.com/podaac/the-coding-club</a></p>
+</blockquote>
+<div class="alert alert-block alert-warning">
+<p>Disclaimer: Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or otherwise, does not constitute or imply its endorsement by the United States Government or the Jet Propulsion Laboratory, California Institute of Technology.</p>
+</div>
+</section>
+<section id="moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" class="level1">
+<h1>Moving Code to the Data: Analyzing Sea Level Rise Using Earth Data in the Cloud</h1>
+<blockquote class="blockquote">
+<p>Jinbo Wang <a href="mailto:Jinbo.Wang@jpl.nasa.gov" class="email">Jinbo.Wang@jpl.nasa.gov</a>, Ed Armstrong, Ian Fenty, Nikki Tebaldi, Jack McNeils, Jonathan Smolenski, Stepheny Perez, Catalina Oaida, Mike Gangl</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>PO.DAAC, Jet Propulsion Laboratory, California Institution of Technology</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Earthdata Webinar, July 27, 2022</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Ackowledgement: <a href="https://github.com/podaac/the-coding-club">PO.DAAC coding club team</a>, <a href="https://www.openscapes.org">Openscapes</a>, <a href="https://www.earthdata.nasa.gov/eosdis">NASA Earthdata EOSDIS</a></p>
+</blockquote>
+<p>This note book was created for the Earthdata webinar. The webinar recording is available on NASA’s Earthdata youtube channel and embeded below.</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>html</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>iframe width<span class="op">=</span><span class="st">"560"</span> height<span class="op">=</span><span class="st">"315"</span> src<span class="op">=</span><span class="st">"https://www.youtube.com/embed/4BcoLh8vMG4"</span> title<span class="op">=</span><span class="st">"YouTube video player"</span> frameborder<span class="op">=</span><span class="st">"0"</span> allow<span class="op">=</span><span class="st">"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"</span> allowfullscreen<span class="op">&gt;&lt;/</span>iframe<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4BcoLh8vMG4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+</div>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<ul>
+<li><p>Nearly a petabyte of NASA’s Physical Oceanography Distributed Active Archive Center (PO.DAAC) data products have been moved to NASA’s Earthdata Cloud—hosted in the Amazon Web Services (AWS) cloud. To maximize the full potential of cloud computing on the big Data, one needs to be familiar with not only the data products and their access methods, but also a new set of knowledge for working in a cloud environment. This can be a daunting task for the majority of the science community, who may be familiar with high-performance computing, but not with AWS services. To aid end users in learning and to be successful during this paradigm shift, the PO.DAAC team has been exploring pathways toward practical solutions to help research groups migrate their workflow into cloud.</p></li>
+<li><p>During this webinar we will explain basic concepts of working in the cloud and use a simple science use case to demonstrate the workflow. Participants do not need prior knowledge of AWS services and the Earthdata Cloud. This is a step-by-step walkthrough of exploring and discovering PO.DAAC data and applying AWS cloud computing to analyze global sea level rise from altimetry data and Estimating the Circulation and Climate of the Ocean (ECCO) products.</p></li>
+<li><p>We hope that you can start to practice cloud computing using AWS and PODAAC/Earthdata cloud products by following the 6 steps in this tutorial without investing a large amount of time.</p></li>
+</ul>
+<hr>
+</section>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<ul>
+<li>It is expected the NASA Earthdata will grow to &gt;250 PB in 2025,</li>
+<li>Cloud computing has a big potential</li>
+<li>The path to the cloud computing is unclear for majority of the science and application community</li>
+<li>The science community are often perplexed at the start line by a new language related to cloud computing and the large amount of different AWS tools and services, such as CloudFront, EC2, VPC, AMI, IAM, Bucket, Glacier, Snowcone, Snowball, Snowmobile, data lakes, just to name a few.</li>
+<li>We aim to share our experience of passing the start line and start to run cloud computing, demonstrate a use case assuming zero knowledge of AWS cloud</li>
+<li>The global mean sea level used here is an important climate indicator and relatively easy to calculate from the PODAAC data in the cloud.</li>
+</ul>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<hr>
+<ul>
+<li>Set up a cloud computing environment from scrath</li>
+<li>Run the global mean sea level code in the cloud</li>
+<li>Build a webpage server using the same cloud computer</li>
+</ul>
+<section id="target-audience" class="level3">
+<h3 class="anchored" data-anchor-id="target-audience">Target audience</h3>
+<ul>
+<li>Science- and application-oriented group who
+<ul>
+<li>has interest in cloud computing;</li>
+<li>is familiar with python, conda, and jupyter-notebook;</li>
+<li>but with limited knowledge of NASA Earthdata and IT;</li>
+<li>and zero knowledge of AWS cloud. *** ## Outline: the steps toward running in-cloud analysis</li>
+</ul></li>
+</ul>
+<ol type="1">
+<li>Get an AWS account</li>
+<li>Start an AWS cloud computer (Elastic Computer Cloud, EC2)
+<ol type="1">
+<li>explain AWS console, EC2 instance</li>
+</ol></li>
+<li>Configure the EC2 with the necessary software
+<ol type="1">
+<li>While waiting, explain the global mean sea level analysis code</li>
+</ol></li>
+<li>Configure a jupyter-lab on the EC2 and connect to it from browser</li>
+<li>Demo the code (this notebook) in the cloud and save the figure</li>
+<li>Set up an apache server (hosting website)
+<ul>
+<li>Create a static html webpage to show the result</li>
+</ul></li>
+</ol>
+<div class="alert alert-block alert-success">
+<p>There are many ways to achieve this goal. Many alternatives are much smarter but they usually involves a set of new knowledge related to cloud and/or AWS that steepens the learning curve and sometimes makes the process intimidating. The following steps are suggested here because it is believed to involve a minimum amount of specilized knowledge beyond our common practice on our own computer.</p>
+</div>
+</section>
+<section id="important-terms" class="level3">
+<h3 class="anchored" data-anchor-id="important-terms">Important terms</h3>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>AWS terminology</th>
+<th>Long name</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AWS Region</td>
+<td></td>
+<td>AWS facility. There are many of them. NASA Earth Data are in US-WEST-2, somewhere in Oregon.</td>
+</tr>
+<tr class="even">
+<td>EC2</td>
+<td>Elastic Computer Cloud</td>
+<td>A computer in one of the AWS regions. It is a common practice that you should use an EC2 in the region where you data is hosted.</td>
+</tr>
+<tr class="odd">
+<td>AWS console</td>
+<td></td>
+<td>A web-based control panel for all AWS tools and services. You can start an EC2, create a storage disk (S3 bucket) and much more.</td>
+</tr>
+<tr class="even">
+<td>Key Pair</td>
+<td></td>
+<td>An SSH key generated for accessing the EC2, e.g., through SSH. Anyone who has your key can connect to your EC2. It means that you can share the same EC2 with others just through sharing a Key Pair file.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="step-1-get-an-aws-account" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-get-an-aws-account">Step 1 – Get an AWS account</h2>
+<hr>
+<p>If you already have an AWS account, skip to Step 2. ### Choices: 1. Look for institutional support (recommended) 1. Engage in NASA-funded programs (e.g., openscapes) 1. <strong>Apply a free AWS account</strong> (today’s focus) 1. It is free for a year but only offers <em>small</em> computers (1 CPU, 1GB memory) 1. With the offer of 750 hours per month, a free-tier EC2 can be on all time for a year. 1. Need your personal information including credit card</p>
+<p>(https://aws.amazon.com)</p>
+<p>This page explains the five steps to create an AWS account. &gt; https://progressivecoder.com/creating-an-aws-account-a-step-by-step-process-guide/. ***</p>
+</section>
+<section id="step-2---start-an-ec2" class="level2">
+<h2 class="anchored" data-anchor-id="step-2---start-an-ec2">Step 2 - Start an EC2</h2>
+<ul>
+<li>Log in through aws console https://aws.amazon.com/console/</li>
+<li>Start an EC2 (AWS jargon: launch an instance, layman’s interpretation: start a remote server hosted by AWS)
+<ul>
+<li>Name and Tags: earthdata_webinar</li>
+<li>Application and OS Images (Amazon Machine Image): &gt;<strong>Red Hat Enterprise Linux 8 (HVM) SSD Volume type (free-tier elegible)</strong></li>
+<li>Instance type: t2.micro (1CPU, 1Gb memory) (If you have a institution- or project-supported AWS account, try to use a bigger computer with &gt;4G memory.)</li>
+<li>Key pair (login): “Create new key pair”
+<ul>
+<li>enter a name, e.g., “aws_ec2_jupyter” -&gt; create key pair</li>
+<li>look for the .pem file in the Download folder, move it to .ssh folder. &gt; <code>mv ~/Downloads/aws_ec2_jupyter.pem .ssh/</code></li>
+<li>change permission to 400 using &gt; <code>chmod 400 aws_ec2_jupyter.pem</code></li>
+</ul></li>
+<li>check the two boxes for HTTP and HTTPS for the webserver</li>
+<li>Add storage: 10 Gb should be fine for prototyping and testing. You have total 30Gb free storage, which can be split among three EC2s for example.</li>
+<li>Click “Launch Instance” button</li>
+</ul></li>
+</ul>
+<section id="reference" class="level4">
+<h4 class="anchored" data-anchor-id="reference">Reference</h4>
+<ul>
+<li>AWS get set up for amazon EC2: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html</li>
+<li>AWS Get started with AWS EC2: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html ***</li>
+</ul>
+</section>
+</section>
+<section id="step-3---login-and-install-the-necessary-software-and-prepare-earthdata-login-.netrc" class="level2">
+<h2 class="anchored" data-anchor-id="step-3---login-and-install-the-necessary-software-and-prepare-earthdata-login-.netrc">Step 3 - Login and install the necessary software and prepare EarthData Login (.netrc)</h2>
+<ol type="1">
+<li><p>Find the public IP from your EC2 dashboard. (The EC2 dashboard example: <a href="https://catalog.us-east-1.prod.workshops.aws/workshops/21c996a7-8ec9-42a5-9fd6-00949d151bc2/en-US/pre/intro-ec2">link</a>)</p></li>
+<li><p>First connect to the instance via ssh.</p></li>
+</ol>
+<pre class="shell"><code>     ssh -i "~/.ssh/aws_ec2_jupyter.pem" ec2-user@The_public_ip_address -L 9889:localhost:9889</code></pre>
+<blockquote class="blockquote">
+<p>Remember to set the following parameters appropriately: * <code>-i</code> points the ssh client on your local machine at your pem key to authenticate * <code>-L</code> tunnels traffic on port <code>9889</code> between the ec2 instance and your local machine. This port number can be any value between 1024 and 32767. 1. Update packages. Optionally install wget, git etc. for downloading this notebook from github.com</p>
+</blockquote>
+<pre><code> &gt; ```sudo yum update -y &amp;&amp; sudo yum install wget -y```</code></pre>
+<ol type="1">
+<li>Download miniconda install script into <em>tmp/</em> and execute it with bash. Then, activate the base environment.</li>
+</ol>
+<pre class="shell"><code>  mkdir -p tmp
+  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O tmp/miniconda.sh &amp;&amp; \
+  bash tmp/miniconda.sh -b -p $HOME/conda &amp;&amp; \
+  source ~/conda/bin/activate</code></pre>
+<ol type="1">
+<li>Create a new environment called <em>jupyter</em> running Python 3.7; activate it; install JupyterLab and other required packages.</li>
+</ol>
+<pre class="shell"><code>  conda create -n jupyter python=3.7 -y &amp;&amp; \
+  conda activate jupyter &amp;&amp; \
+  conda install requests tqdm numpy pandas -y &amp;&amp; \
+  conda install matplotlib netCDF4 -y &amp;&amp;\
+  conda install xarray jupyterlab s3fs hdf5 scipy -y &amp;&amp;\
+  conda install pyproj -y</code></pre>
+<div class="alert alert-block alert-warning">
+<p>Warning: the free-tier EC2 has only 1Gb memory. Make sure to monitor the installation to avoid memory errors. If the installation is aborted due to lack of memory, repeat the installation again to pass the problem or considering install the packages one by one.</p>
+</div>
+<ol type="1">
+<li>An EarthData Login (EDL) account is needed for accessing NASA Eartdata regardless the location of the data, either in the Earthdata cloud or on-premise from DAACs.
+<ol type="1">
+<li>Run the following line in the EC2 terminal: &gt;<code>bash echo "machine urs.earthdata.nasa.gov\n    login your_earthdata_username\n    password your_earthdata_account_password" &gt; ~/.netrc</code></li>
+<li>Use a text editor to replace your_earthdata_username with your EDL username and your_earthdata_account_password with your EDL password. &gt; <code>shell vi ~/.netrc</code></li>
+<li>Change .netrc file permission: &gt;<code>shell chmod 400 ~/.netrc</code> *** ### Advanced approach using “User data” box to install softwares while launching the EC2 (replacing step 3.3)</li>
+</ol></li>
+</ol>
+<p>The following replaces step 3.3, but is not required in this tutorial.</p>
+<p>The system software updates can be done by inserting the following bash script into the “User data” box during the Launch Instance step (Step 2). It replaces Steps 3.3.</p>
+<pre class="shell"><code>#!/bin/bash
+  sudo yum update -y
+  sudo yum install wget -y
+  sudo yum install httpd -y
+  sudo service httpd start</code></pre>
+<hr>
+</section>
+<section id="step-4---set-up-a-jupyter-lab" class="level2">
+<h2 class="anchored" data-anchor-id="step-4---set-up-a-jupyter-lab">Step 4 - Set up a jupyter-lab</h2>
+<p>Jupyterlab is a web-based interactive development environment for python and other languages. It is a perfect tool for accessing the computing resources on an EC2 through SSH tunneling. Jupyterlab and the associated software are install in Step 3. Here is two steps to start and connect to a jupyterlab server on the EC2.</p>
+<ol type="1">
+<li>Use Python to generate and store a hashed password as a shell variable: &gt;</li>
+</ol>
+<pre class="shell"><code>PW="$(python3 -c 'from notebook.auth import passwd; import getpass; print(passwd(getpass.getpass(), algorithm="sha256"))')"</code></pre>
+<ol type="1">
+<li>Start jupyter lab instance with the following parameters: &gt;</li>
+</ol>
+<pre class="shell"><code>jupyter lab --port=9889 --ip='127.0.0.1' --NotebookApp.token='' --NotebookApp.password="$PW" --notebook-dir="$HOME" --no-browser```
+
+1. Access the server through your web browser: http://127.0.0.1:9889/
+
+&lt;div class="alert alert-block alert-success"&gt;
+&lt;b&gt;Optional for convinence&lt;/b&gt; &lt;/br&gt; 
+You can use tmux to start a screen to keep the jupyterlab running on the EC2 even after logging.&lt;/br&gt; 
+
+Detach the screen by pressing CTRL + b -&gt; d. 
+&lt;/div&gt;
+
+
+#### Reference
+
+* https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html#conda
+* https://requests.readthedocs.io/en/master/user/install/
+* https://matplotlib.org/stable/#installation
+* https://shapely.readthedocs.io/en/latest/
+***
+
+## Step 5 - Run the code (this notebook) in the cloud and save the figure
+
+## Data products
+
+1. MEaSURES-SSH version JPL1812
+   - short name: ```SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812```
+   - [landing page](https://podaac.jpl.nasa.gov/dataset/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812) (Newer version is available)
+1. GMSL
+   - short name: ```JPL_RECON_GMSL```
+   - [landing page](https://podaac.jpl.nasa.gov/dataset/JPL_RECON_GMSL)
+1. ECCO global mean sea level (used in the reader's exercise)
+   - short name: `ECCO_L4_GMSL_TIME_SERIES_MONTHLY_V4R4`
+   - [landing page](https://doi.org/10.5067/ECTSM-MSL44)
+
+::: {.cell execution_count=28}
+``` {.python .cell-code}
+#load python modules
+
+import xarray as xr
+import numpy as np
+import pylab as plt
+import pandas as pd
+#Short_name is used to identify a specific dataset in NASA Earthdata. 
+short_name='SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812'</code></pre>
+<p>:::</p>
+</section>
+<section id="the-interface-to-the-aws-simple-storage-service-s3-file-system-stores-all-nasa-earthdata" class="level2">
+<h2 class="anchored" data-anchor-id="the-interface-to-the-aws-simple-storage-service-s3-file-system-stores-all-nasa-earthdata">The interface to the AWS Simple Storage Service (S3) file system (stores all NASA Earthdata)</h2>
+<p>PO.DAAC cloud (POCLOUD) is a part of Earthdata Cloud. The data are hosted in a S3 bucket on AWS US-West-2. “US-West-2” is a term that refers to the AWS center in Oregon. In this case, the so-called ‘Direct-S3 access’ only works on the machines hosted in the US-West-2.</p>
+<p><strong>s3fs</strong> is a pythonic file interface to S3 built on top of <a href="https://github.com/boto/botocore">botocore</a>. s3fs allows typical file-system style operations like cp, mv, ls, du, glob, and put/get of local files to/from S3. Details can be find on its website https://s3fs.readthedocs.io/en/latest/.</p>
+<p>It is important that you set up the <strong>.netrc</strong> file correctly in order to enable the following <em>init_S3FileSystem</em> module. The .netrc file should be placed in your home folder. A typical .netrc file has the following content:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">machine</span> urs.earthdata.nasa.gov</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">login</span> your_earthdata_username</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">password</span> your_earthdata_account_password</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Make sure the permission of the .netrc file is set to 400: <code>chmod 400 ~/.netrc</code></p>
+<p>If you do not have or do not remember your Earthdata Login information, go <a href="https://urs.earthdata.nasa.gov/users/new">here</a> to register or <a href="https://urs.earthdata.nasa.gov/reset_passwords/new">here</a> to reset password.</p>
+<section id="aws-credentials-with-edl" class="level3">
+<h3 class="anchored" data-anchor-id="aws-credentials-with-edl">AWS credentials with EDL</h3>
+<p>AWS requires security credentials to access AWS S3.</p>
+<p>With your EDL, you can obtain a temporay S3 credential through https://archive.podaac.earthdata.nasa.gov/s3credentials. It is a ‘digital key’ to access the Earthdata in AWS cloud. Here is an example:</p>
+<blockquote class="blockquote">
+<p>{“accessKeyId”: “ASIATNGJQBXBOPDTNBBD”, “secretAccessKey”: “odLdojElxfKDU5nw49+hPawe9oKUkR+ZXQqBcs5g”, “sessionToken”: “FwoGZXIvYXdzECgaDB4IzakIEQUrg/N3MiLdASJm6nrFYJ6SCZN5jPlfO4X3NBQTTSwIetjIU1BO0l863AmtL4D/4q8g2HQwgV351qpN3kp1v6yifKRfZ6T1oDtauSTizxnjQ7LislVVaxmwFqqH1oEbu4HKvi+0AmEUSzz2IwcJPgY5L9D8P2N8ccevIwgKLcvkWcIM0zMtp0TRsvdBE0W+NTDxc6RZlCQdclKtvf3jPqreJtigSH/MSePzORwR7FaFxXZYQpXLP+MRNmDMdrDzwFpaZKd9pgCBfnUkAL8w/ub+9WfVjh4lCfNuNUiGNLi2cS9VBeYtKKL16pYGMi17j1gp08JS6p9nD2egc3LyIL2vSIZouhNrJzisZqbLH8yZTq3rCG2pPsPcrFk=”, “expiration”: “2022-07-22 15:56:34+00:00”}</p>
+</blockquote>
+<p>Further reading: https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html</p>
+<div class="cell" data-tags="[]" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_S3FileSystem():</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">    This routine automatically pull your EDL crediential from .netrc file and use it to obtain an AWS S3 credential through a podaac service accessable at https://archive.podaac.earthdata.nasa.gov/s3credentials</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Return:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">    =======</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">    s3: an AWS S3 filesystem</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> requests,s3fs</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    creds <span class="op">=</span> requests.get(<span class="st">'https://archive.podaac.earthdata.nasa.gov/s3credentials'</span>).json()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    s3 <span class="op">=</span> s3fs.S3FileSystem(anon<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                           key<span class="op">=</span>creds[<span class="st">'accessKeyId'</span>],</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                           secret<span class="op">=</span>creds[<span class="st">'secretAccessKey'</span>], </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                           token<span class="op">=</span>creds[<span class="st">'sessionToken'</span>])</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="use-s3fs.glob-to-get-all-file-names" class="level2">
+<h2 class="anchored" data-anchor-id="use-s3fs.glob-to-get-all-file-names">Use s3fs.glob to get all file names</h2>
+<p>The S3FileSystem allows typical file-system style operations like <code>cp, mv, ls, du, glob</code>. Once the s3fs file system is established, we can use ‘glob’ to get all file names from a collection. In this case, the collection S3 path is</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">s3://podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using the following will get a list netcdf filenames:</p>
+<pre><code>fns=s3sys.glob("s3://podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/*.nc")</code></pre>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>s3sys<span class="op">=</span>init_S3FileSystem()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>s3path<span class="op">=</span><span class="st">"s3://podaac-ops-cumulus-protected/</span><span class="sc">%s</span><span class="st">/"</span><span class="op">%</span>short_name</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>fns<span class="op">=</span>s3sys.glob(s3path<span class="op">+</span><span class="st">"*.nc"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fns[<span class="dv">0</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Set the time stamps associated with the files</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>time<span class="op">=</span>pd.date_range(start<span class="op">=</span><span class="st">'1992-10-02'</span>,periods<span class="op">=</span><span class="bu">len</span>(fns),freq<span class="op">=</span><span class="st">'5D'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/ssh_grids_v1812_1992100212.nc</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'There are </span><span class="sc">%i</span><span class="st"> files.'</span><span class="op">%</span><span class="bu">len</span>(fns))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>There are 1922 files.</code></pre>
+</div>
+</div>
+<p>Here is an example file.</p>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span>xr.open_dataset(s3sys.<span class="bu">open</span>(fns[<span class="dv">0</span>]))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt;
+Dimensions:      (Longitude: 2160, nv: 2, Latitude: 960, Time: 1)
+Coordinates:
+  * Longitude    (Longitude) float32 0.08333 0.25 0.4167 ... 359.6 359.8 359.9
+  * Latitude     (Latitude) float32 -79.92 -79.75 -79.58 ... 79.58 79.75 79.92
+  * Time         (Time) datetime64[ns] 1992-10-02T12:00:00
+Dimensions without coordinates: nv
+Data variables:
+    Lon_bounds   (Longitude, nv) float32 -1.388e-17 0.1667 ... 359.8 360.0
+    Lat_bounds   (Latitude, nv) float32 -80.0 -79.83 -79.83 ... 79.83 79.83 80.0
+    Time_bounds  (Time, nv) datetime64[ns] 1992-09-02T12:00:00 1992-11-01T12:...
+    SLA          (Time, Longitude, Latitude) float32 ...
+    SLA_ERR      (Time, Longitude, Latitude) float32 ...
+Attributes: (12/13)
+    Conventions:            CF-1.6
+    ncei_template_version:  NCEI_NetCDF_Grid_Template_v2.0
+    Institution:            Jet Propulsion Laboratory
+    geospatial_lat_min:     -79.916664
+    geospatial_lat_max:     79.916664
+    geospatial_lon_min:     0.083333336
+    ...                     ...
+    time_coverage_start:    1992-10-02
+    time_coverage_end:      1992-10-02
+    date_created:           2019-02-11T20:19:57.736094
+    version_number:         1812
+    summary:                Sea level anomaly grids from altimeter data using...
+    title:                  Sea Level Anormaly Estimate based on Altimeter Data</pre><div class="xr-wrap" hidden=""><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-e0637f4d-8782-43a1-8d42-3395b61af8ca" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-e0637f4d-8782-43a1-8d42-3395b61af8ca" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">Longitude</span>: 2160</li><li><span>nv</span>: 2</li><li><span class="xr-has-index">Latitude</span>: 960</li><li><span class="xr-has-index">Time</span>: 1</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-105bc4b5-59ad-44b3-acfa-217fa191f138" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-105bc4b5-59ad-44b3-acfa-217fa191f138" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">Longitude</span></div><div class="xr-var-dims">(Longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">0.08333 0.25 0.4167 ... 359.8 359.9</div><input id="attrs-724e4857-1e60-436b-96e0-2138639c2a1d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-724e4857-1e60-436b-96e0-2138639c2a1d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3a6e5fa8-bc2f-4c99-ad75-5d6854e9045d" class="xr-var-data-in" type="checkbox"><label for="data-3a6e5fa8-bc2f-4c99-ad75-5d6854e9045d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>point_spacing :</span></dt><dd>even</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>bounds :</span></dt><dd>Lon_bounds</dd></dl></div><div class="xr-var-data"><pre>array([8.333334e-02, 2.500000e-01, 4.166667e-01, ..., 3.595833e+02,
+       3.597500e+02, 3.599167e+02], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">Latitude</span></div><div class="xr-var-dims">(Latitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-79.92 -79.75 ... 79.75 79.92</div><input id="attrs-6a0af456-3e62-40bd-8d87-edf6340f9d67" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6a0af456-3e62-40bd-8d87-edf6340f9d67" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e60a32be-ad0a-47ed-961d-ddea06382338" class="xr-var-data-in" type="checkbox"><label for="data-e60a32be-ad0a-47ed-961d-ddea06382338" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>point_spacing :</span></dt><dd>even</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>bounds :</span></dt><dd>Lat_bounds</dd></dl></div><div class="xr-var-data"><pre>array([-79.916664, -79.75    , -79.583336, ...,  79.583336,  79.75    ,
+        79.916664], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">Time</span></div><div class="xr-var-dims">(Time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">1992-10-02T12:00:00</div><input id="attrs-4fa20c37-2121-4e2b-b48c-074d0536a0e7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4fa20c37-2121-4e2b-b48c-074d0536a0e7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-37b58f02-7c5a-40ff-943b-157c05e897a0" class="xr-var-data-in" type="checkbox"><label for="data-37b58f02-7c5a-40ff-943b-157c05e897a0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>long_name :</span></dt><dd>Time</dd><dt><span>bounds :</span></dt><dd>Time_bounds</dd><dt><span>axis :</span></dt><dd>T</dd></dl></div><div class="xr-var-data"><pre>array(['1992-10-02T12:00:00.000000000'], dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-70c1118d-a172-46a2-8f16-06633bfaa9ac" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-70c1118d-a172-46a2-8f16-06633bfaa9ac" class="xr-section-summary">Data variables: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>Lon_bounds</span></div><div class="xr-var-dims">(Longitude, nv)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-33b10f58-a34b-4dc6-88cb-86c80496639b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-33b10f58-a34b-4dc6-88cb-86c80496639b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e2c748cd-f3bd-472f-b3e9-f680a9a28403" class="xr-var-data-in" type="checkbox"><label for="data-e2c748cd-f3bd-472f-b3e9-f680a9a28403" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>comment :</span></dt><dd>longitude values at the west and east bounds of each pixel.</dd></dl></div><div class="xr-var-data"><pre>array([[-1.387779e-17,  1.666667e-01],
+       [ 1.666667e-01,  3.333333e-01],
+       [ 3.333333e-01,  5.000000e-01],
+       ...,
+       [ 3.595000e+02,  3.596667e+02],
+       [ 3.596667e+02,  3.598333e+02],
+       [ 3.598333e+02,  3.600000e+02]], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Lat_bounds</span></div><div class="xr-var-dims">(Latitude, nv)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-74efffef-e6d7-4a08-be74-d75384b1165b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-74efffef-e6d7-4a08-be74-d75384b1165b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1f379dfa-8623-496f-9d2b-246fc9197cdd" class="xr-var-data-in" type="checkbox"><label for="data-1f379dfa-8623-496f-9d2b-246fc9197cdd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>comment :</span></dt><dd>latitude values at the north and south bounds of each pixel.</dd></dl></div><div class="xr-var-data"><pre>array([[-80.      , -79.833336],
+       [-79.833336, -79.666664],
+       [-79.666664, -79.5     ],
+       ...,
+       [ 79.5     ,  79.666664],
+       [ 79.666664,  79.833336],
+       [ 79.833336,  80.      ]], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Time_bounds</span></div><div class="xr-var-dims">(Time, nv)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-7080da48-abd6-45fe-a83b-3e6c769bf887" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7080da48-abd6-45fe-a83b-3e6c769bf887" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ef87ab7c-40a0-4b20-b848-2f17ea2b70ef" class="xr-var-data-in" type="checkbox"><label for="data-ef87ab7c-40a0-4b20-b848-2f17ea2b70ef" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>comment :</span></dt><dd>Time bounds for each time value, same value as time variable. The time variable is defined on points instead of on bounding boxes.</dd></dl></div><div class="xr-var-data"><pre>array([['1992-09-02T12:00:00.000000000', '1992-11-01T12:00:00.000000000']],
+      dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>SLA</span></div><div class="xr-var-dims">(Time, Longitude, Latitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-80f0ccfc-91b4-4740-90dd-8f3011193b81" class="xr-var-attrs-in" type="checkbox"><label for="attrs-80f0ccfc-91b4-4740-90dd-8f3011193b81" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fb3360ab-d6d6-4671-97fd-c8182f2b5e51" class="xr-var-data-in" type="checkbox"><label for="data-fb3360ab-d6d6-4671-97fd-c8182f2b5e51" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>m</dd><dt><span>long_name :</span></dt><dd>Sea Level Anomaly Estimate</dd><dt><span>standard_name :</span></dt><dd>sea_surface_height_above_sea_level</dd><dt><span>alias :</span></dt><dd>sea_surface_height_above_sea_level</dd></dl></div><div class="xr-var-data"><pre>[2073600 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>SLA_ERR</span></div><div class="xr-var-dims">(Time, Longitude, Latitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1141b974-dbfd-4c3b-85cd-b314588caa8d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1141b974-dbfd-4c3b-85cd-b314588caa8d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-aedb483b-ca43-4bfc-970a-c92d1aab4976" class="xr-var-data-in" type="checkbox"><label for="data-aedb483b-ca43-4bfc-970a-c92d1aab4976" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>m</dd><dt><span>long_name :</span></dt><dd>Sea Level Anomaly Error Estimate</dd></dl></div><div class="xr-var-data"><pre>[2073600 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-300fd59c-bb1f-443a-ae16-ee2c90efdaec" class="xr-section-summary-in" type="checkbox"><label for="section-300fd59c-bb1f-443a-ae16-ee2c90efdaec" class="xr-section-summary">Attributes: <span>(13)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6</dd><dt><span>ncei_template_version :</span></dt><dd>NCEI_NetCDF_Grid_Template_v2.0</dd><dt><span>Institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>geospatial_lat_min :</span></dt><dd>-79.916664</dd><dt><span>geospatial_lat_max :</span></dt><dd>79.916664</dd><dt><span>geospatial_lon_min :</span></dt><dd>0.083333336</dd><dt><span>geospatial_lon_max :</span></dt><dd>359.91666</dd><dt><span>time_coverage_start :</span></dt><dd>1992-10-02</dd><dt><span>time_coverage_end :</span></dt><dd>1992-10-02</dd><dt><span>date_created :</span></dt><dd>2019-02-11T20:19:57.736094</dd><dt><span>version_number :</span></dt><dd>1812</dd><dt><span>summary :</span></dt><dd>Sea level anomaly grids from altimeter data using Kriging interpolation, which gives best linear prediction based upon prior knowledge of covariance. </dd><dt><span>title :</span></dt><dd>Sea Level Anormaly Estimate based on Altimeter Data</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+<section id="plot-an-example" class="level3">
+<h3 class="anchored" data-anchor-id="plot-an-example">Plot an example</h3>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">7</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.contourf(d[<span class="st">'Longitude'</span>],d[<span class="st">'Latitude'</span>],d[<span class="st">'SLA'</span>][<span class="dv">0</span>,...].T,levels<span class="op">=</span>np.arange(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.6</span>,<span class="fl">0.05</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitude'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Sea Level Anomaly </span><span class="sc">%s</span><span class="st">'</span><span class="op">%</span>d.time_coverage_start)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>Text(0.5, 1.0, 'Sea Level Anomaly 1992-10-02')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="calculate-the-global-mean-ssha" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-the-global-mean-ssha">Calculate the global mean SSHA</h2>
+<p>The global mean SSH is calculated as follows.</p>
+<p><span class="math inline">\(SSH_{mean} = \sum \eta(\phi,\lambda)*A(\phi)\)</span>, where <span class="math inline">\(\phi\)</span> is latitude, <span class="math inline">\(\lambda\)</span> is longitude, <span class="math inline">\(A\)</span> is the area of the grid at latitude <span class="math inline">\(\phi\)</span>, and <span class="math inline">\(\eta(\phi,\lambda)*A(\phi)\)</span> is the weighted SLA at <span class="math inline">\((\phi,\lambda)\)</span>.</p>
+<p>The following routine <code>area</code> pre-calculates the area as a function of latitude for the 1/6-degree resolution grids.</p>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area(lats):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculate the area associated with a 1/6 by 1/6 degree box at latitude specified in 'lats'. </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameter</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">    ==========</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">    lats: a list or numpy array of size N</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">          the latitudes of interest. </span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Return</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">    =======</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">    out: Array (N)</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">         area values (unit: m^2)</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Modules:</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> pyproj <span class="im">import</span> Geod</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Define WGS84 as CRS:</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    geod <span class="op">=</span> Geod(ellps<span class="op">=</span><span class="st">'WGS84'</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    dx<span class="op">=</span><span class="dv">1</span><span class="op">/</span><span class="fl">12.0</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    c_area<span class="op">=</span><span class="kw">lambda</span> lat: geod.polygon_area_perimeter(np.r_[<span class="op">-</span>dx,dx,dx,<span class="op">-</span>dx], lat<span class="op">+</span>np.r_[<span class="op">-</span>dx,<span class="op">-</span>dx,dx,dx])[<span class="dv">0</span>]</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    out<span class="op">=</span>[]</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> lat <span class="kw">in</span> lats:</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        out.append(c_area(lat))</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(out)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> global_mean(fn_s3,s3sys,ssh_area):</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculate the global mean given an s3 file of SSH, a s3fs.S3FileSystem, </span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="co">    and the ssh_area, which is precalculated to save computing time. </span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameter:</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co">    ===========</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co">    fn_s3: S3 file name, e.g., s3://podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/ssh_grids_v1812_1992100212.nc</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="co">    s3sys: generated by s3fs.S3FileSystem</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="co">    ssh_area: the area size associated with MEaSURES-SSH 1/6-degree resolution product. </span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="co">    Return</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="co">    =======</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="co">    dout: scalar</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="co">          The global mean sea level (default unit from MEaSURES-SSH: meter)</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> xr.open_dataset(s3sys.<span class="bu">open</span>(fn_s3))[<span class="st">'SLA'</span>] <span class="im">as</span> d:</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>        dout<span class="op">=</span>((d<span class="op">*</span>ssh_area).<span class="bu">sum</span>()<span class="op">/</span>(d<span class="op">/</span>d<span class="op">*</span>ssh_area).<span class="bu">sum</span>()).values</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span>xr.open_dataset(s3sys.<span class="bu">open</span>(fns[<span class="dv">0</span>]))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pre-calculate the area for reuse</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ssh_area<span class="op">=</span>area(d.Latitude.data).reshape(<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The global mean sea level from </span><span class="sc">%s</span><span class="st"> is </span><span class="sc">%7.5f</span><span class="st"> meters.'</span><span class="op">%</span>(fns[<span class="dv">0</span>],global_mean(fns[<span class="dv">0</span>],s3sys,ssh_area) ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The global mean sea level from podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/ssh_grids_v1812_1992100212.nc is -0.00632 meters.</code></pre>
+</div>
+</div>
+</section>
+<section id="demonstrate-using-a-single-thread" class="level2">
+<h2 class="anchored" data-anchor-id="demonstrate-using-a-single-thread">Demonstrate using a single thread</h2>
+<div class="alert alert-block alert-success">
+<p>Benchmark: using a single thread takes about 17 min to calculate all 1922 files. Here the program is sped up by skipping every 360 days (72 steps). The small EC2 can handle the computation because it involves one file per step.</p>
+</div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Loop 26-year 5-daily SSH fields (1922 files)</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Skip every 72 files to speed up</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>result<span class="op">=</span>[]</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>t_local<span class="op">=</span>time[::<span class="dv">72</span>]</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn <span class="kw">in</span> fns[::<span class="dv">72</span>]:</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    result.append(global_mean(fn,s3sys,ssh_area)<span class="op">*</span><span class="fl">1e3</span> )</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>result<span class="op">=</span>np.array(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 4.35 s, sys: 1.26 s, total: 5.61 s
+Wall time: 45 s</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> linregress</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">5</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.plot(t_local,result<span class="op">-</span><span class="dv">10</span>,<span class="st">'r-o'</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>tyr<span class="op">=</span>(t_local<span class="op">-</span>t_local[<span class="dv">0</span>])<span class="op">/</span>np.timedelta64(<span class="dv">1</span>,<span class="st">'Y'</span>) <span class="co">#convert the number of years</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>msk<span class="op">=</span>np.isnan(result)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>tyr<span class="op">=</span>tyr[<span class="op">~</span>msk]</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>result<span class="op">=</span>result[<span class="op">~</span>msk]</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate the linear trend using linear regression `linregress`</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>rate<span class="op">=</span>linregress(tyr[<span class="dv">1</span>:],result[<span class="dv">1</span>:]) </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The estimated sea level rise rate between 1993 and 2018: </span><span class="sc">%5.1f</span><span class="st">mm/year.'</span><span class="op">%</span>(rate[<span class="dv">0</span>]) )</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>plt.text(t_local[<span class="dv">0</span>],<span class="dv">10</span>, <span class="st">'Linear trend: </span><span class="sc">%5.1f</span><span class="st">mm/year'</span><span class="op">%</span>(rate[<span class="dv">0</span>]),fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time (year)'</span>,fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Global Mean SLA (mm)'</span>,fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The estimated sea level rise rate between 1993 and 2018:   2.5mm/year.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="alert alert-block alert-success">
+<p><b>Quiz</b> <br> The global sea level trend from altimetry should be 3.0mm/year. Why did we get 2.5mm/year from the above analysis? Can you get 3.0mm/year by modifying the above code?</p>
+<p><b>Hint</b>: The above analysis is aliased.</p>
+</div>
+<section id="add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl">Add the GMSL from Frederikse et al.&nbsp;https://podaac.jpl.nasa.gov/dataset/JPL_RECON_GMSL</h3>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> linregress</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">5</span>))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>plt.plot(t_local,result<span class="op">-</span><span class="dv">10</span>,<span class="st">'r-o'</span>,label<span class="op">=</span><span class="st">'altimetry'</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time (year)'</span>,fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Global Mean SLA (meter)'</span>,fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add GMSL from </span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>d1<span class="op">=</span>xr.open_dataset(<span class="st">'https://opendap.jpl.nasa.gov/opendap/allData/homage/L4/gmsl/global_timeseries_measures.nc'</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(d1)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>d1[<span class="st">'global_average_sea_level_change'</span>].plot(label<span class="op">=</span><span class="st">'in-situ'</span>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'gmsl.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt;
+Dimensions:                                             (time: 119)
+Coordinates:
+  * time                                                (time) datetime64[ns] ...
+Data variables: (12/21)
+    global_average_sea_level_change                     (time) float32 ...
+    global_average_sea_level_change_upper               (time) float32 ...
+    global_average_sea_level_change_lower               (time) float32 ...
+    glac_mean                                           (time) float32 ...
+    glac_upper                                          (time) float32 ...
+    glac_lower                                          (time) float32 ...
+    ...                                                  ...
+    global_average_thermosteric_sea_level_change        (time) float32 ...
+    global_average_thermosteric_sea_level_change_upper  (time) float32 ...
+    global_average_thermosteric_sea_level_change_lower  (time) float32 ...
+    sum_of_contrib_processes_mean                       (time) float32 ...
+    sum_of_contrib_processes_upper                      (time) float32 ...
+    sum_of_contrib_processes_lower                      (time) float32 ...
+Attributes: (12/42)
+    title:                     Global sea-level changes and contributing proc...
+    summary:                   This file contains reconstructed global-mean s...
+    id:                        10.5067/GMSLT-FJPL1
+    naming_authority:          gov.nasa.jpl
+    source:                    Frederikse et al. The causes of sea-level rise...
+    project:                   NASA sea-level change science team (N-SLCT)
+    ...                        ...
+    time_coverage_start:       1900-01-01
+    time_coverage_end:         2018-12-31
+    time_coverage_duration:    P119Y
+    time_coverage_resolution:  P1Y
+    date_created:              2020-07-28
+    date_modified:             2020-09-14</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="alert alert-block alert-success">
+<p><b>Quiz</b> <br> The global sea level trend from tide-gauge reconstruction (3.5mm/year) is steeper than altimetry-based analysis (3.0mm/year). Why is that?</p>
+<p><b>Hint</b>: Altimetry-based analysis does not consider vertical land motion.</p>
+</div>
+</section>
+</section>
+<section id="step-6-run-an-apache-web-server-to-show-the-result" class="level2">
+<h2 class="anchored" data-anchor-id="step-6-run-an-apache-web-server-to-show-the-result">Step 6 – Run an apache web server to show the result</h2>
+<p>Because the EC2 was set up to allow HTTPS traffic, we can setup a simple website to host the GMSL result. This simple website should be an illustration using an EC2 to streamline a web application. You can set up a <strong>cron</strong> job to establish auto-update of the result.</p>
+<p>From your EC2 command line, install apache webserver:</p>
+<blockquote class="blockquote">
+
+</blockquote>
+<pre class="shell"><code>sudo yum install httpd -y</code></pre>
+<p>Start the server and auto-start when stopped</p>
+<blockquote class="blockquote">
+
+</blockquote>
+<pre class="shell"><code>sudo service httpd start</code></pre>
+<p>Copy and paste the following code to make a webpage <code>index.html</code></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;center&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h1</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:30px"</span><span class="kw">&gt;</span>The global mean sea level <span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h2</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:20px"</span><span class="kw">&gt;</span>Hosted on my personal AWS EC2<span class="kw">&lt;/h2&gt;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">"gmsl.png"</span> <span class="er">alt</span><span class="ot">=</span><span class="st">"Global Mean Sea Level"</span> <span class="er">width</span><span class="ot">=</span><span class="st">"700"</span><span class="kw">&gt;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h1</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:20px"</span><span class="kw">&gt;</span>Diagnosed from MEaSURES-SSH (red) and JPL_RECON_GMSL (blue)<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h1</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:20px"</span><span class="kw">&gt;</span>Earthdata webinar, 07/27/2022<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h1</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:20px;color=purple"</span><span class="kw">&gt;</span>Cloud-based analysis is fun!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://chucktownfloods.cofc.edu/wp-content/uploads/2019/07/Earthdata-Logo.jpg"</span> <span class="er">width</span><span class="ot">=</span><span class="st">"200"</span><span class="kw">&gt;</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/center&gt;</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Move <code>index.html</code> to the default location <code>/var/www/html/</code> using &gt;</p>
+<pre class="shell"><code>sudo cp index.html /var/www/html/</code></pre>
+<p>Make sure to use <code>cp</code> not <code>mv</code> to change the ownership to <code>root</code>. Note, it is the default but not the good practice to use root for this. We use it to simplify the tutorial.</p>
+<p>Copy <code>gmsl.png</code> into <code>/var/www/html/</code>.</p>
+<blockquote class="blockquote">
+<p>```shell sudo cp gmsl.png /var/www/html/</p>
+</blockquote>
+<p>Access the webpage through the EC2 IP address from browser.</p>
+<hr>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li>Online materials for using AWS cloud and Eararthdata are abundant but often oranized by topics.</li>
+<li>Here we focus on building a simple workflow from scratch to show how in-cloud analysis can be achieved with minimal knowledge of AWS cloud</li>
+<li>By repeating these steps, one is anticipated to learn the basic concepts of AWS and in-cloud analysis as well as PODAAC/Earthdata cloud.</li>
+</ul>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<ul>
+<li>Apply cloud-computing is not difficult, but finding the right path is.</li>
+<li>Relying on free AWS account linked to personal finance is not sustainable. The community needs a clear official instruction on the channels of getting supported.</li>
+<li>Support for small-size proposals are needed to advance cloud computing from early adopters to mainstream.</li>
+</ul>
+</section>
+<section id="lesson-learned" class="level3">
+<h3 class="anchored" data-anchor-id="lesson-learned">Lesson Learned</h3>
+<ul>
+<li>Learn as a group
+<ul>
+<li>Small-size ‘coding-clubs’ with scienists and engineers is helpful to solve problems faster.</li>
+</ul></li>
+<li>Start from basics</li>
+<li>Learn cloud by solving a practical problem, for example:
+<ul>
+<li>I would like to analyze global mean sea level in the cloud</li>
+<li>I would like to build a regional sea level rise indictor in the cloud and host the result realtime through a website</li>
+<li>I would like to build a notebook to show diverse satellite and in-situ data to support a field campaign in realtime.</li>
+</ul></li>
+<li>Restricted cyber environment needs more attention to the Virtual Private Cloud (VPC) configuration. (We wasted many months on this item.)</li>
+</ul>
+</section>
+<section id="future-development-stay-tuned" class="level3">
+<h3 class="anchored" data-anchor-id="future-development-stay-tuned">Future development (stay tuned)</h3>
+<ul>
+<li>Scale-up analysis in the cloud
+<ul>
+<li>AWS Lambda</li>
+<li>AWS Batch</li>
+<li>AWS HPC</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://github.com/podaac/the-coding-club/blob/main/notebooks/MEaSUREs-SSH-dask.ipynb">Use Dask to speed up the computation</a></li>
+<li><a href="https://github.com/podaac/the-coding-club/blob/main/notebooks/Compute_ECCO_global_mean_SSH.ipynb">Calculate the global mean sea level from ECCO</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../quarto_text/Webinars.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Webinars</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../quarto_text/TechGuides.html" class="pagination-link">
+        <span class="nav-page-text">Tech Guides</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
