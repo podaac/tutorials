@@ -21,15 +21,30 @@ Find/download [simulated SWOT data on Earthdata Search](https://search.earthdata
 
 [Search programmatically with unique Hydrologic Unit Code (HUC) basin ID](../notebooks/HUC Feature Translation Service Examples-updated-20210804.ipynb)
 
-### Download/subscribe
+### Download/Subscribe
 
-PO.DAAC subscriber/downloader examples - *coming soon*
+PO.DAAC subscriber/downloader examples: For more information, see [https://github.com/podaac/data-subscriber](https://github.com/podaac/data-subscriber)
+
+    *Hydrology: In the command line, these examples will download either the river vector files or the raster files for a location in Texas with multiple passes:* 
+    ```
+    podaac-data-downloader -c SWOT_SIMULATED_NA_CONTINENT_L2_HR_RiverSP_V1 -d ./SWOT_SIMULATED_NA_CONTINENT_L2_HR_RiverSP_V1 -start-date 2022-08-02T00:00:00Z --end-date 2022-08-22T00:00:00Z -b="-97,32.5,-96.5,33"
+    ```
+    
+    ```
+    podaac-data-downloader -c SWOT_SIMULATED_NA_CONTINENT_L2_HR_Raster_V1 -d ./SWOT_SIMULATED_NA_CONTINENT_L2_HR_Raster_V1 --start-date 2022-08-02T00:00:00Z --end-date 2022-08-22T00:00:00Z -b="-97,32.5,-96.5,33"
+    ```
+
+    *Oceanography: In the command line, this example will download modeled sea surface heights:*
+    
+    ```
+    podaac-data-subscriber -c SWOT_SIMULATED_L2_KARIN_SSH_GLORYS_CALVAL_V1 -d ./data/SWOT_SIMULATED_L2_KARIN_SSH_GLORYS_CALVAL_V1 --start-date 2014-04-12T12:00:00Z`
+    ```
 
 ### In-cloud Access
 
 [Access sample SWOT Hydrology data in the cloud](../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.ipynb)
 
-Access sample SWOT Oceanography data in the cloud - *coming soon*
+[Access sample SWOT Oceanography data in the cloud](../external/Direct_Access_SWOT_sim_Oceanography.ipynb) - *coming soon*
 
 ### GIS workflows
 
