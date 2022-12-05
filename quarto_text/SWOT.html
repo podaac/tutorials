@@ -159,8 +159,10 @@ ul.task-list li input[type="checkbox"] {
       </ul>
   </li>
           <li class="sidebar-item">
-  Download/Subscribe
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../quarto_text/SWOT.html#downloadsubscribe" class="sidebar-item-text sidebar-link">Download/Subscribe</a>
+  </div>
+</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">In-cloud Access</a>
@@ -389,7 +391,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#swot-data-resources-tutorials" id="toc-swot-data-resources-tutorials" class="nav-link" data-scroll-target="#swot-data-resources-tutorials">SWOT Data Resources &amp; Tutorials</a>
   <ul class="collapse">
   <li><a href="#search" id="toc-search" class="nav-link" data-scroll-target="#search">Search</a></li>
-  <li><a href="#downloadsubscribe" id="toc-downloadsubscribe" class="nav-link" data-scroll-target="#downloadsubscribe">Download/subscribe</a></li>
+  <li><a href="#downloadsubscribe" id="toc-downloadsubscribe" class="nav-link" data-scroll-target="#downloadsubscribe">Download/Subscribe</a></li>
   <li><a href="#in-cloud-access" id="toc-in-cloud-access" class="nav-link" data-scroll-target="#in-cloud-access">In-cloud Access</a></li>
   <li><a href="#gis-workflows" id="toc-gis-workflows" class="nav-link" data-scroll-target="#gis-workflows">GIS workflows</a></li>
   <li><a href="#transform" id="toc-transform" class="nav-link" data-scroll-target="#transform">Transform</a></li>
@@ -442,13 +444,27 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="../notebooks/HUC Feature Translation Service Examples-updated-20210804.html">Search programmatically with unique Hydrologic Unit Code (HUC) basin ID</a></p>
 </section>
 <section id="downloadsubscribe" class="level3">
-<h3 class="anchored" data-anchor-id="downloadsubscribe">Download/subscribe</h3>
-<p>PO.DAAC subscriber/downloader examples - <em>coming soon</em></p>
+<h3 class="anchored" data-anchor-id="downloadsubscribe">Download/Subscribe</h3>
+<p>PO.DAAC subscriber/downloader examples: For more information, see <a href="https://github.com/podaac/data-subscriber">https://github.com/podaac/data-subscriber</a></p>
+<pre><code>*Hydrology: In the command line, these examples will download either the river vector files or the raster files for a location in Texas with multiple passes:* 
+```
+podaac-data-downloader -c SWOT_SIMULATED_NA_CONTINENT_L2_HR_RiverSP_V1 -d ./SWOT_SIMULATED_NA_CONTINENT_L2_HR_RiverSP_V1 -start-date 2022-08-02T00:00:00Z --end-date 2022-08-22T00:00:00Z -b="-97,32.5,-96.5,33"
+```
+
+```
+podaac-data-downloader -c SWOT_SIMULATED_NA_CONTINENT_L2_HR_Raster_V1 -d ./SWOT_SIMULATED_NA_CONTINENT_L2_HR_Raster_V1 --start-date 2022-08-02T00:00:00Z --end-date 2022-08-22T00:00:00Z -b="-97,32.5,-96.5,33"
+```
+
+*Oceanography: In the command line, this example will download modeled sea surface heights:*
+
+```
+podaac-data-subscriber -c SWOT_SIMULATED_L2_KARIN_SSH_GLORYS_CALVAL_V1 -d ./data/SWOT_SIMULATED_L2_KARIN_SSH_GLORYS_CALVAL_V1 --start-date 2014-04-12T12:00:00Z`
+```</code></pre>
 </section>
 <section id="in-cloud-access" class="level3">
 <h3 class="anchored" data-anchor-id="in-cloud-access">In-cloud Access</h3>
 <p><a href="../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.html">Access sample SWOT Hydrology data in the cloud</a></p>
-<p>Access sample SWOT Oceanography data in the cloud - <em>coming soon</em></p>
+<p><a href="../external/Direct_Access_SWOT_sim_Oceanography.html">Access sample SWOT Oceanography data in the cloud</a> - <em>coming soon</em></p>
 </section>
 <section id="gis-workflows" class="level3">
 <h3 class="anchored" data-anchor-id="gis-workflows">GIS workflows</h3>
