@@ -1,0 +1,64 @@
+---
+title: podaac-data-subscriber NetCDF to Geotiff Conversion
+---
+*Author: Jack McNelis, PO.DAAC*
+
+### Summary 
+
+The following workflow extracts a single variable of interest (water surface elevation (wse)) from the SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1 and writes the original raster netCDF it to a geotiff via the [podaac-data-subscriber tool](https://github.com/podaac/data-subscriber).
+
+### Requirements
+
+1. This tutorial can be run in the following environments:
+
+- **AWS instance running in us-west-2**: NASA Earthdata Cloud data in S3 can be directly accessed via temporary credentials; this access is limited to requests made within the US West (Oregon) (code: `us-west-2`) AWS region.
+- **Local compute environment** e.g. laptop, server: this tutorial can be run on your local machine
+
+2. Earthdata Login - An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit [https://urs.earthdata.nasa.gov](https://urs.earthdata.nasa.gov) to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.
+
+3. netrc File - You will need a `.netrc` file containing your NASA Earthdata Login credentials in order to execute the notebooks. A `.netrc` file can be created manually within text editor and saved to your home directory. For additional information see: [Authentication for NASA Earthdata tutorial](https://nasa-openscapes.github.io/2021-Cloud-Workshop-AGU/tutorials/02_NASA_Earthdata_Authentication.html).
+
+### Learning Objectives
+
+- Use the "--process" option in the podaac-data-subscriber 
+- Convert netCDF files to geotiff files using `gdalmdimtranslate` in a bash script
+
+### Create a Bach Script
+
+Inside a bash script entitled, `test.sh`, set up the following command which calls `gdalmdimtranslate` to write the wse variable in the downloaded netcdf file to a new geotiff in the same directory:
+
+```
+#!/bin/bash
+gdalmdimtranslate \
+	-of "GTiff" \
+	-co "COMPRESS=LZW" \
+	-array "wse" \
+	${1} $(basename $1 | sed 's/.nc/.wse.tif/g')
+```
+
+### Call the Data Subscriber
+Then, after installing the podaac-data-subscriber package, write the following command in your terminal that uses the podaac-data-subscriber to run the bash script:
+
+```
+podaac-data-downloader -c SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1 -d ~/test_podaac/ -sd 2022-08-22T19:30:00Z -ed 2022-08-22T19:35:00Z --process "${PWD}/test.sh"
+```
+
+**Listed Results from the above command should be as follows:**
+
+```
+$ ls
+SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.nc
+SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.wse.tif
+SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_051F_20220822T193010_20220822T193031_Dx0000_01.nc
+SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_051F_20220822T193010_20220822T193031_Dx0000_01.wse.tif
+SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_052F_20220822T193030_20220822T193051_Dx0000_01.nc
+SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_052F_20220822T193030_20220822T193051_Dx0000_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.nc
+SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_051F_20220822T193010_20220822T193031_Dx0000_01.nc
+SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_051F_20220822T193010_20220822T193031_Dx0000_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_052F_20220822T193030_20220822T193051_Dx0000_01.nc
+SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_052F_20220822T193030_20220822T193051_Dx0000_01.wse.tif
+SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1.citation.txt
+test.sh
+```
