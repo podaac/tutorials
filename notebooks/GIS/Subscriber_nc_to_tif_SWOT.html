@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -513,17 +576,17 @@ ul.task-list li input[type="checkbox"] {
 <section id="create-a-bach-script" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-bach-script">Create a Bach Script</h3>
 <p>Inside a bash script entitled, <code>test.sh</code>, set up the following command which calls <code>gdalmdimtranslate</code> to write the wse variable in the downloaded netcdf file to a new geotiff in the same directory:</p>
-<pre><code>#!/bin/bash
-gdalmdimtranslate \
-    -of "GTiff" \
-    -co "COMPRESS=LZW" \
-    -array "wse" \
-    ${1} $(basename $1 | sed 's/.nc/.wse.tif/g')</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gdalmdimtranslate</span> <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-of</span> <span class="st">"GTiff"</span> <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-co</span> <span class="st">"COMPRESS=LZW"</span> <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-array</span> <span class="st">"wse"</span> <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">${1}</span> <span class="va">$(</span><span class="fu">basename</span> <span class="va">$1</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/.nc/.wse.tif/g'</span><span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="call-the-data-subscriber" class="level3">
 <h3 class="anchored" data-anchor-id="call-the-data-subscriber">Call the Data Subscriber</h3>
 <p>Then, after installing the podaac-data-subscriber package, write the following command in your terminal that uses the podaac-data-subscriber to run the bash script:</p>
-<pre><code>podaac-data-downloader -c SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1 -d ~/test_podaac/ -sd 2022-08-22T19:30:00Z -ed 2022-08-22T19:35:00Z --process "${PWD}/test.sh"</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1 <span class="at">-d</span> ~/test_podaac/ <span class="at">-sd</span> 2022-08-22T19:30:00Z <span class="at">-ed</span> 2022-08-22T19:35:00Z <span class="at">--process</span> <span class="st">"</span><span class="va">${PWD}</span><span class="st">/test.sh"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Listed Results from the above command should be as follows:</strong></p>
 <pre><code>$ ls
 SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.nc
