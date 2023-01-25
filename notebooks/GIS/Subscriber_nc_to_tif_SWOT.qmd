@@ -27,7 +27,7 @@ The following workflow extracts a single variable of interest (water surface ele
 
 Inside a bash script entitled, `test.sh`, set up the following command which calls `gdalmdimtranslate` to write the wse variable in the downloaded netcdf file to a new geotiff in the same directory:
 
-```
+``` bash
 #!/bin/bash
 gdalmdimtranslate \
 	-of "GTiff" \
@@ -39,7 +39,7 @@ gdalmdimtranslate \
 ### Call the Data Subscriber
 Then, after installing the podaac-data-subscriber package, write the following command in your terminal that uses the podaac-data-subscriber to run the bash script:
 
-```
+``` bash
 podaac-data-downloader -c SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1 -d ~/test_podaac/ -sd 2022-08-22T19:30:00Z -ed 2022-08-22T19:35:00Z --process "${PWD}/test.sh"
 ```
 

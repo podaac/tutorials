@@ -9,23 +9,77 @@ These instructions are for anyone that would like to contribute tutorials that u
 Added content will only be accepted if it follows these guidlines:
 
 - For Jupyter Notebook Tutorials, follow [this template](../notebooks/Tutorials_TEMPLATE.ipynb) as a standard.
-- For tutorials outside of Jupyter Notebooks, the format must have the following sections: `add sections from above template`
+- For tutorials outside of Jupyter Notebooks, the format must have the following sections: 
+    - Title
+    - Author Name/Affiliation
+    - Summary
+    - Requirements (the compute environment used, requirements to run the notebook (needed packages etc.))
+    - Learning Objectives
 - The tutorial must be tested successfully and reviewed by a PO.DAAC member non-author. (This will be done before merging the pull request.)
 
 ## Instructions for PO.DAAC Contributors *- in progress, coming soon*
 
-#### Cookbook Structure
- - How Quarto Works
- 
-#### How to Add/Edit Written Cookbook Content
- - Tips for previewing! add quarto preview instructions
- - format for Dataset Specific Examples
+### How the Cookbook was Built
 
-#### How to Add Tutorials
+The PO.DAAC Cookbook is built using [Quarto](https://quarto.org/). To build this particular Quarto book, we used [these instructions](https://openscapes.github.io/quarto-website-tutorial/) from NASA Openscapes. It's a Quarto book tutorial on how to copy (fork or download) an existing Quarto website like this one and adapt it for your own uses. 
+ 
+### Setting up your Work Station
+
+Admittedly, there are many ways to set up your work station to effectively accomplish contributing to or editing the PO.DAAC Cookbook quarto website. The following are my (Cassie's) methods that I have found to be the most effective for me. 
+
+**1. Creat a GitHub Account** - If you do not have one already, create a GitHub account here: [https://github.com/](https://github.com/). 
+
+**2. Join a team on the podaac repository** - Once you have a GitHub account, in the podaac repository, request to join the PO.DAAC team that best suits your position [here](https://github.com/orgs/podaac/teams). This will give you the permissions required to contribute as a PO.DAAC Member.
+
+**3. Set Up your Coding Workspace** - On a local machine, I tend to deploy [Jupyter Lab](https://jupyter.org/install) (where I do most of my coding) from [Anaconda Navigator](https://docs.anaconda.com/navigator/index.html). RStudio, VS Code, etc. could also work, depending on which you prefer. The workflow would also work on a cloud environment, where I also tend to use the Jupyter Lab interface.
+
+**4. Install Quarto** - download and install [Quarto's latest version here](https://quarto.org/docs/get-started/).
+
+**5. Pick your Prefered Method to Interface with GitHub in your Workspace** - [GitHub Desktop](https://desktop.github.com/) makes it easy for me to track my changes and create Pull Requests without needing to remember commands in a the command line interface. If you prefer to use the command line, this is a comprehensive and maintained [list of git commands](https://github.com/k88hudson/git-flight-rules) that may be useful.
+
+**6. Clone the podaac/tutorials GitHub Repository** - Instructions to do this are in the [Tech Guides Section](TechGuides.qmd#cloning-this-github-repository) of this Cookbook. I usually use GitHub Desktop.
+
+**7. If you've completed the above, you should have all the necessary ingredients to contribute to the PO.DAAC Cookbook!**
+
+### Tutorials Repository Organization *- coming soon*
+
+### How to Add/Edit Cookbook Content
+
+**1. Create a New Branch in GitHub** - In a GitHub repository, the main source of code for that repo is deployed in what is called the "Master" branch. This is the branch that the PO.DAAC Cookbook is rendered from. To edit, creating a new branch is important so changes are not overwritten on the master branch if another individual is working on the same file as you. It helps to have your own branch to work on (named however you like) to make changes and then merge those changes with the master branch after changes are done. After merging, it is common practice to delete the branch you created. I like to create a new branch from GitHub Desktop like so:
+
+![](../images/GitHub_Desktop_New_Branch.png){fig-alt="Screenshots of how to create a New Branch Using GitHub Desktop" fig-align="center" width="80%"}
+
+**2. Navigate to the tutorials Folder in your Coding Workspace** - once you've created a new branch, any code you modify in your coding workspace from the repository you cloned should have tracked changes in your new branch. You can open any file in the tutorials folder and start editing! Here is what my Jupyter Lab workspace looks like:
+
+![](../images/Editing_workspace.png){fig-alt="Screenshot of Jupyter Lab Editing Setup" fig-align="center" width="80%"}
+
+**3. Tip for Previewing Changes in the Cookbook** - To implement changes in the actual Cookbook, usually those changes need to be committed to your new branch and pulled into the master branch using a Pull Request (outlined below). Most of the time though, it is nice to see what your changes would look like visually in the Cookbook before you commit to them. To open up a preview page of the cookbook from your workspace, open up the terminal and change the directory to your tutorials folder location. Once there, type in `quarto preview` and another tab should open up in your browser that changes every time you save a change to your files. Here is a screenshot of my terminal opening the preview session:
+
+![](../images/quarto_preview.png){fig-alt="Screenshot of quarto preview command in terminal" fig-align="center" width="80%"}
+
+Note: the warnings about external files are fine. We do not host the external files in our repo, but link to them from other repos around GitHub, so they will not be rendered in the preview session. They will render in the actual Cookbook when your branch is merged with the master branch.
+
+**4. Open the File you Wish to Edit** - Most text within the Cookbook can be found in a .qmd file within the `quarto_text` folder
+
+**5. Make Edits** - GitHub should track your changes automatically. For example below, I have opened the 'Contribute.qmd' file in my Jupyter Lab and in the GitHub Desktop application, it shows all of the changes I have made in green and the old version in red. Here, I changed the text describing tutorial guidelines.
+
+![](../images/Editing_qmd_files.png){fig-alt="Screenshot of quarto preview command in terminal" fig-align="center" width="100%"}
+
+**6. Commit Changes to your Branch and Push to Origin** - I like to use GitHub Desktop for this, but you can also use the terminal using git commands.
+
+![](../images/commit_and_push.png){fig-alt="Screenshot of quarto preview command in terminal" fig-align="center" width="100%"}
+
+**7. Create a Pull Request to Merge your Branch with the Master Branch** - From the GitHub Desktop, you can then select "Create Pull Request" and it should open a browser window taking you to the tutorials repository in GitHub.
+
+#### Guidance for Dataset Specific Tutorials Section *- coming soon*
+
+### How to Add Tutorials
 
 Adding tutorials as a PO.DAAC Contributor should follow the same instructions as those outside of PO.DAAC. See [above](Contribute.qmd#make-suggestions-or-add-tutorials).
+
+### How to Link to Notebook Tutorials Hosted in Other Repositories *- coming soon*
+
 
 ## Questions about the contribute process? 
 
 Create an issue on our [tutorials Issues GitHub page](https://github.com/podaac/tutorials/issues).
-
