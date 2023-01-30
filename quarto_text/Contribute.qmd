@@ -4,7 +4,7 @@ title: Contribute
 
 ## Make Suggestions or Add Tutorials!
 
-These instructions are for anyone that would like to contribute tutorials that utilize (in part) NASA Earthdata to the PO.DAAC Cookbook. If you have [cloned the PO.DAAC tutorials GitHub repository](TechGuides.qmd#cloning-this-github-repository) with all of the PO.DAAC Cookbook Notebooks, you can make changes on your copy of the tutorials and then create a pull request that will be reviewed by our team to potentially add your content. Follow [these intructions on how to create a pull request in GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request).
+These instructions are for anyone that would like to contribute tutorials that utilize (in part) NASA Earthdata to the PO.DAAC Cookbook. If you have [cloned the PO.DAAC tutorials GitHub repository](TechGuides.qmd#cloning-this-github-repository) with all of the PO.DAAC Cookbook Notebooks, you can make changes on your copy of the tutorials and then create a pull request that will be reviewed by our team to potentially add your content. Follow [these intructions on how to create a pull request in GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request). If adding a new tutorial, within the Pull Request, state the section of the Cookbook you think your content would fit best and a member of PO.DAAC may link the tutorial so it renders within the Cookbook.
 
 Added content will only be accepted if it follows these guidlines:
 
@@ -17,15 +17,19 @@ Added content will only be accepted if it follows these guidlines:
     - Learning Objectives
 - The tutorial must be tested successfully and reviewed by a PO.DAAC member non-author. (This will be done before merging the pull request.)
 
-## Instructions for PO.DAAC Contributors *- in progress, coming soon*
+
+
+## Instructions for PO.DAAC Contributors *- in progress*
 
 ### How the Cookbook was Built
 
 The PO.DAAC Cookbook is built using [Quarto](https://quarto.org/). To build this particular Quarto book, we used [these instructions](https://openscapes.github.io/quarto-website-tutorial/) from NASA Openscapes. It's a Quarto book tutorial on how to copy (fork or download) an existing Quarto website like this one and adapt it for your own uses. 
  
+ 
+ 
 ### Setting up your Work Station
 
-Admittedly, there are many ways to set up your work station to effectively accomplish contributing to or editing the PO.DAAC Cookbook quarto website. The following are my (Cassie's) methods that I have found to be the most effective for me. 
+Admittedly, there are many ways to set up your work station to effectively accomplish contributing to or editing the PO.DAAC Cookbook quarto website. The following are my (Cassie's) methods that I have found to be the most effective. 
 
 **1. Creat a GitHub Account** - If you do not have one already, create a GitHub account here: [https://github.com/](https://github.com/). 
 
@@ -41,9 +45,13 @@ Admittedly, there are many ways to set up your work station to effectively accom
 
 **7. If you've completed the above, you should have all the necessary ingredients to contribute to the PO.DAAC Cookbook!**
 
+
+
 ### Tutorials Repository Organization *- coming soon*
 
-### How to Add/Edit Cookbook Content
+
+
+### How to Edit Cookbook Content
 
 **1. Create a New Branch in GitHub** - In a GitHub repository, the main source of code for that repo is deployed in what is called the "Master" branch. This is the branch that the PO.DAAC Cookbook is rendered from. To edit, creating a new branch is important so changes are not overwritten on the master branch if another individual is working on the same file as you. It helps to have your own branch to work on (named however you like) to make changes and then merge those changes with the master branch after changes are done. After merging, it is common practice to delete the branch you created. I like to create a new branch from GitHub Desktop like so:
 
@@ -61,7 +69,7 @@ Note: the warnings about external files are fine. We do not host the external fi
 
 **4. Open the File you Wish to Edit** - Most text within the Cookbook can be found in a .qmd file within the `quarto_text` folder
 
-**5. Make Edits** - GitHub should track your changes automatically. For example below, I have opened the 'Contribute.qmd' file in my Jupyter Lab and in the GitHub Desktop application, it shows all of the changes I have made in green and the old version in red. Here, I changed the text describing tutorial guidelines.
+**5. Make Edits** - GitHub should track your changes automatically. For example below, I have opened the 'Contribute.qmd' file in my Jupyter Lab and in the GitHub Desktop application, it shows all of the changes I have made in green and the old version in red. Here, I changed the text describing tutorial guidelines. Here is a helpful guide for [Markdown Basics in Quarto](https://quarto.org/docs/authoring/markdown-basics.html). 
 
 ![](../images/Editing_qmd_files.png){fig-alt="Screenshot of quarto preview command in terminal" fig-align="center" width="100%"}
 
@@ -75,11 +83,32 @@ Note: the warnings about external files are fine. We do not host the external fi
 
 **8. Delete your Branch after Merge is Complete** - it is common practice to delete old branches and start again with new branches for new edits.
 
-#### Guidance for Dataset Specific Tutorials Section *- coming soon*
 
-### How to Add Tutorials
 
-Adding tutorials as a PO.DAAC Contributor should follow the same instructions as those outside of PO.DAAC. See [above](Contribute.qmd#make-suggestions-or-add-tutorials).
+### How to Add Tutorials and Display them in the Cookbook
+
+Adding tutorials to the podaac/tutorials GitHub repository as a PO.DAAC Contributor should follow the same instructions as those outside of PO.DAAC. See [above](Contribute.qmd#make-suggestions-or-add-tutorials).
+
+After a tutorial has been added to the repository, however, in order for it to display in the Cookbook, a couple more files need to be updated:
+
+**1. The `_quarto.yml` file** - This file is essentially the table of contents of the PO.DAAC Cookbook, telling quarto where to place a tutorial or file in the Cookbook. Write the path of the added tutorial in the appropriate desired location.
+
+**2. The specific landing page .qmd file** - This is the .qmd file that houses the section the tutorial will be in. I usually link the added tutorial on this homepage for the section.
+
+For Example, here is a screenshot of the current ECCO portion of the _quarto.yml file and the ECCO.qmd file. The Use Case Demo notebook is hightlighted in both places it is linked. The notebook sits under multiple sections, first and formost, the "Tutorials" Section, and within that, the "Dataset Specific Examples" Section and finally, the "ECCO" page. In the .yml file, we gave the tutorial a title after the "text:" portion, which will be visible on the left hand side table of contents in the rendered Cookbook. Underneath the title, the notebook GitHub path is written out after "href:" as shown. The ECCO.qmd file hosts the information regarding the available ECCO tutorials, and somewhere within this page, the new tutorial should be linked. Note: this link may have a slightly different path starting point than the .yml file because the .qmd files are within a subfolder of the tutorials repo. You will likely need to add a "../" before the path in the .qmd file.
+
+![](../images/yml_and_qmd_linking.png){fig-alt="Screenshots of files to edit to link GitHub tutorials in Cookbook" fig-align="center" width="100%"}
+
+#### **Guidance for Dataset Specific Tutorials Section**
+
+Once a couple tutorials have been created for a particular mission, it is useful to add a page under the "Dataset Specific Tutorials" Section in the Cookbook for the tutorials. To add one, create a .qmd file in the quarto_text folder with the mission name as the file name. A good example for this would be the ECCO.qmd file or the SWOT.qmd file. Each Dataset Specific Landing Page should have the following sections:
+
+- **Title of Mission**
+- **Background** - a brief over view of the mission and products that links to the PO.DAAC webpage for the mission
+- **Data Resources & Tutorials** - this section can have sub-sections grouping resources)
+- **Additional Resources** - links to workshops or other useful materials relating to the mission)
+
+
 
 ### How to Link to Notebook Tutorials Hosted in Other Repositories *- coming soon*
 
