@@ -92,7 +92,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../notebooks/SWORD_River_Demo.html" rel="next">
+<link href="../notebooks/SearchDownload_SWOTviaCMR.html" rel="next">
 <link href="../external/insitu_dataviz_demo.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -286,6 +286,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../notebooks/SearchDownload_SWOTviaCMR.html" class="sidebar-item-text sidebar-link">Programmatically</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../notebooks/SWORD_River_Demo.html" class="sidebar-item-text sidebar-link">By SWORD ID</a>
   </div>
 </li>
@@ -296,11 +301,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
       </ul>
   </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#downloadsubscribe" class="sidebar-item-text sidebar-link">Download/Subscribe</a>
-  </div>
-</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">In-cloud Access</a>
@@ -522,9 +522,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#swot-background" id="toc-swot-background" class="nav-link active" data-scroll-target="#swot-background">SWOT Background</a></li>
   <li><a href="#swot-data-resources-tutorials" id="toc-swot-data-resources-tutorials" class="nav-link" data-scroll-target="#swot-data-resources-tutorials">SWOT Data Resources &amp; Tutorials</a>
   <ul class="collapse">
-  <li><a href="#search" id="toc-search" class="nav-link" data-scroll-target="#search">Search</a></li>
-  <li><a href="#downloadsubscribe" id="toc-downloadsubscribe" class="nav-link" data-scroll-target="#downloadsubscribe">Download/Subscribe</a></li>
-  <li><a href="#in-cloud-access" id="toc-in-cloud-access" class="nav-link" data-scroll-target="#in-cloud-access">In-cloud Access</a></li>
+  <li><a href="#search-download" id="toc-search-download" class="nav-link" data-scroll-target="#search-download">Search &amp; Download</a></li>
+  <li><a href="#in-cloud-access-visualization" id="toc-in-cloud-access-visualization" class="nav-link" data-scroll-target="#in-cloud-access-visualization">In-cloud Access &amp; Visualization</a></li>
   <li><a href="#gis-workflows" id="toc-gis-workflows" class="nav-link" data-scroll-target="#gis-workflows">GIS workflows</a></li>
   <li><a href="#transform" id="toc-transform" class="nav-link" data-scroll-target="#transform">Transform</a></li>
   </ul></li>
@@ -558,26 +557,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="swot-background" class="level2">
 <h2 class="anchored" data-anchor-id="swot-background">SWOT Background</h2>
-<p>The Surface Water and Ocean Topography (SWOT) mission aims to provide valuable data and information about the world’s oceans and its terrestrial surface water such as lakes, rivers, and wetlands. SWOT is being developed jointly by NASA and Centre National D’Etudes Spatiales (CNES), with contributions from the Canadian Space Agency (CSA) and United Kingdom Space Agency (UKSA). The satellite launched on December 16, 2022 and data is expected to be released to the public no earlier than Fall 2023. PO.DAAC is the NASA archive for the SWOT mission, and will be making data available via the NASA Earthdata Cloud (hosted in AWS) with direct download capabilities available.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../images/podaac_swot_landing_page.png" class="img-fluid figure-img" style="width:80.0%" alt="Screenshot of PO.DAAC's SWOT landing page"></p>
-<p></p><figcaption class="figure-caption">More information can be found on <a href="https://podaac.jpl.nasa.gov/SWOT">PO.DAAC’s SWOT webpage</a>.</figcaption><p></p>
-</figure>
-</div>
+<p>The Surface Water and Ocean Topography (SWOT) mission aims to provide valuable data and information about the world’s oceans and its terrestrial surface water such as lakes, rivers, and wetlands. SWOT is being developed jointly by NASA and Centre National D’Etudes Spatiales (CNES), with contributions from the Canadian Space Agency (CSA) and United Kingdom Space Agency (UKSA). The satellite launched on December 16, 2022 and data is expected to be released to the public no earlier than Fall 2023. PO.DAAC is the NASA archive for the SWOT mission, and will be making data available via the NASA Earthdata Cloud (hosted in AWS) with direct download capabilities available. More information can be found on <a href="https://podaac.jpl.nasa.gov/SWOT">PO.DAAC’s SWOT webpage</a>.</p>
 <p>PO.DAAC will host a variety of <a href="https://podaac.jpl.nasa.gov/SWOT?tab=datasets">SWOT data products</a>. Their product description documents can be found in the chart listing each dataset. Before these SWOT products are available, we have <a href="https://podaac.jpl.nasa.gov/SWOT?tab=datasets&amp;sections=about%2Bdata">SWOT simulated datasets</a> encompassing both oceanography and hydrology sample data. This data is not for analysis, but rather to become comfortable with future SWOT products data formats and access mechanisms.</p>
 </section>
 <section id="swot-data-resources-tutorials" class="level2">
 <h2 class="anchored" data-anchor-id="swot-data-resources-tutorials">SWOT Data Resources &amp; Tutorials</h2>
-<section id="search" class="level3">
-<h3 class="anchored" data-anchor-id="search">Search</h3>
-<p>Find/download <a href="https://search.earthdata.nasa.gov/search?q=simulated%20swot">simulated SWOT data on Earthdata Search</a></p>
-<p><a href="../notebooks/SWORD_River_Demo.html">Search programmatically with unique SWORD river reach ID</a></p>
-<p><a href="../notebooks/HUC Feature Translation Service Examples-updated-20210804.html">Search programmatically with unique Hydrologic Unit Code (HUC) basin ID</a></p>
-</section>
-<section id="downloadsubscribe" class="level3">
-<h3 class="anchored" data-anchor-id="downloadsubscribe">Download/Subscribe</h3>
-<p>PO.DAAC subscriber/downloader examples in the command line:</p>
+<section id="search-download" class="level3">
+<h3 class="anchored" data-anchor-id="search-download">Search &amp; Download</h3>
+<p><strong>Via Graphical User Interface:</strong></p>
+<ul>
+<li>Find/download <a href="https://search.earthdata.nasa.gov/search?q=simulated%20swot">simulated SWOT data on Earthdata Search</a></li>
+</ul>
+<p><strong>Programmatically:</strong> ie. within Python code workflows</p>
+<ul>
+<li><a href="../notebooks/SearchDownload_SWOTviaCMR.html">Search and Download via Common Metadata Repository (CMR)</a></li>
+<li><a href="../notebooks/SWORD_River_Demo.html">with unique SWORD river reach ID</a></li>
+<li><a href="../notebooks/HUC Feature Translation Service Examples-updated-20210804.html">with unique Hydrologic Unit Code (HUC) basin ID</a></li>
+</ul>
+<p><strong>Via Command Line</strong> - PO.DAAC subscriber/downloader examples:</p>
 <p>Hydrology: <em>These examples will download either the river vector files or the raster files for a location in Texas with multiple passes:</em></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_SIMULATED_NA_CONTINENT_L2_HR_RiverSP_V1 <span class="at">-d</span> ./SWOT_SIMULATED_NA_CONTINENT_L2_HR_RiverSP_V1 <span class="at">-start-date</span> 2022-08-02T00:00:00Z <span class="at">--end-date</span> 2022-08-22T00:00:00Z <span class="at">-b</span><span class="op">=</span><span class="st">"-97,32.5,-96.5,33"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_SIMULATED_NA_CONTINENT_L2_HR_Raster_V1 <span class="at">-d</span> ./SWOT_SIMULATED_NA_CONTINENT_L2_HR_Raster_V1 <span class="at">--start-date</span> 2022-08-02T00:00:00Z <span class="at">--end-date</span> 2022-08-22T00:00:00Z <span class="at">-b</span><span class="op">=</span><span class="st">"-97,32.5,-96.5,33"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -588,8 +585,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For more information, see <a href="https://github.com/podaac/data-subscriber">https://github.com/podaac/data-subscriber</a></p>
 </blockquote>
 </section>
-<section id="in-cloud-access" class="level3">
-<h3 class="anchored" data-anchor-id="in-cloud-access">In-cloud Access</h3>
+<section id="in-cloud-access-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="in-cloud-access-visualization">In-cloud Access &amp; Visualization</h3>
 <p><a href="../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.html">Access sample SWOT Hydrology data in the cloud</a></p>
 <p><a href="../external/Direct_Access_SWOT_sim_Oceanography.html">Access sample SWOT Oceanography data in the cloud</a></p>
 </section>
@@ -872,8 +869,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../notebooks/SWORD_River_Demo.html" class="pagination-link">
-        <span class="nav-page-text">By SWORD ID</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notebooks/SearchDownload_SWOTviaCMR.html" class="pagination-link">
+        <span class="nav-page-text">Programmatically</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
