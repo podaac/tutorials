@@ -29,7 +29,7 @@ The PO.DAAC Cookbook is built using [Quarto](https://quarto.org/). To build this
  
 ### Setting up your Work Station
 
-Admittedly, there are many ways to set up your work station to effectively accomplish contributing to or editing the PO.DAAC Cookbook quarto website. The following are my (Cassie's) methods that I have found to be the most effective. 
+Admittedly, there are many ways to set up your work station to effectively accomplish contributing to or editing the PO.DAAC Cookbook quarto website. Steps 1, 2, 4, and 6 are universal to edit the cookbook, but steps 3 and 5 can have variations. The following is a method we have found to be helpful: 
 
 **1. Creat a GitHub Account** - If you do not have one already, create a GitHub account here: [https://github.com/](https://github.com/). 
 
@@ -43,19 +43,22 @@ Admittedly, there are many ways to set up your work station to effectively accom
 
 **6. Clone the podaac/tutorials GitHub Repository** - Instructions to do this are in the [Tech Guides Section](TechGuides.qmd#cloning-this-github-repository) of this Cookbook. I usually use GitHub Desktop.
 
-**7. If you've completed the above, you should have all the necessary ingredients to contribute to the PO.DAAC Cookbook!**
+*If you've completed the above, you should have all the necessary ingredients to contribute to the PO.DAAC Cookbook!*
 
 
 
-### Tutorials Repository Organization *- coming soon*
+### Tutorials Repository Organization
 
+Each chapter in our Cookbook is a separate `.qmd` markdown file within the `quarto_text` directory. The `notebooks` directory holds all of our internal tutorials that get rendered in the Cookbook. `images` contains all figures embedded within the Cookbook files.
+
+The Cookbook structure (i.e. the order of sections and chapters) is determined in the `_quarto.yml` file in the root directory. We can shuffle chapter order by editing the `_quarto.yml` file, and add new chapters by adding to the `_quarto.yml` and creating a new file in the appropriate sub-directory that is indicated in `_quarto.yml`.
 
 
 ### How to Edit Cookbook Content
 
 **1. Create a New Branch in GitHub** - In a GitHub repository, the main source of code for that repo is deployed in what is called the "Master" branch. This is the branch that the PO.DAAC Cookbook is rendered from. To edit, creating a new branch is important so changes are not overwritten on the master branch if another individual is working on the same file as you. It helps to have your own branch to work on (named however you like) to make changes and then merge those changes with the master branch after changes are done. After merging, it is common practice to delete the branch you created. I like to create a new branch from GitHub Desktop like so:
 
-![](../images/GitHub_Desktop_New_Branch.png){fig-alt="Screenshots of how to create a New Branch Using GitHub Desktop" fig-align="center" width="80%"}
+![](../images/GitHub_Desktop_New_Branch.png){fig-alt="Screenshots of how to create a New Branch Using GitHub Desktop" fig-align="center" width="100%"}
 
 **2. Navigate to the tutorials Folder in your Coding Workspace** - once you've created a new branch, any code you modify in your coding workspace from the repository you cloned should have tracked changes in your new branch. You can open any file in the tutorials folder and start editing! Here is what my Jupyter Lab workspace looks like:
 
@@ -110,8 +113,31 @@ Once a couple tutorials have been created for a particular mission, it is useful
 
 
 
-### How to Link to Notebook Tutorials Hosted in Other Repositories *- coming soon*
+### How to Link to Notebook Tutorials Hosted in Other Repositories
 
+We can include remote notebooks in the Cookbook by explicitly importing them with the following steps. This will create a local copy of them that have additional preamble inserted that includes the original urls and attribution for the notebook.
+
+1.  Navigate to the `_import` directory.
+
+2.  Open `assets.json` in a text editor. Copy an existing example and use the same structure to indicate the remote notebook you'd like to include. You can write Markdown in the preamble.
+
+    - title: this will be the new title of the notebook
+    - preamble: this text will be inserted into the notebook below the new title. It should include any description and attribution of the notebook. The preamble is followed by two URL fields (next):
+    - source: the url landing page of the specific notebook. 
+    - url: the raw url of the notebook. (i.e. it usually starts with `https://raw.githubusercontent.com/` and can be found by clicking the `raw` button at the top of a GitHub file)
+    - target: the local filename to give the notebook. The notebook will be saved in the `external` folder in the root directory.
+    - process: true or false: whether or not to include the entire entry when running the `quarto_import.py` script
+
+3. After these updates to `_import/assets.json`, do the following in the terminal, which will return a confirmation of the file that has been processed:
+
+``` bash
+cd _import
+conda env update -f environment.yml
+conda activate quarto-import
+python quarto_import.py -f assets.json
+```
+
+4. Then update `_quarto.yml` by adding your file (`external/<target>`) to the appropriate location in the Cookbook. Also link the external notebook in any .qmd file landing pages that are necessary (See "How to Add Tutorials and Display them in the Cookbook" above).
 
 ## Questions about the contribute process? 
 
