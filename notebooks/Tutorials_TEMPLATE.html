@@ -527,11 +527,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
   <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">2. Earthdata Login</a></li>
   <li><a href="#netrc-file" id="toc-netrc-file" class="nav-link" data-scroll-target="#netrc-file">3. netrc File</a></li>
-  <li><a href="#additional-requirements" id="toc-additional-requirements" class="nav-link" data-scroll-target="#additional-requirements">4. Additional Requirements</a></li>
   </ul></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import Packages</a></li>
-  <li><a href="#get-temporary-aws-credentials-optional-section-for-cloud-use" id="toc-get-temporary-aws-credentials-optional-section-for-cloud-use" class="nav-link" data-scroll-target="#get-temporary-aws-credentials-optional-section-for-cloud-use">Get Temporary AWS Credentials (Optional section for cloud use)</a></li>
+  <li><a href="#get-temporary-aws-credentials" id="toc-get-temporary-aws-credentials" class="nav-link" data-scroll-target="#get-temporary-aws-credentials">Get Temporary AWS Credentials</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/Tutorials_TEMPLATE.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -570,10 +569,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You will need a <code>.netrc</code> file containing your NASA Earthdata Login credentials in order to execute the notebooks. A <code>.netrc</code> file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Workshop-AGU/tutorials/02_NASA_Earthdata_Authentication.html">Authentication for NASA Earthdata tutorial</a>.</p>
 <p><em>internal note (delete in final tutorial) You can use the netrc approach in the notebook or leverage the <a href="https://github.com/nsidc/earthaccess"><code>earthaccess</code> package</a>.</em></p>
 </section>
-<section id="additional-requirements" class="level3">
-<h3 class="anchored" data-anchor-id="additional-requirements">4. Additional Requirements</h3>
-<p>Any other requirements needed for reproducing this tutorial.</p>
-</section>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
@@ -597,8 +592,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><em>Internal Note (delete in final tutorial): The following section is optional. Keep if working in the cloud, remove if tutorial is for local workflow.</em></p>
 </section>
-<section id="get-temporary-aws-credentials-optional-section-for-cloud-use" class="level2">
-<h2 class="anchored" data-anchor-id="get-temporary-aws-credentials-optional-section-for-cloud-use">Get Temporary AWS Credentials (Optional section for cloud use)</h2>
+<section id="get-temporary-aws-credentials" class="level2">
+<h2 class="anchored" data-anchor-id="get-temporary-aws-credentials">Get Temporary AWS Credentials</h2>
 <p>Direct S3 access is achieved by passing NASA supplied temporary credentials to AWS so we can interact with S3 objects from applicable Earthdata Cloud buckets. For now, each NASA DAAC has different AWS credentials endpoints. Below are some of the credential endpoints to various DAACs:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>s3_cred_endpoint <span class="op">=</span> {</span>
