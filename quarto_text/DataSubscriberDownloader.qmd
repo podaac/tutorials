@@ -1,0 +1,39 @@
+---
+title: PO.DAAC Data Subscriber/Downloader
+subtitle: How to Download or Subscribe to Datasets via the Command Line
+---
+
+#### Downloader - [Documentation](https://github.com/podaac/data-subscriber/blob/main/Downloader.md)
+
+The Downloader is useful if you need to download PO.DAAC data once in a while or prefer to do it "on-demand". The Downloader makes no assumptions about the last time run or what is new in the archive, it simply uses the provided requests and downloads all matching data.
+
+#### Subscriber - [Documentation](https://github.com/podaac/data-subscriber/blob/main/Subscriber.md)
+
+The subscriber is useful for users who need to continuously pull the latest data from the PO.DAAC archive. If you feed data into a model or real time process, the subscriber allows you to repeatedly run the script and only download the latest data.
+
+> For more information and **how to install the tool**, see the [subscriber GitHub repository](https://github.com/podaac/data-subscriber) README.md file
+
+
+
+## Command (cmd) Line Examples
+
+The [dataset listing pages](https://podaac.jpl.nasa.gov/cloud-datasets) on the PO.DAAC Portal provide cmd line examples for each dataset respectively. For example, on a [MUR SST dataset landing page](https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#), if you click the Download icon under `Capabilities` on the right side, the following script for the subscriber should be visible:
+
+``` bash
+podaac-data-subscriber -c MUR25-JPL-L4-GLOB-v04.2 -d ./data/MUR25-JPL-L4-GLOB-v04.2 --start-date 2002-08-31T21:00:00Z
+```
+
+Downloading simulated SWOT Raster data over a specified region and time:
+```bash
+podaac-data-downloader -c SWOT_SIMULATED_NA_CONTINENT_L2_HR_Raster_V1 -d ./SWOT_SIMULATED_NA_CONTINENT_L2_HR_Raster_V1 --start-date 2022-08-02T00:00:00Z --end-date 2022-08-22T00:00:00Z -b="-97,32.5,-96.5,33"
+```
+
+Subscribing to the [GRACE-FO Monthly Ocean Bottom Pressure Anomaly Dataset]:(https://podaac.jpl.nasa.gov/dataset/TELLUS_GRFO_L3_CSR_RL06_OCN_v04)
+``` bash
+podaac-data-subscriber -c TELLUS_GRFO_L3_CSR_RL06_OCN_v04 -d ./data/TELLUS_GRFO_L3_CSR_RL06_OCN_v04 --start-date 2018-05-22T00:00:00Z
+```
+
+
+## Tutorial Examples Utilizing the PO.DAAC Subscriber/Downloader:
+
+- [SWOT NetCDF to Geotiff Conversion](../notebooks/GIS/Subscriber_nc_to_tif_SWOT.qmd)
