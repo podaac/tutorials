@@ -2,18 +2,31 @@
 title: PO.DAAC Data Subscriber/Downloader
 subtitle: How to Download or Subscribe to Datasets via the Command Line
 ---
+## Introduction
 
-#### Downloader - [Documentation](https://github.com/podaac/data-subscriber/blob/main/Downloader.md)
+#### Downloader
 
 The Downloader is useful if you need to download PO.DAAC data once in a while or prefer to do it "on-demand". The Downloader makes no assumptions about the last time run or what is new in the archive, it simply uses the provided requests and downloads all matching data.
 
-#### Subscriber - [Documentation](https://github.com/podaac/data-subscriber/blob/main/Subscriber.md)
+#### Subscriber
 
 The subscriber is useful for users who need to continuously pull the latest data from the PO.DAAC archive. If you feed data into a model or real time process, the subscriber allows you to repeatedly run the script and only download the latest data.
 
-> For more information and **how to install the tool**, see the [subscriber GitHub repository](https://github.com/podaac/data-subscriber) README.md file
+#### Installation
 
+Both subscriber and downloader require Python >= 3.7.
 
+The subscriber and downloader scripts are available in the [pypi python repository](https://pypi.org/project/podaac-data-subscriber/), it can be installed via pip:
+
+``` bash
+pip install podaac-data-subscriber
+```
+
+you should now have access to the downloader and subscriber Command line interfaces.
+
+> **Note:** If after installation, the `podaac-data-subscriber` or `podaac-data-downloader` commands are not available, you may need to add the script location to the PATH. This could be due to a *User Install* of the python package, which is common on shared systems where python packages are installed for the user (not the system). See [Installing to the User Site](https://packaging.python.org/en/latest/tutorials/installing-packages/#installing-to-the-user-site) and [User Installs](https://pip.pypa.io/en/latest/user_guide/#user-installs) for more information on finding the location of installed scripts and adding them to the PATH.
+
+To use the Subscriber or Downloader, you will need to have an [Earthdata login account](https://urs.earthdata.nasa.gov/). You will also need a netrc file with your Earthdata Login credentials to access the data. Follow these [authentication instructions](../external/NASA_Earthdata_Authentication.ipynb) to create your netrc if you do not have one already.
 
 ## Command (cmd) Line Examples
 
@@ -33,7 +46,13 @@ Subscribing to the [GRACE-FO Monthly Ocean Bottom Pressure Anomaly Dataset]:(htt
 podaac-data-subscriber -c TELLUS_GRFO_L3_CSR_RL06_OCN_v04 -d ./data/TELLUS_GRFO_L3_CSR_RL06_OCN_v04 --start-date 2018-05-22T00:00:00Z
 ```
 
-
 ## Tutorial Examples Utilizing the PO.DAAC Subscriber/Downloader:
 
 - [SWOT NetCDF to Geotiff Conversion](../notebooks/GIS/Subscriber_nc_to_tif_SWOT.qmd)
+
+
+## Documentation
+
+{{< include ../external/Downloader.md >}}
+
+{{< include ../external/Subscriber.md >}}
