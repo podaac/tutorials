@@ -122,6 +122,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -581,127 +584,886 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>Subsetting Cloud OPeNDAP Example</h1>
 <p>One of OPeNDAP’s key features is it’s subsetting capabilities. It is capable of subsetting by time, space and variable, and is an effective tool for those looking to reduce the amount of gridded data required for research or analysis to a specific region, time, or set of variables. As such, subsetting reduces the amount of data run and allows users to key in on areas of interest.</p>
 <p>This example requires preliminary Cloud-OPeNDAP set up before running these examples. For instructions, see credentials.ipynb in this repository.</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> netCDF4 <span class="im">as</span> nc</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>OPENDAP_URL <span class="op">=</span> <span class="st">"https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/ECCO%20Atmosphere%20Surface%20Temperature%2C%20Humidity%2C%20Wind%2C%20and%20Pressure%20-%20Daily%20Mean</span><span class="sc">%200.5%</span><span class="st">20Degree%20(Version</span><span class="sc">%204%</span><span class="st">20Release%204)/granules/ATM_SURFACE_TEMP_HUM_WIND_PRES_day_mean_2017-12-31_ECCO_V4r4_latlon_0p50deg"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> nc.Dataset(OPENDAP_URL, mode<span class="op">=</span><span class="st">"r"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'netCDF4._netCDF4.Dataset'&gt;
+root group (NETCDF3_CLASSIC data model, file format DAP2):
+    acknowledgement: This research was carried out by the Jet Propulsion Laboratory, managed by the California Institute of Technology under a contract with the National Aeronautics and Space Administration.
+    author: Ian Fenty and Ou Wang
+    cdm_data_type: Grid
+    comment: Fields provided on a regular lat-lon grid. They have been mapped to the regular lat-lon grid from the original ECCO lat-lon-cap 90 (llc90) native model grid.
+    Conventions: CF-1.8, ACDD-1.3
+    coordinates: time_bnds latitude_bnds longitude_bnds
+    coordinates_comment: Note: the global 'coordinates' attribute describes auxillary coordinates.
+    creator_email: ecco-group@mit.edu
+    creator_institution: NASA Jet Propulsion Laboratory (JPL)
+    creator_name: ECCO Consortium
+    creator_type: group
+    creator_url: https://ecco-group.org
+    date_created: 2020-12-17T02:23:56
+    date_issued: 2020-12-17T02:23:56
+    date_metadata_modified: 2021-03-15T23:56:30
+    date_modified: 2021-03-15T23:56:30
+    geospatial_bounds_crs: EPSG:4326
+    geospatial_lat_max: 90.0
+    geospatial_lat_min: -90.0
+    geospatial_lat_resolution: 0.5
+    geospatial_lat_units: degrees_north
+    geospatial_lon_max: 180.0
+    geospatial_lon_min: -180.0
+    geospatial_lon_resolution: 0.5
+    geospatial_lon_units: degrees_east
+    history: Inaugural release of an ECCO Central Estimate solution to PO.DAAC
+    id: 10.5067/ECG5D-ATM44
+    institution: NASA Jet Propulsion Laboratory (JPL)
+    instrument_vocabulary: GCMD instrument keywords
+    keywords: EARTH SCIENCE &gt; ATMOSPHERE &gt; ATMOSPHERIC WINDS &gt; SURFACE WINDS &gt; WIND SPEED, EARTH SCIENCE &gt; OCEANS &gt; OCEAN WINDS &gt; SURFACE WINDS, EARTH SCIENCE &gt; OCEANS &gt; OCEAN PRESSURE &gt; SEA LEVEL PRESSURE, EARTH SCIENCE &gt; ATMOSPHERE &gt; ATMOSPHERIC WATER VAPOR &gt; WATER VAPOR INDICATORS &gt; HUMIDITY &gt; SPECIFIC HUMIDITY, EARTH SCIENCE SERVICES &gt; MODELS &gt; EARTH SCIENCE REANALYSES/ASSIMILATION MODELS, EARTH SCIENCE &gt; ATMOSPHERE &gt; ATMOSPHERIC TEMPERATURE &gt; SURFACE TEMPERATURE &gt; AIR TEMPERATURE
+    keywords_vocabulary: NASA Global Change Master Directory (GCMD) Science Keywords
+    license: Public Domain
+    metadata_link: https://cmr.earthdata.nasa.gov/search/collections.umm_json?ShortName=ECCO_L4_ATM_STATE_05DEG_DAILY_V4R4
+    naming_authority: gov.nasa.jpl
+    platform: ERS-1/2, TOPEX/Poseidon, Geosat Follow-On (GFO), ENVISAT, Jason-1, Jason-2, CryoSat-2, SARAL/AltiKa, Jason-3, AVHRR, Aquarius, SSM/I, SSMIS, GRACE, DTU17MDT, Argo, WOCE, GO-SHIP, MEOP, Ice Tethered Profilers (ITP)
+    platform_vocabulary: GCMD platform keywords
+    processing_level: L4
+    product_name: ATM_SURFACE_TEMP_HUM_WIND_PRES_day_mean_2017-12-31_ECCO_V4r4_latlon_0p50deg.nc
+    product_time_coverage_end: 2018-01-01T00:00:00
+    product_time_coverage_start: 1992-01-01T12:00:00
+    product_version: Version 4, Release 4
+    program: NASA Physical Oceanography, Cryosphere, Modeling, Analysis, and Prediction (MAP)
+    project: Estimating the Circulation and Climate of the Ocean (ECCO)
+    publisher_email: podaac@podaac.jpl.nasa.gov
+    publisher_institution: PO.DAAC
+    publisher_name: Physical Oceanography Distributed Active Archive Center (PO.DAAC)
+    publisher_type: institution
+    publisher_url: https://podaac.jpl.nasa.gov
+    references: ECCO Consortium, Fukumori, I., Wang, O., Fenty, I., Forget, G., Heimbach, P., &amp; Ponte, R. M. 2020. Synopsis of the ECCO Central Production Global Ocean and Sea-Ice State Estimate (Version 4 Release 4). doi:10.5281/zenodo.3765928
+    source: The ECCO V4r4 state estimate was produced by fitting a free-running solution of the MITgcm (checkpoint 66g) to satellite and in situ observational data in a least squares sense using the adjoint method
+    standard_name_vocabulary: NetCDF Climate and Forecast (CF) Metadata Convention
+    summary: This dataset provides daily-averaged atmosphere surface temperature, humidity, wind, and pressure interpolated to a regular 0.5-degree grid from the ECCO Version 4 Release 4 (V4r4) ocean and sea-ice state estimate. Estimating the Circulation and Climate of the Ocean (ECCO) state estimates are dynamically and kinematically-consistent reconstructions of the three-dimensional, time-evolving ocean, sea-ice, and surface atmospheric states. ECCO V4r4 is a free-running solution of a global, nominally 1-degree configuration of the MIT general circulation model (MITgcm) that has been fit to observations in a least-squares sense. Observational data constraints used in V4r4 include sea surface height (SSH) from satellite altimeters [ERS-1/2, TOPEX/Poseidon, GFO, ENVISAT, Jason-1,2,3, CryoSat-2, and SARAL/AltiKa]; sea surface temperature (SST) from satellite radiometers [AVHRR], sea surface salinity (SSS) from the Aquarius satellite radiometer/scatterometer, ocean bottom pressure (OBP) from the GRACE satellite gravimeter; sea-ice concentration from satellite radiometers [SSM/I and SSMIS], and in-situ ocean temperature and salinity measured with conductivity-temperature-depth (CTD) sensors and expendable bathythermographs (XBTs) from several programs [e.g., WOCE, GO-SHIP, Argo, and others] and platforms [e.g., research vessels, gliders, moorings, ice-tethered profilers, and instrumented pinnipeds]. V4r4 covers the period 1992-01-01T12:00:00 to 2018-01-01T00:00:00.
+    time_coverage_duration: P1D
+    time_coverage_end: 2017-12-31T12:00:00
+    time_coverage_resolution: P1D
+    time_coverage_start: 2017-12-31T00:00:00
+    title: ECCO Atmosphere Surface Temperature, Humidity, Wind, and Pressure - Daily Mean 0.5 Degree (Version 4 Release 4)
+    uuid: f8578d30-4051-11eb-8ae0-0cc47a3f8727
+    dimensions(sizes): latitude(360), longitude(720), nv(2), time(1)
+    variables(dimensions): float32 EXFatemp(time, latitude, longitude), float32 EXFewind(time, latitude, longitude), float32 EXFwspee(time, latitude, longitude), float32 EXFnwind(time, latitude, longitude), float32 latitude_bnds(latitude, nv), float32 EXFpress(time, latitude, longitude), int32 time_bnds(time, nv), float32 EXFaqh(time, latitude, longitude), float32 longitude_bnds(longitude, nv), float32 latitude(latitude), float32 longitude(longitude), float32 nv(nv), int32 time(time)
+    groups: </code></pre>
+</div>
 </div>
 <section id="dataset-set-up" class="level3">
 <h3 class="anchored" data-anchor-id="dataset-set-up">Dataset Set Up</h3>
 <p>Subsetting is based on variable selection. To view the variables in the dataset, run the following command, which will output the variables’ names, types, and ranges:</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ds.variables</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ds.variables</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>{'EXFatemp': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 EXFatemp(time, latitude, longitude)
+     _FillValue: 9.96921e+36
+     coverage_content_type: modelResult
+     long_name: Atmosphere surface (2 m) air temperature 
+     standard_name: air_temperature
+     units: degree_K
+     comment: Surface (2 m) air temperature over open water. Note: sum of ERA-Interim surface air temperature and the control adjustment from ocean state estimation.
+     coordinates: time
+     valid_min: 195.37054443359375
+     valid_max: 312.8451232910156
+     origname: EXFatemp
+     fullnamepath: /EXFatemp
+ unlimited dimensions: 
+ current shape = (1, 360, 720)
+ filling off,
+ 'EXFewind': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 EXFewind(time, latitude, longitude)
+     _FillValue: 9.96921e+36
+     coverage_content_type: modelResult
+     long_name: Zonal (east-west) wind speed
+     standard_name: eastward_wind
+     units: m s-1
+     comment: Zonal (east-west) component of ocean surface wind. Note: EXFewind is calculated by interpolating the model's x and y components of wind velocity (EXFuwind and EXFvwind) to tracer cell centers and then finding the zonal component of the interpolated vectors. ECCO V4r4 is forced with wind stress (see EXFtaux, EXFtauy), not vector winds + bulk formulae. EXFewind is calculated by converting wind stress to vector wind using bulk formulae.
+     coordinates: time
+     valid_min: -33.524742126464844
+     valid_max: 39.48556900024414
+     origname: EXFewind
+     fullnamepath: /EXFewind
+ unlimited dimensions: 
+ current shape = (1, 360, 720)
+ filling off,
+ 'EXFwspee': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 EXFwspee(time, latitude, longitude)
+     _FillValue: 9.96921e+36
+     coverage_content_type: modelResult
+     long_name: Wind speed
+     standard_name: wind_speed
+     units: m s-1
+     comment: 10-m wind speed magnitude (&gt;= 0 ) over open water. Only used for the calculation of air-sea fluxes using bulk formulae. Note: not adjusted by the ocean state estimation and not necesarily consistent with EXFuwind and EXFvwind because EXFuwind and EXFvwind are calculated from EXFtaux and EXFtauy using bulk formulae. EXFwspee != sqrt(EXFuwind**2 + EXFvwind**2.
+     coordinates: time
+     valid_min: 0.27271032333374023
+     valid_max: 45.87086486816406
+     origname: EXFwspee
+     fullnamepath: /EXFwspee
+ unlimited dimensions: 
+ current shape = (1, 360, 720)
+ filling off,
+ 'EXFnwind': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 EXFnwind(time, latitude, longitude)
+     _FillValue: 9.96921e+36
+     coverage_content_type: modelResult
+     long_name: Meridional (north-south) wind speed
+     standard_name: northward_wind
+     units: m s-1
+     comment: Meridional (north-south) component of ocean surface wind. Note: EXFnwind is calculated by interpolating the model's x and y components of wind velocity (EXFuwind and EXFvwind) to tracer cell centers and then finding the meridional component of the interpolated vectors. ECCO V4r4 is forced with wind stress (see EXFtaux, EXFtauy), not vector winds + bulk formulae.  EXFnwind is calculated by converting wind stress to vector wind using bulk formulae.
+     coordinates: time
+     valid_min: -30.042686462402344
+     valid_max: 33.95014190673828
+     origname: EXFnwind
+     fullnamepath: /EXFnwind
+ unlimited dimensions: 
+ current shape = (1, 360, 720)
+ filling off,
+ 'latitude_bnds': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 latitude_bnds(latitude, nv)
+     coverage_content_type: coordinate
+     long_name: latitude bounds grid cells
+     origname: latitude_bnds
+     fullnamepath: /latitude_bnds
+ unlimited dimensions: 
+ current shape = (360, 2)
+ filling off,
+ 'EXFpress': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 EXFpress(time, latitude, longitude)
+     _FillValue: 9.96921e+36
+     coverage_content_type: modelResult
+     long_name: Atmosphere surface pressure
+     standard_name: surface_air_pressure
+     units: N m-2
+     comment: Atmospheric pressure field at sea level. Note: ERA-Interim atmospheric pressure, with air tides removed using a variety of methods. Not adjusted by the ocean state estimation.
+     coordinates: time
+     valid_min: 92090.3125
+     valid_max: 106314.7734375
+     origname: EXFpress
+     fullnamepath: /EXFpress
+ unlimited dimensions: 
+ current shape = (1, 360, 720)
+ filling off,
+ 'time_bnds': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ int32 time_bnds(time, nv)
+     comment: Start and end times of averaging period.
+     coverage_content_type: coordinate
+     long_name: time bounds of averaging period
+     origname: time_bnds
+     fullnamepath: /time_bnds
+ unlimited dimensions: 
+ current shape = (1, 2)
+ filling off,
+ 'EXFaqh': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 EXFaqh(time, latitude, longitude)
+     _FillValue: 9.96921e+36
+     coverage_content_type: modelResult
+     long_name: Atmosphere surface (2 m) specific humidity 
+     standard_name: surface_specific_humidity
+     units: kg kg-1
+     comment: Surface (2 m) specific humidity over open water. Note: sum of ERA-Interim surface specific humidity and the control adjustment from ocean state estimation.
+     coordinates: time
+     valid_min: -0.0014020215021446347
+     valid_max: 0.03014513850212097
+     origname: EXFaqh
+     fullnamepath: /EXFaqh
+ unlimited dimensions: 
+ current shape = (1, 360, 720)
+ filling off,
+ 'longitude_bnds': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 longitude_bnds(longitude, nv)
+     coverage_content_type: coordinate
+     long_name: longitude bounds grid cells
+     origname: longitude_bnds
+     fullnamepath: /longitude_bnds
+ unlimited dimensions: 
+ current shape = (720, 2)
+ filling off,
+ 'latitude': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 latitude(latitude)
+     axis: Y
+     bounds: latitude_bnds
+     comment: uniform grid spacing from -89.75 to 89.75 by 0.5
+     coverage_content_type: coordinate
+     long_name: latitude at grid cell center
+     standard_name: latitude
+     units: degrees_north
+     origname: latitude
+     fullnamepath: /latitude
+ unlimited dimensions: 
+ current shape = (360,)
+ filling off,
+ 'longitude': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 longitude(longitude)
+     axis: X
+     bounds: longitude_bnds
+     comment: uniform grid spacing from -179.75 to 179.75 by 0.5
+     coverage_content_type: coordinate
+     long_name: longitude at grid cell center
+     standard_name: longitude
+     units: degrees_east
+     origname: longitude
+     fullnamepath: /longitude
+ unlimited dimensions: 
+ current shape = (720,)
+ filling off,
+ 'nv': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ float32 nv(nv)
+ unlimited dimensions: 
+ current shape = (2,)
+ filling off,
+ 'time': &lt;class 'netCDF4._netCDF4.Variable'&gt;
+ int32 time(time)
+     axis: T
+     bounds: time_bnds
+     coverage_content_type: coordinate
+     long_name: center time of averaging period
+     standard_name: time
+     units: hours since 1992-01-01T12:00:00
+     calendar: proleptic_gregorian
+     origname: time
+     fullnamepath: /time
+ unlimited dimensions: 
+ current shape = (1,)
+ filling off}</code></pre>
+</div>
 </div>
 </section>
 <section id="install-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="install-libraries">Install Libraries</h3>
 <p>These examples use xarray and matplot, which are helpful tools for data analysis and computation. In your local environment, install <code>xarray</code> and <code>matplotlib</code> for the following subsetting plot functionalities.</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="method-1-subsetting-with-xarray" class="level3">
 <h3 class="anchored" data-anchor-id="method-1-subsetting-with-xarray">Method 1: Subsetting with xarray</h3>
 <p>Subsetting begins by first accessing cloud-enabled OPeNDAP with xarray’s <code>open_dataset</code> function. Create an xarray named <code>ecco_ds</code>. This xarray will later be subsetted into smaller defined tiles.</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ecco_ds <span class="op">=</span> xr.open_dataset(OPENDAP_URL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ecco_ds <span class="op">=</span> xr.open_dataset(OPENDAP_URL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ecco_ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ecco_ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt;
+Dimensions:         (time: 1, latitude: 360, longitude: 720, nv: 2)
+Coordinates:
+    latitude_bnds   (latitude, nv) float32 ...
+    time_bnds       (time, nv) datetime64[ns] ...
+    longitude_bnds  (longitude, nv) float32 ...
+  * latitude        (latitude) float32 -89.75 -89.25 -88.75 ... 89.25 89.75
+  * longitude       (longitude) float32 -179.8 -179.2 -178.8 ... 179.2 179.8
+  * nv              (nv) float32 0.0 1.0
+  * time            (time) datetime64[ns] 2017-12-31T06:00:00
+Data variables:
+    EXFatemp        (time, latitude, longitude) float32 ...
+    EXFewind        (time, latitude, longitude) float32 ...
+    EXFwspee        (time, latitude, longitude) float32 ...
+    EXFnwind        (time, latitude, longitude) float32 ...
+    EXFpress        (time, latitude, longitude) float32 ...
+    EXFaqh          (time, latitude, longitude) float32 ...
+Attributes: (12/57)
+    acknowledgement:              This research was carried out by the Jet Pr...
+    author:                       Ian Fenty and Ou Wang
+    cdm_data_type:                Grid
+    comment:                      Fields provided on a regular lat-lon grid. ...
+    Conventions:                  CF-1.8, ACDD-1.3
+    coordinates_comment:          Note: the global 'coordinates' attribute de...
+    ...                           ...
+    time_coverage_duration:       P1D
+    time_coverage_end:            2017-12-31T12:00:00
+    time_coverage_resolution:     P1D
+    time_coverage_start:          2017-12-31T00:00:00
+    title:                        ECCO Atmosphere Surface Temperature, Humidi...
+    uuid:                         f8578d30-4051-11eb-8ae0-0cc47a3f8727</code></pre>
+</div>
 </div>
 <p>Print out the variables in the dataset:</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.data_vars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.data_vars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>Data variables:
+    EXFatemp  (time, latitude, longitude) float32 ...
+    EXFewind  (time, latitude, longitude) float32 ...
+    EXFwspee  (time, latitude, longitude) float32 ...
+    EXFnwind  (time, latitude, longitude) float32 ...
+    EXFpress  (time, latitude, longitude) float32 ...
+    EXFaqh    (time, latitude, longitude) float32 ...</code></pre>
+</div>
 </div>
 <p>Select one of the variables listed above. In this example, <code>EXFewind</code> is selected. #### Assess the variable: View <code>EXFewind</code> in more detail and without the global attributes by running:</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ecco_ds[<span class="st">'EXFwspee'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ecco_ds[<span class="st">'EXFwspee'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'EXFwspee' (time: 1, latitude: 360, longitude: 720)&gt;
+[259200 values with dtype=float32]
+Coordinates:
+  * latitude   (latitude) float32 -89.75 -89.25 -88.75 ... 88.75 89.25 89.75
+  * longitude  (longitude) float32 -179.8 -179.2 -178.8 ... 178.8 179.2 179.8
+  * time       (time) datetime64[ns] 2017-12-31T06:00:00
+Attributes:
+    coverage_content_type:  modelResult
+    long_name:              Wind speed
+    standard_name:          wind_speed
+    units:                  m s-1
+    comment:                10-m wind speed magnitude (&gt;= 0 ) over open water...
+    valid_min:              0.27271032333374023
+    valid_max:              45.87086486816406
+    origname:               EXFwspee
+    fullnamepath:           /EXFwspee</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'EXFwspee'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 1</li><li><span class="xr-has-index">latitude</span>: 360</li><li><span class="xr-has-index">longitude</span>: 720</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-b960f683-2dfa-4ced-9f6b-1e801971c825" class="xr-array-in" type="checkbox" checked=""><label for="section-b960f683-2dfa-4ced-9f6b-1e801971c825" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>...</span></div><div class="xr-array-data"><pre>[259200 values with dtype=float32]</pre></div></div></li><li class="xr-section-item"><input id="section-02e3f4aa-90ca-4c66-849d-f4ff4b07a5cd" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-02e3f4aa-90ca-4c66-849d-f4ff4b07a5cd" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">latitude</span></div><div class="xr-var-dims">(latitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-89.75 -89.25 ... 89.25 89.75</div><input id="attrs-4c8509c1-9722-4ce8-af3a-a3bad73c2099" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4c8509c1-9722-4ce8-af3a-a3bad73c2099" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-46cca51c-3856-4dd5-a45a-089da5a5365e" class="xr-var-data-in" type="checkbox"><label for="data-46cca51c-3856-4dd5-a45a-089da5a5365e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>bounds :</span></dt><dd>latitude_bnds</dd><dt><span>comment :</span></dt><dd>uniform grid spacing from -89.75 to 89.75 by 0.5</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd><dt><span>long_name :</span></dt><dd>latitude at grid cell center</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>origname :</span></dt><dd>latitude</dd><dt><span>fullnamepath :</span></dt><dd>/latitude</dd></dl></div><div class="xr-var-data"><pre>array([-89.75, -89.25, -88.75, ...,  88.75,  89.25,  89.75], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">longitude</span></div><div class="xr-var-dims">(longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-179.8 -179.2 ... 179.2 179.8</div><input id="attrs-ce06bbc5-aa85-4937-843b-6b430717b241" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ce06bbc5-aa85-4937-843b-6b430717b241" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-06ad759e-6880-4200-8286-cf1cdd0b2e31" class="xr-var-data-in" type="checkbox"><label for="data-06ad759e-6880-4200-8286-cf1cdd0b2e31" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>bounds :</span></dt><dd>longitude_bnds</dd><dt><span>comment :</span></dt><dd>uniform grid spacing from -179.75 to 179.75 by 0.5</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd><dt><span>long_name :</span></dt><dd>longitude at grid cell center</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>origname :</span></dt><dd>longitude</dd><dt><span>fullnamepath :</span></dt><dd>/longitude</dd></dl></div><div class="xr-var-data"><pre>array([-179.75, -179.25, -178.75, ...,  178.75,  179.25,  179.75],
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-12-31T06:00:00</div><input id="attrs-472a9614-b90f-4b86-bcdb-31ae223cfba2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-472a9614-b90f-4b86-bcdb-31ae223cfba2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-cb675ba4-07fb-4a98-8f78-24df4f626933" class="xr-var-data-in" type="checkbox"><label for="data-cb675ba4-07fb-4a98-8f78-24df4f626933" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>T</dd><dt><span>bounds :</span></dt><dd>time_bnds</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd><dt><span>long_name :</span></dt><dd>center time of averaging period</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>origname :</span></dt><dd>time</dd><dt><span>fullnamepath :</span></dt><dd>/time</dd></dl></div><div class="xr-var-data"><pre>array(['2017-12-31T06:00:00.000000000'], dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-a3cf2910-cc14-41cc-aef0-6399116014b4" class="xr-section-summary-in" type="checkbox"><label for="section-a3cf2910-cc14-41cc-aef0-6399116014b4" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>latitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-9401f4f3-d8a5-4765-8afc-f80a292ea14e" class="xr-index-data-in" type="checkbox"><label for="index-9401f4f3-d8a5-4765-8afc-f80a292ea14e" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([-89.75, -89.25, -88.75, -88.25, -87.75, -87.25, -86.75, -86.25,
+              -85.75, -85.25,
+              ...
+               85.25,  85.75,  86.25,  86.75,  87.25,  87.75,  88.25,  88.75,
+               89.25,  89.75],
+             dtype='float64', name='latitude', length=360))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>longitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-8794151a-3d3b-4285-a109-e59869f4b4db" class="xr-index-data-in" type="checkbox"><label for="index-8794151a-3d3b-4285-a109-e59869f4b4db" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([-179.75, -179.25, -178.75, -178.25, -177.75, -177.25, -176.75,
+              -176.25, -175.75, -175.25,
+              ...
+               175.25,  175.75,  176.25,  176.75,  177.25,  177.75,  178.25,
+               178.75,  179.25,  179.75],
+             dtype='float64', name='longitude', length=720))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-6ef6f4ee-8de2-4b55-ba7f-db3a2eb0d029" class="xr-index-data-in" type="checkbox"><label for="index-6ef6f4ee-8de2-4b55-ba7f-db3a2eb0d029" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2017-12-31 06:00:00'], dtype='datetime64[ns]', name='time', freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-044fa8f2-0cc4-4406-a522-9b6550cf336c" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-044fa8f2-0cc4-4406-a522-9b6550cf336c" class="xr-section-summary">Attributes: <span>(9)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Wind speed</dd><dt><span>standard_name :</span></dt><dd>wind_speed</dd><dt><span>units :</span></dt><dd>m s-1</dd><dt><span>comment :</span></dt><dd>10-m wind speed magnitude (&gt;= 0 ) over open water. Only used for the calculation of air-sea fluxes using bulk formulae. Note: not adjusted by the ocean state estimation and not necesarily consistent with EXFuwind and EXFvwind because EXFuwind and EXFvwind are calculated from EXFtaux and EXFtauy using bulk formulae. EXFwspee != sqrt(EXFuwind**2 + EXFvwind**2.</dd><dt><span>valid_min :</span></dt><dd>0.27271032333374023</dd><dt><span>valid_max :</span></dt><dd>45.87086486816406</dd><dt><span>origname :</span></dt><dd>EXFwspee</dd><dt><span>fullnamepath :</span></dt><dd>/EXFwspee</dd></dl></div></li></ul></div></div>
+</div>
 </div>
 <section id="plot-the-entire-variable" class="level4">
 <h4 class="anchored" data-anchor-id="plot-the-entire-variable">Plot the entire variable:</h4>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.EXFwspee.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.EXFwspee.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>&lt;matplotlib.collections.QuadMesh at 0x122c56a30&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
 </div>
 </section>
 <section id="subset-with-defined-ranges" class="level4">
 <h4 class="anchored" data-anchor-id="subset-with-defined-ranges">Subset with defined ranges:</h4>
 <p>To subset, we will use xarray’s <code>isel</code> method. This returns a new dataset with each array indexed along the specified dimension(s). These calls extract arrays based on the provided parameters that are read as a set of coordinate indices. For more information, https://docs.xarray.dev/en/stable/generated/xarray.Dataset.isel.html.</p>
 <p>In this example, the following ranges are used: latitude (50,100), longitude (300,700).</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.EXFwspee.isel(latitude<span class="op">=</span><span class="bu">slice</span>(<span class="dv">50</span>,<span class="dv">100</span>),longitude<span class="op">=</span><span class="bu">slice</span>(<span class="dv">300</span>,<span class="dv">700</span>)).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.EXFwspee.isel(latitude<span class="op">=</span><span class="bu">slice</span>(<span class="dv">50</span>,<span class="dv">100</span>),longitude<span class="op">=</span><span class="bu">slice</span>(<span class="dv">300</span>,<span class="dv">700</span>)).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>&lt;matplotlib.collections.QuadMesh at 0x122dedd30&gt;</code></pre>
 </div>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>output_tile <span class="op">=</span> ecco_ds.isel(latitude<span class="op">=</span><span class="dv">300</span>, time<span class="op">=</span><span class="dv">0</span>).load()</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>output_tile.data_vars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>output_tile <span class="op">=</span> ecco_ds.isel(latitude<span class="op">=</span><span class="dv">300</span>, time<span class="op">=</span><span class="dv">0</span>).load()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>output_tile.data_vars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>Data variables:
+    EXFatemp  (longitude) float32 270.9 270.9 271.0 271.0 ... 270.4 270.8 270.8
+    EXFewind  (longitude) float32 -7.5 -7.5 -7.743 ... -6.907 -7.207 -7.207
+    EXFwspee  (longitude) float32 14.18 14.18 14.43 14.43 ... 14.37 14.16 14.16
+    EXFnwind  (longitude) float32 -12.15 -12.15 -12.35 ... -12.42 -12.17 -12.17
+    EXFpress  (longitude) float32 1.008e+05 1.008e+05 ... 1.009e+05 1.009e+05
+    EXFaqh    (longitude) float32 0.002558 0.002558 ... 0.002547 0.002547</code></pre>
+</div>
 </div>
 <p>Use <code>coords</code> to view which coordinate values are available to use for our subset plot.</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.coords</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.coords</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>Coordinates:
+    latitude_bnds   (latitude, nv) float32 ...
+    time_bnds       (time, nv) datetime64[ns] ...
+    longitude_bnds  (longitude, nv) float32 -180.0 -179.5 -179.5 ... 179.5 180.0
+  * latitude        (latitude) float32 -89.75 -89.25 -88.75 ... 89.25 89.75
+  * longitude       (longitude) float32 -179.8 -179.2 -178.8 ... 179.2 179.8
+  * nv              (nv) float32 0.0 1.0
+  * time            (time) datetime64[ns] 2017-12-31T06:00:00</code></pre>
+</div>
 </div>
 <p>The following plots the subsetted data with windspeed along latitude=300 over time=0 (see the output_tile definition above).</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>f, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>,figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axarr</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>ax.plot(ecco_ds[<span class="st">'longitude'</span>], output_tile.EXFwspee, color<span class="op">=</span><span class="st">'b'</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Wind Speed: m s-1'</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Longitude'</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Wind Speed vs Longitude (m s-1), Latitude=300'</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>f, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>,figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axarr</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ax.plot(ecco_ds[<span class="st">'longitude'</span>], output_tile.EXFwspee, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Wind Speed: m s-1'</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Longitude'</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Wind Speed vs Longitude (m s-1), Latitude=300'</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 </section>
 </section>
 <section id="method-2-subsetting-using-the-numpy-syntax" class="level2">
 <h2 class="anchored" data-anchor-id="method-2-subsetting-using-the-numpy-syntax">Method 2: Subsetting using the Numpy Syntax</h2>
 <p>An alternative method is to subset using Numpy’s [ ] syntax on <code>DataArray</code>.</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.data_vars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ecco_ds.data_vars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>Data variables:
+    EXFatemp  (time, latitude, longitude) float32 ...
+    EXFewind  (time, latitude, longitude) float32 ...
+    EXFwspee  (time, latitude, longitude) float32 ...
+    EXFnwind  (time, latitude, longitude) float32 ...
+    EXFpress  (time, latitude, longitude) float32 ...
+    EXFaqh    (time, latitude, longitude) float32 ...</code></pre>
 </div>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>wind_speed_arr <span class="op">=</span> ecco_ds.EXFwspee.values</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(wind_speed_arr)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>wind_speed_arr.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>wind_speed_arr <span class="op">=</span> ecco_ds.EXFwspee.values</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(wind_speed_arr)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>wind_speed_arr.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>(1, 360, 720)</code></pre>
+</div>
 </div>
 <p>The shape above (1, 360, 720) aligns with the variable definition (time, latitude, longitude). To plot this using numpy, the variable has to be reduced to a 2-D array. In this example, time is removed since time is the same value for all latitude, longitude values.</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>wind_speed_2d <span class="op">=</span> wind_speed_arr[<span class="dv">0</span>,:,:]</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>wind_speed_2d.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>wind_speed_2d <span class="op">=</span> wind_speed_arr[<span class="dv">0</span>,:,:]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>wind_speed_2d.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>(360, 720)</code></pre>
 </div>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(wind_speed_2d, origin<span class="op">=</span><span class="st">'lower'</span>,cmap<span class="op">=</span><span class="st">'jet'</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> ecco_ds.time.values[<span class="dv">0</span>]</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Wind Speed m s-1 for </span><span class="sc">{</span>time<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'latitude'</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'longitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(wind_speed_2d, origin<span class="op">=</span><span class="st">'lower'</span>,cmap<span class="op">=</span><span class="st">'jet'</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> ecco_ds.time.values[<span class="dv">0</span>]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Wind Speed m s-1 for </span><span class="sc">{</span>time<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'latitude'</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'longitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>Text(0, 0.5, 'longitude')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+</div>
 </div>
 <p>To subset, create a 2D variable to plot with defined ranges. In this example, <code>EXFwspee</code> is subsetted with the following ranges are used: latitude (50,100), longitude (300,700).</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>wind_speed_2d_subset <span class="op">=</span> ecco_ds.EXFwspee[<span class="dv">0</span>,<span class="dv">50</span>:<span class="dv">100</span>,<span class="dv">300</span>:<span class="dv">700</span>]</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>wind_speed_2d_subset.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>wind_speed_2d_subset <span class="op">=</span> ecco_ds.EXFwspee[<span class="dv">0</span>,<span class="dv">50</span>:<span class="dv">100</span>,<span class="dv">300</span>:<span class="dv">700</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>wind_speed_2d_subset.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>&lt;matplotlib.collections.QuadMesh at 0x123069850&gt;</code></pre>
 </div>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>wind_speed_1d_subset <span class="op">=</span> ecco_ds.EXFwspee[<span class="dv">0</span>,<span class="dv">300</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>wind_speed_1d_subset <span class="op">=</span> ecco_ds.EXFwspee[<span class="dv">0</span>,<span class="dv">300</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Trim down <code>wind_speed_2_d_subset</code> to a 1-D array. In this example, latitude = 300 and longitude is saved.</p>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>wind_speed_1d_subset.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>wind_speed_1d_subset.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>(720,)</code></pre>
 </div>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wind_speed_1d_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>f, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>,figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axarr</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ax.plot(ecco_ds[<span class="st">'longitude'</span>], wind_speed_1d_subset, color<span class="op">=</span><span class="st">'b'</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Wind Speed: m s-1'</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Longitude'</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Wind Speed vs Longitude (m s-1), Latitude=300'</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wind_speed_1d_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.DataArray 'EXFwspee' (longitude: 720)&gt;
+array([14.181836, 14.181836, 14.428396, ..., 14.36692 , 14.15819 , 14.15819 ],
+      dtype=float32)
+Coordinates:
+    latitude   float32 60.25
+  * longitude  (longitude) float32 -179.8 -179.2 -178.8 ... 178.8 179.2 179.8
+    time       datetime64[ns] 2017-12-31T06:00:00
+Attributes:
+    coverage_content_type:  modelResult
+    long_name:              Wind speed
+    standard_name:          wind_speed
+    units:                  m s-1
+    comment:                10-m wind speed magnitude (&gt;= 0 ) over open water...
+    valid_min:              0.27271032333374023
+    valid_max:              45.87086486816406
+    origname:               EXFwspee
+    fullnamepath:           /EXFwspee</code></pre>
+</div>
+</div>
+<div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>f, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>,figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axarr</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ax.plot(ecco_ds[<span class="st">'longitude'</span>], wind_speed_1d_subset, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Wind Speed: m s-1'</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Longitude'</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Wind Speed vs Longitude (m s-1), Latitude=300'</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 
 
