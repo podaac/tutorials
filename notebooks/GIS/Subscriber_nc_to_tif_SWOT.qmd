@@ -9,10 +9,7 @@ The following workflow extracts a single variable of interest (water surface ele
 
 ### Requirements
 
-1. This tutorial can be run in the following environments:
-
-- **AWS instance running in us-west-2**: NASA Earthdata Cloud data in S3 can be directly accessed via temporary credentials; this access is limited to requests made within the US West (Oregon) (code: `us-west-2`) AWS region.
-- **Local compute environment** e.g. laptop, server: this tutorial can be run on your local machine
+1. This tutorial can be run in any Linux environment. (The subscriber tool can be run in any environment, not just Linux, but the bash script used as the process will only work in a Linux environment.)
 
 2. Earthdata Login - An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit [https://urs.earthdata.nasa.gov](https://urs.earthdata.nasa.gov) to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.
 
@@ -23,7 +20,7 @@ The following workflow extracts a single variable of interest (water surface ele
 - Use the "--process" option in the podaac-data-subscriber 
 - Convert netCDF files to geotiff files using `gdalmdimtranslate` in a bash script
 
-### Create a Bach Script
+### Create a Bash Script
 
 Inside a bash script entitled, `test.sh`, set up the following command which calls `gdalmdimtranslate` to write the wse variable in the downloaded netcdf file to a new geotiff in the same directory:
 
