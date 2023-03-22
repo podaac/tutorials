@@ -567,10 +567,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#create-a-bash-script" id="toc-create-a-bash-script" class="nav-link" data-scroll-target="#create-a-bash-script">Create a Bash Script</a></li>
+  <li><a href="#create-a-bach-script" id="toc-create-a-bach-script" class="nav-link" data-scroll-target="#create-a-bach-script">Create a Bach Script</a></li>
   <li><a href="#call-the-data-subscriber" id="toc-call-the-data-subscriber" class="nav-link" data-scroll-target="#call-the-data-subscriber">Call the Data Subscriber</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/edit/main/notebooks/GIS/Subscriber_nc_to_tif_SWOT.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/blob/main/notebooks/GIS/Subscriber_nc_to_tif_SWOT.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/edit/main/notebooks/GIS/Subscriber_nc_to_tif_SWOT.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -600,7 +600,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="requirements" class="level3">
 <h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
 <ol type="1">
-<li><p>This tutorial can be run in any Linux environment. (The subscriber tool can be run in any environment, not just Linux, but the bash script used as the process will only work in a Linux environment.)</p></li>
+<li>This tutorial can be run in the following environments:</li>
+</ol>
+<ul>
+<li><strong>AWS instance running in us-west-2</strong>: NASA Earthdata Cloud data in S3 can be directly accessed via temporary credentials; this access is limited to requests made within the US West (Oregon) (code: <code>us-west-2</code>) AWS region.</li>
+<li><strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine</li>
+</ul>
+<ol start="2" type="1">
 <li><p>Earthdata Login - An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit <a href="https://urs.earthdata.nasa.gov">https://urs.earthdata.nasa.gov</a> to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p></li>
 <li><p>netrc File - You will need a <code>.netrc</code> file containing your NASA Earthdata Login credentials in order to execute the notebooks. A <code>.netrc</code> file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Workshop-AGU/tutorials/02_NASA_Earthdata_Authentication.html">Authentication for NASA Earthdata tutorial</a>.</p></li>
 </ol>
@@ -612,8 +618,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Convert netCDF files to geotiff files using <code>gdalmdimtranslate</code> in a bash script</li>
 </ul>
 </section>
-<section id="create-a-bash-script" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-bash-script">Create a Bash Script</h3>
+<section id="create-a-bach-script" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-bach-script">Create a Bach Script</h3>
 <p>Inside a bash script entitled, <code>test.sh</code>, set up the following command which calls <code>gdalmdimtranslate</code> to write the wse variable in the downloaded netcdf file to a new geotiff in the same directory:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gdalmdimtranslate</span> <span class="dt">\</span></span>
@@ -626,7 +632,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="call-the-data-subscriber">Call the Data Subscriber</h3>
 <p>Then, after <a href="https://github.com/podaac/data-subscriber#installation">installing the podaac-data-subscriber package</a>, write the following command in your terminal that uses the podaac-data-subscriber to run the bash script:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1 <span class="at">-d</span> ~/test_podaac/ <span class="at">-sd</span> 2022-08-22T19:30:00Z <span class="at">-ed</span> 2022-08-22T19:35:00Z <span class="at">--process</span> <span class="st">"</span><span class="va">${PWD}</span><span class="st">/test.sh"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you get a permission denied error for test.sh, Make sure the permissions on the .sh file are set to read, write &amp; executable. If you are unsure what your permissions are, in the command prompt you can execute “chmod 0755 test.sh” and permissions should be updated.</p>
 <p><strong>Listed Results from the above command should be as follows:</strong></p>
 <pre><code>$ ls
 SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.nc

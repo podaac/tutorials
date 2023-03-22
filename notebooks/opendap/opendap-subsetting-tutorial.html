@@ -566,7 +566,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#subsetting-cloud-opendap-example" id="toc-subsetting-cloud-opendap-example" class="nav-link active" data-scroll-target="#subsetting-cloud-opendap-example">Subsetting Cloud OPeNDAP Example</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
   <ul class="collapse">
   <li><a href="#dataset-set-up" id="toc-dataset-set-up" class="nav-link" data-scroll-target="#dataset-set-up">Dataset Set Up</a></li>
   <li><a href="#install-libraries" id="toc-install-libraries" class="nav-link" data-scroll-target="#install-libraries">Install Libraries</a></li>
@@ -574,7 +576,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#method-2-subsetting-using-the-numpy-syntax" id="toc-method-2-subsetting-using-the-numpy-syntax" class="nav-link" data-scroll-target="#method-2-subsetting-using-the-numpy-syntax">Method 2: Subsetting using the Numpy Syntax</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/opendap/opendap-subsetting-tutorial.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/blob/main/notebooks/opendap/opendap-subsetting-tutorial.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/opendap/opendap-subsetting-tutorial.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -590,9 +592,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="summary" class="level1">
 <h1>Summary</h1>
 <p>One of OPeNDAP’s key features is it’s subsetting capabilities. It is capable of subsetting by time, space and variable, and is an effective tool for those looking to reduce the amount of gridded data required for research or analysis to a specific region, time, or set of variables. As such, subsetting reduces the amount of data run and allows users to key in on areas of interest.</p>
-<p>This example requires preliminary Cloud-OPeNDAP set up before running these examples. For instructions, see credentials.ipynb in this repository.</p>
-<p>import netCDF4 as nc OPENDAP_URL = “https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/ECCO%20Atmosphere%20Surface%20Temperature%2C%20Humidity%2C%20Wind%2C%20and%20Pressure%20-%20Daily%20Mean%200.5%20Degree%20(Version%204%20Release%204)/granules/ATM_SURFACE_TEMP_HUM_WIND_PRES_day_mean_2017-12-31_ECCO_V4r4_latlon_0p50deg” ds = nc.Dataset(OPENDAP_URL, mode=“r”)</p>
-<p>print(ds)</p>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning Objectives</h1>
+<p>The objectives of this tutorial are to provide * foundational Cloud OPeNDAP data analysis and plots * examples of subsetting Cloud OPeNDAP using xarray * examplesSubset Cloud OPeNDAP using numpy</p>
+</section>
+<section id="requirements" class="level1">
+<h1>Requirements</h1>
+<p>This example requires preliminary Cloud-OPeNDAP set up before running these examples. For instructions, see credentials.ipynb in this repository. These instructions are essential for setting up your 1. computation environment 2. earthdata login 3. netrc file 4. urs_cookies 5. dodsrc file</p>
+<p>Confirm your environment is set up correctly by running the script below. These lines must run successfully to proceed with the subsetting examples.</p>
 <div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> netCDF4 <span class="im">as</span> nc</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>OPENDAP_URL <span class="op">=</span> <span class="st">"https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/ECCO%20Atmosphere%20Surface%20Temperature%2C%20Humidity%2C%20Wind%2C%20and%20Pressure%20-%20Daily%20Mean</span><span class="sc">%200.5%</span><span class="st">20Degree%20(Version</span><span class="sc">%204%</span><span class="st">20Release%204)/granules/ATM_SURFACE_TEMP_HUM_WIND_PRES_day_mean_2017-12-31_ECCO_V4r4_latlon_0p50deg"</span></span>
@@ -1313,7 +1321,7 @@ Attributes:
 <pre><code>&lt;matplotlib.collections.QuadMesh at 0x122c56a30&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1327,7 +1335,7 @@ Attributes:
 <pre><code>&lt;matplotlib.collections.QuadMesh at 0x122dedd30&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="10">
@@ -1367,7 +1375,7 @@ Attributes:
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Wind Speed vs Longitude (m s-1), Latitude=300'</span>)</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1415,7 +1423,7 @@ Attributes:
 <pre><code>Text(0, 0.5, 'longitude')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <p>To subset, create a 2D variable to plot with defined ranges. In this example, <code>EXFwspee</code> is subsetted with the following ranges are used: latitude (50,100), longitude (300,700).</p>
@@ -1427,7 +1435,7 @@ Attributes:
 <pre><code>&lt;matplotlib.collections.QuadMesh at 0x123069850&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-22-output-2.png" class="img-fluid"></p>
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-pycharm="{&quot;name&quot;:&quot;#%%\n&quot;}" data-execution_count="18">
@@ -1471,7 +1479,7 @@ Attributes:
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Wind Speed vs Longitude (m s-1), Latitude=300'</span>)</span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
+<p><img src="opendap-subsetting-tutorial_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
