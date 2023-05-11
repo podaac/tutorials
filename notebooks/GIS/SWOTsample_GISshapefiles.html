@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook – swotsample_gisshapefiles</title>
+<title>PO.DAAC Cookbook - SWOT Simulated North American Continent Hydrology Dataset</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -135,11 +106,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/SWOT.html">SWOT</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/SWOTsample_GISshapefiles.html">GIS Workflows</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/SWOTsample_GISshapefiles.html">GIS HR Shapefile Exploration</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -147,258 +123,294 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">Cheatsheets &amp; Guides</a>
+  <a href="../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets &amp; Guides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">How To's</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How To's</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">Search</a>
+  <a href="../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">Authenticate</a>
+  <a href="../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authenticate</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/Direct_S3_Access_NetCDF.html" class="sidebar-item-text sidebar-link">Access in Cloud</a>
+  <a href="../../external/Direct_S3_Access_NetCDF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access in Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">Download/Subscribe</a>
+  <a href="../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download/Subscribe</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">Dataset Specific</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Specific</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">ECCO</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a href="../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECCO</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">In-cloud Access</a>
+  <a href="../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-cloud Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">Local Download Access</a>
+  <a href="../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local Download Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">Use Case Demo</a>
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">Sentinel-6 Michael Freilich</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a href="../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">Access by Cycle/Pass</a>
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access by Cycle/Pass</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">Access NRT Data</a>
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access NRT Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">OPeNDAP Access</a>
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">SMAP</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a href="../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMAP</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">Use Case Demo</a>
+  <a href="../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">S-MODE</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a href="../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S-MODE</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">Case Study Airborne Part 1</a>
+  <a href="../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">Case Study Airborne Part 2</a>
+  <a href="../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">Case Study In Situ</a>
+  <a href="../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study In Situ</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">SWOT</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SWOT</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">Search</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Search</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/SearchDownload_SWOTviaCMR.html" class="sidebar-item-text sidebar-link">Programmatically</a>
+  <a href="../../notebooks/SearchDownload_SWOTviaCMR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmatically</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/SWORD_River_Demo.html" class="sidebar-item-text sidebar-link">By SWORD ID</a>
+  <a href="../../notebooks/SWORD_River_Demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">By SWORD ID</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/HUC Feature Translation Service Examples-updated-20210804.html" class="sidebar-item-text sidebar-link">By HUC ID</a>
+  <a href="../../notebooks/HUC Feature Translation Service Examples-updated-20210804.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">By HUC ID</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">In-cloud Access</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">In-cloud Access</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">Sample SWOT Hydrology Data</a>
+  <a href="../../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample SWOT Hydrology Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/Direct_Access_SWOT_sim_Oceanography.html" class="sidebar-item-text sidebar-link">Sample SWOT Oceanography Data</a>
+  <a href="../../external/Direct_Access_SWOT_sim_Oceanography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample SWOT Oceanography Data</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">GIS Workflows</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+ <span class="menu-text">GIS Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth4 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/GIS/SWOTsample_GISshapefiles.html" class="sidebar-item-text sidebar-link active">GIS HR Shapefile Exploration</a>
+  <a href="../../notebooks/GIS/SWOTsample_GISshapefiles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">GIS HR Shapefile Exploration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">NetCDF to Geotiff</a>
+  <a href="../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NetCDF to Geotiff</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">Transform Data</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">Transform Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/GIS/SWOTsample_CSVconversion.html" class="sidebar-item-text sidebar-link">Hydrology Time Series</a>
+  <a href="../../notebooks/GIS/SWOTsample_CSVconversion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hydrology Time Series</span></a>
   </div>
 </li>
           <li class="sidebar-item">
-  Subset by Bounding Box
+ <span class="menu-text">Subset by Bounding Box</span>
   </li>
       </ul>
   </li>
@@ -408,53 +420,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">GIS</a>
+  <a href="../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIS</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">Cloud vs. Local Workflows</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud vs. Local Workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">Estuary Example</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">Estuary Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">Cloud</a>
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">Local</a>
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">Reservoir Example</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+ <span class="menu-text">Reservoir Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">Cloud</a>
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">Local</a>
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
   </div>
 </li>
       </ul>
@@ -463,45 +483,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/PairingCloudNoncloudData.html" class="sidebar-item-text sidebar-link">Pairing Cloud and Non-cloud Data</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+            <a href="../../quarto_text/PairingCloudNoncloudData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pairing Cloud and Non-cloud Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">River Heights Comparison</a>
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">River Heights Comparison</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">Ocean Satellite &amp; In-situ Comparison</a>
+  <a href="../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Satellite &amp; In-situ Comparison</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">Cloud Optimized Examples</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+            <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Optimized Examples</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/zarr_access.html" class="sidebar-item-text sidebar-link">Zarr Access for NetCDF4 Files</a>
+  <a href="../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Access for NetCDF4 Files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">zarr-eosdis-store library</a>
+  <a href="../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr-eosdis-store library</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">zarr2netCDF</a>
+  <a href="../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr2netCDF</span></a>
   </div>
 </li>
       </ul>
@@ -510,66 +537,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">In Development</a>
+  <a href="../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In Development</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">Workshops</a>
+  <a href="../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshops</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">Webinars</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false">
+            <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webinars</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">July 2022 Earthdata Webinar Notebook</a>
+  <a href="../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">July 2022 Earthdata Webinar Notebook</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">Tech Guides</a>
+  <a href="../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tech Guides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">Contribute</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+            <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contribute</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">Tutorial Template</a>
+  <a href="../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial Template</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">Questions?</a>
+  <a href="../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions?</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#swot-simulated-north-american-continent-hydrology-dataset" id="toc-swot-simulated-north-american-continent-hydrology-dataset" class="nav-link active" data-scroll-target="#swot-simulated-north-american-continent-hydrology-dataset">SWOT Simulated North American Continent Hydrology Dataset</a>
-  <ul class="collapse">
-  <li><a href="#finding-ways-to-visualize-swot-simulated-shapefile-dataset" id="toc-finding-ways-to-visualize-swot-simulated-shapefile-dataset" class="nav-link" data-scroll-target="#finding-ways-to-visualize-swot-simulated-shapefile-dataset">Finding ways to visualize SWOT Simulated Shapefile Dataset</a>
+  <li><a href="#finding-ways-to-visualize-swot-simulated-shapefile-dataset" id="toc-finding-ways-to-visualize-swot-simulated-shapefile-dataset" class="nav-link active" data-scroll-target="#finding-ways-to-visualize-swot-simulated-shapefile-dataset">Finding ways to visualize SWOT Simulated Shapefile Dataset</a>
   <ul class="collapse">
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives:</a></li>
   <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset:</a></li>
@@ -585,20 +619,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#bonus" id="toc-bonus" class="nav-link" data-scroll-target="#bonus">Bonus</a></li>
   <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/GIS/SWOTsample_GISshapefiles.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/blob/main/notebooks/GIS/SWOTsample_GISshapefiles.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SWOT Simulated North American Continent Hydrology Dataset</h1>
+</div>
 
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
 
 <blockquote class="blockquote">
 <p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/GIS/SWOTsample_GISshapefiles.ipynb">this link</a>.</p>
 </blockquote>
-<section id="swot-simulated-north-american-continent-hydrology-dataset" class="level1">
-<h1>SWOT Simulated North American Continent Hydrology Dataset</h1>
 <section id="finding-ways-to-visualize-swot-simulated-shapefile-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="finding-ways-to-visualize-swot-simulated-shapefile-dataset">Finding ways to visualize SWOT Simulated Shapefile Dataset</h2>
 <section id="learning-objectives" class="level3">
@@ -644,303 +690,304 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>River <span class="op">=</span> gpd.read_file(<span class="st">'C:\SWOT\SWOT_River_Reaches\SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.shp'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>River</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>reach_id</th>
-      <th>time</th>
-      <th>time_tai</th>
-      <th>time_str</th>
-      <th>p_lat</th>
-      <th>p_lon</th>
-      <th>river_name</th>
-      <th>wse</th>
-      <th>wse_u</th>
-      <th>wse_r_u</th>
-      <th>...</th>
-      <th>p_width</th>
-      <th>p_wid_var</th>
-      <th>p_n_nodes</th>
-      <th>p_dist_out</th>
-      <th>p_length</th>
-      <th>p_maf</th>
-      <th>p_dam_id</th>
-      <th>p_n_ch_max</th>
-      <th>p_n_ch_mod</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>74225000301</td>
-      <td>7.138265e+08</td>
-      <td>7.138265e+08</td>
-      <td>2022-08-14T21:0806Z</td>
-      <td>33.916062</td>
-      <td>-95.560044</td>
-      <td>no_data</td>
-      <td>3.495055e+01</td>
-      <td>-1.000000e+12</td>
-      <td>2.515300e-01</td>
-      <td>...</td>
-      <td>156.0</td>
-      <td>3097.993819</td>
-      <td>54</td>
-      <td>1461998.230</td>
-      <td>10753.251601</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-95.53934 33.88031, -95.53966 33.8...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>74225000311</td>
-      <td>7.138265e+08</td>
-      <td>7.138265e+08</td>
-      <td>2022-08-14T21:0806Z</td>
-      <td>33.906781</td>
-      <td>-95.654646</td>
-      <td>no_data</td>
-      <td>3.405308e+01</td>
-      <td>-1.000000e+12</td>
-      <td>5.495000e-02</td>
-      <td>...</td>
-      <td>175.0</td>
-      <td>3701.568090</td>
-      <td>79</td>
-      <td>1477859.906</td>
-      <td>15861.676389</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-95.59665 33.94170, -95.59665 33.9...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>74225000321</td>
-      <td>7.138265e+08</td>
-      <td>7.138265e+08</td>
-      <td>2022-08-14T21:0807Z</td>
-      <td>33.870673</td>
-      <td>-95.762974</td>
-      <td>no_data</td>
-      <td>3.364557e+01</td>
-      <td>-1.000000e+12</td>
-      <td>2.726000e-02</td>
-      <td>...</td>
-      <td>183.0</td>
-      <td>3908.298409</td>
-      <td>68</td>
-      <td>1491552.334</td>
-      <td>13692.428266</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>4</td>
-      <td>1</td>
-      <td>LINESTRING (-95.72430 33.89448, -95.72463 33.8...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>74225000331</td>
-      <td>7.138265e+08</td>
-      <td>7.138265e+08</td>
-      <td>2022-08-14T21:0807Z</td>
-      <td>33.851562</td>
-      <td>-95.845656</td>
-      <td>no_data</td>
-      <td>3.345162e+01</td>
-      <td>-1.000000e+12</td>
-      <td>3.449000e-02</td>
-      <td>...</td>
-      <td>148.0</td>
-      <td>3991.344178</td>
-      <td>61</td>
-      <td>1503740.939</td>
-      <td>12188.604492</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-95.80786 33.86129, -95.80818 33.8...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>74225000341</td>
-      <td>7.138265e+08</td>
-      <td>7.138265e+08</td>
-      <td>2022-08-14T21:0806Z</td>
-      <td>33.866701</td>
-      <td>-95.946894</td>
-      <td>no_data</td>
-      <td>3.316602e+01</td>
-      <td>-1.000000e+12</td>
-      <td>2.511000e-02</td>
-      <td>...</td>
-      <td>175.0</td>
-      <td>4193.042490</td>
-      <td>61</td>
-      <td>1515895.262</td>
-      <td>12154.323029</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>3</td>
-      <td>1</td>
-      <td>LINESTRING (-95.89671 33.87151, -95.89704 33.8...</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>480</th>
-      <td>75165000211</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>no_data</td>
-      <td>30.433862</td>
-      <td>-96.288294</td>
-      <td>no_data</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>...</td>
-      <td>80.0</td>
-      <td>370.935908</td>
-      <td>53</td>
-      <td>418067.216</td>
-      <td>10666.156902</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (-96.27241 30.40543, -96.27215 30.4...</td>
-    </tr>
-    <tr>
-      <th>481</th>
-      <td>75165000221</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>no_data</td>
-      <td>30.479698</td>
-      <td>-96.336497</td>
-      <td>no_data</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>...</td>
-      <td>84.0</td>
-      <td>415.828931</td>
-      <td>53</td>
-      <td>428691.064</td>
-      <td>10623.847758</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-96.31719 30.45052, -96.31751 30.4...</td>
-    </tr>
-    <tr>
-      <th>482</th>
-      <td>75165000231</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>no_data</td>
-      <td>30.531514</td>
-      <td>-96.369330</td>
-      <td>no_data</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>...</td>
-      <td>67.0</td>
-      <td>475.710190</td>
-      <td>65</td>
-      <td>441697.761</td>
-      <td>13006.697340</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (-96.35467 30.51265, -96.35491 30.5...</td>
-    </tr>
-    <tr>
-      <th>483</th>
-      <td>75165000241</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>no_data</td>
-      <td>30.560974</td>
-      <td>-96.417506</td>
-      <td>no_data</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>...</td>
-      <td>80.0</td>
-      <td>373.408224</td>
-      <td>49</td>
-      <td>451539.432</td>
-      <td>9841.670412</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (-96.39119 30.53292, -96.39150 30.5...</td>
-    </tr>
-    <tr>
-      <th>484</th>
-      <td>75165000251</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>no_data</td>
-      <td>30.591646</td>
-      <td>-96.453558</td>
-      <td>no_data</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>...</td>
-      <td>84.0</td>
-      <td>551.788513</td>
-      <td>49</td>
-      <td>461358.159</td>
-      <td>9818.727520</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-96.42988 30.58532, -96.42977 30.5...</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">reach_id</th>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">time_tai</th>
+<th data-quarto-table-cell-role="th">time_str</th>
+<th data-quarto-table-cell-role="th">p_lat</th>
+<th data-quarto-table-cell-role="th">p_lon</th>
+<th data-quarto-table-cell-role="th">river_name</th>
+<th data-quarto-table-cell-role="th">wse</th>
+<th data-quarto-table-cell-role="th">wse_u</th>
+<th data-quarto-table-cell-role="th">wse_r_u</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">p_width</th>
+<th data-quarto-table-cell-role="th">p_wid_var</th>
+<th data-quarto-table-cell-role="th">p_n_nodes</th>
+<th data-quarto-table-cell-role="th">p_dist_out</th>
+<th data-quarto-table-cell-role="th">p_length</th>
+<th data-quarto-table-cell-role="th">p_maf</th>
+<th data-quarto-table-cell-role="th">p_dam_id</th>
+<th data-quarto-table-cell-role="th">p_n_ch_max</th>
+<th data-quarto-table-cell-role="th">p_n_ch_mod</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>74225000301</td>
+<td>7.138265e+08</td>
+<td>7.138265e+08</td>
+<td>2022-08-14T21:0806Z</td>
+<td>33.916062</td>
+<td>-95.560044</td>
+<td>no_data</td>
+<td>3.495055e+01</td>
+<td>-1.000000e+12</td>
+<td>2.515300e-01</td>
+<td>...</td>
+<td>156.0</td>
+<td>3097.993819</td>
+<td>54</td>
+<td>1461998.230</td>
+<td>10753.251601</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-95.53934 33.88031, -95.53966 33.8...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>74225000311</td>
+<td>7.138265e+08</td>
+<td>7.138265e+08</td>
+<td>2022-08-14T21:0806Z</td>
+<td>33.906781</td>
+<td>-95.654646</td>
+<td>no_data</td>
+<td>3.405308e+01</td>
+<td>-1.000000e+12</td>
+<td>5.495000e-02</td>
+<td>...</td>
+<td>175.0</td>
+<td>3701.568090</td>
+<td>79</td>
+<td>1477859.906</td>
+<td>15861.676389</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-95.59665 33.94170, -95.59665 33.9...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>74225000321</td>
+<td>7.138265e+08</td>
+<td>7.138265e+08</td>
+<td>2022-08-14T21:0807Z</td>
+<td>33.870673</td>
+<td>-95.762974</td>
+<td>no_data</td>
+<td>3.364557e+01</td>
+<td>-1.000000e+12</td>
+<td>2.726000e-02</td>
+<td>...</td>
+<td>183.0</td>
+<td>3908.298409</td>
+<td>68</td>
+<td>1491552.334</td>
+<td>13692.428266</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>4</td>
+<td>1</td>
+<td>LINESTRING (-95.72430 33.89448, -95.72463 33.8...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>74225000331</td>
+<td>7.138265e+08</td>
+<td>7.138265e+08</td>
+<td>2022-08-14T21:0807Z</td>
+<td>33.851562</td>
+<td>-95.845656</td>
+<td>no_data</td>
+<td>3.345162e+01</td>
+<td>-1.000000e+12</td>
+<td>3.449000e-02</td>
+<td>...</td>
+<td>148.0</td>
+<td>3991.344178</td>
+<td>61</td>
+<td>1503740.939</td>
+<td>12188.604492</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-95.80786 33.86129, -95.80818 33.8...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>74225000341</td>
+<td>7.138265e+08</td>
+<td>7.138265e+08</td>
+<td>2022-08-14T21:0806Z</td>
+<td>33.866701</td>
+<td>-95.946894</td>
+<td>no_data</td>
+<td>3.316602e+01</td>
+<td>-1.000000e+12</td>
+<td>2.511000e-02</td>
+<td>...</td>
+<td>175.0</td>
+<td>4193.042490</td>
+<td>61</td>
+<td>1515895.262</td>
+<td>12154.323029</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>LINESTRING (-95.89671 33.87151, -95.89704 33.8...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">480</td>
+<td>75165000211</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>30.433862</td>
+<td>-96.288294</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>80.0</td>
+<td>370.935908</td>
+<td>53</td>
+<td>418067.216</td>
+<td>10666.156902</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>LINESTRING (-96.27241 30.40543, -96.27215 30.4...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">481</td>
+<td>75165000221</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>30.479698</td>
+<td>-96.336497</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>84.0</td>
+<td>415.828931</td>
+<td>53</td>
+<td>428691.064</td>
+<td>10623.847758</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-96.31719 30.45052, -96.31751 30.4...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">482</td>
+<td>75165000231</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>30.531514</td>
+<td>-96.369330</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>67.0</td>
+<td>475.710190</td>
+<td>65</td>
+<td>441697.761</td>
+<td>13006.697340</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>LINESTRING (-96.35467 30.51265, -96.35491 30.5...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">483</td>
+<td>75165000241</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>30.560974</td>
+<td>-96.417506</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>80.0</td>
+<td>373.408224</td>
+<td>49</td>
+<td>451539.432</td>
+<td>9841.670412</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>LINESTRING (-96.39119 30.53292, -96.39150 30.5...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">484</td>
+<td>75165000251</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>30.591646</td>
+<td>-96.453558</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>84.0</td>
+<td>551.788513</td>
+<td>49</td>
+<td>461358.159</td>
+<td>9818.727520</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-96.42988 30.58532, -96.42977 30.5...</td>
+</tr>
+</tbody>
 </table>
+
 <p>485 rows × 111 columns</p>
 </div>
 </div>
@@ -1015,63 +1062,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Query <span class="op">=</span> River.query(<span class="st">"reach_id == '75165000221'"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Query</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>reach_id</th>
-      <th>time</th>
-      <th>time_tai</th>
-      <th>time_str</th>
-      <th>p_lat</th>
-      <th>p_lon</th>
-      <th>river_name</th>
-      <th>wse</th>
-      <th>wse_u</th>
-      <th>wse_r_u</th>
-      <th>...</th>
-      <th>p_width</th>
-      <th>p_wid_var</th>
-      <th>p_n_nodes</th>
-      <th>p_dist_out</th>
-      <th>p_length</th>
-      <th>p_maf</th>
-      <th>p_dam_id</th>
-      <th>p_n_ch_max</th>
-      <th>p_n_ch_mod</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>481</th>
-      <td>75165000221</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>no_data</td>
-      <td>30.479698</td>
-      <td>-96.336497</td>
-      <td>no_data</td>
-      <td>NaN</td>
-      <td>-1.000000e+12</td>
-      <td>-1.000000e+12</td>
-      <td>...</td>
-      <td>84.0</td>
-      <td>415.828931</td>
-      <td>53</td>
-      <td>428691.064</td>
-      <td>10623.847758</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-96.31719 30.45052, -96.31751 30.4...</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">reach_id</th>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">time_tai</th>
+<th data-quarto-table-cell-role="th">time_str</th>
+<th data-quarto-table-cell-role="th">p_lat</th>
+<th data-quarto-table-cell-role="th">p_lon</th>
+<th data-quarto-table-cell-role="th">river_name</th>
+<th data-quarto-table-cell-role="th">wse</th>
+<th data-quarto-table-cell-role="th">wse_u</th>
+<th data-quarto-table-cell-role="th">wse_r_u</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">p_width</th>
+<th data-quarto-table-cell-role="th">p_wid_var</th>
+<th data-quarto-table-cell-role="th">p_n_nodes</th>
+<th data-quarto-table-cell-role="th">p_dist_out</th>
+<th data-quarto-table-cell-role="th">p_length</th>
+<th data-quarto-table-cell-role="th">p_maf</th>
+<th data-quarto-table-cell-role="th">p_dam_id</th>
+<th data-quarto-table-cell-role="th">p_n_ch_max</th>
+<th data-quarto-table-cell-role="th">p_n_ch_mod</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">481</td>
+<td>75165000221</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>30.479698</td>
+<td>-96.336497</td>
+<td>no_data</td>
+<td>NaN</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>84.0</td>
+<td>415.828931</td>
+<td>53</td>
+<td>428691.064</td>
+<td>10623.847758</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-96.31719 30.45052, -96.31751 30.4...</td>
+</tr>
+</tbody>
 </table>
+
 <p>1 rows × 111 columns</p>
 </div>
 </div>
@@ -1091,495 +1139,496 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>WSE <span class="op">=</span> River.query(<span class="st">'wse &gt; 35'</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>WSE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>reach_id</th>
-      <th>time</th>
-      <th>time_tai</th>
-      <th>time_str</th>
-      <th>p_lat</th>
-      <th>p_lon</th>
-      <th>river_name</th>
-      <th>wse</th>
-      <th>wse_u</th>
-      <th>wse_r_u</th>
-      <th>...</th>
-      <th>p_width</th>
-      <th>p_wid_var</th>
-      <th>p_n_nodes</th>
-      <th>p_dist_out</th>
-      <th>p_length</th>
-      <th>p_maf</th>
-      <th>p_dam_id</th>
-      <th>p_n_ch_max</th>
-      <th>p_n_ch_mod</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>47</th>
-      <td>74242200111</td>
-      <td>7.138265e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0741Z</td>
-      <td>35.317087</td>
-      <td>-96.025428</td>
-      <td>no_data</td>
-      <td>35.15211</td>
-      <td>-1.000000e+12</td>
-      <td>0.37004</td>
-      <td>...</td>
-      <td>75.0</td>
-      <td>2698.101164</td>
-      <td>66</td>
-      <td>1825209.708</td>
-      <td>13152.428425</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-95.97846 35.30313, -95.97879 35.3...</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>74242200131</td>
-      <td>7.138265e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0741Z</td>
-      <td>35.272401</td>
-      <td>-96.149649</td>
-      <td>no_data</td>
-      <td>35.44462</td>
-      <td>-1.000000e+12</td>
-      <td>0.55727</td>
-      <td>...</td>
-      <td>80.0</td>
-      <td>571.014323</td>
-      <td>46</td>
-      <td>1843850.674</td>
-      <td>9289.513641</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-96.14746 35.30464, -96.14721 35.3...</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>74242200141</td>
-      <td>7.138265e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0741Z</td>
-      <td>35.275389</td>
-      <td>-96.208073</td>
-      <td>no_data</td>
-      <td>35.21224</td>
-      <td>-1.000000e+12</td>
-      <td>0.16871</td>
-      <td>...</td>
-      <td>80.0</td>
-      <td>402.586845</td>
-      <td>68</td>
-      <td>1857401.869</td>
-      <td>13551.195121</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-96.17403 35.26340, -96.17436 35.2...</td>
-    </tr>
-    <tr>
-      <th>81</th>
-      <td>74242300041</td>
-      <td>7.138265e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0744Z</td>
-      <td>35.164566</td>
-      <td>-95.879457</td>
-      <td>no_data</td>
-      <td>35.37206</td>
-      <td>-1.000000e+12</td>
-      <td>0.62036</td>
-      <td>...</td>
-      <td>107.0</td>
-      <td>1305.874486</td>
-      <td>42</td>
-      <td>1793769.436</td>
-      <td>8357.799096</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>3</td>
-      <td>1</td>
-      <td>LINESTRING (-95.84938 35.18503, -95.84964 35.1...</td>
-    </tr>
-    <tr>
-      <th>102</th>
-      <td>74242300251</td>
-      <td>7.138265e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0740Z</td>
-      <td>35.153209</td>
-      <td>-97.436113</td>
-      <td>no_data</td>
-      <td>39.51928</td>
-      <td>-1.000000e+12</td>
-      <td>1.35283</td>
-      <td>...</td>
-      <td>108.0</td>
-      <td>829.919971</td>
-      <td>51</td>
-      <td>2029738.323</td>
-      <td>10121.780860</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-97.40017 35.12675, -97.40043 35.1...</td>
-    </tr>
-    <tr>
-      <th>124</th>
-      <td>74248100191</td>
-      <td>7.138264e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0727Z</td>
-      <td>36.047936</td>
-      <td>-96.814971</td>
-      <td>no_data</td>
-      <td>35.15695</td>
-      <td>-1.000000e+12</td>
-      <td>0.06185</td>
-      <td>...</td>
-      <td>148.5</td>
-      <td>985.453315</td>
-      <td>78</td>
-      <td>2054425.795</td>
-      <td>15640.389075</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-96.76674 36.05285, -96.76707 36.0...</td>
-    </tr>
-    <tr>
-      <th>165</th>
-      <td>74249200121</td>
-      <td>7.138264e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0712Z</td>
-      <td>36.707171</td>
-      <td>-97.847587</td>
-      <td>no_data</td>
-      <td>39.86618</td>
-      <td>-1.000000e+12</td>
-      <td>0.06973</td>
-      <td>...</td>
-      <td>123.0</td>
-      <td>832.564957</td>
-      <td>57</td>
-      <td>2166118.950</td>
-      <td>11377.423667</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-97.79766 36.69311, -97.79800 36.6...</td>
-    </tr>
-    <tr>
-      <th>166</th>
-      <td>74249200131</td>
-      <td>7.138264e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0712Z</td>
-      <td>36.719942</td>
-      <td>-97.930131</td>
-      <td>no_data</td>
-      <td>45.34975</td>
-      <td>-1.000000e+12</td>
-      <td>7.46494</td>
-      <td>...</td>
-      <td>124.0</td>
-      <td>1741.611817</td>
-      <td>42</td>
-      <td>2174504.465</td>
-      <td>8385.514839</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>3</td>
-      <td>1</td>
-      <td>LINESTRING (-97.88911 36.73196, -97.88945 36.7...</td>
-    </tr>
-    <tr>
-      <th>210</th>
-      <td>74249300261</td>
-      <td>7.138264e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0658Z</td>
-      <td>37.559008</td>
-      <td>-97.698991</td>
-      <td>no_data</td>
-      <td>37.31830</td>
-      <td>-1.000000e+12</td>
-      <td>0.00428</td>
-      <td>...</td>
-      <td>92.0</td>
-      <td>1200.772490</td>
-      <td>51</td>
-      <td>2303196.062</td>
-      <td>10149.015676</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-97.66441 37.53530, -97.66475 37.5...</td>
-    </tr>
-    <tr>
-      <th>215</th>
-      <td>74249300311</td>
-      <td>7.138264e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0656Z</td>
-      <td>37.627488</td>
-      <td>-98.028303</td>
-      <td>no_data</td>
-      <td>36.33513</td>
-      <td>-1.000000e+12</td>
-      <td>2.16842</td>
-      <td>...</td>
-      <td>63.0</td>
-      <td>233.823669</td>
-      <td>42</td>
-      <td>2349425.456</td>
-      <td>8384.876289</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (-97.98686 37.61930, -97.98720 37.6...</td>
-    </tr>
-    <tr>
-      <th>216</th>
-      <td>74249300321</td>
-      <td>7.138264e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0656Z</td>
-      <td>37.638600</td>
-      <td>-98.106747</td>
-      <td>no_data</td>
-      <td>36.09641</td>
-      <td>-1.000000e+12</td>
-      <td>0.11889</td>
-      <td>...</td>
-      <td>63.0</td>
-      <td>631.220135</td>
-      <td>44</td>
-      <td>2358152.710</td>
-      <td>8727.253685</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>3</td>
-      <td>1</td>
-      <td>LINESTRING (-98.06652 37.63738, -98.06686 37.6...</td>
-    </tr>
-    <tr>
-      <th>242</th>
-      <td>74249300801</td>
-      <td>7.138264e+08</td>
-      <td>7.138264e+08</td>
-      <td>2022-08-14T21:0708Z</td>
-      <td>37.113844</td>
-      <td>-96.957548</td>
-      <td>no_data</td>
-      <td>35.05791</td>
-      <td>-1.000000e+12</td>
-      <td>0.06902</td>
-      <td>...</td>
-      <td>63.0</td>
-      <td>296.741419</td>
-      <td>51</td>
-      <td>2182848.997</td>
-      <td>10283.378299</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (-96.99444 37.10534, -96.99410 37.1...</td>
-    </tr>
-    <tr>
-      <th>269</th>
-      <td>74294200271</td>
-      <td>7.138263e+08</td>
-      <td>7.138263e+08</td>
-      <td>2022-08-14T21:0541Z</td>
-      <td>42.078318</td>
-      <td>-97.931605</td>
-      <td>no_data</td>
-      <td>37.77142</td>
-      <td>-1.000000e+12</td>
-      <td>1.41024</td>
-      <td>...</td>
-      <td>51.0</td>
-      <td>282.977781</td>
-      <td>55</td>
-      <td>3285195.849</td>
-      <td>11099.394970</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-97.88812 42.07337, -97.88833 42.0...</td>
-    </tr>
-    <tr>
-      <th>275</th>
-      <td>74294400061</td>
-      <td>7.138264e+08</td>
-      <td>7.138263e+08</td>
-      <td>2022-08-14T21:0553Z</td>
-      <td>41.392167</td>
-      <td>-97.835479</td>
-      <td>no_data</td>
-      <td>39.74193</td>
-      <td>-1.000000e+12</td>
-      <td>0.00000</td>
-      <td>...</td>
-      <td>152.0</td>
-      <td>5864.605686</td>
-      <td>77</td>
-      <td>3188369.749</td>
-      <td>15443.567738</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-97.76012 41.40875, -97.76048 41.4...</td>
-    </tr>
-    <tr>
-      <th>349</th>
-      <td>74295600201</td>
-      <td>7.138263e+08</td>
-      <td>7.138263e+08</td>
-      <td>2022-08-14T21:0524Z</td>
-      <td>42.760592</td>
-      <td>-99.870893</td>
-      <td>no_data</td>
-      <td>40.82342</td>
-      <td>-1.000000e+12</td>
-      <td>2.88420</td>
-      <td>...</td>
-      <td>228.0</td>
-      <td>5909.679915</td>
-      <td>54</td>
-      <td>3570218.378</td>
-      <td>10722.387331</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-99.81652 42.74292, -99.81689 42.7...</td>
-    </tr>
-    <tr>
-      <th>386</th>
-      <td>74295800141</td>
-      <td>7.138263e+08</td>
-      <td>7.138263e+08</td>
-      <td>2022-08-14T21:0507Z</td>
-      <td>43.699405</td>
-      <td>-100.216124</td>
-      <td>no_data</td>
-      <td>38.30095</td>
-      <td>-1.000000e+12</td>
-      <td>10.35277</td>
-      <td>...</td>
-      <td>127.0</td>
-      <td>1214.735618</td>
-      <td>47</td>
-      <td>3695005.134</td>
-      <td>9362.384395</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (-100.18767 43.70568, -100.18804 43...</td>
-    </tr>
-    <tr>
-      <th>441</th>
-      <td>75140100401</td>
-      <td>7.138265e+08</td>
-      <td>7.138265e+08</td>
-      <td>2022-08-14T21:0849Z</td>
-      <td>31.378090</td>
-      <td>-95.684602</td>
-      <td>no_data</td>
-      <td>44.96841</td>
-      <td>-1.000000e+12</td>
-      <td>0.00208</td>
-      <td>...</td>
-      <td>80.0</td>
-      <td>375.277777</td>
-      <td>82</td>
-      <td>399697.389</td>
-      <td>16375.887635</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (-95.65686 31.34060, -95.65687 31.3...</td>
-    </tr>
-    <tr>
-      <th>455</th>
-      <td>75140300011</td>
-      <td>7.138265e+08</td>
-      <td>7.138265e+08</td>
-      <td>2022-08-14T21:0839Z</td>
-      <td>31.899540</td>
-      <td>-96.012439</td>
-      <td>no_data</td>
-      <td>35.29524</td>
-      <td>-1.000000e+12</td>
-      <td>0.00000</td>
-      <td>...</td>
-      <td>67.0</td>
-      <td>511.629791</td>
-      <td>79</td>
-      <td>538860.706</td>
-      <td>15891.038850</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (-96.00043 31.86864, -96.00043 31.8...</td>
-    </tr>
-    <tr>
-      <th>473</th>
-      <td>75165000141</td>
-      <td>7.138265e+08</td>
-      <td>7.138265e+08</td>
-      <td>2022-08-14T21:0907Z</td>
-      <td>30.226423</td>
-      <td>-96.104246</td>
-      <td>no_data</td>
-      <td>52.37545</td>
-      <td>-1.000000e+12</td>
-      <td>5.08629</td>
-      <td>...</td>
-      <td>92.0</td>
-      <td>858.963903</td>
-      <td>48</td>
-      <td>351257.312</td>
-      <td>9672.898906</td>
-      <td>-1.000000e+12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (-96.12550 30.21370, -96.12531 30.2...</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">reach_id</th>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">time_tai</th>
+<th data-quarto-table-cell-role="th">time_str</th>
+<th data-quarto-table-cell-role="th">p_lat</th>
+<th data-quarto-table-cell-role="th">p_lon</th>
+<th data-quarto-table-cell-role="th">river_name</th>
+<th data-quarto-table-cell-role="th">wse</th>
+<th data-quarto-table-cell-role="th">wse_u</th>
+<th data-quarto-table-cell-role="th">wse_r_u</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">p_width</th>
+<th data-quarto-table-cell-role="th">p_wid_var</th>
+<th data-quarto-table-cell-role="th">p_n_nodes</th>
+<th data-quarto-table-cell-role="th">p_dist_out</th>
+<th data-quarto-table-cell-role="th">p_length</th>
+<th data-quarto-table-cell-role="th">p_maf</th>
+<th data-quarto-table-cell-role="th">p_dam_id</th>
+<th data-quarto-table-cell-role="th">p_n_ch_max</th>
+<th data-quarto-table-cell-role="th">p_n_ch_mod</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">47</td>
+<td>74242200111</td>
+<td>7.138265e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0741Z</td>
+<td>35.317087</td>
+<td>-96.025428</td>
+<td>no_data</td>
+<td>35.15211</td>
+<td>-1.000000e+12</td>
+<td>0.37004</td>
+<td>...</td>
+<td>75.0</td>
+<td>2698.101164</td>
+<td>66</td>
+<td>1825209.708</td>
+<td>13152.428425</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-95.97846 35.30313, -95.97879 35.3...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">49</td>
+<td>74242200131</td>
+<td>7.138265e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0741Z</td>
+<td>35.272401</td>
+<td>-96.149649</td>
+<td>no_data</td>
+<td>35.44462</td>
+<td>-1.000000e+12</td>
+<td>0.55727</td>
+<td>...</td>
+<td>80.0</td>
+<td>571.014323</td>
+<td>46</td>
+<td>1843850.674</td>
+<td>9289.513641</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-96.14746 35.30464, -96.14721 35.3...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">50</td>
+<td>74242200141</td>
+<td>7.138265e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0741Z</td>
+<td>35.275389</td>
+<td>-96.208073</td>
+<td>no_data</td>
+<td>35.21224</td>
+<td>-1.000000e+12</td>
+<td>0.16871</td>
+<td>...</td>
+<td>80.0</td>
+<td>402.586845</td>
+<td>68</td>
+<td>1857401.869</td>
+<td>13551.195121</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-96.17403 35.26340, -96.17436 35.2...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">81</td>
+<td>74242300041</td>
+<td>7.138265e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0744Z</td>
+<td>35.164566</td>
+<td>-95.879457</td>
+<td>no_data</td>
+<td>35.37206</td>
+<td>-1.000000e+12</td>
+<td>0.62036</td>
+<td>...</td>
+<td>107.0</td>
+<td>1305.874486</td>
+<td>42</td>
+<td>1793769.436</td>
+<td>8357.799096</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>LINESTRING (-95.84938 35.18503, -95.84964 35.1...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">102</td>
+<td>74242300251</td>
+<td>7.138265e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0740Z</td>
+<td>35.153209</td>
+<td>-97.436113</td>
+<td>no_data</td>
+<td>39.51928</td>
+<td>-1.000000e+12</td>
+<td>1.35283</td>
+<td>...</td>
+<td>108.0</td>
+<td>829.919971</td>
+<td>51</td>
+<td>2029738.323</td>
+<td>10121.780860</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-97.40017 35.12675, -97.40043 35.1...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">124</td>
+<td>74248100191</td>
+<td>7.138264e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0727Z</td>
+<td>36.047936</td>
+<td>-96.814971</td>
+<td>no_data</td>
+<td>35.15695</td>
+<td>-1.000000e+12</td>
+<td>0.06185</td>
+<td>...</td>
+<td>148.5</td>
+<td>985.453315</td>
+<td>78</td>
+<td>2054425.795</td>
+<td>15640.389075</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-96.76674 36.05285, -96.76707 36.0...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">165</td>
+<td>74249200121</td>
+<td>7.138264e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0712Z</td>
+<td>36.707171</td>
+<td>-97.847587</td>
+<td>no_data</td>
+<td>39.86618</td>
+<td>-1.000000e+12</td>
+<td>0.06973</td>
+<td>...</td>
+<td>123.0</td>
+<td>832.564957</td>
+<td>57</td>
+<td>2166118.950</td>
+<td>11377.423667</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-97.79766 36.69311, -97.79800 36.6...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">166</td>
+<td>74249200131</td>
+<td>7.138264e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0712Z</td>
+<td>36.719942</td>
+<td>-97.930131</td>
+<td>no_data</td>
+<td>45.34975</td>
+<td>-1.000000e+12</td>
+<td>7.46494</td>
+<td>...</td>
+<td>124.0</td>
+<td>1741.611817</td>
+<td>42</td>
+<td>2174504.465</td>
+<td>8385.514839</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>LINESTRING (-97.88911 36.73196, -97.88945 36.7...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">210</td>
+<td>74249300261</td>
+<td>7.138264e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0658Z</td>
+<td>37.559008</td>
+<td>-97.698991</td>
+<td>no_data</td>
+<td>37.31830</td>
+<td>-1.000000e+12</td>
+<td>0.00428</td>
+<td>...</td>
+<td>92.0</td>
+<td>1200.772490</td>
+<td>51</td>
+<td>2303196.062</td>
+<td>10149.015676</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-97.66441 37.53530, -97.66475 37.5...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">215</td>
+<td>74249300311</td>
+<td>7.138264e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0656Z</td>
+<td>37.627488</td>
+<td>-98.028303</td>
+<td>no_data</td>
+<td>36.33513</td>
+<td>-1.000000e+12</td>
+<td>2.16842</td>
+<td>...</td>
+<td>63.0</td>
+<td>233.823669</td>
+<td>42</td>
+<td>2349425.456</td>
+<td>8384.876289</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>LINESTRING (-97.98686 37.61930, -97.98720 37.6...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">216</td>
+<td>74249300321</td>
+<td>7.138264e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0656Z</td>
+<td>37.638600</td>
+<td>-98.106747</td>
+<td>no_data</td>
+<td>36.09641</td>
+<td>-1.000000e+12</td>
+<td>0.11889</td>
+<td>...</td>
+<td>63.0</td>
+<td>631.220135</td>
+<td>44</td>
+<td>2358152.710</td>
+<td>8727.253685</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>LINESTRING (-98.06652 37.63738, -98.06686 37.6...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">242</td>
+<td>74249300801</td>
+<td>7.138264e+08</td>
+<td>7.138264e+08</td>
+<td>2022-08-14T21:0708Z</td>
+<td>37.113844</td>
+<td>-96.957548</td>
+<td>no_data</td>
+<td>35.05791</td>
+<td>-1.000000e+12</td>
+<td>0.06902</td>
+<td>...</td>
+<td>63.0</td>
+<td>296.741419</td>
+<td>51</td>
+<td>2182848.997</td>
+<td>10283.378299</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>LINESTRING (-96.99444 37.10534, -96.99410 37.1...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">269</td>
+<td>74294200271</td>
+<td>7.138263e+08</td>
+<td>7.138263e+08</td>
+<td>2022-08-14T21:0541Z</td>
+<td>42.078318</td>
+<td>-97.931605</td>
+<td>no_data</td>
+<td>37.77142</td>
+<td>-1.000000e+12</td>
+<td>1.41024</td>
+<td>...</td>
+<td>51.0</td>
+<td>282.977781</td>
+<td>55</td>
+<td>3285195.849</td>
+<td>11099.394970</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-97.88812 42.07337, -97.88833 42.0...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">275</td>
+<td>74294400061</td>
+<td>7.138264e+08</td>
+<td>7.138263e+08</td>
+<td>2022-08-14T21:0553Z</td>
+<td>41.392167</td>
+<td>-97.835479</td>
+<td>no_data</td>
+<td>39.74193</td>
+<td>-1.000000e+12</td>
+<td>0.00000</td>
+<td>...</td>
+<td>152.0</td>
+<td>5864.605686</td>
+<td>77</td>
+<td>3188369.749</td>
+<td>15443.567738</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-97.76012 41.40875, -97.76048 41.4...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">349</td>
+<td>74295600201</td>
+<td>7.138263e+08</td>
+<td>7.138263e+08</td>
+<td>2022-08-14T21:0524Z</td>
+<td>42.760592</td>
+<td>-99.870893</td>
+<td>no_data</td>
+<td>40.82342</td>
+<td>-1.000000e+12</td>
+<td>2.88420</td>
+<td>...</td>
+<td>228.0</td>
+<td>5909.679915</td>
+<td>54</td>
+<td>3570218.378</td>
+<td>10722.387331</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-99.81652 42.74292, -99.81689 42.7...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">386</td>
+<td>74295800141</td>
+<td>7.138263e+08</td>
+<td>7.138263e+08</td>
+<td>2022-08-14T21:0507Z</td>
+<td>43.699405</td>
+<td>-100.216124</td>
+<td>no_data</td>
+<td>38.30095</td>
+<td>-1.000000e+12</td>
+<td>10.35277</td>
+<td>...</td>
+<td>127.0</td>
+<td>1214.735618</td>
+<td>47</td>
+<td>3695005.134</td>
+<td>9362.384395</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>LINESTRING (-100.18767 43.70568, -100.18804 43...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">441</td>
+<td>75140100401</td>
+<td>7.138265e+08</td>
+<td>7.138265e+08</td>
+<td>2022-08-14T21:0849Z</td>
+<td>31.378090</td>
+<td>-95.684602</td>
+<td>no_data</td>
+<td>44.96841</td>
+<td>-1.000000e+12</td>
+<td>0.00208</td>
+<td>...</td>
+<td>80.0</td>
+<td>375.277777</td>
+<td>82</td>
+<td>399697.389</td>
+<td>16375.887635</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>LINESTRING (-95.65686 31.34060, -95.65687 31.3...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">455</td>
+<td>75140300011</td>
+<td>7.138265e+08</td>
+<td>7.138265e+08</td>
+<td>2022-08-14T21:0839Z</td>
+<td>31.899540</td>
+<td>-96.012439</td>
+<td>no_data</td>
+<td>35.29524</td>
+<td>-1.000000e+12</td>
+<td>0.00000</td>
+<td>...</td>
+<td>67.0</td>
+<td>511.629791</td>
+<td>79</td>
+<td>538860.706</td>
+<td>15891.038850</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>LINESTRING (-96.00043 31.86864, -96.00043 31.8...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">473</td>
+<td>75165000141</td>
+<td>7.138265e+08</td>
+<td>7.138265e+08</td>
+<td>2022-08-14T21:0907Z</td>
+<td>30.226423</td>
+<td>-96.104246</td>
+<td>no_data</td>
+<td>52.37545</td>
+<td>-1.000000e+12</td>
+<td>5.08629</td>
+<td>...</td>
+<td>92.0</td>
+<td>858.963903</td>
+<td>48</td>
+<td>351257.312</td>
+<td>9672.898906</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>LINESTRING (-96.12550 30.21370, -96.12531 30.2...</td>
+</tr>
+</tbody>
 </table>
+
 <p>19 rows × 111 columns</p>
 </div>
 </div>
@@ -1647,7 +1696,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1793,9 +1841,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1860,6 +1922,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1915,6 +2063,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>
