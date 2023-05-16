@@ -598,7 +598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#notebook-showcasing-how-to-work-with-opera-dswx-data" id="toc-notebook-showcasing-how-to-work-with-opera-dswx-data" class="nav-link active" data-scroll-target="#notebook-showcasing-how-to-work-with-opera-dswx-data">Notebook showcasing how to work with OPERA DSWx data</a></li>
+  <li><a href="#notebook-showcasing-how-to-work-with-opera-dswx-data-on-a-local-machine" id="toc-notebook-showcasing-how-to-work-with-opera-dswx-data-on-a-local-machine" class="nav-link active" data-scroll-target="#notebook-showcasing-how-to-work-with-opera-dswx-data-on-a-local-machine">Notebook showcasing how to work with OPERA DSWx data on a local machine</a></li>
   <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import libraries</a></li>
   <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link" data-scroll-target="#before-you-start">Before you start</a>
   <ul class="collapse">
@@ -634,8 +634,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>Authored by Nicholas Tarpinian, <em>PO.DAAC</em></p>
-<section id="notebook-showcasing-how-to-work-with-opera-dswx-data" class="level3">
-<h3 class="anchored" data-anchor-id="notebook-showcasing-how-to-work-with-opera-dswx-data">Notebook showcasing how to work with OPERA DSWx data</h3>
+<section id="notebook-showcasing-how-to-work-with-opera-dswx-data-on-a-local-machine" class="level3">
+<h3 class="anchored" data-anchor-id="notebook-showcasing-how-to-work-with-opera-dswx-data-on-a-local-machine">Notebook showcasing how to work with OPERA DSWx data on a local machine</h3>
 <ul>
 <li>Utilizing the Common Metadata Repository (CMR) to search and download data locally.</li>
 <li>Option to query the new dataset based on users choice; either by classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’), etc.</li>
@@ -668,7 +668,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Before you beginning this tutorial, make sure you have an account in the Earthdata Login, which is required to access data from the NASA Earthdata system. Please visit https://urs.earthdata.nasa.gov to register for an Earthdata Login account. It is free to create and only takes a moment to set up.</p>
 <p>You will also need a netrc file containing your NASA Earthdata Login credentials in order to execute this notebook. A netrc file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-via-netrc-file">Authentication for NASA Earthdata</a></p>
 <p>In this notebook, we will be calling the authentication in the below cell, a work around if you do not yet have a netrc file.</p>
-<div class="cell" data-execution_count="2">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> http.cookiejar <span class="im">import</span> CookieJar</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> getpass <span class="im">import</span> getpass</span>
@@ -694,261 +694,306 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    request.install_opener(opener)</span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>setup_earthdata_login_auth(<span class="st">'urs.earthdata.nasa.gov'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Please provide your Earthdata Login credentials for access.
-Your info will only be passed to urs.earthdata.nasa.gov and will not be exposed in Jupyter.</code></pre>
-</div>
 </div>
 <section id="search-common-metadata-repository-cmr-for-opera-dswx" class="level3">
 <h3 class="anchored" data-anchor-id="search-common-metadata-repository-cmr-for-opera-dswx">Search Common Metadata Repository (CMR) for OPERA DSWx</h3>
 <p>Each dataset has it’s own unique collection ID. For the OPERA_L3_DSWX-HLS_PROVISIONAL_V1 dataset, we can find the collection ID <a href="https://podaac.jpl.nasa.gov/dataset/OPERA_L3_DSWX-HLS_PROVISIONAL_V1">here</a>.</p>
 <p>For this tutorial, we are looking at the Lake Powell Reservoir.</p>
-<p>Using <a href="http://bboxfinder.com/">bbox finder</a> to get the exact coordinates for our area of interest.</p>
-<p>We will look at two different example temporal ranges; 04/11/2023 and 05/02/2023.</p>
+<p>We used <a href="http://bboxfinder.com/">bbox finder</a> to get the exact coordinates for our area of interest.</p>
+<p>We want to look at two different times for comparison: 04/11/2023 and 05/02/2023. To find these dates, let’s search for all the data granules between the two.</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the URL of the CMR service</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cmr_url <span class="op">=</span> <span class="st">'https://cmr.earthdata.nasa.gov/search/granules.json'</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#used to define parameters such as the concept-id, temporal and bounding box searches</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>parameters <span class="op">=</span> {<span class="st">'collection_concept_id'</span>:<span class="st">'C2617126679-POCLOUD'</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>             <span class="st">'temporal'</span>: <span class="st">'2023-04-11T00:00:00Z,2023-04-11T23:59:59Z'</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="co">#'temporal': '2023-05-02T00:00:00Z,2023-05-02T23:59:59Z',</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>             <span class="st">'bounding_box'</span>:<span class="st">"-111.144811,36.980121,-110.250799,37.915625"</span>, <span class="co">#could also use a bounding box</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">'page_size'</span>:<span class="dv">2000</span>} <span class="co">#default will only return 10 granules, so we set it to the max</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#request the granules from this collection</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(cmr_url, params<span class="op">=</span>parameters)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>])<span class="op">&gt;</span><span class="dv">0</span>:</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>])) <span class="co">#print out number of files found</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(dumps(response.json()['feed']['entry'][0], indent=2)) #print out the first file information</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the URL of the CMR service</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cmr_url <span class="op">=</span> <span class="st">'https://cmr.earthdata.nasa.gov/search/granules.json'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#used to define parameters such as the concept-id, temporal and bounding box searches</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>parameters <span class="op">=</span> {<span class="st">'collection_concept_id'</span>:<span class="st">'C2617126679-POCLOUD'</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>             <span class="st">'temporal'</span>: <span class="st">'2023-04-11T00:00:00Z,2023-05-02T23:59:59Z'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">'bounding_box'</span>:<span class="st">"-111.144811,36.980121,-110.250799,37.915625"</span>, <span class="co">#could also use a bounding box</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>             <span class="st">'page_size'</span>:<span class="dv">2000</span>} <span class="co">#default will only return 10 granules, so we set it to the max</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#request the granules from this collection</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(cmr_url, params<span class="op">=</span>parameters)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>])<span class="op">&gt;</span><span class="dv">0</span>:</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>])) <span class="co">#print out number of files found</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(dumps(response.json()['feed']['entry'][0], indent=2)) #print out the first file information</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>4</code></pre>
+<pre><code>50</code></pre>
+</div>
+</div>
+<p>There are 50 files between this time range, and for the two dates we are interested in, there are 4 files each within the bounding box region. The list of timestamps are printed below. We want 4/11/2023 and 5/2/2023.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>]:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(k[<span class="st">'time_start'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2023-04-11T18:02:22.780Z
+2023-04-11T18:02:22.780Z
+2023-04-11T18:02:22.780Z
+2023-04-11T18:02:22.780Z
+2023-04-12T18:23:47.043Z
+2023-04-12T18:23:51.075Z
+2023-04-12T18:24:01.646Z
+2023-04-12T18:24:05.522Z
+2023-04-14T18:13:50.218Z
+2023-04-14T18:13:54.875Z
+2023-04-14T18:14:04.643Z
+2023-04-14T18:14:07.852Z
+2023-04-17T18:23:45.423Z
+2023-04-17T18:23:49.451Z
+2023-04-17T18:24:00.009Z
+2023-04-17T18:24:03.899Z
+2023-04-18T18:08:30.981Z
+2023-04-18T18:08:30.981Z
+2023-04-19T18:13:52.221Z
+2023-04-19T18:13:56.951Z
+2023-04-19T18:14:06.643Z
+2023-04-19T18:14:09.873Z
+2023-04-20T17:56:08.850Z
+2023-04-20T17:56:08.850Z
+2023-04-20T17:56:08.850Z
+2023-04-20T17:56:08.850Z
+2023-04-22T18:23:48.224Z
+2023-04-22T18:23:52.246Z
+2023-04-22T18:24:02.814Z
+2023-04-22T18:24:06.701Z
+2023-04-24T18:13:49.957Z
+2023-04-24T18:13:54.676Z
+2023-04-24T18:14:04.380Z
+2023-04-24T18:14:07.610Z
+2023-04-27T18:02:19.254Z
+2023-04-27T18:02:19.254Z
+2023-04-27T18:02:19.254Z
+2023-04-27T18:02:19.254Z
+2023-04-27T18:23:46.262Z
+2023-04-27T18:23:50.297Z
+2023-04-27T18:24:00.859Z
+2023-04-27T18:24:04.747Z
+2023-04-29T18:13:52.295Z
+2023-04-29T18:13:57.054Z
+2023-04-29T18:14:06.722Z
+2023-04-29T18:14:09.959Z
+2023-05-02T18:23:48.573Z
+2023-05-02T18:23:52.603Z
+2023-05-02T18:24:03.163Z
+2023-05-02T18:24:07.046Z</code></pre>
 </div>
 </div>
 </section>
 <section id="get-download-links-from-cmr-search-results" class="level3">
 <h3 class="anchored" data-anchor-id="get-download-links-from-cmr-search-results">Get Download links from CMR search results</h3>
-<p>In this section, you can query the dataset based on a specific classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’), etc.</p>
-<p>OPERA has 10 different available layers. We will look at ‘B01_WTR’ which is the Water Classification (WTR) layer of the OPERA DSWx dataset.</p>
-<p>Details on each available layer and the data product can be found <a href="https://d2pn8kiwq2w21t.cloudfront.net/documents/ProductSpec_DSWX_URS309746.pdf">here</a>.</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>downloads <span class="op">=</span> []</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>]:</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> r[<span class="st">'links'</span>]:</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/'</span> <span class="kw">in</span> l[<span class="st">'href'</span>]:</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'B01_WTR'</span> <span class="kw">in</span> l[<span class="st">'href'</span>]: <span class="co">#Specify which specific layer you would like to download. If not, comment out line to download the whole collection.</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                downloads.append(l[<span class="st">'href'</span>])</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s get download links for the 8 desired files. We want to query the dataset based on a specific classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’).</p>
+<p>OPERA has 10 different available layers. We will look at ‘B01_WTR’ which is the Water Classification (WTR) layer of the OPERA DSWx dataset. Details on each available layer and the data product can be found <a href="https://d2pn8kiwq2w21t.cloudfront.net/documents/ProductSpec_DSWX_URS309746.pdf">here</a>.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>downloads <span class="op">=</span> []</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>]:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> r[<span class="st">'links'</span>]:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/'</span> <span class="kw">in</span> l[<span class="st">'href'</span>]:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'B01_WTR'</span> <span class="kw">in</span> l[<span class="st">'href'</span>]: <span class="co">#Specify which specific layer you would like to download. If not, comment out line to download the whole collection.</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                downloads.append(l[<span class="st">'href'</span>])</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> downloads[<span class="dv">4</span>:<span class="dv">46</span>] <span class="co">#remove the links to other dates not required for desired analysis</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>4</code></pre>
+<pre><code>8</code></pre>
 </div>
 </div>
 </section>
 <section id="download-the-data-into-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
-<p>Since we are looking at two seperate temporal ranges. Create two folder path names based on its respective time range.</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create folder to house downloaded data </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"/path/to/directory/OPERA_041123"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#folder = Path("/path/to/directory/OPERA_050223")</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(folder):</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    os.makedirs(folder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Since we are looking at two seperate times, we create two folder path names, one for each date, so we can mosaic all the files within one folder based on its respective time range later.</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> downloads:</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    urlretrieve(f, <span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(f)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create folder to house downloaded data </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>folder1 <span class="op">=</span> Path(<span class="st">"data_downloads/OPERA_041123"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>folder2 <span class="op">=</span> Path(<span class="st">"data_downloads/OPERA_050223"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(folder1):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    os.makedirs(folder1)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(folder2):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    os.makedirs(folder2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> downloads[<span class="dv">0</span>:<span class="dv">4</span>]:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    urlretrieve(f, <span class="ss">f"</span><span class="sc">{</span>folder1<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(f)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> downloads[<span class="dv">4</span>:<span class="dv">8</span>]:</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    urlretrieve(f, <span class="ss">f"</span><span class="sc">{</span>folder2<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(f)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualizing-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-the-dataset">Visualizing the Dataset</h3>
-<p>Let’s now visualize an individual layer that was downloaded using Rasterio to read the GeoTIFF image.</p>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dsw <span class="op">=</span> rio.<span class="bu">open</span>(<span class="st">'/path/to/directory/OPERA_041123/OPERA_L3_DSWx-HLS_T12SVG_20230411T180222Z_20230414T030945Z_L8_30_v1.0_B01_WTR.tif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s now visualize an individual layer for a single file that was downloaded using Rasterio to read the GeoTIFF image.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dsw <span class="op">=</span> rio.<span class="bu">open</span>(<span class="st">'data_downloads/OPERA_041123/OPERA_L3_DSWx-HLS_T12SVG_20230411T180222Z_20230414T030945Z_L8_30_v1.0_B01_WTR.tif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>OPERA is a single band image with specific classified rgb values.</p>
 <p>This requires to read the single band, then creating a numpy array of the specified rgb values. e.g.&nbsp;‘variable’.colormap</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> dsw.read(<span class="dv">1</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>dsw2 <span class="op">=</span> color_array[image]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 04/11/2023"</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>patches,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>          bbox_to_anchor<span class="op">=</span>(<span class="fl">1.28</span>, <span class="dv">1</span>),</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>          facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw2)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> dsw.read(<span class="dv">1</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>dsw2 <span class="op">=</span> color_array[image]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 04/11/2023"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>patches,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>          bbox_to_anchor<span class="op">=</span>(<span class="fl">1.28</span>, <span class="dv">1</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>          facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw2)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="mosaic-multiple-opera-layers" class="level3">
 <h3 class="anchored" data-anchor-id="mosaic-multiple-opera-layers">Mosaic Multiple OPERA Layers</h3>
-<p>When creating a mosaic, make sure the temporal range is correct/matching.</p>
-<p>Setting the path to the folder created to download the layers based on its temporal range. Then setting an output path for the created raster mosaic GeoTIFF.</p>
-<p>Mosaic is being created because we got 4 results due to the bounding box area provided. If you receive more than 1 result and would like to see a single raster image of all the results, mosaicking is the solution.</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># path = Path(folder)</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path(<span class="st">"/path/to/downloaded/directory/OPERA_041123"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># path = Path("/path/to/downloaded/directory/OPERA_050223")</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">'output'</span>).mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="st">'/path/to/output/mosaic/directory/mosaic_output_041123.tif'</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># output_path = '/path/to/output/mosaic/directory/mosaic_output_050223.tif'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When creating a mosaic, make sure the temporal range is correct/matching. We define the output directory for the mosaic GeoTIFFs below.</p>
+<p>The mosaic is being created because we have 4 results from the bounding box area provided. If you receive more than 1 result and would like to see a single raster image of all the results, mosaicking is the solution.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">'data_downloads/mosaic_outputs'</span>).mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="st">'data_downloads/mosaic_outputs'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Looping through the folder path, which will be added to an empty list for the mosaic.</p>
+<p>We define a function to convert files per timestamp to mosaicked geoTIFFs.</p>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>raster_files <span class="op">=</span> <span class="bu">list</span>(path.iterdir())</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>raster_to_mosiac <span class="op">=</span> []</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> raster2mosaic(data_folder, output_path, output_file_name):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    raster_files <span class="op">=</span> <span class="bu">list</span>(data_folder.iterdir())</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    raster_to_mosaic_list <span class="op">=</span> [] <span class="co">#create empty list</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> raster_files:</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        raster <span class="op">=</span> rio.<span class="bu">open</span>(p)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        raster_to_mosaic_list.append(raster)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    mosaic, output <span class="op">=</span> merge(raster_to_mosaic_list) <span class="co">#the merge function will mosaic the raster images</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Then we update the raster's metadata to match the width and height of the mosaic</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    output_meta <span class="op">=</span> raster.meta.copy()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    output_meta.update(</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"driver"</span>: <span class="st">"GTiff"</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"height"</span>: mosaic.shape[<span class="dv">1</span>],</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"width"</span>: mosaic.shape[<span class="dv">2</span>],</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"transform"</span>: output</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Save the output in a new mosaicked raster image</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rio.<span class="bu">open</span>(os.path.join(output_path, output_file_name), <span class="st">'w'</span>, <span class="op">**</span>output_meta) <span class="im">as</span> m:</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>        m.write(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The list created will be used to append/set the images that will be used to mosaic the raster image.</p>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> raster_files:</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    raster <span class="op">=</span> rio.<span class="bu">open</span>(p)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    raster_to_mosiac.append(raster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The merge function will mosaic the raster images.</p>
-<div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mosaic, output <span class="op">=</span> merge(raster_to_mosiac)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then updating the raster’s metadata to match the width and height of the mosaic.</p>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>output_meta <span class="op">=</span> raster.meta.copy()</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>output_meta.update(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"driver"</span>: <span class="st">"GTiff"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"height"</span>: mosaic.shape[<span class="dv">1</span>],</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"width"</span>: mosaic.shape[<span class="dv">2</span>],</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"transform"</span>: output</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then you will save/write the new mosaicked raster image.</p>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rio.<span class="bu">open</span>(output_path, <span class="st">'w'</span>, <span class="op">**</span>output_meta) <span class="im">as</span> m:</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    m.write(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>raster2mosaic(folder1, output_path, <span class="st">'mosaic_041123.tif'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>raster2mosaic(folder2, output_path, <span class="st">'mosaic_050223.tif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualizing-the-mosaic" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-the-mosaic">Visualizing the Mosaic</h3>
 <p>Open the new mosaicked raster images individually with its respective paths.</p>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mos <span class="op">=</span> rio.<span class="bu">open</span>(<span class="st">'/path/to/output/mosaic/directory/mosaic_output_041123.tif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mos1 <span class="op">=</span> rio.<span class="bu">open</span>(<span class="st">'/path/to/output/mosaic/directory/mosaic_output_050223.tif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mos1 <span class="op">=</span> rio.<span class="bu">open</span>(os.path.join(output_path, <span class="st">'mosaic_041123.tif'</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mos2 <span class="op">=</span> rio.<span class="bu">open</span>(os.path.join(output_path, <span class="st">'mosaic_050223.tif'</span>))   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To visualize the mosaic, you must utilize the single layer colormap.</p>
 <p>This will be the ‘dsw’ variable used earlier to visualize a single layer. Similarly reading the single band, then creating a numpy array of the specified rgb values. e.g.&nbsp;‘variable’.colormap</p>
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>image2 <span class="op">=</span> mos1.read(<span class="dv">1</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>dsw4 <span class="op">=</span> color_array[image2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>image2 <span class="op">=</span> mos2.read(<span class="dv">1</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>dsw4 <span class="op">=</span> color_array[image2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>image1 <span class="op">=</span> mos.read(<span class="dv">1</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>dsw3 <span class="op">=</span> color_array[image1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>image1 <span class="op">=</span> mos1.read(<span class="dv">1</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>dsw3 <span class="op">=</span> color_array[image1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Lake Powell 04/11/2023</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>fig.add_subplot(rows, columns, <span class="dv">1</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 04/11/2023"</span>)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw3)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>patches,</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        bbox_to_anchor<span class="op">=</span>(<span class="fl">0.47</span>,<span class="fl">0.35</span>),</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Lake Powell 05/02/2023</span></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>fig.add_subplot(rows, columns, <span class="dv">2</span>)</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 05/02/2023"</span>)</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw4)</span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>patches,</span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>        bbox_to_anchor<span class="op">=</span>(<span class="fl">0.9</span>, <span class="fl">0.35</span>),</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>        facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Lake Powell 04/11/2023</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>fig.add_subplot(rows, columns, <span class="dv">1</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 04/11/2023"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw3)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>patches,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        bbox_to_anchor<span class="op">=</span>(<span class="fl">0.47</span>,<span class="fl">0.35</span>),</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Lake Powell 05/02/2023</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>fig.add_subplot(rows, columns, <span class="dv">2</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 05/02/2023"</span>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw4)</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>patches,</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>        bbox_to_anchor<span class="op">=</span>(<span class="fl">0.9</span>, <span class="fl">0.35</span>),</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>        facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-21-output-1.png" class="img-fluid"></p>
+<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area." class="level3">
 <h3 class="anchored" data-anchor-id="to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area.">To take a closer look at a specific area of the image, we can create an inset map of a specified area.</h3>
-<div class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].imshow(dsw3)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"OPERA DSWx - Lake Powell: 04/11/2023"</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>patches,</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>          bbox_to_anchor<span class="op">=</span>(<span class="fl">0.47</span>,<span class="fl">0.35</span>),</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>          facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>ax_ins1 <span class="op">=</span> ax[<span class="dv">0</span>].inset_axes([<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.45</span>, <span class="fl">0.45</span>])</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>ax_ins1.imshow(dsw3)</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>x1, x2, y1, y2 <span class="op">=</span> <span class="dv">2200</span>, <span class="dv">2700</span>, <span class="dv">3500</span>, <span class="dv">3000</span> <span class="co">#Extent set for aoi of inset map.</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>ax_ins1.set_xlim(x1, x2)</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>ax_ins1.set_ylim(y1, y2)</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>ax_ins1.set_xticklabels(<span class="st">''</span>)</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>ax_ins1.set_yticklabels(<span class="st">''</span>)</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].indicate_inset_zoom(ax_ins1, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].imshow(dsw4)</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"OPERA DSWx - Lake Powell: 05/02/2023"</span>)</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>patches,</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>          bbox_to_anchor<span class="op">=</span>(<span class="fl">0.9</span>, <span class="fl">0.35</span>),</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>          facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>ax_ins2 <span class="op">=</span> ax[<span class="dv">1</span>].inset_axes([<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.45</span>, <span class="fl">0.45</span>])</span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>ax_ins2.imshow(dsw4)</span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>x1, x2, y1, y2 <span class="op">=</span> <span class="dv">2200</span>, <span class="dv">2700</span>, <span class="dv">3500</span>, <span class="dv">3000</span> <span class="co">#Extent set for aoi of inset map.</span></span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>ax_ins2.set_xlim(x1, x2)</span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>ax_ins2.set_ylim(y1, y2)</span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>ax_ins2.set_xticklabels(<span class="st">''</span>)</span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>ax_ins2.set_yticklabels(<span class="st">''</span>)</span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].indicate_inset_zoom(ax_ins2, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].imshow(dsw3)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"OPERA DSWx - Lake Powell: 04/11/2023"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>patches,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>          bbox_to_anchor<span class="op">=</span>(<span class="fl">0.47</span>,<span class="fl">0.35</span>),</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>          facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>ax_ins1 <span class="op">=</span> ax[<span class="dv">0</span>].inset_axes([<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.45</span>, <span class="fl">0.45</span>])</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>ax_ins1.imshow(dsw3)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>x1, x2, y1, y2 <span class="op">=</span> <span class="dv">2200</span>, <span class="dv">2700</span>, <span class="dv">3500</span>, <span class="dv">3000</span> <span class="co">#Extent set for aoi of inset map.</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>ax_ins1.set_xlim(x1, x2)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>ax_ins1.set_ylim(y1, y2)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>ax_ins1.set_xticklabels(<span class="st">''</span>)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>ax_ins1.set_yticklabels(<span class="st">''</span>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].indicate_inset_zoom(ax_ins1, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].imshow(dsw4)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"OPERA DSWx - Lake Powell: 05/02/2023"</span>)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>patches,</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>          bbox_to_anchor<span class="op">=</span>(<span class="fl">0.9</span>, <span class="fl">0.35</span>),</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>          facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>ax_ins2 <span class="op">=</span> ax[<span class="dv">1</span>].inset_axes([<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.45</span>, <span class="fl">0.45</span>])</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>ax_ins2.imshow(dsw4)</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>x1, x2, y1, y2 <span class="op">=</span> <span class="dv">2200</span>, <span class="dv">2700</span>, <span class="dv">3500</span>, <span class="dv">3000</span> <span class="co">#Extent set for aoi of inset map.</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>ax_ins2.set_xlim(x1, x2)</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>ax_ins2.set_ylim(y1, y2)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>ax_ins2.set_xticklabels(<span class="st">''</span>)</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>ax_ins2.set_yticklabels(<span class="st">''</span>)</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].indicate_inset_zoom(ax_ins2, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
