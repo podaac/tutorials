@@ -660,7 +660,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#this-notebook-is-designed-to-be-executed-in-amazon-web-services-aws-in-the-us-west-2-region-where-the-cloud-data-is-located" id="toc-this-notebook-is-designed-to-be-executed-in-amazon-web-services-aws-in-the-us-west-2-region-where-the-cloud-data-is-located" class="nav-link active" data-scroll-target="#this-notebook-is-designed-to-be-executed-in-amazon-web-services-aws-in-the-us-west-2-region-where-the-cloud-data-is-located"><strong>This notebook is designed to be executed in Amazon Web Services (AWS) (in the us-west-2 region where the cloud data is located)</strong></a></li>
+  <li><a href="#author-celia-ou-po.daac" id="toc-author-celia-ou-po.daac" class="nav-link active" data-scroll-target="#author-celia-ou-po.daac"><em>Author: Celia Ou, PO.DAAC</em></a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
+  <ul class="collapse">
+  <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
+  <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">2. Earthdata Login</a></li>
+  <li><a href="#netrc-file" id="toc-netrc-file" class="nav-link" data-scroll-target="#netrc-file">3. netrc File</a></li>
+  <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import Libraries</a></li>
+  </ul></li>
   <li><a href="#smap-dataset" id="toc-smap-dataset" class="nav-link" data-scroll-target="#smap-dataset"><strong>SMAP dataset</strong></a></li>
   <li><a href="#saildrone-dataset" id="toc-saildrone-dataset" class="nav-link" data-scroll-target="#saildrone-dataset"><strong>Saildrone dataset</strong></a></li>
   <li><a href="#plot-salinity-side-by-side-from-smap-and-from-saildrone-vehicle-1036" id="toc-plot-salinity-side-by-side-from-smap-and-from-saildrone-vehicle-1036" class="nav-link" data-scroll-target="#plot-salinity-side-by-side-from-smap-and-from-saildrone-vehicle-1036"><strong>Plot salinity side-by-side from SMAP and from Saildrone vehicle 1036</strong></a></li>
@@ -688,17 +696,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="this-notebook-is-designed-to-be-executed-in-amazon-web-services-aws-in-the-us-west-2-region-where-the-cloud-data-is-located" class="level3">
-<h3 class="anchored" data-anchor-id="this-notebook-is-designed-to-be-executed-in-amazon-web-services-aws-in-the-us-west-2-region-where-the-cloud-data-is-located"><strong>This notebook is designed to be executed in Amazon Web Services (AWS) (in the us-west-2 region where the cloud data is located)</strong></h3>
+<section id="author-celia-ou-po.daac" class="level2">
+<h2 class="anchored" data-anchor-id="author-celia-ou-po.daac"><em>Author: Celia Ou, PO.DAAC</em></h2>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Here, we compare salinity from the SMAP satellite and Saildrone in-situ measurements. Both datasets are located within the cloud.</p>
+<section id="follow-along-with-the-data-in-action-story" class="level4">
+<h4 class="anchored" data-anchor-id="follow-along-with-the-data-in-action-story"><strong>Follow along with the Data in Action story:</strong></h4>
+<p>By the end of this notebook, you will have recreated a similar plot to the one featured in this Data-in-Action story:<br>
+https://podaac.jpl.nasa.gov/DataAction-2021-10-05-Monitoring-Changes-in-the-Arctic-Using-Saildrone-SMAP-Satellite-and-Ocean-Models-Data</p>
+</section>
 <section id="shortnames-of-datasets-used-here" class="level4">
 <h4 class="anchored" data-anchor-id="shortnames-of-datasets-used-here"><strong>Shortnames of datasets used here:</strong></h4>
 <p>SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V5: https://podaac.jpl.nasa.gov/dataset/SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V5<br>
 SAILDRONE_ARCTIC: https://podaac.jpl.nasa.gov/dataset/SAILDRONE_ARCTIC</p>
 </section>
-<section id="follow-along-with-the-data-in-action-story" class="level4">
-<h4 class="anchored" data-anchor-id="follow-along-with-the-data-in-action-story"><strong>Follow along with the Data in Action story:</strong></h4>
-<p>By the end of this notebook, you will have recreated a similar plot to the one featured in this Data-in-Action story:<br>
-https://podaac.jpl.nasa.gov/DataAction-2021-10-05-Monitoring-Changes-in-the-Arctic-Using-Saildrone-SMAP-Satellite-and-Ocean-Models-Data</p>
+</section>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<section id="compute-environment" class="level3">
+<h3 class="anchored" data-anchor-id="compute-environment">1. Compute environment</h3>
+<p>This tutorial can <strong>only</strong> be run in the following environments: - <strong>AWS instance running in us-west-2</strong>: NASA Earthdata Cloud data in S3 can be directly accessed via temporary credentials; this access is limited to requests made within the US West (Oregon) (code: <code>us-west-2</code>) AWS region.</p>
+</section>
+<section id="earthdata-login" class="level3">
+<h3 class="anchored" data-anchor-id="earthdata-login">2. Earthdata Login</h3>
+<p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
+</section>
+<section id="netrc-file" class="level3">
+<h3 class="anchored" data-anchor-id="netrc-file">3. netrc File</h3>
+<p>You will need a <code>.netrc</code> file containing your NASA Earthdata Login credentials in order to execute the notebooks. A <code>.netrc</code> file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Workshop-AGU/tutorials/02_NASA_Earthdata_Authentication.html">Authentication for NASA Earthdata tutorial</a>.</p>
+</section>
+<section id="import-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="import-libraries">Import Libraries</h3>
 <div class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To access dataset using Earthaccess</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
