@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - Search and Download Simulated SWOT Data via the Common Metadata Repository (CMR)</title>
+<title>PO.DAAC Cookbook - Search and Download Simulated SWOT Data via earthaccess</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -96,6 +96,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
 </head>
@@ -698,10 +702,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
   <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">2. Earthdata Login</a></li>
-  <li><a href="#netrc-file" id="toc-netrc-file" class="nav-link" data-scroll-target="#netrc-file">3. netrc File</a></li>
   <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import libraries</a></li>
-  <li><a href="#search-common-metadata-repository-cmr-for-swot-sample-data-links-by-shapefile" id="toc-search-common-metadata-repository-cmr-for-swot-sample-data-links-by-shapefile" class="nav-link" data-scroll-target="#search-common-metadata-repository-cmr-for-swot-sample-data-links-by-shapefile">Search Common Metadata Repository (CMR) for SWOT sample data links by Shapefile</a></li>
-  <li><a href="#get-download-links-from-cmr-search-results" id="toc-get-download-links-from-cmr-search-results" class="nav-link" data-scroll-target="#get-download-links-from-cmr-search-results">Get Download links from CMR search results</a></li>
+  <li><a href="#search-for-swot-sample-data-links" id="toc-search-for-swot-sample-data-links" class="nav-link" data-scroll-target="#search-for-swot-sample-data-links">Search for SWOT sample data links</a></li>
+  <li><a href="#get-download-links-from-earthaccess-search-results" id="toc-get-download-links-from-earthaccess-search-results" class="nav-link" data-scroll-target="#get-download-links-from-earthaccess-search-results">Get Download links from <code>earthaccess</code> search results</a></li>
   <li><a href="#download-the-data-into-a-folder" id="toc-download-the-data-into-a-folder" class="nav-link" data-scroll-target="#download-the-data-into-a-folder">Download the Data into a folder</a></li>
   <li><a href="#shapefiles-come-in-a-.zip-format-and-need-to-be-unzipped-in-the-existing-folder" id="toc-shapefiles-come-in-a-.zip-format-and-need-to-be-unzipped-in-the-existing-folder" class="nav-link" data-scroll-target="#shapefiles-come-in-a-.zip-format-and-need-to-be-unzipped-in-the-existing-folder">Shapefiles come in a .zip format, and need to be unzipped in the existing folder</a></li>
   </ul></li>
@@ -713,7 +716,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Search and Download Simulated SWOT Data via the Common Metadata Repository (CMR)</h1>
+<h1 class="title">Search and Download Simulated SWOT Data via <code>earthaccess</code></h1>
 </div>
 
 
@@ -736,21 +739,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>This notebook will find and download simulated SWOT data programmatically via CMR. It searches for the desired data by shapefile extent but can be modified to do otherwise.</p>
+<p>This notebook will find and download simulated SWOT data programmatically via earthaccess. For more information about earthaccess visit: https://nsidc.github.io/earthaccess/</p>
 </section>
 <section id="requirements" class="level2">
 <h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
 <section id="compute-environment" class="level3">
 <h3 class="anchored" data-anchor-id="compute-environment">1. Compute environment</h3>
-<p>This tutorial can be run in the following environments: - <strong>AWS instance running in us-west-2</strong>: NASA Earthdata Cloud data in S3 can be directly accessed via temporary credentials; this access is limited to requests made within the US West (Oregon) (code: <code>us-west-2</code>) AWS region. - <strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine</p>
+<p>This tutorial can be run in the following environments: - <strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine</p>
 </section>
 <section id="earthdata-login" class="level3">
 <h3 class="anchored" data-anchor-id="earthdata-login">2. Earthdata Login</h3>
 <p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
-</section>
-<section id="netrc-file" class="level3">
-<h3 class="anchored" data-anchor-id="netrc-file">3. netrc File</h3>
-<p>You will need a <code>.netrc</code> file containing your NASA Earthdata Login credentials. A <code>.netrc</code> file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Workshop-AGU/tutorials/02_NASA_Earthdata_Authentication.html">Authentication for NASA Earthdata tutorial</a>. If you do not have this file, a code block has been added below as a work around.</p>
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
@@ -764,48 +763,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.request <span class="im">import</span> urlretrieve</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> json <span class="im">import</span> dumps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> json <span class="im">import</span> dumps</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> earthaccess <span class="im">import</span> Auth, DataCollections, DataGranules, Store</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this notebook, we will be calling the authentication in the below cell, a work around if you do not yet have a netrc file.</p>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> http.cookiejar <span class="im">import</span> CookieJar</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> getpass <span class="im">import</span> getpass</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> netrc</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> platform <span class="im">import</span> system</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os.path <span class="im">import</span> join, isfile, basename, abspath, expanduser</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> setup_earthdata_login_auth(endpoint: <span class="bu">str</span><span class="op">=</span><span class="st">'urs.earthdata.nasa.gov'</span>):</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    netrc_name <span class="op">=</span> <span class="st">"_netrc"</span> <span class="cf">if</span> system()<span class="op">==</span><span class="st">"Windows"</span> <span class="cf">else</span> <span class="st">".netrc"</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        username, _, password <span class="op">=</span> netrc(<span class="bu">file</span><span class="op">=</span>join(expanduser(<span class="st">'~'</span>), netrc_name)).authenticators(endpoint)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> (<span class="pp">FileNotFoundError</span>, <span class="pp">TypeError</span>):</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Please provide your Earthdata Login credentials for access.'</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Your info will only be passed to </span><span class="sc">%s</span><span class="st"> and will not be exposed in Jupyter.'</span> <span class="op">%</span> (endpoint))</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        username <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Username: '</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        password <span class="op">=</span> getpass(<span class="st">'Password: '</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    manager <span class="op">=</span> request.HTTPPasswordMgrWithDefaultRealm()</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    manager.add_password(<span class="va">None</span>, endpoint, username, password)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    auth <span class="op">=</span> request.HTTPBasicAuthHandler(manager)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    jar <span class="op">=</span> CookieJar()</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    processor <span class="op">=</span> request.HTTPCookieProcessor(jar)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    opener <span class="op">=</span> request.build_opener(auth, processor)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    request.install_opener(opener)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>setup_earthdata_login_auth(<span class="st">'urs.earthdata.nasa.gov'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Please provide your Earthdata Login credentials for access.
-Your info will only be passed to urs.earthdata.nasa.gov and will not be exposed in Jupyter.</code></pre>
-</div>
-<div class="cell-output cell-output-stdin">
-<pre><code>Username:  nickles
-Password:  ···········</code></pre>
-</div>
+<p>In this notebook, we will be calling the authentication in the below cell.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="search-common-metadata-repository-cmr-for-swot-sample-data-links-by-shapefile" class="level3">
-<h3 class="anchored" data-anchor-id="search-common-metadata-repository-cmr-for-swot-sample-data-links-by-shapefile">Search Common Metadata Repository (CMR) for SWOT sample data links by Shapefile</h3>
-<p>We want to find the SWOT sample files that will cross over our region of interest. For this tutorial, we use a shapefile of the United States, finding 44 total granules over the land. Each dataset has it’s own unique collection ID. For the SWOT_SIMULATED_NA_CONTINENT_L2_HR_RIVERSP_V1 dataset, we find the collection ID <a href="https://podaac.jpl.nasa.gov/dataset/SWOT_SIMULATED_NA_CONTINENT_L2_HR_RIVERSP_V1">here</a>.</p>
+<section id="search-for-swot-sample-data-links" class="level3">
+<h3 class="anchored" data-anchor-id="search-for-swot-sample-data-links">Search for SWOT sample data links</h3>
+<p>We want to find the SWOT sample files that will cross over our region of interest, in the case, a bounding box of the United States.</p>
+<p>Each dataset has it’s own unique collection ID. For the SWOT_SIMULATED_NA_CONTINENT_L2_HR_RIVERSP_V1 dataset, we find the collection ID <a href="https://podaac.jpl.nasa.gov/dataset/SWOT_SIMULATED_NA_CONTINENT_L2_HR_RIVERSP_V1">here</a>.</p>
 <p><strong>Sample SWOT Hydrology Datasets and Associated Collection IDs:</strong> 1. <strong>River Vector Shapefile</strong> - SWOT_SIMULATED_NA_CONTINENT_L2_HR_RIVERSP_V1 - <strong>C2263384307-POCLOUD</strong></p>
 <ol start="2" type="1">
 <li><p><strong>Lake Vector Shapefile</strong> - SWOT_SIMULATED_NA_CONTINENT_L2_HR_LAKESP_V1 - <strong>C2263384453-POCLOUD</strong></p></li>
@@ -814,211 +784,250 @@ Password:  ···········</code></pre>
 <li><p><strong>Water Mask Pixel Cloud Vector Attribute NetCDF</strong> - SWOT_SIMULATED_NA_CONTINENT_L2_HR_PIXCVEC_V1 - <strong>C2263383657-POCLOUD</strong></p></li>
 </ol>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the URL of the CMR service</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cmr_url <span class="op">=</span> <span class="st">'https://cmr.earthdata.nasa.gov/search/granules.json'</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#The shapefile we want to use in our search</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>shp_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'../resources/US_shapefile.zip'</span>, <span class="st">'rb'</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#need to declare the file and the type we are uploading</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> {<span class="st">'shapefile'</span>:(<span class="st">'US_shapefile.zip'</span>,shp_file, <span class="st">'application/shapefile+zip'</span>)}</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#used to define parameters such as the concept-id and things like temporal searches</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>parameters <span class="op">=</span> {<span class="st">'collection_concept_id'</span>:<span class="st">'C2263384307-POCLOUD'</span>, <span class="co">#insert desired collection ID here</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>             <span class="st">'page_size'</span>: <span class="dv">2000</span>}<span class="co">#, #default will only return 10 granules, so we set it to the max</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#request the granules from this collection that align with the shapefile</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(cmr_url, params<span class="op">=</span>parameters, files<span class="op">=</span>files)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#If you want to search by bounding box instead of shapefile, use the following instead:</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#parameters = {'collection_concept_id':'C2263384307-POCLOUD',</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#             'page_size': 2000, </span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#             'bounding_box':"-124.848974,24.396308,-66.885444,49.384358"} </span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#response = requests.post(cmr_url, params=parameters)</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>])<span class="op">&gt;</span><span class="dv">0</span>:</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>])) <span class="co">#print out number of files found</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(dumps(response.json()['feed']['entry'][0], indent=2)) #print out the first file information</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#earthaccess data search</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Query <span class="op">=</span> DataGranules().concept_id(<span class="st">"C2263384307-POCLOUD"</span>).bounding_box(<span class="op">-</span><span class="fl">124.848974</span>,<span class="fl">24.396308</span>,<span class="op">-</span><span class="fl">66.885444</span>,<span class="fl">49.384358</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Granule hits: </span><span class="sc">{</span>Query<span class="sc">.</span>hits()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>44</code></pre>
+<pre><code>Granule hits: 46</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>granules <span class="op">=</span> Query.get()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract the data links from the granules</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data_links <span class="op">=</span> [g.data_links(access<span class="op">=</span><span class="st">"on_prem"</span>) <span class="cf">for</span> g <span class="kw">in</span> granules]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data_links[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>['https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/SWOT_SIMULATED_NA_CONTINENT_L2_HR_RIVERSP_V1/SWOT_L2_HR_RiverSP_Node_007_022_NA_20220804T224145_20220804T224402_PGA0_01.zip']</code></pre>
 </div>
 </div>
 </section>
-<section id="get-download-links-from-cmr-search-results" class="level3">
-<h3 class="anchored" data-anchor-id="get-download-links-from-cmr-search-results">Get Download links from CMR search results</h3>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>downloads <span class="op">=</span> []</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> response.json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>]:</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> r[<span class="st">'links'</span>]:</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">#if the link starts with the following, it is the download link we want</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/'</span> <span class="kw">in</span> l[<span class="st">'href'</span>]: </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="co">#if the link has "Reach" instead of "Node" in the name, we want to download it for the swath use case</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'Reach'</span> <span class="kw">in</span> l[<span class="st">'href'</span>]:</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                downloads.append(l[<span class="st">'href'</span>])</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads)) <span class="co">#should end up with half the number of files above since we only need reach files, not node files</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="get-download-links-from-earthaccess-search-results" class="level3">
+<h3 class="anchored" data-anchor-id="get-download-links-from-earthaccess-search-results">Get Download links from <code>earthaccess</code> search results</h3>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add desired links to a list</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#if the link has "Reach" instead of "Node" in the name, we want to download it for the swath use case</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>downloads <span class="op">=</span> []</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> data_links:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> r:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/'</span> <span class="kw">in</span> l:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'Reach'</span> <span class="kw">in</span> l:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                downloads.append(l)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>22</code></pre>
+<pre><code>23</code></pre>
 </div>
 </div>
+<p>This leaves us with half of the original links from our search.</p>
 </section>
 <section id="download-the-data-into-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create folder to house downloaded data </span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"SWOT_sample_files"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#newpath = r'SWOT_sample_files' </span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(folder):</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    os.makedirs(folder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create folder to house downloaded data </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"SWOT_sample_files"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#newpath = r'SWOT_sample_files' </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(folder):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    os.makedirs(folder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> downloads:</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    urlretrieve(f, <span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(f)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Store(auth).get(downloads, <span class="st">"./SWOT_sample_files"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"b6aa5d4e12b74d7cbdb328482ee40beb","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"5f6b65bc0a9241c8be62d7c2611d6962","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"2c76793b918d4528a19e6fb8e1d0679a","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>['SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_104_NA_20220807T205936_20220807T210016_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.zip']</code></pre>
+</div>
 </div>
 </section>
 <section id="shapefiles-come-in-a-.zip-format-and-need-to-be-unzipped-in-the-existing-folder" class="level3">
 <h3 class="anchored" data-anchor-id="shapefiles-come-in-a-.zip-format-and-need-to-be-unzipped-in-the-existing-folder">Shapefiles come in a .zip format, and need to be unzipped in the existing folder</h3>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>os.listdir(folder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>['SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.shp.xml',
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>os.listdir(folder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>['SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.shx',
  'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.zip',
  'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.zip',
  'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.zip',
  'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_104_NA_20220807T205936_20220807T210016_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_104_NA_20220807T205936_20220807T210016_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_104_NA_20220807T205936_20220807T210016_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.prj',
  'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.shx',
  'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_315_NA_20220815T101757_20220815T102414_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_104_NA_20220807T205936_20220807T210016_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_121_NA_20220808T115628_20220808T120311_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_205_NA_20220811T120350_20220811T120457_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_147_NA_20220809T101525_20220809T101639_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_104_NA_20220807T205936_20220807T210016_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.shx',
  'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.zip']</code></pre>
+ 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_522_NA_20220822T192441_20220822T193037_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_287_NA_20220814T101759_20220814T102333_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_483_NA_20220821T102527_20220821T102706_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_175_NA_20220810T101607_20220810T101940_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_371_NA_20220817T101846_20220817T102530_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_065_NA_20220806T115630_20220806T120114_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_104_NA_20220807T205936_20220807T210016_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_453_NA_20220820T083815_20220820T084053_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_203_NA_20220811T101614_20220811T102211_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_022_NA_20220804T224145_20220804T224402_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_007_343_NA_20220816T101844_20220816T102323_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_037_NA_20220805T115553_20220805T120212_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_132_NA_20220808T210018_20220808T210252_PGA0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_007_300_NA_20220814T210504_20220814T210907_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_162_NA_20220809T224722_20220809T225058_PGA0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_007_440_NA_20220819T210905_20220819T211311_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_007_177_NA_20220810T120102_20220810T120420_PGA0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_007_468_NA_20220820T211105_20220820T211330_PGA0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_007_427_NA_20220819T101956_20220819T102559_PGA0_01.shp.xml']</code></pre>
 </div>
 </div>
 
