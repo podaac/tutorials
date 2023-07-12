@@ -1,0 +1,6 @@
+ecr_repo     = ""
+edl_password = ""
+edl_username = ""
+lambda_role  = ""
+prefix       = ""
+profile      = ""
