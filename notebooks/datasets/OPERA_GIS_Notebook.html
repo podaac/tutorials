@@ -810,54 +810,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We want to look at two different times for comparison: 04/11/2023 and 05/02/2023. To find these dates, let’s search for all the data granules between the two.</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#earthaccess data search</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Query <span class="op">=</span> DataGranules().concept_id(<span class="st">"C2617126679-POCLOUD"</span>).bounding_box(<span class="op">-</span><span class="fl">111.144811</span>,<span class="fl">36.980121</span>,<span class="op">-</span><span class="fl">110.250799</span>,<span class="fl">37.915625</span>).temporal(<span class="st">"2023-04-11T00:00:00"</span>,<span class="st">"2023-05-02T23:59:59"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Granule hits: </span><span class="sc">{</span>Query<span class="sc">.</span>hits()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(concept_id<span class="op">=</span><span class="st">"C2617126679-POCLOUD"</span>, bounding_box<span class="op">=</span>(<span class="op">-</span><span class="fl">111.144811</span>,<span class="fl">36.980121</span>,<span class="op">-</span><span class="fl">110.250799</span>,<span class="fl">37.915625</span>), temporal<span class="op">=</span>(<span class="st">"2023-04-11"</span>,<span class="st">"2023-05-03"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Granule hits: 50</code></pre>
+<pre><code>Granules found: 50</code></pre>
 </div>
 </div>
 <p>From this search, we received 50 granules between 4/11/2023 and 05/02/2023.</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#assign the 50 granules to a variable</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>granules <span class="op">=</span> Query.get()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Find the links for the timestamps</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>data_links <span class="op">=</span> [g.data_links(access<span class="op">=</span><span class="st">"on_prem"</span>) <span class="cf">for</span> g <span class="kw">in</span> granules]</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#test output on first granule</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>data_links[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>['https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B01_WTR.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B02_BWTR.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B03_CONF.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B04_DIAG.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B05_WTR-1.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B06_WTR-2.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B07_LAND.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B08_SHAD.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B09_CLOUD.tif',
- 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/OPERA_L3_DSWX-HLS_PROVISIONAL_V1/OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B10_DEM.tif']</code></pre>
-</div>
-</div>
-<p>OPERA has 10 different available layers. The data_links variable for the first granule resulted in 10 files, each representing a different layer in the dataset. We will only need one of these files.</p>
 </section>
 <section id="get-desired-links" class="level3">
 <h3 class="anchored" data-anchor-id="get-desired-links">Get desired links</h3>
-<p>Let’s get download links for the desired files. We want to query the dataset based on a specific classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’) as well as for the two dates (04/11/2023 and 05/02/2023).</p>
+<p>OPERA has 10 different available layers within each granule. Each granule consists of 10 files, one for each layer. We will only need one of these files since we are only looking at one layer.</p>
+<p>Let’s get the download links for the desired files. We want to query the dataset based on a specific classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’) as well as for the two dates (04/11/2023 and 05/02/2023).</p>
 <p>We will look at ‘B01_WTR’ which is the Water Classification (WTR) layer of the OPERA DSWx dataset. Details on each available layer and the data product can be found <a href="https://d2pn8kiwq2w21t.cloudfront.net/documents/ProductSpec_DSWX_URS309746.pdf">here</a>.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(results[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>earthaccess.results.DataGranule</code></pre>
+</div>
+</div>
+<p>Here, we see that the results output is in the DataGranule format, allowing us to to use the data_links call</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add the necessary data to a list, here we are looking for B01_WTR layer and two dates specified earlier</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>downloads_04112023 <span class="op">=</span> []</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>downloads_05022023 <span class="op">=</span> []</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> data_links:</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> r:</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'B01_WTR'</span> <span class="kw">in</span> l:</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230411'</span> <span class="kw">in</span> l:</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                downloads_04112023.append(l)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230502'</span> <span class="kw">in</span> l:</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                downloads_05022023.append(l)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> g <span class="kw">in</span> results:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> earthaccess.results.DataGranule.data_links(g):</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'B01_WTR'</span> <span class="kw">in</span> l:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230411'</span> <span class="kw">in</span> l:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                downloads_04112023.append(l)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230502'</span> <span class="kw">in</span> l:</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                downloads_05022023.append(l)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads_04112023))</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads_05022023))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -871,43 +855,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
 <p>Since we are looking at two seperate times, we create two folder path names, one for each date, so we can mosaic all the files within one folder based on its respective time range later.</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download the files into folders</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Store(auth).get(downloads_04112023, <span class="st">"./data_downloads/OPERA_041123"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Store(auth).get(downloads_05022023, <span class="st">"./data_downloads/OPERA_050223"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download data into folder on local machine</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>earthaccess.download(downloads_04112023, <span class="st">"./data_downloads/OPERA_041123"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>earthaccess.download(downloads_05022023, <span class="st">"./data_downloads/OPERA_050223"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"52dc4aa9e51b4e47a41fe467493c609e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"ea26733d965147aeacc5cfdfa791f6b7","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>File OPERA_L3_DSWx-HLS_T12SWG_20230411T180222Z_20230414T030954Z_L8_30_v1.0_B01_WTR.tif already downloaded
+File OPERA_L3_DSWx-HLS_T12SVG_20230411T180222Z_20230414T030945Z_L8_30_v1.0_B01_WTR.tif already downloaded
 File OPERA_L3_DSWx-HLS_T12SVF_20230411T180222Z_20230414T030950Z_L8_30_v1.0_B01_WTR.tif already downloaded
 File OPERA_L3_DSWx-HLS_T12SWF_20230411T180222Z_20230414T031011Z_L8_30_v1.0_B01_WTR.tif already downloaded
-File OPERA_L3_DSWx-HLS_T12SVG_20230411T180222Z_20230414T030945Z_L8_30_v1.0_B01_WTR.tif already downloaded</code></pre>
+File OPERA_L3_DSWx-HLS_T12SWG_20230502T180919Z_20230504T155716Z_S2B_30_v1.0_B01_WTR.tif already downloaded
+File OPERA_L3_DSWx-HLS_T12SVG_20230502T180919Z_20230504T094859Z_S2B_30_v1.0_B01_WTR.tif already downloaded
+File OPERA_L3_DSWx-HLS_T12SVF_20230502T180919Z_20230504T094852Z_S2B_30_v1.0_B01_WTR.tif already downloaded
+File OPERA_L3_DSWx-HLS_T12SWF_20230502T180919Z_20230504T155656Z_S2B_30_v1.0_B01_WTR.tif already downloaded</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"c3a023575e3b4bda92161c809623aebd","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"0bf4c3233ae247ffb0ead0537f494fef","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"1e1891a916dc4c6fb69b006171048e1c","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"434ef4ac99a24e5ebb9ab3d3d83ea300","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"916ca4fb4caa47d4b9213a8b4f268431","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"a7c0d438e9f84112a9138d25be1ad734","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"6a4cb27f973045cbbab9292913a9b7f5","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"eeec670d44f443b8bc462bcd73072cbd","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"582258323a694a67a2290b895b27eff0","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"9ed89de31be44185a4eb49f531861b43","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="6">
