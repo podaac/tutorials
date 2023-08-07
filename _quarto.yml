@@ -38,12 +38,22 @@ website:
         href: quarto_text/cheatsheet.qmd 
       - section: quarto_text/HowTo.qmd 
         contents: 
-          - text: "Search"
-            href: external/earthdata_search.md
+          - section: "Find Data"
+            contents:
+              - text: "using Earthdata Search"
+                href: external/earthdata_search.md
+              - text: "using Code"
+                href: external/find_data_programmatically.qmd
           - text: "Authenticate"
             href: external/NASA_Earthdata_Authentication.ipynb 
-          - text: "Access in Cloud"
-            href: external/Direct_S3_Access_NetCDF.ipynb 
+          - section: "Access Data"
+            contents: 
+              - text: "in the Cloud"
+                href: external/if-im-in-the-cloud.qmd
+              - text: "Locally"
+                href: external/if-im-local.qmd
+          - text: "Read Data"
+            href: external/read_data.qmd
           - text: "Download/Subscribe"
             href: quarto_text/DataSubscriberDownloader.qmd
       - section: quarto_text/Tutorials.qmd 
@@ -160,8 +170,10 @@ website:
                 href: external/zarr-eosdis-store.ipynb
               - text: "zarr2netCDF" 
                 href: external/cof-zarr-reformat.ipynb
-      - href: quarto_text/Experimental.qmd
-        text: "In Development"
+      - section: quarto_text/Experimental.qmd
+        contents:
+            - text: "AWS Lambda"
+              href: notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.ipynb
       - href: quarto_text/Workshops.qmd
         text: "Workshops"
       - section: quarto_text/Webinars.qmd

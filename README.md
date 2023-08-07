@@ -2,7 +2,7 @@
 
 ![N|Solid](https://podaac.jpl.nasa.gov/sites/default/files/image/custom_thumbs/podaac_logo.png)
 
-Explore the [**PO.DAAC Cookbook**](https://podaac.github.io/tutorials/), a curated webpage of our data recipes. It's a place to find cloud relevant tutorials on how to use PO.DAAC and Earthdata tools, services, and data.
+## Explore the [**PO.DAAC Cookbook**](https://podaac.github.io/tutorials/), a curated webpage of our data recipes. It's a place to find cloud relevant tutorials on how to use PO.DAAC and Earthdata tools, services, and data.
 
 Most tutorials in this repository take the form of python notebooks. [Jupyter](https://jupyter.org/) is a very popular version of python notebooks, and is used extensively by the PO.DAAC team.
 
