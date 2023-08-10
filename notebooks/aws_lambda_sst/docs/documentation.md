@@ -51,15 +51,17 @@
 
 This guide is intended for novice cloud users who do not have experience using Amazon Web Services (AWS).
 
-This guide assumes intermediate knowledge of the following topics:
-Running python scripts on a server
-Familiarity with the command line
-Jupyter notebooks
+This guide assumes **intermediate** knowledge of the following topics:
 
-This guide assumes conceptual understanding of the following topics:
-Organizing code into functions
-Identity management (administering users/roles)
-Virtual machines
+* Running python scripts on a server
+* Familiarity with the command line
+* Jupyter notebooks
+
+This guide assumes **conceptual** understanding of the following topics:
+
+* Organizing code into functions
+* Identity management (administering users/roles)
+* Virtual machines
 
 Users who have less experience with these topics may need support from their institution’s IT department to configure these services.
 
