@@ -2,6 +2,8 @@
 
 This program uses AWS Lambda to calculate a global mean on the MUR 25km dataset.
 
+Full documentation is available in /docs/documentation.md
+
 ## Files
 
 sst.py - the code to be run by AWS Lambda. This gets packaged in a Docker container to be deployed to AWS.
