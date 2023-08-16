@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - How to Authenticate for NASA Earthdata Programmatically</title>
+<title>PO.DAAC Cookbook - Advanced Cloud</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -63,8 +29,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../external/if-im-in-the-cloud.html" rel="next">
-<link href="../external/find_data_programmatically.html" rel="prev">
+<link href="../notebooks/aws_lambda_sst/docs/documentation.html" rel="next">
+<link href="../external/cof-zarr-reformat.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -109,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/HowTo.html">How To</a></li><li class="breadcrumb-item"><a href="../external/NASA_Earthdata_Authentication.html">Authenticate</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Advanced.html">Advanced Cloud</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -155,11 +121,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How To</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
@@ -185,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link active">
+  <a href="../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Authenticate</span></a>
   </div>
 </li>
@@ -667,13 +633,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Advanced Cloud</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
@@ -761,16 +727,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link active" data-scroll-target="#earthdata-login">Earthdata Login</a></li>
+  <li><a href="#scale-scientific-analysis-in-the-cloud-with-aws-lambda---user-guide-for-deploying-aws-services-in-end-user-amazon-accounts" id="toc-scale-scientific-analysis-in-the-cloud-with-aws-lambda---user-guide-for-deploying-aws-services-in-end-user-amazon-accounts" class="nav-link active" data-scroll-target="#scale-scientific-analysis-in-the-cloud-with-aws-lambda---user-guide-for-deploying-aws-services-in-end-user-amazon-accounts">Scale Scientific Analysis in the Cloud with AWS Lambda - user guide for deploying AWS services in end-user Amazon accounts</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/external/NASA_Earthdata_Authentication.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/edit/main/quarto_text/Advanced.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How to Authenticate for NASA Earthdata Programmatically</h1>
+<h1 class="title">Advanced Cloud</h1>
+<p class="subtitle lead">When you want to dive into optimizing cloud workflows</p>
 </div>
 
 
@@ -785,29 +752,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<blockquote class="blockquote">
-<p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/external/NASA_Earthdata_Authentication.ipynb">this link</a>.</p>
-</blockquote>
-<section id="earthdata-login" class="level2">
-<h2 class="anchored" data-anchor-id="earthdata-login">Earthdata Login</h2>
-<p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
-<section id="we-recommend-programmatic-authentication-with-a-few-lines-of-code-using-the-earthaccess-python-package." class="level4">
-<h4 class="anchored" data-anchor-id="we-recommend-programmatic-authentication-with-a-few-lines-of-code-using-the-earthaccess-python-package.">We recommend programmatic authentication with a few lines of code using the <a href="https://github.com/nsidc/earthaccess"><code>earthaccess</code> python package</a>.</h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The line above has you login to Earthdata and persists the credentials in a netrc file in your home directory behind the scenes. If you know you already have a netrc file, you can also authenticate with the following, without typing in your login credentials each time:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"netrc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="authentication-is-also-possible-without-the-earthaccess-package-please-review-this-2021-cloud-hackathon-authentication-tutorial-for-more-details." class="level4">
-<h4 class="anchored" data-anchor-id="authentication-is-also-possible-without-the-earthaccess-package-please-review-this-2021-cloud-hackathon-authentication-tutorial-for-more-details.">Authentication is also possible without the <code>earthaccess</code> package; please review <a href="https://nasa-openscapes.github.io/2021-Cloud-Workshop-AGU/tutorials/02_NASA_Earthdata_Authentication.html">this 2021 Cloud Hackathon Authentication tutorial</a> for more details.</h4>
+<section id="scale-scientific-analysis-in-the-cloud-with-aws-lambda---user-guide-for-deploying-aws-services-in-end-user-amazon-accounts" class="level3">
+<h3 class="anchored" data-anchor-id="scale-scientific-analysis-in-the-cloud-with-aws-lambda---user-guide-for-deploying-aws-services-in-end-user-amazon-accounts"><a href="../notebooks/aws_lambda_sst/docs/documentation.html">Scale Scientific Analysis in the Cloud with AWS Lambda</a> - user guide for deploying AWS services in end-user Amazon accounts</h3>
+<ul>
+<li><a href="../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html">Notebook Demonstration</a> - This tutorial demonstrates how to plot a timeseries of global mean sea surface temperature values using AWS Lambda to perform the global mean computation using the MUR 25km dataset.</li>
+</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1161,13 +1112,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../external/find_data_programmatically.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">using Code</span>
+      <a href="../external/cof-zarr-reformat.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">zarr2netCDF</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../external/if-im-in-the-cloud.html" class="pagination-link">
-        <span class="nav-page-text">in the Cloud</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notebooks/aws_lambda_sst/docs/documentation.html" class="pagination-link">
+        <span class="nav-page-text">AWS Lambda</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
