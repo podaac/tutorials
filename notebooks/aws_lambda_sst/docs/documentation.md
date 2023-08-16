@@ -1,6 +1,8 @@
-# Scale Scientific Analysis in the Cloud with AWS Lambda
+# AWS Lambda
 
-## User Guide for Deploying AWS Services in end-user Amazon accounts
+## Scale Scientific Analysis in the Cloud with AWS Lambda
+
+### User Guide for Deploying AWS Services in end-user Amazon accounts
 
 ### [Introduction](#introduction-1)
 
