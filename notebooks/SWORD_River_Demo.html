@@ -566,14 +566,14 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/SWOTsample_GISshapefiles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GIS HR Shapefile Exploration</span></a>
+  <a href="https://storymaps.arcgis.com/stories/4a9184e813e540248040069580f6a54c" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StoryMap</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">NetCDF to Geotiff</span></a>
+  <a href="../notebooks/GIS/SWOTsample_GISshapefiles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shapefile Exploration</span></a>
   </div>
 </li>
       </ul>
@@ -594,8 +594,11 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">Subset by Bounding Box</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NetCDF to Geotiff</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -859,15 +862,10 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
   <li><a href="#authenticate-earthdata-login-via-earthaccess" id="toc-authenticate-earthdata-login-via-earthaccess" class="nav-link" data-scroll-target="#authenticate-earthdata-login-via-earthaccess">Authenticate Earthdata Login via <code>earthaccess</code></a></li>
   <li><a href="#define-a-function-to-query-easier" id="toc-define-a-function-to-query-easier" class="nav-link" data-scroll-target="#define-a-function-to-query-easier">Define a Function to Query Easier</a></li>
   </ul></li>
-  <li><a href="#plot-a-single-river-reach-from-the-sword-database" id="toc-plot-a-single-river-reach-from-the-sword-database" class="nav-link" data-scroll-target="#plot-a-single-river-reach-from-the-sword-database">Plot a Single River Reach from the SWORD Database</a>
-  <ul class="collapse">
+  <li><a href="#plot-a-single-river-reach-from-the-sword-database" id="toc-plot-a-single-river-reach-from-the-sword-database" class="nav-link" data-scroll-target="#plot-a-single-river-reach-from-the-sword-database">Plot a Single River Reach from the SWORD Database</a></li>
   <li><a href="#query-earthaccess-by-coordinates" id="toc-query-earthaccess-by-coordinates" class="nav-link" data-scroll-target="#query-earthaccess-by-coordinates">Query earthaccess by Coordinates</a></li>
   <li><a href="#accessing-in-the-cloud" id="toc-accessing-in-the-cloud" class="nav-link" data-scroll-target="#accessing-in-the-cloud">Accessing in the Cloud</a></li>
-  <li><a href="#downloading-on-a-local-machine" id="toc-downloading-on-a-local-machine" class="nav-link" data-scroll-target="#downloading-on-a-local-machine">Downloading on a Local Machine</a>
-  <ul class="collapse">
-  <li><a href="#continue-to-science" id="toc-continue-to-science" class="nav-link" data-scroll-target="#continue-to-science">… Continue to Science!</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#downloading-on-a-local-machine" id="toc-downloading-on-a-local-machine" class="nav-link" data-scroll-target="#downloading-on-a-local-machine">Downloading on a Local Machine</a></li>
   <li><a href="#other-options-to-query-the-sword-database" id="toc-other-options-to-query-the-sword-database" class="nav-link" data-scroll-target="#other-options-to-query-the-sword-database">Other Options to query the SWORD Database:</a>
   <ul class="collapse">
   <li><a href="#multiple-river-reaches" id="toc-multiple-river-reaches" class="nav-link" data-scroll-target="#multiple-river-reaches">Multiple River Reaches</a></li>
@@ -959,8 +957,8 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
 </div>
 </section>
 </section>
-<section id="plot-a-single-river-reach-from-the-sword-database" class="level1">
-<h1>Plot a Single River Reach from the SWORD Database</h1>
+<section id="plot-a-single-river-reach-from-the-sword-database" class="level2">
+<h2 class="anchored" data-anchor-id="plot-a-single-river-reach-from-the-sword-database">Plot a Single River Reach from the SWORD Database</h2>
 <p>In this section, we query the Feature Translation Service (FTS) SWORD service using a single Reach ID (from <a href="https://www.swordexplorer.com/">SWORD</a>) to give us all of the metadata regarding the particular reach. In this example, we use the river Reach ID <code>13227000061</code>. This ID represents a specific reach along the Kasai River, a tributary of the Congo River in Africa.</p>
 <div class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#change the reach ID in the link below for a different location.</span></span>
@@ -1050,6 +1048,7 @@ if (outputEl) {{
 </div>
 </div>
 <p>Note that we haven’t looked at any data from a collection yet, we’ve simply found the geospatial coordinates of our river reach of interest within the metadata.</p>
+</section>
 <section id="query-earthaccess-by-coordinates" class="level2">
 <h2 class="anchored" data-anchor-id="query-earthaccess-by-coordinates">Query earthaccess by Coordinates</h2>
 <p>We can use results obtained from the FTS query to then directly and automatically query data using the earthaccess python library. We will use the coordinate information of a single reach to search for granules (files) available through the <a href="https://podaac.jpl.nasa.gov/dataset/PRESWOT_HYDRO_GRRATS_L2_DAILY_VIRTUAL_STATION_HEIGHTS_V2">Pre SWOT Hydrology GRRATS Daily River Heights and Storage Version 2</a> data, which has the collection ID <code>C2036882359-POCLOUD</code>.</p>
@@ -2614,15 +2613,12 @@ Attributes: (12/40)
               dtype='datetime64[ns]', name='time', length=9439, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-bb807c44-ac18-4857-94f3-6df399c3583e" class="xr-section-summary-in" type="checkbox"><label for="section-bb807c44-ac18-4857-94f3-6df399c3583e" class="xr-section-summary">Attributes: <span>(40)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>title :</span></dt><dd>GRRATS (Global River Radar Altimetry Time Series)1km daily interpolation for the Congo River</dd><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD-1.3</dd><dt><span>institution :</span></dt><dd>Ohio State University, School of Earth Sciences</dd><dt><span>source :</span></dt><dd>MEaSUREs OSU Storage toolbox 2018</dd><dt><span>keywords :</span></dt><dd>EARTH SCIENCE,TERRESTRIAL HYDROSPHERE,SURFACE WATER,SURFACE WATER PROCESSES/MEASUREMENTS,STAGE HEIGHT</dd><dt><span>keywords_vocabulary :</span></dt><dd>Global Change Master Directory (GCMD)</dd><dt><span>cdm_data_type :</span></dt><dd>station</dd><dt><span>creator_name :</span></dt><dd>Coss,Steve</dd><dt><span>creator_email :</span></dt><dd>Coss.31@osu.edu</dd><dt><span>project :</span></dt><dd>MEaSUREs OSU</dd><dt><span>program :</span></dt><dd>NASA Earth Science Data Systems (ESDS)</dd><dt><span>publisher_name :</span></dt><dd>PO.DAAC (Physical Oceanography Distributed Active Archive Center)</dd><dt><span>publisher_email :</span></dt><dd>podaac@podaac.jpl.nasa.gov</dd><dt><span>publisher_url :</span></dt><dd>podaac.jpl.nasa.gov</dd><dt><span>publisher_type :</span></dt><dd>Institution</dd><dt><span>publisher_institution :</span></dt><dd>PO.DAAC</dd><dt><span>processing_level :</span></dt><dd>L2</dd><dt><span>doi :</span></dt><dd>10.5067/PSGRA-DA2V2</dd><dt><span>history :</span></dt><dd>This GRRATS product adds data river surface height data from ERS1, ERS2, TOPEX/Poseidon and Jason-3 to expand the temporal coverage of the product. GRRATS1kd includes interpolated daily 1km resolution height measurements as well as river channel storage measurements. </dd><dt><span>platform :</span></dt><dd>ERS-1(L2),ERS-2(L2),TOPEX/POSEIDON(L2), Jason-1(L2),OSTM/Jason-2(L2),Jason-3(L2),Envisat(L2)</dd><dt><span>platform_vocabulary :</span></dt><dd>NASA/GCMD Platform Keywords. Version 8.6</dd><dt><span>instrument :</span></dt><dd>RA(L2),RA-2(L2),ALT(TOPEX)(L2),POSEIDON-2(L2),POSEIDON-3(L2),POSEIDON-3b(L2)</dd><dt><span>instrument_vocabulary :</span></dt><dd>NASA/GCMD Platform Keywords. Version 8.6</dd><dt><span>references :</span></dt><dd>in review :doi.org/10.5194/essd-2019-84</dd><dt><span>id :</span></dt><dd>GRRATS(Global River Radar Altimeter Time Series) 1km/daily</dd><dt><span>summary :</span></dt><dd>The Global River Radar Altimeter Time Series (GRRATS) 1km/daily interpolations are river heights from ERS1, ERS2, TOPEX/Poseidon OSTM/Jason-2 Envisat and Jason-3 that are interpolated and processed to create a continuous heights for the study over the temporal range of the altimeters used. The purpose of these heights are to provide satellite altimetric river height data in a form that is more recognizable to the observational community and as a way to get users use to using satellite data for river hydrology.</dd><dt><span>time_coverage_resolution :</span></dt><dd>1 day</dd><dt><span>date_created :</span></dt><dd>2021-06-30T09:00:17</dd><dt><span>time_coverage_start :</span></dt><dd>1992-05-01T20:48:54</dd><dt><span>time_coverage_end :</span></dt><dd>2018-04-19T22:01:11</dd><dt><span>geospatial_lon_min :</span></dt><dd>12.707728383258313</dd><dt><span>geospatial_lon_max :</span></dt><dd>25.947548933236703</dd><dt><span>geospatial_lon_units :</span></dt><dd>degree_east</dd><dt><span>geospatial_lat_min :</span></dt><dd>-6.013103503124114</dd><dt><span>geospatial_lat_max :</span></dt><dd>2.1851957069163745</dd><dt><span>geospatial_lat_units :</span></dt><dd>degree_north</dd><dt><span>geospatial_vertical_max :</span></dt><dd>455.7337393315697</dd><dt><span>geospatial_vertical_min :</span></dt><dd>-0.9449266750562206</dd><dt><span>geospatial_vertical_units :</span></dt><dd>m</dd><dt><span>geospatial_vertical_positive :</span></dt><dd>up</dd></dl></div></li></ul></div></div>
 </div>
 </div>
-<section id="continue-to-science" class="level3">
-<h3 class="anchored" data-anchor-id="continue-to-science">… Continue to Science!</h3>
+<p><strong>… Continue to Science!</strong></p>
 </section>
-</section>
-</section>
-<section id="other-options-to-query-the-sword-database" class="level1">
-<h1>Other Options to query the SWORD Database:</h1>
-<section id="multiple-river-reaches" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-river-reaches">Multiple River Reaches</h2>
+<section id="other-options-to-query-the-sword-database" class="level2">
+<h2 class="anchored" data-anchor-id="other-options-to-query-the-sword-database">Other Options to query the SWORD Database:</h2>
+<section id="multiple-river-reaches" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-river-reaches">Multiple River Reaches</h3>
 <p>We can query the FTS SWORD service over multiple river reaches too. In this example, we use ID <code>132270000</code>. This ID represents multiple reaches along the Kasai River, a tributary of the Congo River in Africa. Note that this reach includes the reach ID of <code>13227000061</code> we plotted earlier. The response includes 9 individual reaches.</p>
 <div class="cell" data-tags="[]" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>response_multi <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/reach/132270000"</span>)</span>
@@ -2649,8 +2645,8 @@ Attributes: (12/40)
 </div>
 </div>
 </section>
-<section id="river-nodes-within-a-reach" class="level2">
-<h2 class="anchored" data-anchor-id="river-nodes-within-a-reach">River Nodes within a Reach</h2>
+<section id="river-nodes-within-a-reach" class="level3">
+<h3 class="anchored" data-anchor-id="river-nodes-within-a-reach">River Nodes within a Reach</h3>
 <p>We can also query the FTS SWORD service for river nodes, points along the river reaches. In this example, we use the ID of <code>13227000060</code>. Note that this ID corresponds to the same reach ID <code>13227000061</code> we used earlier. The only difference is that the last digit of <code>0</code> corresponds to all the individual <em>nodes</em> along the reach. If the last digit is <code>1</code> in the reach ID, it corresponds to the overall properties of the <em>reach</em> itself. The response returns 52 nodes along the reach.</p>
 <div class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/node/13227000060"</span>)</span>
