@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook – documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" rel="next">
+<link href="../../../quarto_text/Advanced.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../../notebooks/aws_lambda_sst/docs/documentation.html">AWS Lambda</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      <img src="../../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets &amp; Guides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How To</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Find Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">using Earthdata Search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">using Code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authenticate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Access Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/if-im-in-the-cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">in the Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/if-im-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Locally</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/read_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Read Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download/Subscribe</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Specific</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECCO</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-cloud Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local Download Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GHRSST</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-Cloud Access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPERA</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Visualization and Mosaicking</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access by Cycle/Pass</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access NRT Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMAP</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S-MODE</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study In Situ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SWOT</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">Search</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/SearchDownload_SWOTviaCMR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmatically</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/SWORD_River_Demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">By SWORD ID</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/HUC Feature Translation Service Examples-updated-20210804.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">By HUC ID</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+ <span class="menu-text">In-cloud Access</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample SWOT Hydrology Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/Direct_Access_SWOT_sim_Oceanography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample SWOT Oceanography Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+ <span class="menu-text">GIS Workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://storymaps.arcgis.com/stories/4a9184e813e540248040069580f6a54c" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StoryMap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/GIS/SWOTsample_GISshapefiles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shapefile Exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+ <span class="menu-text">Transform Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/GIS/SWOTsample_CSVconversion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hydrology Time Series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NetCDF to Geotiff</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud vs. Local Workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+ <span class="menu-text">Estuary Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amazon Estuary Exploration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false">
+ <span class="menu-text">Reservoir Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false">
+ <span class="menu-text">Lake Extent Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/PairingCloudNoncloudData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workflows with Multiple Datasets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SSS Ocean Satellite &amp; In-situ Comparison</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amazon Estuary Exploration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">River Heights Comparison</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SST Ocean Satellite &amp; In-situ Comparison</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Optimized Examples</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Access for NetCDF4 Files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr-eosdis-store library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr2netCDF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Cloud</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">AWS Lambda</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Noteboook</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In Development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshops</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webinars</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">July 2022 Earthdata Webinar Notebook</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tech Guides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contribute</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial Template</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions?</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#aws-lambda" id="toc-aws-lambda" class="nav-link active" data-scroll-target="#aws-lambda">AWS Lambda</a>
+  <ul class="collapse">
+  <li><a href="#scale-scientific-analysis-in-the-cloud-with-aws-lambda" id="toc-scale-scientific-analysis-in-the-cloud-with-aws-lambda" class="nav-link" data-scroll-target="#scale-scientific-analysis-in-the-cloud-with-aws-lambda">Scale Scientific Analysis in the Cloud with AWS Lambda</a>
+  <ul class="collapse">
+  <li><a href="#user-guide-for-deploying-aws-services-in-end-user-amazon-accounts" id="toc-user-guide-for-deploying-aws-services-in-end-user-amazon-accounts" class="nav-link" data-scroll-target="#user-guide-for-deploying-aws-services-in-end-user-amazon-accounts">User Guide for Deploying AWS Services in end-user Amazon accounts</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a></li>
+  <li><a href="#deployment-instructions" id="toc-deployment-instructions" class="nav-link" data-scroll-target="#deployment-instructions">Deployment Instructions</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#audience" id="toc-audience" class="nav-link" data-scroll-target="#audience">Audience</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#global-mean-sea-surface-temperature" id="toc-global-mean-sea-surface-temperature" class="nav-link" data-scroll-target="#global-mean-sea-surface-temperature">Global Mean Sea Surface Temperature</a></li>
+  <li><a href="#cost-estimates" id="toc-cost-estimates" class="nav-link" data-scroll-target="#cost-estimates">Cost Estimates</a></li>
+  </ul></li>
+  <li><a href="#architecture-1" id="toc-architecture-1" class="nav-link" data-scroll-target="#architecture-1">Architecture</a>
+  <ul class="collapse">
+  <li><a href="#diagram" id="toc-diagram" class="nav-link" data-scroll-target="#diagram">Diagram</a></li>
+  <li><a href="#repository-structure" id="toc-repository-structure" class="nav-link" data-scroll-target="#repository-structure">Repository Structure</a></li>
+  </ul></li>
+  <li><a href="#deployment-instructions-1" id="toc-deployment-instructions-1" class="nav-link" data-scroll-target="#deployment-instructions-1">Deployment Instructions</a>
+  <ul class="collapse">
+  <li><a href="#create-an-aws-account" id="toc-create-an-aws-account" class="nav-link" data-scroll-target="#create-an-aws-account">1. Create an AWS Account</a></li>
+  <li><a href="#deploy-aws-services" id="toc-deploy-aws-services" class="nav-link" data-scroll-target="#deploy-aws-services">2. Deploy AWS Services</a></li>
+  <li><a href="#create-the-lambda-function" id="toc-create-the-lambda-function" class="nav-link" data-scroll-target="#create-the-lambda-function">3. Create the Lambda function</a></li>
+  <li><a href="#test-the-lambda-function-in-the-aws-console" id="toc-test-the-lambda-function-in-the-aws-console" class="nav-link" data-scroll-target="#test-the-lambda-function-in-the-aws-console">4. Test the Lambda function in the AWS Console</a></li>
+  <li><a href="#launch-an-ec2-instance" id="toc-launch-an-ec2-instance" class="nav-link" data-scroll-target="#launch-an-ec2-instance">5. Launch an EC2 instance</a></li>
+  <li><a href="#clone-this-repository-to-the-ec2-instance" id="toc-clone-this-repository-to-the-ec2-instance" class="nav-link" data-scroll-target="#clone-this-repository-to-the-ec2-instance">6. Clone this repository to the EC2 instance</a></li>
+  <li><a href="#log-in-to-aws-from-the-ec2-terminal" id="toc-log-in-to-aws-from-the-ec2-terminal" class="nav-link" data-scroll-target="#log-in-to-aws-from-the-ec2-terminal">7. Log in to AWS from the EC2 terminal</a></li>
+  <li><a href="#run-the-notebook" id="toc-run-the-notebook" class="nav-link" data-scroll-target="#run-the-notebook">8. Run the Notebook</a></li>
+  <li><a href="#modify-lambda-function-and-update-docker-container-optional" id="toc-modify-lambda-function-and-update-docker-container-optional" class="nav-link" data-scroll-target="#modify-lambda-function-and-update-docker-container-optional">9. Modify Lambda function and update Docker Container (Optional)</a></li>
+  </ul></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a>
+  <ul class="collapse">
+  <li><a href="#aws-services-1" id="toc-aws-services-1" class="nav-link" data-scroll-target="#aws-services-1">AWS Services</a></li>
+  <li><a href="#other-services-1" id="toc-other-services-1" class="nav-link" data-scroll-target="#other-services-1">Other Services</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/edit/main/notebooks/aws_lambda_sst/docs/documentation.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="aws-lambda" class="level1">
+<h1>AWS Lambda</h1>
+<section id="scale-scientific-analysis-in-the-cloud-with-aws-lambda" class="level2">
+<h2 class="anchored" data-anchor-id="scale-scientific-analysis-in-the-cloud-with-aws-lambda">Scale Scientific Analysis in the Cloud with AWS Lambda</h2>
+<section id="user-guide-for-deploying-aws-services-in-end-user-amazon-accounts" class="level3">
+<h3 class="anchored" data-anchor-id="user-guide-for-deploying-aws-services-in-end-user-amazon-accounts">User Guide for Deploying AWS Services in end-user Amazon accounts</h3>
+</section>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction"><a href="#introduction-1">Introduction</a></h3>
+<ul>
+<li><a href="#audience">Audience</a></li>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#global-mean-sea-surface-temperature">Global Mean Sea Surface Temperature</a></li>
+<li><a href="#cost-estimates">Cost Estimates</a></li>
+</ul>
+</section>
+<section id="architecture" class="level3">
+<h3 class="anchored" data-anchor-id="architecture"><a href="#architecture-1">Architecture</a></h3>
+<ul>
+<li><a href="#diagram">Diagram</a></li>
+<li><a href="#repository-structure">Repository Structure</a></li>
+</ul>
+</section>
+<section id="deployment-instructions" class="level3">
+<h3 class="anchored" data-anchor-id="deployment-instructions"><a href="#deployment-instructions-1">Deployment Instructions</a></h3>
+<ol type="1">
+<li><a href="#1-create-an-aws-account">Create an AWS Account</a></li>
+<li><a href="#2-deploy-aws-services">Deploy AWS Services</a>
+<ul>
+<li><a href="#a-deploy-using-terraform-recommended">Deploy using Terraform (recommended)</a></li>
+<li><a href="#b-deploy-using-aws-console-manual-setup">Deploy using AWS Console (manual setup)</a></li>
+</ul></li>
+<li><a href="#3-create-the-lambda-function">Create the Lambda function</a></li>
+<li><a href="#4-test-the-lambda-function-in-the-aws-console">Test the Lambda function in the AWS Console</a></li>
+<li><a href="#5-launch-an-ec2-instance">Launch an EC2 instance</a></li>
+<li><a href="#6-clone-this-repository-to-the-ec2-instance">Clone this repository to the EC2 instance</a></li>
+<li><a href="#7-log-in-to-aws-from-the-ec2-terminal">Log in to JPL AWS from the EC2 terminal</a></li>
+<li><a href="#8-run-the-notebook">Run the Notebook</a></li>
+<li><a href="#9-modify-lambda-function-and-update-docker-container-optional">Modify Lambda function and update Docker Container</a></li>
+</ol>
+</section>
+<section id="resources" class="level3">
+<h3 class="anchored" data-anchor-id="resources"><a href="#resources">Resources</a></h3>
+<section id="aws-services" class="level4">
+<h4 class="anchored" data-anchor-id="aws-services"><a href="#aws-services-1">AWS Services</a></h4>
+<ul>
+<li><a href="#lambda--serverless-computing-service">Lambda</a></li>
+<li><a href="#iam--identity-and-access-management">IAM</a></li>
+<li><a href="#s3--simple-storage-service">S3</a></li>
+<li><a href="#systems-manager-parameter-store">Systems Manager Parameter Store</a></li>
+<li><a href="#ec2--elastic-compute-cloud">EC2</a></li>
+<li><a href="#ecr--elastic-container-registry">ECR</a></li>
+</ul>
+</section>
+<section id="other-services" class="level4">
+<h4 class="anchored" data-anchor-id="other-services"><a href="#other-services-1">Other Services</a></h4>
+<ul>
+<li><a href="#docker">Docker</a></li>
+<li><a href="#terraform">Terraform</a></li>
+<li><a href="#jupyter-notebook">Jupyter Notebook</a></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="introduction-1" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-1">Introduction</h2>
+<section id="audience" class="level3">
+<h3 class="anchored" data-anchor-id="audience">Audience</h3>
+<p>This guide is intended for novice cloud users who do not have experience using Amazon Web Services (AWS).</p>
+<p>This guide assumes <strong>intermediate</strong> knowledge of the following topics:</p>
+<ul>
+<li>Running python scripts on a server</li>
+<li>Familiarity with the command line</li>
+<li>Jupyter notebooks</li>
+</ul>
+<p>This guide assumes <strong>conceptual</strong> understanding of the following topics:</p>
+<ul>
+<li>Organizing code into functions</li>
+<li>Identity management (administering users/roles)</li>
+<li>Virtual machines</li>
+</ul>
+<p>Users who have less experience with these topics may need support from their institution’s IT department to configure these services.</p>
+</section>
+<section id="motivation" class="level3">
+<h3 class="anchored" data-anchor-id="motivation">Motivation</h3>
+<p>PO.DAAC has recently migrated all data products to the NASA Earthdata Amazon Web Services (AWS) Cloud. This move has enabled improvements to PO.DAAC’s internal processes and infrastructure to better scale ingest, archive, publication, and distribution of mission data.</p>
+<p>Moving data to the cloud also opens up new cloud-computing workflows and capabilities for end-users to do scientific research and analysis. However, many end-users continue to download data to analyze locally. This tutorial demonstrates one pathway for using AWS cloud computing services to perform data analysis on large oceanography datasets.</p>
+</section>
+<section id="global-mean-sea-surface-temperature" class="level3">
+<h3 class="anchored" data-anchor-id="global-mean-sea-surface-temperature">Global Mean Sea Surface Temperature</h3>
+<p>Many scientific workflows begin with reducing the data in some way. Here we calculate the global mean sea surface temperature for the GHRSST Level 4 MUR 0.25deg Global Foundation Sea Surface Temperature Analysis (v4.2) dataset as an example of the type of analysis that can be done using AWS Lambda.</p>
+</section>
+<section id="cost-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="cost-estimates">Cost Estimates</h3>
+<p>AWS provides a <a href="https://calculator.aws/#/">calculator to estimate the cost</a> of running using cloud services. Using the cost estimator, running this tutorial one time as-configured to create a one year time series may result in a charge of $0.72 USD.</p>
+<p>Scaling up to create a 10-year time series one time would increase the cost to $7.22 USD.</p>
+<p>Running a seasonal analysis where you create a time series of the past 3 months, and repeat every month, is estimated to cost $0.18 USD per month, or $2.16 USD per year.</p>
+<p>Note that costs will vary depending on the services you set up and how often you run them.</p>
+<p>The AWS Free Tier includes access to a number of services for free/trial usage, but it works by charging you when you exceed the allotted free resources, rather than stopping services and access after the free credits have been used. This makes it relatively common to be charged for unexpected usage costs. Students especially are urged to work with an organizational AWS account where guardrails and costs are covered by the institution.</p>
+<p>AWS has guides on <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/checklistforunwantedcharges.html">avoiding unexpected charges</a>, and <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/tracking-free-tier-usage.html">tracking your free tier usage</a>.</p>
+<p><strong><em>PO.DAAC is not liable for any costs incurred by users running this tutorial.</em></strong></p>
+</section>
+</section>
+<section id="architecture-1" class="level2">
+<h2 class="anchored" data-anchor-id="architecture-1">Architecture</h2>
+<section id="diagram" class="level3">
+<h3 class="anchored" data-anchor-id="diagram">Diagram</h3>
+<p>The architecture diagram in Figure 1 demonstrates how all of the components used in this tutorial fit together.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../notebooks/aws_lambda_sst/docs/images/image1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure - Architecture</figcaption>
+</figure>
+</div>
+<p><strong>Figure 1.</strong> Deployment architecture for required AWS services and supporting infrastructure.</p>
+</section>
+<section id="repository-structure" class="level3">
+<h3 class="anchored" data-anchor-id="repository-structure">Repository Structure</h3>
+<p>The code files for this tutorial are available on GitHub in the <a href="https://github.com/podaac/tutorials/">PO.DAAC Tutorials</a> repository under /notebooks/aws_lambda_sst/</p>
+<p>Files:</p>
+<p><strong>sst.py</strong> : the code to be run by AWS Lambda. This gets packaged in a Docker container to be deployed to AWS.</p>
+<p><strong>sst-global-mean-exploratory.ipynb</strong> : a notebook that explores the MUR25 dataset and runs through the global mean calculation offline. This notebook can be run locally outside of AWS to trial run the code deployed to Lambda in sst.py</p>
+<p><strong>podaac-lambda-invoke-sst-global-mean.ipynb</strong> : the main notebook to invoke the Lambda code. Finds the files in Earthdata cloud, invokes Lambda on each, and plots the results as a timeseries. This notebook must be run from inside an AWS EC2 instance in the us-west-2 region.</p>
+<p><strong>Dockerfile</strong> : the instructions for Docker to build the container image with to deploy to AWS Lambda</p>
+<p><strong>requirements.txt</strong> : the required python packages to include in the Dockerfile. Note that these may be different than the packages required to run the notebooks</p>
+<p><strong>terraform</strong> : terraform deploys AWS infrastructure. This folder contains the terraform configuration files:</p>
+<ul>
+<li>terraform.tfvars</li>
+<li>main.tf</li>
+<li>sst-lambda.tf</li>
+<li>variables.tf</li>
+</ul>
+</section>
+</section>
+<section id="deployment-instructions-1" class="level2">
+<h2 class="anchored" data-anchor-id="deployment-instructions-1">Deployment Instructions</h2>
+<section id="create-an-aws-account" class="level3">
+<h3 class="anchored" data-anchor-id="create-an-aws-account">1. Create an AWS Account</h3>
+<p>If you are a member of an institution that has an Enterprise AWS Instance, contact your institution to have an account set up. We strongly recommend students use an institutional account to avoid unexpected charges.</p>
+<p>Alternatively, you can also use this tutorial with an <a href="https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&amp;all-free-tier.sort-order=asc&amp;awsf.Free%20Tier%20Types=*all&amp;awsf.Free%20Tier%20Categories=*all">AWS Free Tier</a> account. <a href="https://repost.aws/knowledge-center/create-and-activate-aws-account">This article</a> describes the steps to create a new AWS account for an individual user.</p>
+<p>See <a href="#cost-estimates">Cost Estimates</a> for more information on using the AWS Free Tier, tracking usage, and estimating charges.</p>
+</section>
+<section id="deploy-aws-services" class="level3">
+<h3 class="anchored" data-anchor-id="deploy-aws-services">2. Deploy AWS Services</h3>
+<p>AWS Services can be set up using Terraform, or via the AWS Console. Using Terraform is recommended as it automates the deployment and makes it easier to reproduce. The AWS Console instructions are useful to better understand what Terraform is configuring in your account.</p>
+<p>Start by installing the <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">AWS Command Line Interface (CLI)</a> on your local system. Note that AWS recommends setting up IAM credentials to run the AWS CLI (see <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-prereqs.html">prerequisites</a>). <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html">Configure the AWS CLI</a> to set your access keys and session token in the ~/.aws/credentials file, which will be used by Terraform to set up the AWS Services. If you choose to set up a profile, note the name you choose.</p>
+<section id="a.-deploy-using-terraform-recommended" class="level4">
+<h4 class="anchored" data-anchor-id="a.-deploy-using-terraform-recommended">A. Deploy using Terraform (recommended)</h4>
+<p>Terraform is a program that can automate setting up and managing cloud services.</p>
+<ul>
+<li><h5 id="install-terraform-on-your-local-system" class="anchored"><a href="https://developer.hashicorp.com/terraform/downloads?ajs_aid=1d4560f4-0af8-4d2d-9352-1190fe3a9261&amp;product_intent=terraform">Install Terraform</a> on your local system</h5>
+<p>Fork the <a href="https://github.com/podaac/tutorials">https://github.com/podaac/tutorials</a> repository, clone to your local machine. Navigate to /notebooks/aws_lambda_sst/terraform/ in a terminal.</p></li>
+<li><h5 id="initialize-terraform" class="anchored">Initialize Terraform</h5>
+<p>Edit terraform.tfvars with the names you want to give the AWS Elastic Container Registry (ecr_repo), the AWS Lambda role (lambda_role), the prefix to use for the Earthdata login parameters, and your user profile if you set one up when configuring the AWS CLI:</p>
+<pre><code>  ecr_repo = "podaac-sst"
+  lambda_role = "podaac-sst-lambda-role"
+  prefix   = "podaac"
+  profile  = ""</code></pre></li>
+<li><h5 id="run-the-following-command-to-initialize-the-terraform-configuration-files" class="anchored">Run the following command to initialize the terraform configuration files</h5>
+<pre><code>  terraform init</code></pre></li>
+<li><h5 id="run-terraform-plan-to-check-infrastructure-state" class="anchored">Run terraform plan to check infrastructure state:</h5>
+<pre><code>  terraform plan -out=tfplan</code></pre></li>
+<li><h5 id="if-there-are-no-modifications-to-the-infrastructure-required-and-everything-looks-correct-apply-the-plan" class="anchored">If there are no modifications to the infrastructure required and everything looks correct, apply the plan:</h5>
+<pre><code>  terraform apply tfplan</code></pre></li>
+</ul>
+</section>
+<section id="b.-deploy-using-aws-console-manual-setup" class="level4">
+<h4 class="anchored" data-anchor-id="b.-deploy-using-aws-console-manual-setup">B. Deploy using AWS Console (manual setup)</h4>
+<p>An alternative to using the included Terraform configuration is to manually configure each service in the AWS Console:</p>
+<ul>
+<li><h5 id="create-an-s3-bucket" class="anchored">Create an S3 bucket</h5>
+<p>If your Lambda function produces output, it will need to be saved somewhere. S3 is a convenient starting place for object storage. Give your bucket a unique name, and ensure it is in the us-west-2 region if you will be accessing NASA Earthdata in the cloud. In this example the output bucket is named “podaac-sst”.</p></li>
+<li><h5 id="set-up-earthdata-login-credentials-in-the-aws-systems-manager-parameter-store." class="anchored">Set up Earthdata login credentials in the AWS Systems Manager Parameter Store.</h5>
+<p>If your Lambda function will read data directly from the Earthdata cloud, it is convenient to set up your EDL credentials as parameters. This avoids the complication and security implications of hardcoding EDL credentials in the Lambda function or setting up a .netrc file in a Docker container. One consideration is that the Lambda function will access Earthdata via the same set of credentials every time, regardless of the end user.</p>
+<p>An alternative pattern to consider in cases where the Lambda function is going to be run frequently, is to store the AWS session tokens and access keys in the AWS Parameter store instead of the EDL username and password. The Lambda code would need to be changed to read those parameters instead, and a script could be set up to periodically refresh the tokens before they expire.</p></li>
+<li><h5 id="set-up-the-elastic-container-registry-ecr" class="anchored">Set up the Elastic Container Registry (ECR)</h5>
+<p>If using a Docker container to deploy your Lambda, the Docker image can be deployed to the AWS ECR service so that the AWS Lambda service can reach it. Select a repository name (in this example we use “podaac-sst”). We recommend keeping tag immutability disabled so if you update the Docker image in the future it will overwrite the current version.</p></li>
+<li><h5 id="create-an-iam-role-for-your-lambda-function-to-run-as" class="anchored">Create an IAM role for your Lambda function to run as</h5>
+<p>Set various policies depending on the other AWS services the Lambda needs access to:</p>
+<ul>
+<li>If you plan to read or write to an S3 bucket, the role needs read/write permission to S3. In this example we call the role podaac-sst-lambda-role, but it could be named anything.</li>
+<li>If you store Earthdata login (EDL) credentials for the Lambda function in AWS Parameter Store, you need to set an ‘AllowGetPutParameter’ policy for the role.</li>
+<li>We suggest also setting a Cloudwatch policy for the role to create logs.</li>
+<li>More information on IAM policies, the JSON syntax to use and formatting conventions can be found in the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html">AWS IAM documentation</a>.</li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../notebooks/aws_lambda_sst/docs/images/image2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure - Access Policy</figcaption>
+</figure>
+</div>
+<p><strong>Figure 2.</strong> An example access policy that allows read (get) and write (put) access to the podaac-sst S3 bucket.</p>
+</section>
+</section>
+<section id="create-the-lambda-function" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-lambda-function">3. Create the Lambda function</h3>
+<p>The Lambda function used in this tutorial contains large Python packages, so it is deployed using a Docker container. If you use different code that requires smaller package dependencies, you could package it as a zip file instead, or copy it directly into the Lambda function in the AWS Console. See <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-deploy-functions.html">this article</a> for more information.</p>
+<p>This tutorial contains a <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a>, which is a text file containing the instructions to build a Docker Image. This Dockerfile will create a Docker Image based on the AWS Lambda Python base image that contains the packages listed in the requirements.txt file, and will run the lambda_handler function from the sst.py code file.</p>
+<ul>
+<li><p><a href="https://docs.docker.com/get-docker/">Install Docker</a> on your local system and make sure it is running.</p></li>
+<li><p>In your terminal, navigate to /notebooks/aws_lambda_sst/</p></li>
+<li><p>Build the container image by running the following command:</p>
+<pre><code>  docker build -t podaac-sst .</code></pre></li>
+<li><p>Login to the AWS ECR service you set up earlier from the command line</p>
+<pre><code>  docker login -u AWS https://&lt;accountID&gt;.dkr.ecr.us-west-2.amazonaws.com -p $(aws ecr get-login-password --region us-west-2)</code></pre></li>
+<li><p>Push the Docker container to the ECR repository</p>
+<pre><code>  docker push &lt;accountID&gt;.dkr.ecr.us-west-2.amazonaws.com/podaac-sst</code></pre></li>
+<li><p>Create the Lambda function by running the following command:</p>
+<pre><code>  aws lambda create-function \
+      --function-name podaac-sst \
+      --package-type Image \
+      --code ImageUri=&lt;accountID&gt;.dkr.ecr.us-east-1.amazonaws.com/podaac-sst:latest \
+      --role arn:aws:iam::&lt;accountID&gt;:role/podaac-sst-lambda-role</code></pre></li>
+</ul>
+</section>
+<section id="test-the-lambda-function-in-the-aws-console" class="level3">
+<h3 class="anchored" data-anchor-id="test-the-lambda-function-in-the-aws-console">4. Test the Lambda function in the AWS Console</h3>
+<p>Open the AWS Console in your web browser, and navigate to the <a href="https://us-west-2.console.aws.amazon.com/lambda/home">Lambda service</a>. You should see your function listed. Click on the name of your function, which should open a page similar to the one shown in Figure 3.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../notebooks/aws_lambda_sst/docs/images/image3.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure - Lambda console</figcaption>
+</figure>
+</div>
+<p><strong>Figure 3.</strong> The podaac-sst Lambda function in the AWS Console.</p>
+<p>Under Function Overview, click on the Test tab. Create a new event, and input the event JSON below. Change the values if you selected a different bucket name during setup.</p>
+<pre><code>    {
+    "input_granule_s3path": "s3://podaac-ops-cumulus-protected/MUR25-JPL-L4-GLOB-v04.2/20221201090000-JPL-L4_GHRSST-SSTfnd-MUR25-GLOB-v02.0-fv04.2.nc",
+    "output_granule_s3bucket": "podaac-sst",
+    "prefix": "podaac"
+    }</code></pre>
+<p>Click the orange Test button to test the Lambda function. After a few seconds, you should see a message stating Executing function: succeeded (Figure 4). You can expand this section to see more details of the successful test. If the test fails, expand the message to troubleshoot.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../notebooks/aws_lambda_sst/docs/images/image4.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure - Lambda test</figcaption>
+</figure>
+</div>
+<p><strong>Figure 4.</strong> A successful test of the podaac-sst Lambda function in the AWS Console.</p>
+</section>
+<section id="launch-an-ec2-instance" class="level3">
+<h3 class="anchored" data-anchor-id="launch-an-ec2-instance">5. Launch an EC2 instance</h3>
+<p>There are instructions on setting up and connecting to an EC2 instance in <a href="https://podaac.github.io/tutorials/external/July_2022_Earthdata_Webinar.html">this tutorial</a> if you have not done this before. Connect to the EC2 instance via SSH, and start Jupyter Lab.</p>
+</section>
+<section id="clone-this-repository-to-the-ec2-instance" class="level3">
+<h3 class="anchored" data-anchor-id="clone-this-repository-to-the-ec2-instance">6. Clone this repository to the EC2 instance</h3>
+<p>Create a fork of the <a href="https://github.com/podaac/tutorials" class="uri">https://github.com/podaac/tutorials</a> repository, and clone it to your EC2 instance. Open the /notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.ipynb notebook.</p>
+</section>
+<section id="log-in-to-aws-from-the-ec2-terminal" class="level3">
+<h3 class="anchored" data-anchor-id="log-in-to-aws-from-the-ec2-terminal">7. Log in to AWS from the EC2 terminal</h3>
+<p>Log in to your AWS account from your EC2 terminal. See this article on <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html">configuring your credentials in the AWS CLI</a> if you have not done so. This will set your access keys and session token in the ~/.aws/credentials file in your EC2 instance, which will be used to set up a boto3 session later in the workflow to read the resulting data from the S3 output bucket. You may need to refresh these credentials if it’s been more than 4 hours since you last set them.</p>
+</section>
+<section id="run-the-notebook" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-notebook">8. Run the Notebook</h3>
+<p>Open the /notebooks/aws_lambda_sst/podaac-lambda-example-sst-global-mean.ipynb notebook in Jupyter Lab in your EC-2 instance. You may need to install the Python packages listed in the import statements in the first cell. We recommend using <a href="https://conda-forge.org/">conda-forge</a> to install these packages to a <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">new conda environment</a> to avoid version conflicts.</p>
+<p>Step through the cells to query for granules from the MUR SST collection and invoke the Lambda function. You may need to check the number of output files in the S3 results bucket in the AWS Console to determine when Step 2 completes before moving to Step 3. Depending on the number of granules you are searching, this may take a few seconds to a few minutes.</p>
+<p>Continue through Step 3 of the notebook to plot the data.</p>
+<p><strong><em>Congratulations! You configured, deployed, and ran an AWS Lambda function to generate a timeseries of global mean sea surface temperatures over time.</em></strong></p>
+</section>
+<section id="modify-lambda-function-and-update-docker-container-optional" class="level3">
+<h3 class="anchored" data-anchor-id="modify-lambda-function-and-update-docker-container-optional">9. Modify Lambda function and update Docker Container (Optional)</h3>
+<p>To make modifications to the Lambda function after it has been deployed:</p>
+<ul>
+<li><p><a href="https://docs.docker.com/get-docker/">Install Docker</a> on your local system, and make sure it is running.</p></li>
+<li><p>Modify the code in sst.py, and test your changes.</p></li>
+<li><p>Build the Docker container:</p>
+<p>docker build -t &lt;accountID&gt;.dkr.ecr.us-west-2.amazonaws.com/podaac-sst .</p></li>
+<li><p>Log into JPL AWS ECR:</p>
+<p>docker login -u AWS https://&lt;accountID&gt;.dkr.ecr.us-west-2.amazonaws.com -p $(aws ecr get-login-password –region us-west-2)</p></li>
+<li><p>Push most recent build (and modifications) to AWS ECR:</p>
+<p>docker push &lt;accountID&gt;.dkr.ecr.us-west-2.amazonaws.com/podaac-sst</p></li>
+<li><p>Navigate to the podaac-sst lambda function in the web console.</p></li>
+<li><p>Click on the “Image” tab.</p></li>
+<li><p>Click the “Deploy new image” button.</p></li>
+<li><p>Make sure the correct container image is selected (it usually is by default) and click the “Save” button.</p></li>
+<li><p>Wait for the image to be deployed to the lambda function.</p></li>
+<li><p>Test as in <a href="#4-test-the-lambda-function-in-the-aws-console">Step 4</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="additional-resources" class="level2">
+<h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
+<section id="aws-services-1" class="level3">
+<h3 class="anchored" data-anchor-id="aws-services-1">AWS Services</h3>
+<section id="lambda-serverless-computing-service" class="level4">
+<h4 class="anchored" data-anchor-id="lambda-serverless-computing-service">Lambda : Serverless computing service</h4>
+<ul>
+<li><a href="https://docs.aws.amazon.com/lambda/latest/dg/welcome.html">Lambda Getting Started Guide</a></li>
+<li><a href="https://docs.aws.amazon.com/lambda/latest/dg/welcome.html">Lambda Developer Guide</a></li>
+<li><a href="https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html">Lambda API Reference</a></li>
+</ul>
+</section>
+<section id="iam-identity-and-access-management" class="level4">
+<h4 class="anchored" data-anchor-id="iam-identity-and-access-management">IAM : Identity and Access Management</h4>
+<ul>
+<li><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html">IAM User Guide</a></li>
+<li><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html">IAM API Reference</a></li>
+<li><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html">Setting IAM policies and permissions</a></li>
+</ul>
+</section>
+<section id="s3-simple-storage-service" class="level4">
+<h4 class="anchored" data-anchor-id="s3-simple-storage-service">S3 : Simple Storage Service</h4>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html">S3 Getting Started Guide</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide//Welcome.html">S3 User Guide</a></li>
+</ul>
+</section>
+<section id="systems-manager-parameter-store" class="level4">
+<h4 class="anchored" data-anchor-id="systems-manager-parameter-store">Systems Manager Parameter Store</h4>
+<ul>
+<li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html">Parameter Store User Guide</a></li>
+</ul>
+</section>
+<section id="ec2-elastic-compute-cloud" class="level4">
+<h4 class="anchored" data-anchor-id="ec2-elastic-compute-cloud">EC2 : Elastic Compute Cloud</h4>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">EC2 User Guide for Linux</a></li>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html">EC2 API Reference</a></li>
+<li><a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/">EC2 Command Line Reference</a></li>
+</ul>
+</section>
+<section id="ecr-elastic-container-registry" class="level4">
+<h4 class="anchored" data-anchor-id="ecr-elastic-container-registry">ECR : Elastic Container Registry</h4>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html">ECR User Guide</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonECR/latest/APIReference/Welcome.html">ECR API Reference</a></li>
+</ul>
+</section>
+</section>
+<section id="other-services-1" class="level3">
+<h3 class="anchored" data-anchor-id="other-services-1">Other Services</h3>
+<section id="docker" class="level4">
+<h4 class="anchored" data-anchor-id="docker">Docker</h4>
+<ul>
+<li><a href="https://docs.docker.com/get-started/">Getting Started Guide</a></li>
+</ul>
+</section>
+<section id="terraform" class="level4">
+<h4 class="anchored" data-anchor-id="terraform">Terraform</h4>
+<ul>
+<li><a href="https://developer.hashicorp.com/terraform/intro">Intro to Terraform</a></li>
+<li><a href="https://developer.hashicorp.com/tutorials/library?product=terraform">Terraform Tutorial Library</a></li>
+</ul>
+</section>
+<section id="jupyter-notebook" class="level4">
+<h4 class="anchored" data-anchor-id="jupyter-notebook">Jupyter Notebook</h4>
+<ul>
+<li><a href="https://docs.jupyter.org/en/latest/">Get started with Project Jupyter</a></li>
+<li><a href="https://jupyterlab.readthedocs.io/en/latest/">Jupyter Lab Documentation</a></li>
+</ul>
+
+
+</section>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../quarto_text/Advanced.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Advanced Cloud</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="pagination-link">
+        <span class="nav-page-text">Noteboook</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
