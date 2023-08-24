@@ -863,16 +863,16 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
   <li><a href="#define-a-function-to-query-easier" id="toc-define-a-function-to-query-easier" class="nav-link" data-scroll-target="#define-a-function-to-query-easier">Define a Function to Query Easier</a></li>
   </ul></li>
   <li><a href="#plot-a-single-river-reach-from-the-sword-database" id="toc-plot-a-single-river-reach-from-the-sword-database" class="nav-link" data-scroll-target="#plot-a-single-river-reach-from-the-sword-database">Plot a Single River Reach from the SWORD Database</a></li>
-  <li><a href="#query-earthaccess-by-coordinates" id="toc-query-earthaccess-by-coordinates" class="nav-link" data-scroll-target="#query-earthaccess-by-coordinates">Query earthaccess by Coordinates</a></li>
-  <li><a href="#accessing-in-the-cloud" id="toc-accessing-in-the-cloud" class="nav-link" data-scroll-target="#accessing-in-the-cloud">Accessing in the Cloud</a></li>
-  <li><a href="#downloading-on-a-local-machine" id="toc-downloading-on-a-local-machine" class="nav-link" data-scroll-target="#downloading-on-a-local-machine">Downloading on a Local Machine</a></li>
+  <li><a href="#query-data-by-coordinates" id="toc-query-data-by-coordinates" class="nav-link" data-scroll-target="#query-data-by-coordinates">Query Data by Coordinates</a></li>
+  <li><a href="#accessing-data-in-the-cloud" id="toc-accessing-data-in-the-cloud" class="nav-link" data-scroll-target="#accessing-data-in-the-cloud">Accessing Data in the Cloud</a></li>
+  <li><a href="#downloading-data-on-a-local-machine" id="toc-downloading-data-on-a-local-machine" class="nav-link" data-scroll-target="#downloading-data-on-a-local-machine">Downloading Data on a Local Machine</a></li>
   <li><a href="#other-options-to-query-the-sword-database" id="toc-other-options-to-query-the-sword-database" class="nav-link" data-scroll-target="#other-options-to-query-the-sword-database">Other Options to query the SWORD Database:</a>
   <ul class="collapse">
   <li><a href="#multiple-river-reaches" id="toc-multiple-river-reaches" class="nav-link" data-scroll-target="#multiple-river-reaches">Multiple River Reaches</a></li>
   <li><a href="#river-nodes-within-a-reach" id="toc-river-nodes-within-a-reach" class="nav-link" data-scroll-target="#river-nodes-within-a-reach">River Nodes within a Reach</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/podaac/tutorials/blob/main/notebooks/SWORD_River_Demo.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -1049,9 +1049,9 @@ if (outputEl) {{
 </div>
 <p>Note that we haven’t looked at any data from a collection yet, we’ve simply found the geospatial coordinates of our river reach of interest within the metadata.</p>
 </section>
-<section id="query-earthaccess-by-coordinates" class="level2">
-<h2 class="anchored" data-anchor-id="query-earthaccess-by-coordinates">Query earthaccess by Coordinates</h2>
-<p>We can use results obtained from the FTS query to then directly and automatically query data using the earthaccess python library. We will use the coordinate information of a single reach to search for granules (files) available through the <a href="https://podaac.jpl.nasa.gov/dataset/PRESWOT_HYDRO_GRRATS_L2_DAILY_VIRTUAL_STATION_HEIGHTS_V2">Pre SWOT Hydrology GRRATS Daily River Heights and Storage Version 2</a> data, which has the collection ID <code>C2036882359-POCLOUD</code>.</p>
+<section id="query-data-by-coordinates" class="level2">
+<h2 class="anchored" data-anchor-id="query-data-by-coordinates">Query Data by Coordinates</h2>
+<p>We can use results obtained from the FTS query to then directly and automatically query data using the <code>earthaccess</code> python library. We will use the coordinate information of a single reach to search for granules (files) available through the <a href="https://podaac.jpl.nasa.gov/dataset/PRESWOT_HYDRO_GRRATS_L2_DAILY_VIRTUAL_STATION_HEIGHTS_V2">Pre SWOT Hydrology GRRATS Daily River Heights and Storage Version 2</a> data, which has the collection ID <code>C2036882359-POCLOUD</code>.</p>
 <div class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find max and min of lat and lon derived when visualizing the reach for the bounding box input to earthaccess</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>maxlat, maxlon, minlat, minlon <span class="op">=</span> <span class="bu">max</span>(lats), <span class="bu">max</span>(lons), <span class="bu">min</span>(lats), <span class="bu">min</span>(lons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1065,8 +1065,8 @@ if (outputEl) {{
 </div>
 <p>Results contains a link to the data file (granule) from the Pre SWOT Hydrology GRRATS Daily River Heights data collection that overlaps the geospatial search from FTS-SWORD for the river reaches of interest, which we can then download or use within the cloud. Earthaccess will return the link required for the environment (https if local and s3 if in the cloud).</p>
 </section>
-<section id="accessing-in-the-cloud" class="level2">
-<h2 class="anchored" data-anchor-id="accessing-in-the-cloud">Accessing in the Cloud</h2>
+<section id="accessing-data-in-the-cloud" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-data-in-the-cloud">Accessing Data in the Cloud</h2>
 <p>This code chunk will only work if you are running this script in the cloud, AWS <code>us-west-2</code> region.</p>
 <div class="cell" data-tags="[]" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#access data within the cloud and open into an xarray dataset</span></span>
@@ -2161,8 +2161,8 @@ A time flow distance grid of river channel storage uncertainty values.
 </div>
 </div>
 </section>
-<section id="downloading-on-a-local-machine" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-on-a-local-machine">Downloading on a Local Machine</h2>
+<section id="downloading-data-on-a-local-machine" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-data-on-a-local-machine">Downloading Data on a Local Machine</h2>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download data into folder on local machine</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"datasets/data_downloads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
