@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook – data-in-action---spring-conditions-in-the-pacific--d2073f61255740cfa49c35905355b055</title>
+<title>PO.DAAC Cookbook – mur_ssta_qgis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -734,17 +734,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#mapping-sea-surface-temperature-anomalies-to-observe-potential-el-niño-conditions" id="toc-mapping-sea-surface-temperature-anomalies-to-observe-potential-el-niño-conditions" class="nav-link active" data-scroll-target="#mapping-sea-surface-temperature-anomalies-to-observe-potential-el-niño-conditions">Mapping Sea Surface Temperature Anomalies to Observe Potential El Niño Conditions</a>
+  <li><a href="#mapping-sea-surface-temperature-anomalies-in-qgis" id="toc-mapping-sea-surface-temperature-anomalies-in-qgis" class="nav-link active" data-scroll-target="#mapping-sea-surface-temperature-anomalies-in-qgis">Mapping Sea Surface Temperature Anomalies in QGIS</a>
   <ul class="collapse">
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
-  <li><a href="#how-to-use-ghrsst-sea-surface-temperature-in-qgis" id="toc-how-to-use-ghrsst-sea-surface-temperature-in-qgis" class="nav-link" data-scroll-target="#how-to-use-ghrsst-sea-surface-temperature-in-qgis">2. How to use <strong>GHRSST Sea Surface Temperature in</strong> QGIS</a>
-  <ul class="collapse">
-  <li><a href="#open-qgis-or-download-it-from-the-following-website" id="toc-open-qgis-or-download-it-from-the-following-website" class="nav-link" data-scroll-target="#open-qgis-or-download-it-from-the-following-website">Open QGIS or download it from the following website:</a>
-  <ul class="collapse">
-  <li><a href="#download-the-data" id="toc-download-the-data" class="nav-link" data-scroll-target="#download-the-data">Download the data:</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#data-needed-for-tutorial" id="toc-data-needed-for-tutorial" class="nav-link" data-scroll-target="#data-needed-for-tutorial">Data needed for tutorial:</a></li>
+  <li><a href="#how-to-use-ghrsst-sea-surface-temperature-in-qgis" id="toc-how-to-use-ghrsst-sea-surface-temperature-in-qgis" class="nav-link" data-scroll-target="#how-to-use-ghrsst-sea-surface-temperature-in-qgis">How to use <strong>GHRSST Sea Surface Temperature in</strong> QGIS</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -753,118 +748,42 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="mapping-sea-surface-temperature-anomalies-to-observe-potential-el-niño-conditions" class="level1">
-<h1>Mapping Sea Surface Temperature Anomalies to Observe Potential El Niño Conditions</h1>
+<section id="mapping-sea-surface-temperature-anomalies-in-qgis" class="level1">
+<h1>Mapping Sea Surface Temperature Anomalies in QGIS</h1>
 <p>Author: Julie Sanchez, NASA JPL PO.DAAC</p>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
 <li><p>El Niño-Southern Oscillation (ENSO) is a climate pattern in the Pacific Ocean that has two phases: El Niño (warm/wet phase) and La Niña (cold/dry phase). ENSO has global impacts on wildfires, weather, and ecosystems. We have been experiencing La Niña conditions for the last 2 and a half years. The last El Niño event occurred in 2015/2016 and a weak El Niño event was also experienced during the winter of 2018/2019.</p></li>
-<li><p>This tutorial uses the SST anomaly variable derived from a MUR climatology dataset - MUR25-JPL-L4-GLOB-v04.2 (average between 2003 and 2014). This tutorial uses the PO.DAAC Downloader which downloads data to your local computer and uses QGIS to visulaize the data. The following tutorial visualizes the sea surface temperature anomalies (SSTA) over the Pacific Ocean for April 24, 2023.</p></li>
+<li><p>This tutorial uses the SST anomaly variable derived from a MUR climatology dataset - MUR25-JPL-L4-GLOB-v04.2 (average between 2003 and 2014). This tutorial uses QGIS to visulaize the the sea surface temperature anomalies (SSTA) over the Pacific Ocean for April 24, 2023.</p></li>
 </ul>
-<ol type="1">
-<li>Earthdata Login An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</li>
-<li>netrc File You will need a .netrc file containing your NASA Earthdata Login credentials in order to execute the notebooks. A .netrc file can be created manually within text editor and saved to your home directory. For additional information see: Authentication for NASA Earthdata tutorial.</li>
-<li>PO.DAAC Data Downloader To download the data via command line, this tutorial uses PO.DAAC’s Data Downloader. The downloader can be installed using these instructions The Downloader is useful if you need to download PO.DAAC data once in a while or prefer to do it “on-demand”. The Downloader makes no assumptions about the last time run or what is new in the archive, it simply uses the provided requests and downloads all matching data.</li>
-</ol>
 </section>
+</section>
+<section id="data-needed-for-tutorial" class="level1">
+<h1>Data needed for tutorial:</h1>
+<ul>
+<li>Download QGIS if not already downloaded: <a href="https://www.qgis.org/en/site/forusers/download.html">https://www.qgis.org/en/site/forusers/download.html</a></li>
+<li>World Boarders shape file: <a href="https://thematicmapping.org/downloads/world_borders.php">https://thematicmapping.org/downloads/world_borders.php</a></li>
+<li>GHRSST data from April 24, 2023: <a href="https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#">https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#</a></li>
+</ul>
 </section>
 <section id="how-to-use-ghrsst-sea-surface-temperature-in-qgis" class="level1">
-<h1>2. How to use <strong>GHRSST Sea Surface Temperature in</strong> QGIS</h1>
-<section id="open-qgis-or-download-it-from-the-following-website" class="level2">
-<h2 class="anchored" data-anchor-id="open-qgis-or-download-it-from-the-following-website">Open QGIS or download it from the following website:</h2>
+<h1>How to use <strong>GHRSST Sea Surface Temperature in</strong> QGIS</h1>
 <ul>
-<li><a href="https://www.qgis.org/en/site/forusers/download.html">https://www.qgis.org/en/site/forusers/download.html</a></li>
+<li><p>Click on the Open Data Source Manager: <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-05_at_6.32.39_PM.png" class="img-fluid" alt="Screenshot 2023-06-05 at 6.32.39 PM.png"></p></li>
+<li><p>Click on Vector on the left hand side of the panel. Click on the three dots that says ‘Vector Dataset(s) and add the World boarders shapefile. Make sure you click ‘Add’ on the bottom right and then ‘Close’. <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_9.29.29_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 9.29.29 AM.png"></p></li>
+<li><p>Next, add the GHRSST SSTA raster file by clicking the Open Data Source Manager, but this time choose the ‘Raster’ option. Click on the three dots that says ’Raster Dataset(s) and add the GHRSST SSTA data. <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_9.31.52_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 9.31.52 AM.png"></p></li>
+<li><p>When you click ‘Add’ another window will open click on ‘Add Layers’ and then close the window. When you click ‘Add’ another window will open click on ‘sst_anomaly’, click on ‘Add Layers’, and then close the window. <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_9.58.10_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 9.58.10 AM.png"></p></li>
+<li><p>Your layers should look like this: <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_9.34.33_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 9.34.33 AM.png"></p></li>
+<li><p>We are now going to change the projection to focus on the El Niño region. Click on ‘Settings’ and click on “Custom Projections…’ <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.05.49_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 10.05.49 AM.png"></p></li>
+<li><p>Click on the green plus on the right hand corner, provide a Name, and on the ‘Parameters’ section, copy and paste this formula: +proj=ortho +lat_0=10 +lon_0=-150 +x_0=0 +y_0=0 +a=6371000 +b=6371000 +units=m +no_defs . Then click ‘OK’. <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.18.24_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 10.18.24 AM.png"></p></li>
+<li><p>On the bottom right of the map where it says ‘EPSG:4326’ change it to whatever you have named it. <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.18.55_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 10.18.55 AM.png"></p></li>
+<li><p>Right click on the sst_anomaly’ layer and click on ‘Properties’. <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.35.30_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 10.35.30 AM.png"></p></li>
+<li><p>Select ‘Single pseudocolor’ and change the max to -2 to 2. Add the classes and change the colors. <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.40.42_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 10.40.42 AM.png"></p></li>
+<li><p>Here is the final image. You can further change the background, add labels, etc: <a href="https://docs.qgis.org/3.4/en/docs/training_manual/map_composer/map_composer.html">https://docs.qgis.org/3.4/en/docs/training_manual/map_composer/map_composer.html</a> <img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.43.38_AM.png" class="img-fluid" alt="Screenshot 2023-06-06 at 10.43.38 AM.png"></p></li>
 </ul>
-<section id="download-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="download-the-data">Download the data:</h3>
-<ul>
-<li><p>GHRSST: <a href="https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#">https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#</a></p></li>
-<li><p>World Boarders shape file: <a href="https://thematicmapping.org/downloads/world_borders.php">https://thematicmapping.org/downloads/world_borders.php</a></p></li>
-<li><p>Click on the Open Data Source Manager and add the World boarders shapefile. Make sure you click ‘Add’ on the bottom right and then ‘Close’.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-05_at_6.32.39_PM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-05 at 6.32.39 PM.png</figcaption>
-</figure>
-</div></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_9.29.29_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 9.29.29 AM.png</figcaption>
-</figure>
-</div>
-<ul>
-<li><p>Next, add the MUR SSTA raster file by clicking the Open Data Source Manager, but this time choose the ‘Raster’ option. When you click ‘Add’ another window will open click on ‘Add Layers’ and then close the window. When you click ‘Add’ another window will open click on ‘sst_anomaly’, click on ‘Add Layers’, and then close the window.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_9.31.52_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 9.31.52 AM.png</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_9.58.10_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 9.58.10 AM.png</figcaption>
-</figure>
-</div></li>
-<li><p>You now should have your layers like this:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_9.34.33_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 9.34.33 AM.png</figcaption>
-</figure>
-</div></li>
-<li><p>Click on ‘Settings’ and click on “Custom Projections..’</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.05.49_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 10.05.49 AM.png</figcaption>
-</figure>
-</div>
-<ul>
-<li><p>Click on the green plus on the right hand corner, provide a name, and on the ‘Parameters’ section, copy and paste this formula: +proj=ortho +lat_0=10 +lon_0=-150 +x_0=0 +y_0=0 +a=6371000 +b=6371000 +units=m +no_defs</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.18.24_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 10.18.24 AM.png</figcaption>
-</figure>
-</div></li>
-<li><p>click on the bottom right where it says ‘’EPSG:4326’ and change it to whatever you have named it.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.18.55_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 10.18.55 AM.png</figcaption>
-</figure>
-</div></li>
-<li><p>Right click on the sst_anomaly’ layer and click on ‘Properties’.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.35.30_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 10.35.30 AM.png</figcaption>
-</figure>
-</div></li>
-<li><p>Select ‘Single pseudocolor’ and change the max to -2 to 2. Add the classes and change the colors.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.40.42_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 10.40.42 AM.png</figcaption>
-</figure>
-</div></li>
-<li><p>Here is the final image that you can further change the background, add labels, etc: <a href="https://docs.qgis.org/3.4/en/docs/training_manual/map_composer/map_composer.html">https://docs.qgis.org/3.4/en/docs/training_manual/map_composer/map_composer.html</a></p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Data in Action - Spring conditions in the Pacific  d2073f61255740cfa49c35905355b055/Screenshot_2023-06-06_at_10.43.38_AM.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot 2023-06-06 at 10.43.38 AM.png</figcaption>
-</figure>
-</div>
 
 
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
