@@ -3,14 +3,14 @@
 Author: Julie Sanchez, NASA JPL PO.DAAC
 
 ## Summary
-- El Niño-Southern Oscillation (ENSO) is a climate pattern in the Pacific Ocean that has two phases: El Niño (warm/wet phase) and La Niña (cold/dry phase). ENSO has global impacts on wildfires, weather, and ecosystems. We have been experiencing La Niña conditions for the last 2 and a half years. The last El Niño event occurred in 2015/2016 and a weak El Niño event was also experienced during the winter of 2018/2019.
+- This tutorial uses QGIS to visualize the the sea surface temperature anomalies (SSTA) over the Pacific Ocean for April 24, 2023. The SST anomaly variable is derived from a MUR climatology dataset - MUR25-JPL-L4-GLOB-v04.2 (average between 2003 and 2014).
 
-- This tutorial uses the SST anomaly variable derived from a MUR climatology dataset - MUR25-JPL-L4-GLOB-v04.2 (average between 2003 and 2014). This tutorial uses QGIS to visulaize the the sea surface temperature anomalies (SSTA) over the Pacific Ocean for April 24, 2023.
+- Background: SSTA is an important variable when studying El Niño-Southern Oscillation (ENSO), a climate pattern in the Pacific Ocean that has two phases: El Niño (warm/wet phase) and La Niña (cold/dry phase). ENSO has global impacts on wildfires, weather, and ecosystems. Here, we will change the projection of our data to better reveal the El Niño in 2023.
 
 # Data needed for tutorial:
 - Download QGIS if not already downloaded: [https://www.qgis.org/en/site/forusers/download.html](https://www.qgis.org/en/site/forusers/download.html)
 - World Boarders shape file: [https://thematicmapping.org/downloads/world_borders.php](https://thematicmapping.org/downloads/world_borders.php)
-- GHRSST data from April 24, 2023: [https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#](https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#)
+- GHRSST data from April 24, 2023: [https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#](https://podaac.jpl.nasa.gov/dataset/MUR25-JPL-L4-GLOB-v04.2#) - See [this tutorial](https://podaac.github.io/tutorials/notebooks/datasets/enso_MUR_tutorial_final.html) for a command line example of how to download GHRSST data.
 
 # How to use **GHRSST Sea Surface Temperature in** QGIS
 
