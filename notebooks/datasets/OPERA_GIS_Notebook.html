@@ -892,7 +892,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>You're now authenticated with NASA Earthdata Login
-Using token with expiration date: 09/30/2023
+Using token with expiration date: 11/19/2023
 Using user provided credentials for EDL
 Persisting credentials to .netrc</code></pre>
 </div>
@@ -902,19 +902,20 @@ Persisting credentials to .netrc</code></pre>
 <p>Each dataset has it’s own unique collection concept ID. For the OPERA_L3_DSWX-HLS_PROVISIONAL_V1 dataset, we can find the collection ID <a href="https://podaac.jpl.nasa.gov/dataset/OPERA_L3_DSWX-HLS_PROVISIONAL_V1">here</a>.</p>
 <p>For this tutorial, we are looking at the Lake Powell Reservoir.</p>
 <p>We used <a href="http://bboxfinder.com/">bbox finder</a> to get the exact coordinates for our area of interest.</p>
-<p>We want to look at two different times for comparison: 04/11/2023 and 09/01/2023. To find these dates, let’s search for all the data granules between the two.</p>
+<p>We want to look at two different times for comparison: 04/11/2023 and 08/30/2023. To find these dates, let’s search for all the data granules between the two.</p>
+<p>Finding 08/30/23 you must search a couple days after at 09/01/23 for when the product was generated for 08/30/23.</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#earthaccess data search</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(concept_id<span class="op">=</span><span class="st">"C2617126679-POCLOUD"</span>, bounding_box<span class="op">=</span>(<span class="op">-</span><span class="fl">111.144811</span>,<span class="fl">36.980121</span>,<span class="op">-</span><span class="fl">110.250799</span>,<span class="fl">37.915625</span>), temporal<span class="op">=</span>(<span class="st">"2023-04-11"</span>,<span class="st">"2023-09-01"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Granules found: 306</code></pre>
+<pre><code>Granules found: 310</code></pre>
 </div>
 </div>
 </section>
 <section id="get-desired-links" class="level3">
 <h3 class="anchored" data-anchor-id="get-desired-links">Get desired links</h3>
 <p>OPERA has 10 different available layers within each granule. Each granule consists of 10 files, one for each layer. We will only need one of these files since we are only looking at one layer.</p>
-<p>Let’s get the download links for the desired files. We want to query the dataset based on a specific classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’) as well as for the two dates (04/11/2023 and 09/01/2023).</p>
+<p>Let’s get the download links for the desired files. We want to query the dataset based on a specific classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’) as well as for the two dates (04/11/2023 and 08/30/2023).</p>
 <p>We will look at ‘B01_WTR’ which is the Water Classification (WTR) layer of the OPERA DSWx dataset. Details on each available layer and the data product can be found <a href="https://d2pn8kiwq2w21t.cloudfront.net/documents/ProductSpec_DSWX_URS309746.pdf">here</a>.</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(results[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -926,18 +927,18 @@ Persisting credentials to .netrc</code></pre>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add the necessary data to a list, here we are looking for B01_WTR layer and two dates specified earlier</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>downloads_04112023 <span class="op">=</span> []</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>downloads_09012023 <span class="op">=</span> []</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>downloads_08302023 <span class="op">=</span> []</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> g <span class="kw">in</span> results:</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> earthaccess.results.DataGranule.data_links(g):</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'B01_WTR'</span> <span class="kw">in</span> l:</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230411'</span> <span class="kw">in</span> l:</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                downloads_04112023.append(l)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230901'</span> <span class="kw">in</span> l:</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                downloads_09012023.append(l)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230830'</span> <span class="kw">in</span> l:</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                downloads_08302023.append(l)</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads_04112023))</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads_09012023))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(downloads_08302023))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>4
 4</code></pre>
@@ -951,10 +952,10 @@ Persisting credentials to .netrc</code></pre>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download data into folder on local machine</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>earthaccess.download(downloads_04112023, <span class="st">"./data_downloads/OPERA_041123"</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>earthaccess.download(downloads_09012023, <span class="st">"./data_downloads/OPERA_090123"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>earthaccess.download(downloads_08302023, <span class="st">"./data_downloads/OPERA_083023"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"e070c1bea1a940d6b86f1de33a339152","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"1a891e1aad1c4feca901e2bd4a92d61e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -969,27 +970,27 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"c94dd6fad784494baded909d660e25c3","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"5b4921b9f4fc4f97a8712726ebb1f648","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"73f5ddd2f5454f71a3db306ffd7be495","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"365f6b6173614b6daf32b0d2aba97af8","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"17570549953b4d61a2a9a3eb9739ed22","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"08231be94ab24a9db17a5882f7874719","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"a516c0a9129b4cb69adb5e1599c99662","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"27355ff94f024f62a4a1cbcb7871d7ee","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"df35ef956977421089d74c1fb1ebe388","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"8cd521704bc344b6b36ff69208aa3eab","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -1067,10 +1068,10 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#set data to a list for each of the two data sets</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>folder1 <span class="op">=</span> Path(<span class="st">"data_downloads/OPERA_041123"</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>folder2 <span class="op">=</span> Path(<span class="st">"data_downloads/OPERA_090123"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>folder2 <span class="op">=</span> Path(<span class="st">"data_downloads/OPERA_083023"</span>)</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>raster2mosaic(folder1, output_path, <span class="st">'mosaic_041123.tif'</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>raster2mosaic(folder2, output_path, <span class="st">'mosaic_090123.tif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>raster2mosaic(folder2, output_path, <span class="st">'mosaic_083023.tif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualizing-the-mosaic" class="level3">
@@ -1078,7 +1079,7 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <p>Open the new mosaicked raster images individually with its respective paths.</p>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mos1 <span class="op">=</span> rio.<span class="bu">open</span>(os.path.join(output_path, <span class="st">'mosaic_041123.tif'</span>))</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mos2 <span class="op">=</span> rio.<span class="bu">open</span>(os.path.join(output_path, <span class="st">'mosaic_090123.tif'</span>))   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mos2 <span class="op">=</span> rio.<span class="bu">open</span>(os.path.join(output_path, <span class="st">'mosaic_083023.tif'</span>))   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To visualize the mosaic, you must utilize the single layer colormap.</p>
 <p>This will be the ‘dsw’ variable used earlier to visualize a single layer. Similarly reading the single band, then creating a numpy array of the specified rgb values. e.g.&nbsp;‘variable’.colormap</p>
@@ -1105,7 +1106,7 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 04/11/2023"</span>)</span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw3)</span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend based on specifed classified layer.</span></span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
@@ -1113,12 +1114,12 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>        bbox_to_anchor<span class="op">=</span>(<span class="fl">0.47</span>,<span class="fl">0.35</span>),</span>
 <span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        facecolor<span class="op">=</span><span class="st">"gainsboro"</span>)</span>
 <span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Lake Powell 05/02/2023</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Lake Powell 08/30/2023</span></span>
 <span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>fig.add_subplot(rows, columns, <span class="dv">2</span>)</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 09/01/2023"</span>)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 08/30/2023"</span>)</span>
 <span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw4)</span>
 <span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend based on specifed classified layer.</span></span>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
 <span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> color, label <span class="kw">in</span> legend_labels.items()]</span>
@@ -1159,7 +1160,7 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].indicate_inset_zoom(ax_ins1, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
 <span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].imshow(dsw4)</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"OPERA DSWx - Lake Powell: 09/01/2023"</span>)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"OPERA DSWx - Lake Powell: 08/30/2023"</span>)</span>
 <span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
 <span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>
