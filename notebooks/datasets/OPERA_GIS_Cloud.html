@@ -902,13 +902,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Each dataset has it’s own unique collection ID. For the OPERA_L3_DSWX-HLS_PROVISIONAL_V1 dataset, we can find the collection ID <a href="https://podaac.jpl.nasa.gov/dataset/OPERA_L3_DSWX-HLS_PROVISIONAL_V1">here</a>.</p>
 <p>For this tutorial, we are looking at the Lake Powell Reservoir.</p>
 <p>We used <a href="http://bboxfinder.com/">bbox finder</a> to get the exact coordinates for our area of interest.</p>
-<p>We want to look at two different times for comparison: 04/11/2023 and 08/30/2023. To find these dates, let’s search for all the data granules between the two.</p>
-<p>Finding 08/30/23 you must search a couple days after at 09/01/23 for when the product was generated for 08/30/23.</p>
+<p>We want to look at two different times for comparison: 04/11/2023 and 09/01/2023. To find these dates, let’s search for all the data granules between the two.</p>
 <div class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#search for the granules using the short name</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>opera_results <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"OPERA_L3_DSWX-HLS_PROVISIONAL_V1"</span>, temporal<span class="op">=</span> (<span class="st">"2023-04-11"</span>,<span class="st">"2023-09-01"</span>), bounding_box <span class="op">=</span> (<span class="st">'-111.144811'</span>,<span class="st">'36.980121'</span>,<span class="st">'-110.250799'</span>,<span class="st">'37.915625'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Granules found: 310</code></pre>
+<pre><code>Granules found: 306</code></pre>
 </div>
 </div>
 <section id="get-s3-bucket-links-from-search-results" class="level3">
@@ -918,17 +917,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add the S3 bucket links to lists, here we are looking for B01_WTR layer and two dates specified earlier</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>april <span class="op">=</span> []</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>august <span class="op">=</span> []</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>september <span class="op">=</span> []</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> g <span class="kw">in</span> opera_results:</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> earthaccess.results.DataGranule.data_links(g, access<span class="op">=</span><span class="st">'direct'</span>):</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'B01_WTR'</span> <span class="kw">in</span> l: </span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230411'</span> <span class="kw">in</span> l:</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                april.append(l)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230830'</span> <span class="kw">in</span> l:</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                august.append(l)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">'20230901'</span> <span class="kw">in</span> l:</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                september.append(l)</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(april))</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(august))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(september))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>4
 4</code></pre>
@@ -949,7 +948,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dsw <span class="op">=</span> rio.<span class="bu">open</span>(s3_file_obj1)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dsw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>&lt;open DatasetReader name='/vsipythonfilelike/4890d768-4efb-4086-96f3-3c2003d1e292/4890d768-4efb-4086-96f3-3c2003d1e292' mode='r'&gt;</code></pre>
+<pre><code>&lt;open DatasetReader name='/vsipythonfilelike/65f9aa38-1a3a-4353-8715-13a737e3c95f/65f9aa38-1a3a-4353-8715-13a737e3c95f' mode='r'&gt;</code></pre>
 </div>
 </div>
 <p>OPERA is a single band image with specific classified rgb values.</p>
@@ -1005,7 +1004,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell" data-tags="[]" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>aprilmos <span class="op">=</span> raster2mosaic(april)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>augustmos <span class="op">=</span> raster2mosaic(august)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>septembermos <span class="op">=</span> raster2mosaic(september)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualizing-the-mosaic" class="level2">
@@ -1020,7 +1019,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-tags="[]" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>dsw4 <span class="op">=</span> color_array[augustmos]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>dsw4 <span class="op">=</span> color_array[septembermos]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
@@ -1043,7 +1042,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Lake Powell 05/02/2023</span></span>
 <span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>fig.add_subplot(rows, columns, <span class="dv">2</span>)</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 08/30/2023"</span>)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 09/01/2023"</span>)</span>
 <span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw4)</span>
 <span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co">#Legend based on specifed classified layer.</span></span>
@@ -1086,7 +1085,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].indicate_inset_zoom(ax_ins1, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].imshow(dsw4)</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"OPERA DSWx - Lake Powell: 08/30/2023"</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"OPERA DSWx - Lake Powell: 09/01/2023"</span>)</span>
 <span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="op">=</span> {<span class="st">"white"</span>:<span class="st">"Not Water"</span>, <span class="st">"blue"</span>:<span class="st">"Open Water"</span>, <span class="st">"lightskyblue"</span>:<span class="st">"Partial Surface Water"</span>, <span class="st">"cyan"</span>:<span class="st">"Snow/Ice"</span>, <span class="st">"grey"</span>:<span class="st">"Cloud/Cloud Shadow"</span>}</span>
 <span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [Patch(color<span class="op">=</span>color, label<span class="op">=</span>label)</span>

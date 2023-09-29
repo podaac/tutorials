@@ -815,14 +815,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.ipynb">this link</a>.</p>
 </blockquote>
-<p>This tutorial demonstrates how to plot a timeseries of global mean sea surface temperature values using AWS Lambda to perform the global mean computation. We use the MUR 25km dataset. This is just one example of how to take advantage of AWS Cloud Computing capabilities for scientific research.</p>
-<p>This notebook is designed to be run after deploying an AWS Lambda function, and supporting services, to <strong>your own</strong> Amazon Web Services account.</p>
-<p>See <a href="../../notebooks/aws_lambda_sst/docs/documentation.html">/docs/documentation.md</a> for the full documentation on how to set up the prerequisite services.</p>
-<p>** Note that using AWS Compute services will incur costs that will be charged to your AWS account. As we complete testinng we will include estimates of the compute cost associated with this tutorial. Note that expanding the analysis to a longer time period or different dataset will affect the compute costs charged to your AWS account.</p>
+<p>This tutorial demonstrates how to invoke an AWS Lambda function to create a timeseries of global mean sea surface temperature values.</p>
+<p>IMPORTANT: This notebook will only run successfully after deploying the AWS Lambda function and supporting services to <strong>your own</strong> Amazon Web Services account.</p>
+<p><strong>See <a href="../../notebooks/aws_lambda_sst/docs/documentation.html">the full documentation</a> to set up the prerequisite services.</strong></p>
+<p>** <em>Note that using AWS Compute services will incur costs that will be charged to your AWS account. Running this tutorial as-configured with no modifications should result in less than $1 USD of charges. Expanding the analysis to a longer time period or different dataset will affect the compute costs charged to your AWS account.</em></p>
+<p><strong><em>PO.DAAC is not responsible for costs charged as a result of running this tutorial</em></strong></p>
 <section id="prerequisite-steps-set-up-aws-infrastructure" class="level2">
 <h2 class="anchored" data-anchor-id="prerequisite-steps-set-up-aws-infrastructure">Prerequisite Steps: Set up AWS infrastructure</h2>
 <p>This tutorial takes advantage of numerous AWS Services including Lambda, Parameter Store, Elastic Compute Cloud (EC2), Elastic Container Registry (ECR), and Simple Storage Service (S3).</p>
-<p>After setting up and deploying all of the services as described in the documentation, this notebook can be run in an EC2 instance to invoke the functions and plot the results.</p>
+<p>After setting up and deploying all of the services as described in the <a href="docs/documentation.html">documentation</a>, this notebook must be run in an EC2 instance to invoke the functions and plot the results.</p>
 <section id="connect-to-ec2-instance-to-run-this-notebook" class="level4">
 <h4 class="anchored" data-anchor-id="connect-to-ec2-instance-to-run-this-notebook">Connect to EC2 instance to run this notebook</h4>
 <p>This notebook cannot be run on a local computer, as it heavily depends on direct in-cloud access. To run this notebook in AWS, connect to an EC2 instance running in the us-west-2 region, <a href="https://podaac.github.io/tutorials/external/July_2022_Earthdata_Webinar.html">following the instructions in this tutorial</a>. Once you have connected to the EC2 instance, you can clone this repository into that environment, install the required packages, and run this notebook.</p>
