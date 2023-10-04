@@ -806,6 +806,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mosaic-multiple-opera-layers" id="toc-mosaic-multiple-opera-layers" class="nav-link" data-scroll-target="#mosaic-multiple-opera-layers">Mosaic Multiple OPERA Layers</a></li>
   <li><a href="#visualizing-the-mosaic" id="toc-visualizing-the-mosaic" class="nav-link" data-scroll-target="#visualizing-the-mosaic">Visualizing the Mosaic</a></li>
   <li><a href="#to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area." id="toc-to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area." class="nav-link" data-scroll-target="#to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area.">To take a closer look at a specific area of the image, we can create an inset map of a specified area.</a></li>
+  <li><a href="#change-detection" id="toc-change-detection" class="nav-link" data-scroll-target="#change-detection">Change Detection</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -848,6 +849,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Option to query the new dataset based on users choice; either by classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’), etc.</li>
 <li>Visualizing the dataset based on its classified layer values.</li>
 <li>Mosaicking multiple layers into a single GeoTIFF file.</li>
+<li>Utilizing Change Detection for further analysis.</li>
 </ul>
 </section>
 </section>
@@ -955,7 +957,7 @@ Persisting credentials to .netrc</code></pre>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>earthaccess.download(downloads_08302023, <span class="st">"./data_downloads/OPERA_083023"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"1a891e1aad1c4feca901e2bd4a92d61e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"306025c8cfca40988c8be6f1a8351012","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -970,27 +972,27 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"5b4921b9f4fc4f97a8712726ebb1f648","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"21b35ecb96444a8ab814d9a37cf8f9cf","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"365f6b6173614b6daf32b0d2aba97af8","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"6f46ee90da004d8b969b8eb69eeba75f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"08231be94ab24a9db17a5882f7874719","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"71dac1c6987940a5987fa06cf4ca1808","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"27355ff94f024f62a4a1cbcb7871d7ee","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"a6148a35f3794b708b1e12a08ad2a2f9","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"8cd521704bc344b6b36ff69208aa3eab","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"c9fba7bacea84630ba3a63be978fd91e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -1084,16 +1086,16 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <p>To visualize the mosaic, you must utilize the single layer colormap.</p>
 <p>This will be the ‘dsw’ variable used earlier to visualize a single layer. Similarly reading the single band, then creating a numpy array of the specified rgb values. e.g.&nbsp;‘variable’.colormap</p>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>image2 <span class="op">=</span> mos2.read(<span class="dv">1</span>)</span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>image1 <span class="op">=</span> mos1.read(<span class="dv">1</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>dsw4 <span class="op">=</span> color_array[image2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>dsw3 <span class="op">=</span> color_array[image1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>image1 <span class="op">=</span> mos1.read(<span class="dv">1</span>)</span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>image2 <span class="op">=</span> mos2.read(<span class="dv">1</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>dsw3 <span class="op">=</span> color_array[image1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>dsw4 <span class="op">=</span> color_array[image2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
@@ -1183,6 +1185,40 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="OPERA_GIS_Notebook_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="change-detection" class="level3">
+<h3 class="anchored" data-anchor-id="change-detection">Change Detection</h3>
+<p>Further analysis can involve change detection between the two images, if any gains or losses occurred.</p>
+<p>Looking at the difference by subtracting the latest date to the oldest date.</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>difference <span class="op">=</span> np.<span class="bu">abs</span>(image2 <span class="op">-</span> image1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Utilizing numpy where; by setting the given condition and returning the satisfied conditions. e.g.&nbsp;numpy.where(condition, [x, y, ])</p>
+<p>In this case, any non-zero values indicate the areas of change between the two images.</p>
+<p>Values closest to 1 shows the greatest gains in change and values closest to zero show the least amount of change.</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>change_map <span class="op">=</span> np.where(difference <span class="op">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining and zooming into an ROI</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>x1, y1, x2, y2 <span class="op">=</span> <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">4500</span>, <span class="dv">4500</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>roi <span class="op">=</span> change_map[y1:y2, x1:x2]</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inversing the colormap</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>original_cmap <span class="op">=</span> plt.get_cmap(<span class="st">'magma'</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>reversed_cmap <span class="op">=</span> original_cmap.<span class="bu">reversed</span>()</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>plt.imshow(roi, cmap<span class="op">=</span>reversed_cmap)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Change Detection between 4/11/23 and 8/30/23'</span>)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-21-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
