@@ -805,12 +805,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
   <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">2. Earthdata Login</a></li>
-  <li><a href="#netrc-file" id="toc-netrc-file" class="nav-link" data-scroll-target="#netrc-file">3. netrc File</a></li>
-  <li><a href="#additional-requirements" id="toc-additional-requirements" class="nav-link" data-scroll-target="#additional-requirements">4. Additional Requirements</a></li>
+  <li><a href="#additional-requirements" id="toc-additional-requirements" class="nav-link" data-scroll-target="#additional-requirements">3. Additional Requirements</a></li>
   </ul></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import Packages</a></li>
-  <li><a href="#get-temporary-aws-credentials-optional-section-for-cloud-use" id="toc-get-temporary-aws-credentials-optional-section-for-cloud-use" class="nav-link" data-scroll-target="#get-temporary-aws-credentials-optional-section-for-cloud-use">Get Temporary AWS Credentials (Optional section for cloud use)</a></li>
+  <li><a href="#authenticate" id="toc-authenticate" class="nav-link" data-scroll-target="#authenticate">Authenticate</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -861,13 +860,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="earthdata-login">2. Earthdata Login</h3>
 <p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
 </section>
-<section id="netrc-file" class="level3">
-<h3 class="anchored" data-anchor-id="netrc-file">3. netrc File</h3>
-<p>You will need a <code>.netrc</code> file containing your NASA Earthdata Login credentials in order to execute the notebooks. A <code>.netrc</code> file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Workshop-AGU/tutorials/02_NASA_Earthdata_Authentication.html">Authentication for NASA Earthdata tutorial</a>.</p>
-<p><em>internal note (delete in final tutorial) You can use the netrc approach in the notebook or leverage the <a href="https://github.com/nsidc/earthaccess"><code>earthaccess</code> package</a>.</em></p>
-</section>
 <section id="additional-requirements" class="level3">
-<h3 class="anchored" data-anchor-id="additional-requirements">4. Additional Requirements</h3>
+<h3 class="anchored" data-anchor-id="additional-requirements">3. Additional Requirements</h3>
 <p>Any other requirements needed for reproducing this tutorial.</p>
 </section>
 </section>
@@ -882,37 +876,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-packages" class="level2">
 <h2 class="anchored" data-anchor-id="import-packages">Import Packages</h2>
-<p><em>internal note (delete in final tutorial): update the cell below for specific tutorial</em></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.xarray</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><em>Internal Note (delete in final tutorial): The following section is optional. Keep if working in the cloud, remove if tutorial is for local workflow.</em></p>
 </section>
-<section id="get-temporary-aws-credentials-optional-section-for-cloud-use" class="level2">
-<h2 class="anchored" data-anchor-id="get-temporary-aws-credentials-optional-section-for-cloud-use">Get Temporary AWS Credentials (Optional section for cloud use)</h2>
-<p>Direct S3 access is achieved by passing NASA supplied temporary credentials to AWS so we can interact with S3 objects from applicable Earthdata Cloud buckets. For now, each NASA DAAC has different AWS credentials endpoints. Below are some of the credential endpoints to various DAACs:</p>
+<section id="authenticate" class="level2">
+<h2 class="anchored" data-anchor-id="authenticate">Authenticate</h2>
+<p>Authenticate your Earthdata Login (EDL) information using the <code>earthaccess</code> python package as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>s3_cred_endpoint <span class="op">=</span> {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'podaac'</span>:<span class="st">'https://archive.podaac.earthdata.nasa.gov/s3credentials'</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'gesdisc'</span>: <span class="st">'https://data.gesdisc.earthdata.nasa.gov/s3credentials'</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'lpdaac'</span>:<span class="st">'https://data.lpdaac.earthdatacloud.nasa.gov/s3credentials'</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ornldaac'</span>: <span class="st">'https://data.ornldaac.earthdata.nasa.gov/s3credentials'</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ghrcdaac'</span>: <span class="st">'https://data.ghrc.earthdata.nasa.gov/s3credentials'</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Create a function to make a request to an endpoint for temporary credentials. Remember, each DAAC has their own endpoint and credentials are not usable for cloud data from other DAACs.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_temp_creds(provider):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> requests.get(s3_cred_endpoint[provider]).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>temp_creds_req <span class="op">=</span> get_temp_creds(<span class="st">'podaac'</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#temp_creds_req</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"netrc"</span>) <span class="co"># works if the EDL login already been persisted to a netrc</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> auth.authenticated:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ask for EDL credentials and persist them in a .netrc file</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 
