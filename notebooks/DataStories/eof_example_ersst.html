@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook - EOF decomposition of global monthly SST data using the xeofs package</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../notebooks/meetings_workshops/arctic_2019.html" rel="next">
+<link href="../../quarto_text/ScienceDataStories.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/ScienceDataStories.html">Science Data Stories</a></li><li class="breadcrumb-item"><a href="../../notebooks/DataStories/eof_example_ersst.html">Monthly SST EOF Decomposition</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets &amp; Guides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How To</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Find Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">using Earthdata Search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">using Code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authenticate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Access Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">in the Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-local-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Locally</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via OPeNDAP</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/read_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Read Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download/Subscribe</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Specific</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECCO</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-cloud Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local Download Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GHRSST</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In QGIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-Cloud Access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPERA</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Visualization and Mosaicking</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access by Cycle/Pass</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access NRT Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMAP</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S-MODE</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study In Situ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SWOT</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">Search</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via GUI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmatically</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via Command Line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#tips-for-swot-hr-spatial-search" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tips for SWOT HR Spatial Search</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+ <span class="menu-text">In-cloud Access</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_workshop_sept2022/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample SWOT Hydrology Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/Direct_Access_SWOT_sim_Oceanography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample SWOT Oceanography Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+ <span class="menu-text">GIS Workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://storymaps.arcgis.com/stories/4a9184e813e540248040069580f6a54c" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StoryMap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOTsample_GISshapefiles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shapefile Exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+ <span class="menu-text">Transform Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOTsample_CSVconversion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hydrology Time Series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NetCDF to Geotiff</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud vs. Local Workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+ <span class="menu-text">Estuary Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false">
+ <span class="menu-text">Reservoir Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false">
+ <span class="menu-text">Lake Extent Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science Data Stories</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false">
+ <span class="menu-text">Amazon Estuary Exploration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Monthly SST EOF Decomposition</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SSS Changes in the Arctic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mississippi River Heights</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SST Cross Validation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Optimized Examples</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Access for NetCDF4 Files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr-eosdis-store library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr2netCDF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Cloud</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AWS Lambda</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notebook</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kerchunk</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dask, Kerchunk, &amp; Zarr</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In Development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshops</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webinars</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">July 2022 Earthdata Webinar Notebook</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tech Guides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contribute</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-28" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial Template</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions?</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
+  <ul class="collapse">
+  <li><a href="#i.-compute-environment" id="toc-i.-compute-environment" class="nav-link" data-scroll-target="#i.-compute-environment">i. Compute Environment</a></li>
+  <li><a href="#ii.-earthdata-login" id="toc-ii.-earthdata-login" class="nav-link" data-scroll-target="#ii.-earthdata-login">ii. Earthdata Login</a></li>
+  <li><a href="#iii.-additional-requirements" id="toc-iii.-additional-requirements" class="nav-link" data-scroll-target="#iii.-additional-requirements">iii. Additional Requirements</a></li>
+  </ul></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#additional-references" id="toc-additional-references" class="nav-link" data-scroll-target="#additional-references">Additional References</a></li>
+  <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import Packages</a></li>
+  <li><a href="#authenticate-edl-locate-sst-data-files-and-load-data" id="toc-authenticate-edl-locate-sst-data-files-and-load-data" class="nav-link" data-scroll-target="#authenticate-edl-locate-sst-data-files-and-load-data">1. Authenticate EDL, locate SST data files, and load data</a>
+  <ul class="collapse">
+  <li><a href="#authenticate" id="toc-authenticate" class="nav-link" data-scroll-target="#authenticate">1.1 Authenticate</a></li>
+  <li><a href="#locate-data-files" id="toc-locate-data-files" class="nav-link" data-scroll-target="#locate-data-files">1.2 Locate data files</a></li>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">1.3 Load data</a></li>
+  </ul></li>
+  <li><a href="#preprocessing-linear-detrend-and-remove-seasonal-cycle" id="toc-preprocessing-linear-detrend-and-remove-seasonal-cycle" class="nav-link" data-scroll-target="#preprocessing-linear-detrend-and-remove-seasonal-cycle">2. Preprocessing, Linear Detrend, and Remove Seasonal Cycle</a>
+  <ul class="collapse">
+  <li><a href="#proprocessing" id="toc-proprocessing" class="nav-link" data-scroll-target="#proprocessing">2.1 Proprocessing</a></li>
+  <li><a href="#linear-detrend" id="toc-linear-detrend" class="nav-link" data-scroll-target="#linear-detrend">2.2 Linear Detrend</a></li>
+  <li><a href="#remove-seasonal-cycle" id="toc-remove-seasonal-cycle" class="nav-link" data-scroll-target="#remove-seasonal-cycle">2.3 Remove Seasonal Cycle</a></li>
+  </ul></li>
+  <li><a href="#variance-and-eof-analysis" id="toc-variance-and-eof-analysis" class="nav-link" data-scroll-target="#variance-and-eof-analysis">3. Variance and EOF analysis</a>
+  <ul class="collapse">
+  <li><a href="#variance-map" id="toc-variance-map" class="nav-link" data-scroll-target="#variance-map">3.1 Variance map</a></li>
+  <li><a href="#fit-eof-model-and-compute-pcs-eofs-and-explained-variances" id="toc-fit-eof-model-and-compute-pcs-eofs-and-explained-variances" class="nav-link" data-scroll-target="#fit-eof-model-and-compute-pcs-eofs-and-explained-variances">3.2 Fit EOF model and compute PCs, EOFs, and explained variances</a></li>
+  <li><a href="#plot-eofs-and-pcs" id="toc-plot-eofs-and-pcs" class="nav-link" data-scroll-target="#plot-eofs-and-pcs">3.3 Plot EOFs and PC’s</a></li>
+  </ul></li>
+  <li><a href="#brief-discussion" id="toc-brief-discussion" class="nav-link" data-scroll-target="#brief-discussion">Brief discussion</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">EOF decomposition of global monthly SST data using the xeofs package</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="author-dean-henze-nasa-jpl-po.daac" class="level4">
+<h4 class="anchored" data-anchor-id="author-dean-henze-nasa-jpl-po.daac"><em>Author: Dean Henze, NASA JPL PO.DAAC</em></h4>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>This demo replicates part of an empirical orthogonal function (EOF) analysis on century-long, global sea surface temperatures (SSTs) published in Journal of Climate (Messie and Chavez, 2011): https://doi.org/10.1175/2011JCLI3941.1, and can be run entirely in the cloud. In this analysis, the first 6 EOF modes of global SST are investigated once signals from long term warming and the seasonal cycle are removed.</p>
+<p>The EOFs are computed on Smith and Reynolds Extended Reconstructed SST dataset in netCDF4 format (available on NASA’s PO.DAAC, https://doi.org/10.5067/ERSST-L4N50), which provides monthly mean SST data gridded over the globe between 65 degrees N/S at 2 degree x 2 degree resolution. A subset of the data are taken for the period 1910 to 2008. As in Messie and Chavez (2011), the first 6 EOF’s and principal components (PC’s) are plotted (their Figures 4 and 5 respectively). We also reproduce their global map of SST variance at each gridpoint (their Fig. 2a).</p>
+<p>Data are accessed using the <code>earthaccess</code> package, then loaded and preprocessed (e.g.&nbsp;linear trend and seasonal cycle removed) using <code>Xarray</code> built in functions. The EOF decomposition uses the <code>xeofs</code> package (https://xeofs.readthedocs.io/en/latest/).</p>
+</section>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<section id="i.-compute-environment" class="level3">
+<h3 class="anchored" data-anchor-id="i.-compute-environment">i. Compute Environment</h3>
+<p>This tutorial can be run in the following environments: - <strong>AWS instance running in us-west-2</strong>: NASA Earthdata Cloud data in S3 can be directly accessed via temporary credentials; this access is limited to requests made within the US West (Oregon) (code: <code>us-west-2</code>) AWS region. - <strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine. However, accessing and loading &gt;1000 files into local memory will take a long time, in comparison to running this notebook from AWS.</p>
+</section>
+<section id="ii.-earthdata-login" class="level3">
+<h3 class="anchored" data-anchor-id="ii.-earthdata-login">ii. Earthdata Login</h3>
+<p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
+</section>
+<section id="iii.-additional-requirements" class="level3">
+<h3 class="anchored" data-anchor-id="iii.-additional-requirements">iii. Additional Requirements</h3>
+<ul>
+<li>It is recommended that you have some basic familiarity with the <code>Xarray</code> package in Python.</li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Replicate results from published researched fully in the cloud.</li>
+<li>Use a data access workflow with the <code>earthaccess</code> package that can be used both locally and in the cloud.</li>
+<li>Load and preprocess (e.g.&nbsp;linear trend and seasonal cycle removed) using <code>Xarray</code> built in functions.</li>
+<li>Perform an EOF decomposition using the <code>xeofs</code> package.</li>
+</ul>
+</section>
+<section id="additional-references" class="level2">
+<h2 class="anchored" data-anchor-id="additional-references">Additional References</h2>
+<ul>
+<li>This reference was used as inspiration for implementing the analysis in Python: https://github.com/royalosyin/Python-Practical-Application-on-Climate-Variability-Studies/blob/master/ex18-EOF%20analysis%20global%20SST.ipynb</li>
+<li>Github issue with information on scaling the output from the xeofs package in different ways (for example the scale of the initial EOF and PC output by <code>xeofs</code> do not match those of the publication, but could be recomputed to do so): https://github.com/nicrie/xeofs/issues/81</li>
+</ul>
+</section>
+<section id="import-packages" class="level2">
+<h2 class="anchored" data-anchor-id="import-packages">Import Packages</h2>
+<p>In addition to the packages imported below, the following are also needed: * The <code>cftime</code> package is required to decode the dataset’s timestamps using <code>Xarray</code>. * The <code>h5netcdf</code> package should be installed as a backend for <code>Xarray</code> to open the data.</p>
+<div class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Version numbers listed next to each package:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data location and access packages:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess                                 <span class="co"># 0.6.1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Analysis packages:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr                                <span class="co"># 2023.9.0</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np                                 <span class="co"># 1.26.0</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xeofs <span class="im">as</span> xe                                 <span class="co"># 1.1.0</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualization packages:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt                    <span class="co"># 3.8.0</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cartopy.crs <span class="im">import</span> EqualEarth, PlateCarree    <span class="co"># 0.22.0</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+libgomp: Invalid value for environment variable OMP_NUM_THREADS</code></pre>
+</div>
+</div>
+</section>
+<section id="authenticate-edl-locate-sst-data-files-and-load-data" class="level1">
+<h1>1. Authenticate EDL, locate SST data files, and load data</h1>
+<section id="authenticate" class="level2">
+<h2 class="anchored" data-anchor-id="authenticate">1.1 Authenticate</h2>
+<div class="cell" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>earthaccess.login() <span class="co"># Login with your credentials</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>&lt;earthaccess.auth.Auth at 0x7ffa83386810&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="locate-data-files" class="level2">
+<h2 class="anchored" data-anchor-id="locate-data-files">1.2 Locate data files</h2>
+<p>The <code>earthaccess</code> package is used to login to locate file path endpoints and wrap them in “file-like objects” readable by <code>Xarray</code>, without downloading the files.</p>
+<p>Although the above study uses the time period 1910 to 2009, we instead use 1910 to 2008, since the data providers of the dataset changed the time format from 2008 onward and xarray doesn’t like trying to concatinate data files with different time formats.</p>
+<div class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Locate data file information, which includes endpoints, on Earthdata Cloud:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>datainfo <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span><span class="st">"REYNOLDS_NCDC_L4_MONTHLY_V5"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    cloud_hosted<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    temporal<span class="op">=</span>(<span class="st">"1910-01-01"</span>, <span class="st">"2008-02-01"</span>), <span class="co"># We only want till end of 2007, but this ending date was required to obtain that.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Granules found: 1178</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate file objects from the endpoints which are compatible with Xarray:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fileobjs <span class="op">=</span> earthaccess.<span class="bu">open</span>(datainfo[<span class="dv">1</span>:]) <span class="co"># The month prior to 1910-01-01 is included in the returned endpoints (bug?), so start the list at the 2nd element.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Opening 1177 granules, approx size: 0.12 GB
+using endpoint: https://archive.podaac.earthdata.nasa.gov/s3credentials
+Warning: This collection contains more than one file per granule. earthaccess will only open the first data link, try filtering the links before opening them.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"a285641de60342a7a858afc4e59b4f7e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"de966b045c8a4628b0f6f8d918fb5db5","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"e437f1c913b74f8bbbd4c5c8ff5304f8","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<p><strong>Removal of one of the file objects which returned a bad result</strong></p>
+<p>These lines of code are not typically needed for other datasets, but unexpectedly earthaccess returns one endpoint for a file which does not exist. Remove this element from the file objects list:</p>
+<div class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the bad result just for reference:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fileobjs_bad <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> fileobjs <span class="cf">if</span> <span class="bu">type</span>(f) <span class="op">==</span> <span class="pp">FileNotFoundError</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fileobjs_bad)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove this bad result from the list:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>fileobjs <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> fileobjs <span class="cf">if</span> <span class="bu">type</span>(f) <span class="op">!=</span> <span class="pp">FileNotFoundError</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[FileNotFoundError('podaac-ops-cumulus-protected/REYNOLDS_NCDC_L4_MONTHLY_V5/ersst.v5.195908.nc.1')]</code></pre>
+</div>
+</div>
+</section>
+<section id="load-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-data">1.3 Load data</h2>
+<p>If working in the cloud, loading and combining all files for this analysis into a single dataset object will take 2-4 minutes. This can be sped up using e.g.&nbsp;<code>kerchunk</code> or parallelization with remote clusters, but to simplify this notebook those methods are not implemented.</p>
+<p>Since we are using Xarray’s <code>open_mfdataset()</code> the returned object includes Dask arrays instead of NumPy arrays. The SST data is small enough that we can load it all into memory, which we will do so that we can proceed even if you are not familiar with Dask arrays (all you need to know is that we have not actually loaded the data into memory yet, so we need one more step after loading the data).</p>
+<div class="cell" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data:</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>sstdata <span class="op">=</span> xr.open_mfdataset(fileobjs)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>sstdata <span class="op">=</span> sstdata.squeeze() <span class="co"># Remove the unnecessary 'lev' dimension (size 1)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>sstdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 36.2 s, sys: 426 ms, total: 36.6 s
+Wall time: 2min 48s</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt;
+Dimensions:  (lat: 89, lon: 180, time: 1176)
+Coordinates:
+  * lat      (lat) float64 -88.0 -86.0 -84.0 -82.0 -80.0 ... 82.0 84.0 86.0 88.0
+    lev      float64 0.0
+  * lon      (lon) float64 0.0 2.0 4.0 6.0 8.0 ... 350.0 352.0 354.0 356.0 358.0
+  * time     (time) object 1910-01-01 00:00:00 ... 2007-12-01 00:00:00
+Data variables:
+    sst      (time, lat, lon) float32 dask.array&lt;chunksize=(1, 89, 180), meta=np.ndarray&gt;
+    ssta     (time, lat, lon) float32 dask.array&lt;chunksize=(1, 89, 180), meta=np.ndarray&gt;
+Attributes: (12/38)
+    Conventions:                CF-1.6, ACDD-1.3
+    metadata_link:              https://doi.org/10.7289/V5T72FNM
+    id:                         ersst.v5.191001
+    naming_authority:           gov.noaa.ncei
+    title:                      NOAA ERSSTv5 (in situ only)
+    summary:                    ERSST.v5 is developped based on v4 after revi...
+    ...                         ...
+    platform:                   Ship and Buoy SSTs from ICOADS R3.0 and NCEP GTS
+    instrument:                 Conventional thermometers
+    source:                     In situ data: ICOADS R3.0 before 2015, NCEP i...
+    comment:                    SSTs were observed by conventional thermomete...
+    references:                 Huang et al, 2017: Extended Reconstructed Sea...
+    climatology:                Climatology is based on 1971-2000 SST, Xue, Y...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-489a56e3-ab9c-498f-aae0-2450b9fc7a7d" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-489a56e3-ab9c-498f-aae0-2450b9fc7a7d" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 89</li><li><span class="xr-has-index">lon</span>: 180</li><li><span class="xr-has-index">time</span>: 1176</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-3f68859c-fc0e-4a9d-ab18-768ce507058f" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-3f68859c-fc0e-4a9d-ab18-768ce507058f" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-88.0 -86.0 -84.0 ... 86.0 88.0</div><input id="attrs-28222464-6cc5-409f-94c5-8548681047b5" class="xr-var-attrs-in" type="checkbox"><label for="attrs-28222464-6cc5-409f-94c5-8548681047b5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a33d62e1-bead-4ee0-8dc7-dd770e151e0e" class="xr-var-data-in" type="checkbox"><label for="data-a33d62e1-bead-4ee0-8dc7-dd770e151e0e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>comment :</span></dt><dd>Uniform grid from -88 to 88 by 2</dd></dl></div><div class="xr-var-data"><pre>array([-88., -86., -84., -82., -80., -78., -76., -74., -72., -70., -68., -66.,
+       -64., -62., -60., -58., -56., -54., -52., -50., -48., -46., -44., -42.,
+       -40., -38., -36., -34., -32., -30., -28., -26., -24., -22., -20., -18.,
+       -16., -14., -12., -10.,  -8.,  -6.,  -4.,  -2.,   0.,   2.,   4.,   6.,
+         8.,  10.,  12.,  14.,  16.,  18.,  20.,  22.,  24.,  26.,  28.,  30.,
+        32.,  34.,  36.,  38.,  40.,  42.,  44.,  46.,  48.,  50.,  52.,  54.,
+        56.,  58.,  60.,  62.,  64.,  66.,  68.,  70.,  72.,  74.,  76.,  78.,
+        80.,  82.,  84.,  86.,  88.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>lev</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0</div><input id="attrs-59f40fb7-5785-4e8f-81cf-15a49469a04a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-59f40fb7-5785-4e8f-81cf-15a49469a04a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6863175b-c228-4f54-aa1d-b74734db26a7" class="xr-var-data-in" type="checkbox"><label for="data-6863175b-c228-4f54-aa1d-b74734db26a7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>meters</dd><dt><span>long_name :</span></dt><dd>Depth of sea surface temperature measurements</dd><dt><span>standard_name :</span></dt><dd>depth</dd><dt><span>axis :</span></dt><dd>Z</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>_CoordinateAxisType :</span></dt><dd>Height</dd><dt><span>comment :</span></dt><dd>Actual measurement depth of in situ sea surface temperature varies from 0.2 to 10 m, but corrected to the nominal depth of buoy at 0.2 m</dd></dl></div><div class="xr-var-data"><pre>array(0.)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 2.0 4.0 ... 354.0 356.0 358.0</div><input id="attrs-cb2c9d8a-c056-4076-bb0f-1bdc6e523216" class="xr-var-attrs-in" type="checkbox"><label for="attrs-cb2c9d8a-c056-4076-bb0f-1bdc6e523216" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-14a3519a-6cc9-4746-837f-55f0821f1ff3" class="xr-var-data-in" type="checkbox"><label for="data-14a3519a-6cc9-4746-837f-55f0821f1ff3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>comment :</span></dt><dd>Uniform grid from 0 to 358 by 2</dd></dl></div><div class="xr-var-data"><pre>array([  0.,   2.,   4.,   6.,   8.,  10.,  12.,  14.,  16.,  18.,  20.,  22.,
+        24.,  26.,  28.,  30.,  32.,  34.,  36.,  38.,  40.,  42.,  44.,  46.,
+        48.,  50.,  52.,  54.,  56.,  58.,  60.,  62.,  64.,  66.,  68.,  70.,
+        72.,  74.,  76.,  78.,  80.,  82.,  84.,  86.,  88.,  90.,  92.,  94.,
+        96.,  98., 100., 102., 104., 106., 108., 110., 112., 114., 116., 118.,
+       120., 122., 124., 126., 128., 130., 132., 134., 136., 138., 140., 142.,
+       144., 146., 148., 150., 152., 154., 156., 158., 160., 162., 164., 166.,
+       168., 170., 172., 174., 176., 178., 180., 182., 184., 186., 188., 190.,
+       192., 194., 196., 198., 200., 202., 204., 206., 208., 210., 212., 214.,
+       216., 218., 220., 222., 224., 226., 228., 230., 232., 234., 236., 238.,
+       240., 242., 244., 246., 248., 250., 252., 254., 256., 258., 260., 262.,
+       264., 266., 268., 270., 272., 274., 276., 278., 280., 282., 284., 286.,
+       288., 290., 292., 294., 296., 298., 300., 302., 304., 306., 308., 310.,
+       312., 314., 316., 318., 320., 322., 324., 326., 328., 330., 332., 334.,
+       336., 338., 340., 342., 344., 346., 348., 350., 352., 354., 356., 358.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">1910-01-01 00:00:00 ... 2007-12-...</div><input id="attrs-2fdcc909-3ce3-4ec8-8f3c-5b95aa53aa03" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2fdcc909-3ce3-4ec8-8f3c-5b95aa53aa03" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1e164b92-d6e9-449c-bd36-47a0c89005b6" class="xr-var-data-in" type="checkbox"><label for="data-1e164b92-d6e9-449c-bd36-47a0c89005b6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Start time of month</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>axis :</span></dt><dd>T</dd><dt><span>delta_t :</span></dt><dd>0000-01-00</dd><dt><span>avg_period :</span></dt><dd>0000-01-00</dd></dl></div><div class="xr-var-data"><pre>array([cftime.Datetime360Day(1910, 1, 1, 0, 0, 0, 0, has_year_zero=True),
+       cftime.Datetime360Day(1910, 2, 1, 0, 0, 0, 0, has_year_zero=True),
+       cftime.Datetime360Day(1910, 3, 1, 0, 0, 0, 0, has_year_zero=True), ...,
+       cftime.Datetime360Day(2007, 10, 1, 0, 0, 0, 0, has_year_zero=True),
+       cftime.Datetime360Day(2007, 11, 1, 0, 0, 0, 0, has_year_zero=True),
+       cftime.Datetime360Day(2007, 12, 1, 0, 0, 0, 0, has_year_zero=True)],
+      dtype=object)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-93ebc7cd-17a0-4d07-88bb-4db95d872a9f" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-93ebc7cd-17a0-4d07-88bb-4db95d872a9f" class="xr-section-summary">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>sst</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 89, 180), meta=np.ndarray&gt;</div><input id="attrs-12b5f7d3-2863-4047-8ea8-a3d7283836db" class="xr-var-attrs-in" type="checkbox"><label for="attrs-12b5f7d3-2863-4047-8ea8-a3d7283836db" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d215f0c1-f3c0-4ab6-8eb6-06175fa4f3f6" class="xr-var-data-in" type="checkbox"><label for="data-d215f0c1-f3c0-4ab6-8eb6-06175fa4f3f6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Extended reconstructed sea surface temperature</dd><dt><span>standard_name :</span></dt><dd>sea_surface_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>valid_min :</span></dt><dd>-3.0</dd><dt><span>valid_max :</span></dt><dd>45.0</dd></dl></div><div class="xr-var-data">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th></th>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bytes</td>
+<td>71.87 MiB</td>
+<td>62.58 kiB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Shape</td>
+<td>(1176, 89, 180)</td>
+<td>(1, 89, 180)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Dask graph</td>
+<td colspan="2">1176 chunks in 2354 graph layers</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Data type</td>
+<td colspan="2">float32 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE1NyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzNyIgeDI9IjgwIiB5Mj0iMTA3IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzNyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iNDAiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI0NCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMjEiIHkyPSI0OCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI1MSI+PC9saW5lPgogIDxsaW5lIHgxPSIyOCIgeTE9IjE4IiB4Mj0iMjgiIHkyPSI1NSI+PC9saW5lPgogIDxsaW5lIHgxPSIzMiIgeTE9IjIyIiB4Mj0iMzIiIHkyPSI1OSI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2NiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MyIgeTE9IjMzIiB4Mj0iNDMiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSI0NyIgeTE9IjM3IiB4Mj0iNDciIHkyPSI3NCI+PC9saW5lPgogIDxsaW5lIHgxPSI1MCIgeTE9IjQwIiB4Mj0iNTAiIHkyPSI3NyI+PC9saW5lPgogIDxsaW5lIHgxPSI1NCIgeTE9IjQ0IiB4Mj0iNTQiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4NSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI5MiI+PC9saW5lPgogIDxsaW5lIHgxPSI2OSIgeTE9IjU5IiB4Mj0iNjkiIHkyPSI5NiI+PC9saW5lPgogIDxsaW5lIHgxPSI3MyIgeTE9IjYzIiB4Mj0iNzMiIHkyPSIxMDAiPjwvbGluZT4KICA8bGluZSB4MT0iNzYiIHkxPSI2NiIgeDI9Ijc2IiB5Mj0iMTAzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwNyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSA4MC41ODgyMzUyOTQxMTc2NSwxMDcuNTg5NjUzOTE3ODgxNDYgMTAuMCwzNy4wMDE0MTg2MjM3NjM4MiIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iNTAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iNTQiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iNyIgeDI9IjU4IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iNjEiIHkyPSIxMSI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iNjUiIHkyPSIxNCI+PC9saW5lPgogIDxsaW5lIHgxPSIyOCIgeTE9IjE4IiB4Mj0iNjkiIHkyPSIxOCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMiIgeTE9IjIyIiB4Mj0iNzMiIHkyPSIyMiI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iNzYiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iODAiIHkyPSIyOSI+PC9saW5lPgogIDxsaW5lIHgxPSI0MyIgeTE9IjMzIiB4Mj0iODQiIHkyPSIzMyI+PC9saW5lPgogIDxsaW5lIHgxPSI0NyIgeTE9IjM3IiB4Mj0iODciIHkyPSIzNyI+PC9saW5lPgogIDxsaW5lIHgxPSI1MCIgeTE9IjQwIiB4Mj0iOTEiIHkyPSI0MCI+PC9saW5lPgogIDxsaW5lIHgxPSI1NCIgeTE9IjQ0IiB4Mj0iOTUiIHkyPSI0NCI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iOTkiIHkyPSI0OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iMTAyIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjEwNiIgeTI9IjU1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjY5IiB5MT0iNTkiIHgyPSIxMTAiIHkyPSI1OSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MyIgeTE9IjYzIiB4Mj0iMTEzIiB5Mj0iNjMiPjwvbGluZT4KICA8bGluZSB4MT0iNzYiIHkxPSI2NiIgeDI9IjExNyIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSIxMjEiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjgwIiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MCIgeTE9IjAiIHgyPSIxMjEiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA1MC44MDM1MDIwNTg0OTAxOCwwLjAgMTIxLjM5MTczNzM1MjYwNzgzLDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTIxIiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwNyIgeDI9IjEyMSIgeTI9IjEwNyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwNyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyMSIgeTE9IjcwIiB4Mj0iMTIxIiB5Mj0iMTA3IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEyMS4zOTE3MzczNTI2MDc4Myw3MC41ODgyMzUyOTQxMTc2NSAxMjEuMzkxNzM3MzUyNjA3ODMsMTA3LjU4OTY1MzkxNzg4MTQ2IDgwLjU4ODIzNTI5NDExNzY1LDEwNy41ODk2NTM5MTc4ODE0NiIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSIxMDAuOTg5OTg2IiB5PSIxMjcuNTg5NjU0IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MTgwPC90ZXh0PgogIDx0ZXh0IHg9IjE0MS4zOTE3MzciIHk9Ijg5LjA4ODk0NSIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQxLjM5MTczNyw4OS4wODg5NDUpIj44OTwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9IjkyLjI5NTUzNiIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw5Mi4yOTU1MzYpIj4xMTc2PC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+</tr>
+</tbody>
+</table>
+<div class="xr-var-name">
+<span>ssta</span>
+</div>
+<div class="xr-var-dims">
+(time, lat, lon)
+</div>
+<div class="xr-var-dtype">
+float32
+</div>
+<div class="xr-var-preview xr-preview">
+dask.array&lt;chunksize=(1, 89, 180), meta=np.ndarray&gt;
+</div>
+<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<div class="xr-var-attrs">
+<dl>
+<dt><span>long_name :</span></dt>
+<dd>
+Extended reconstructed SST anomalies
+</dd>
+<dt><span>units :</span></dt>
+<dd>
+degree_C
+</dd>
+<dt><span>valid_min :</span></dt>
+<dd>
+-12.0
+</dd>
+<dt><span>valid_max :</span></dt>
+<dd>
+12.0
+</dd>
+</dl>
+</div>
+<div class="xr-var-data">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th></th>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bytes</td>
+<td>71.87 MiB</td>
+<td>62.58 kiB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Shape</td>
+<td>(1176, 89, 180)</td>
+<td>(1, 89, 180)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Dask graph</td>
+<td colspan="2">1176 chunks in 2354 graph layers</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Data type</td>
+<td colspan="2">float32 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE1NyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzNyIgeDI9IjgwIiB5Mj0iMTA3IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzNyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iNDAiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI0NCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMjEiIHkyPSI0OCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI1MSI+PC9saW5lPgogIDxsaW5lIHgxPSIyOCIgeTE9IjE4IiB4Mj0iMjgiIHkyPSI1NSI+PC9saW5lPgogIDxsaW5lIHgxPSIzMiIgeTE9IjIyIiB4Mj0iMzIiIHkyPSI1OSI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2NiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MyIgeTE9IjMzIiB4Mj0iNDMiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSI0NyIgeTE9IjM3IiB4Mj0iNDciIHkyPSI3NCI+PC9saW5lPgogIDxsaW5lIHgxPSI1MCIgeTE9IjQwIiB4Mj0iNTAiIHkyPSI3NyI+PC9saW5lPgogIDxsaW5lIHgxPSI1NCIgeTE9IjQ0IiB4Mj0iNTQiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4NSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI5MiI+PC9saW5lPgogIDxsaW5lIHgxPSI2OSIgeTE9IjU5IiB4Mj0iNjkiIHkyPSI5NiI+PC9saW5lPgogIDxsaW5lIHgxPSI3MyIgeTE9IjYzIiB4Mj0iNzMiIHkyPSIxMDAiPjwvbGluZT4KICA8bGluZSB4MT0iNzYiIHkxPSI2NiIgeDI9Ijc2IiB5Mj0iMTAzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwNyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSA4MC41ODgyMzUyOTQxMTc2NSwxMDcuNTg5NjUzOTE3ODgxNDYgMTAuMCwzNy4wMDE0MTg2MjM3NjM4MiIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iNTAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iNTQiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iNyIgeDI9IjU4IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iNjEiIHkyPSIxMSI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iNjUiIHkyPSIxNCI+PC9saW5lPgogIDxsaW5lIHgxPSIyOCIgeTE9IjE4IiB4Mj0iNjkiIHkyPSIxOCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMiIgeTE9IjIyIiB4Mj0iNzMiIHkyPSIyMiI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iNzYiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iODAiIHkyPSIyOSI+PC9saW5lPgogIDxsaW5lIHgxPSI0MyIgeTE9IjMzIiB4Mj0iODQiIHkyPSIzMyI+PC9saW5lPgogIDxsaW5lIHgxPSI0NyIgeTE9IjM3IiB4Mj0iODciIHkyPSIzNyI+PC9saW5lPgogIDxsaW5lIHgxPSI1MCIgeTE9IjQwIiB4Mj0iOTEiIHkyPSI0MCI+PC9saW5lPgogIDxsaW5lIHgxPSI1NCIgeTE9IjQ0IiB4Mj0iOTUiIHkyPSI0NCI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iOTkiIHkyPSI0OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iMTAyIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjEwNiIgeTI9IjU1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjY5IiB5MT0iNTkiIHgyPSIxMTAiIHkyPSI1OSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MyIgeTE9IjYzIiB4Mj0iMTEzIiB5Mj0iNjMiPjwvbGluZT4KICA8bGluZSB4MT0iNzYiIHkxPSI2NiIgeDI9IjExNyIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSIxMjEiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjgwIiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MCIgeTE9IjAiIHgyPSIxMjEiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA1MC44MDM1MDIwNTg0OTAxOCwwLjAgMTIxLjM5MTczNzM1MjYwNzgzLDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTIxIiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwNyIgeDI9IjEyMSIgeTI9IjEwNyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwNyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyMSIgeTE9IjcwIiB4Mj0iMTIxIiB5Mj0iMTA3IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEyMS4zOTE3MzczNTI2MDc4Myw3MC41ODgyMzUyOTQxMTc2NSAxMjEuMzkxNzM3MzUyNjA3ODMsMTA3LjU4OTY1MzkxNzg4MTQ2IDgwLjU4ODIzNTI5NDExNzY1LDEwNy41ODk2NTM5MTc4ODE0NiIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSIxMDAuOTg5OTg2IiB5PSIxMjcuNTg5NjU0IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MTgwPC90ZXh0PgogIDx0ZXh0IHg9IjE0MS4zOTE3MzciIHk9Ijg5LjA4ODk0NSIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQxLjM5MTczNyw4OS4wODg5NDUpIj44OTwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9IjkyLjI5NTUzNiIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw5Mi4yOTU1MzYpIj4xMTc2PC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-0a3e4cb4-ff22-4d8a-88b6-17d8c4edcb08" class="xr-section-summary-in" type="checkbox"><label for="section-0a3e4cb4-ff22-4d8a-88b6-17d8c4edcb08" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-24df4a48-ed84-4091-8cc0-5733fae084d4" class="xr-index-data-in" type="checkbox"><label for="index-24df4a48-ed84-4091-8cc0-5733fae084d4" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-88.0, -86.0, -84.0, -82.0, -80.0, -78.0, -76.0, -74.0, -72.0, -70.0,
+       -68.0, -66.0, -64.0, -62.0, -60.0, -58.0, -56.0, -54.0, -52.0, -50.0,
+       -48.0, -46.0, -44.0, -42.0, -40.0, -38.0, -36.0, -34.0, -32.0, -30.0,
+       -28.0, -26.0, -24.0, -22.0, -20.0, -18.0, -16.0, -14.0, -12.0, -10.0,
+        -8.0,  -6.0,  -4.0,  -2.0,   0.0,   2.0,   4.0,   6.0,   8.0,  10.0,
+        12.0,  14.0,  16.0,  18.0,  20.0,  22.0,  24.0,  26.0,  28.0,  30.0,
+        32.0,  34.0,  36.0,  38.0,  40.0,  42.0,  44.0,  46.0,  48.0,  50.0,
+        52.0,  54.0,  56.0,  58.0,  60.0,  62.0,  64.0,  66.0,  68.0,  70.0,
+        72.0,  74.0,  76.0,  78.0,  80.0,  82.0,  84.0,  86.0,  88.0],
+      dtype='float64', name='lat'))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-6c9903d8-2442-4731-9652-804caa0e3b5a" class="xr-index-data-in" type="checkbox"><label for="index-6c9903d8-2442-4731-9652-804caa0e3b5a" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  0.0,   2.0,   4.0,   6.0,   8.0,  10.0,  12.0,  14.0,  16.0,  18.0,
+       ...
+       340.0, 342.0, 344.0, 346.0, 348.0, 350.0, 352.0, 354.0, 356.0, 358.0],
+      dtype='float64', name='lon', length=180))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-1b8238c7-4575-4510-9461-55c186be99be" class="xr-index-data-in" type="checkbox"><label for="index-1b8238c7-4575-4510-9461-55c186be99be" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(CFTimeIndex([1910-01-01 00:00:00, 1910-02-01 00:00:00, 1910-03-01 00:00:00,
+             1910-04-01 00:00:00, 1910-05-01 00:00:00, 1910-06-01 00:00:00,
+             1910-07-01 00:00:00, 1910-08-01 00:00:00, 1910-09-01 00:00:00,
+             1910-10-01 00:00:00,
+             ...
+             2007-03-01 00:00:00, 2007-04-01 00:00:00, 2007-05-01 00:00:00,
+             2007-06-01 00:00:00, 2007-07-01 00:00:00, 2007-08-01 00:00:00,
+             2007-09-01 00:00:00, 2007-10-01 00:00:00, 2007-11-01 00:00:00,
+             2007-12-01 00:00:00],
+            dtype='object', length=1176, calendar='360_day', freq='MS'))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-944ab25f-1b3d-4120-89a0-f7186f2b8ef7" class="xr-section-summary-in" type="checkbox"><label for="section-944ab25f-1b3d-4120-89a0-f7186f2b8ef7" class="xr-section-summary">Attributes: <span>(38)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD-1.3</dd><dt><span>metadata_link :</span></dt><dd>https://doi.org/10.7289/V5T72FNM</dd><dt><span>id :</span></dt><dd>ersst.v5.191001</dd><dt><span>naming_authority :</span></dt><dd>gov.noaa.ncei</dd><dt><span>title :</span></dt><dd>NOAA ERSSTv5 (in situ only)</dd><dt><span>summary :</span></dt><dd>ERSST.v5 is developped based on v4 after revisions of 8 parameters using updated data sets and advanced knowledge of ERSST analysis</dd><dt><span>institution :</span></dt><dd>NOAA/NESDIS/NCEI/CCOG</dd><dt><span>creator_name :</span></dt><dd>Boyin Huang</dd><dt><span>creator_email :</span></dt><dd>boyin.huang@noaa.gov</dd><dt><span>date_created :</span></dt><dd>2017-06-30T12:18:00Z</dd><dt><span>date_modified :</span></dt><dd>2017-06-30T12:18:00Z</dd><dt><span>product_version :</span></dt><dd>Version 5</dd><dt><span>history :</span></dt><dd>Fri Jun 30 12:26:49 2017: ncatted -O -a _FillValue,ssta,o,f,-999.0 ssta.nc
+Version 5 based on Version 4</dd><dt><span>creator_url :</span></dt><dd>https://www.ncei.noaa.gov</dd><dt><span>license :</span></dt><dd>No constraints on data access or use</dd><dt><span>time_coverage_start :</span></dt><dd>1910-01-01T00:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>1910-02-01T00:00:00Z</dd><dt><span>geospatial_lon_min :</span></dt><dd>-1.0</dd><dt><span>geospatial_lon_max :</span></dt><dd>359.0</dd><dt><span>geospatial_lat_min :</span></dt><dd>-89.0</dd><dt><span>geospatial_lat_max :</span></dt><dd>89.0</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>2.0</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>2.0</dd><dt><span>spatial_resolution :</span></dt><dd>2.0 degree grid</dd><dt><span>cdm_data_type :</span></dt><dd>Grid</dd><dt><span>processing_level :</span></dt><dd>NOAA Level 4</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table (v40, 25 January 2017)</dd><dt><span>keywords :</span></dt><dd>Earth Science &gt; Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>project :</span></dt><dd>NOAA Extended Reconstructed Sea Surface Temperature (ERSST)</dd><dt><span>platform :</span></dt><dd>Ship and Buoy SSTs from ICOADS R3.0 and NCEP GTS</dd><dt><span>instrument :</span></dt><dd>Conventional thermometers</dd><dt><span>source :</span></dt><dd>In situ data: ICOADS R3.0 before 2015, NCEP in situ GTS from 2016 to present, and Argo SST from 1999 to present. Ice data: HadISST2 ice before 2015, and NCEP ice after 2015.</dd><dt><span>comment :</span></dt><dd>SSTs were observed by conventional thermometers in Buckets (in sulated or un-insulated canvas and wooded buckets), Engine Room Intakers, or floats and drifters</dd><dt><span>references :</span></dt><dd>Huang et al, 2017: Extended Reconstructed Sea Surface Temperatures Version 5 (ERSSTv5): Upgrades, Validations, and Intercomparisons. Journal of Climate, https://doi.org/10.1175/JCLI-D-16-0836.1</dd><dt><span>climatology :</span></dt><dd>Climatology is based on 1971-2000 SST, Xue, Y., T. M. Smith, and R. W. Reynolds, 2003: Interdecadal changes of 30-yr SST normals during 1871.2000. Journal of Climate, 16, 1601-1612.</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the SST variable into a DataArry object containing a NumPy array:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sst <span class="op">=</span> sstdata[<span class="st">'sst'</span>].load()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="preprocessing-linear-detrend-and-remove-seasonal-cycle" class="level1">
+<h1>2. Preprocessing, Linear Detrend, and Remove Seasonal Cycle</h1>
+<p>As in the publication, we remove the long term linear trend and the seasonal cycle from the SST timeseries at each gridpoint, since we are interested in other modes of variablility. This is done using Xarray built in functions but can also be achieved with NumPy functions.</p>
+<section id="proprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="proprocessing">2.1 Proprocessing</h2>
+<div class="cell" data-tags="[]" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Before proceeding, remove data poleward of 65 degress lat (as in the publication):</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sst <span class="op">=</span> sst.sel(lat<span class="op">=</span><span class="bu">slice</span>(<span class="op">-</span><span class="dv">65</span>, <span class="dv">65</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="linear-detrend" class="level2">
+<h2 class="anchored" data-anchor-id="linear-detrend">2.2 Linear Detrend</h2>
+<p><strong>Compute and remove linear trend</strong></p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> sst.polyfit(dim<span class="op">=</span><span class="st">'time'</span>, deg<span class="op">=</span><span class="dv">1</span>) <span class="co"># Degree 1 polynomial fit coefficients over time for each lat, lon.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> xr.polyval(sst[<span class="st">'time'</span>], p.polyfit_coefficients) <span class="co"># Compute linear trend time series at each lat, lon.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sst_detrend <span class="op">=</span> (sst <span class="op">-</span> fit) <span class="co"># xarray is smart enough to subtract along the time dim only.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Test plot of detrend results at a few locations on the globe</strong></p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find lats, lons in the dataset that are closest to a few chosen values.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>testpoints <span class="op">=</span> sst.sel(lat<span class="op">=</span>[<span class="dv">0</span>, <span class="op">-</span><span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">45</span>], lon<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">90</span>, <span class="dv">190</span>, <span class="dv">220</span>], method<span class="op">=</span><span class="st">'nearest'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>lat_testpoints <span class="op">=</span> testpoints[<span class="st">'lat'</span>].data</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>lon_testpoints <span class="op">=</span> testpoints[<span class="st">'lon'</span>].data</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot before, after, and detrend fit for first 200 timestamps:</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>n_ts <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>fig1, axes1 <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, lat, lon <span class="kw">in</span> <span class="bu">zip</span>(axes1.flatten(), lat_testpoints, lon_testpoints):</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    ax.plot(sst.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'b-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'original SST'</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    ax.plot(fit.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'k--'</span>, label<span class="op">=</span><span class="st">'linear fit'</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    ax.plot(sst_detrend.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'m-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'SST detrended'</span>)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>fig1.text(<span class="fl">0.5</span>, <span class="fl">0.025</span>, <span class="st">"n month since "</span> <span class="op">+</span> <span class="bu">str</span>(sst[<span class="st">'time'</span>].data[<span class="dv">0</span>]), ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>fig1.text(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="st">"SST (K)"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>axes1[<span class="dv">0</span>,<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7ffa23ee3210&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="eof_example_ersst_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="remove-seasonal-cycle" class="level2">
+<h2 class="anchored" data-anchor-id="remove-seasonal-cycle">2.3 Remove Seasonal Cycle</h2>
+<p><strong>Computation</strong></p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Very easy to remove a daily/monthly/yearly/etc cycle using Xarray built-in function:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>seasonal_cycle <span class="op">=</span> sst_detrend.groupby(<span class="st">"time.month"</span>).mean(<span class="st">"time"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>sst_nocycle <span class="op">=</span> sst_detrend.groupby(<span class="st">"time.month"</span>) <span class="op">-</span> seasonal_cycle</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Create some confirmation plots at same test points as in Section 2.1</strong></p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean seasonal cycle overlaid on data for first 10 years:</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fig2, axes2 <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, lat, lon <span class="kw">in</span> <span class="bu">zip</span>(axes2.flatten(), lat_testpoints, lon_testpoints):</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1</span>,<span class="dv">11</span>):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        ax.plot(seasonal_cycle[<span class="st">'month'</span>], sst_detrend.isel(time<span class="op">=</span><span class="bu">range</span>(<span class="dv">12</span><span class="op">*</span>(i<span class="op">-</span><span class="dv">1</span>), <span class="dv">12</span><span class="op">*</span>i)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'.'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        ax.plot(seasonal_cycle[<span class="st">'month'</span>], seasonal_cycle.sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'kx-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>xticks <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">12</span>]</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes2.flatten():</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks(xticks)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    ax.set_xticklabels([<span class="bu">str</span>(xt) <span class="cf">for</span> xt <span class="kw">in</span> xticks])</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>fig2.text(<span class="fl">0.5</span>, <span class="fl">0.025</span>, <span class="st">"n month of year"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>fig2.text(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="st">"SST (K)"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, rotation<span class="op">=</span><span class="dv">90</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>Text(0.05, 0.5, 'SST (K)')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="eof_example_ersst_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot before and after cycle removal, for first 200 timestamps:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>fig3, axes3 <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, lat, lon <span class="kw">in</span> <span class="bu">zip</span>(axes3.flatten(), lat_testpoints, lon_testpoints):</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(sst_detrend.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'m-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'SST detrended'</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(sst_nocycle.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'k-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'SST seasonal cycle removed'</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>fig3.text(<span class="fl">0.5</span>, <span class="fl">0.025</span>, <span class="st">"n month since "</span> <span class="op">+</span> <span class="bu">str</span>(sst[<span class="st">'time'</span>].data[<span class="dv">0</span>]), ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>fig3.text(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="st">"SST (K)"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>axes3[<span class="dv">0</span>,<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7ffa23aec1d0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="eof_example_ersst_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="variance-and-eof-analysis" class="level1">
+<h1>3. Variance and EOF analysis</h1>
+<section id="variance-map" class="level2">
+<h2 class="anchored" data-anchor-id="variance-map">3.1 Variance map</h2>
+<p>Plot a variance map as a sanity check.</p>
+<div class="cell" data-tags="[]" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sstvar <span class="op">=</span> sst_nocycle.var(dim<span class="op">=</span>[<span class="st">'time'</span>], skipna<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/coiled/env/lib/python3.11/site-packages/xarray/core/nputils.py:183: RuntimeWarning: Degrees of freedom &lt;= 0 for slice.
+  result = getattr(npmodule, name)(values, axis=axis, **kwargs)</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> EqualEarth(central_longitude<span class="op">=</span><span class="dv">180</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>figvar <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>axvar <span class="op">=</span> plt.axes(projection<span class="op">=</span>proj)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>sstvar.plot(</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">1</span>, <span class="co"># vmax of 1 used since there are a few points with anomolously high values.</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    transform<span class="op">=</span>PlateCarree(), </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'Spectral_r'</span>, cbar_kwargs<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"("</span><span class="op">+</span><span class="vs">r"$^\circ$"</span><span class="op">+</span><span class="st">"C)$^2$"</span>}</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>axvar.coastlines(color<span class="op">=</span><span class="st">'.5'</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>axvar.set_title(<span class="st">"Variance of SST anomalies"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>Text(0.5, 1.0, 'Variance of SST anomalies')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="eof_example_ersst_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sst_nocycle <span class="op">=</span> sst_nocycle.where(sstvar <span class="op">&lt;</span> <span class="dv">2</span>, drop<span class="op">=</span><span class="va">False</span>) <span class="co"># Remove a few points with anomolously high variances.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fit-eof-model-and-compute-pcs-eofs-and-explained-variances" class="level2">
+<h2 class="anchored" data-anchor-id="fit-eof-model-and-compute-pcs-eofs-and-explained-variances">3.2 Fit EOF model and compute PCs, EOFs, and explained variances</h2>
+<p>We fit the EOF model and compute explain variance ratios, PC’s (or as <code>xeofs</code> calls them “scores”), and EOF’s (<code>xeofs</code> calls them “components”).</p>
+<section id="model-fit" class="level4">
+<h4 class="anchored" data-anchor-id="model-fit"><strong>Model fit</strong></h4>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>wgts <span class="op">=</span> np.cos(np.deg2rad(sst_nocycle[<span class="st">'lat'</span>]))<span class="op">**</span><span class="fl">0.5</span> <span class="co"># Common practice to weight by latitude</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> xe.models.EOF(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    n_modes<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    use_weights<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    standardize<span class="op">=</span><span class="va">False</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>model.fit(sst_nocycle, dim<span class="op">=</span><span class="st">'time'</span>, weights<span class="op">=</span>wgts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compute-pcs-scores-eofs-components-and-explained-variances" class="level4">
+<h4 class="anchored" data-anchor-id="compute-pcs-scores-eofs-components-and-explained-variances"><strong>Compute PCs (scores), EOFs (components), and explained variances</strong></h4>
+<div class="cell" data-tags="[]" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>expvar <span class="op">=</span> model.explained_variance_ratio()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>expvar.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>array([0.15566093, 0.04830667, 0.03850468, 0.0346849 , 0.03283792,
+       0.02758786])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PC's ("scores"):</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The package automatically normalizes the returned PC's. We back out the raw PC's as well (following https://github.com/nicrie/xeofs/issues/81):</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>scores_normed <span class="op">=</span> model.scores()</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>svals <span class="op">=</span> model.singular_values()</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> scores_normed <span class="op">*</span> svals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-scrolled="true" data-tags="[]" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EOFs ("components"):</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span> model.components()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rescale-pcs-and-eofs-to-match-publication" class="level4">
+<h4 class="anchored" data-anchor-id="rescale-pcs-and-eofs-to-match-publication"><strong>Rescale PCs and EOFs to match publication</strong></h4>
+<p>Since <em>mode=EOF*PC</em>, we can divide a factor of <em>c</em> from <em>PC</em> if we multiply <em>EOF</em> by that same <em>c</em>. We do this here so that our amplitudes resemble those of Messie and Chavez (2011). Turns out we get the right scaling if <em>c=50</em> for mode 1 and <em>c=25</em> for the remaining modes.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>components_scaled <span class="op">=</span> xr.where(components[<span class="st">'mode'</span>]<span class="op">==</span><span class="dv">1</span>, components<span class="op">*</span><span class="dv">50</span>, components<span class="op">*</span><span class="dv">25</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>scores_scaled <span class="op">=</span> xr.where(scores[<span class="st">'mode'</span>]<span class="op">==</span><span class="dv">1</span>, scores<span class="op">/</span><span class="dv">50</span>, scores<span class="op">/</span><span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="plot-eofs-and-pcs" class="level2">
+<h2 class="anchored" data-anchor-id="plot-eofs-and-pcs">3.3 Plot EOFs and PC’s</h2>
+<div class="cell" data-tags="[]" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">## EOFs</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>fig4 <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>axes4 <span class="op">=</span> []</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> EqualEarth(central_longitude<span class="op">=</span><span class="dv">180</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    axes4.append(plt.subplot(<span class="dv">3</span>, <span class="dv">2</span>, i, projection<span class="op">=</span>proj))</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes4:</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    ax.coastlines(color<span class="op">=</span><span class="st">'.5'</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">7</span>), axes4):</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    components_scaled.sel(mode<span class="op">=</span>i).plot(</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax, vmin<span class="op">=-</span><span class="dv">2</span>, vmax<span class="op">=</span><span class="dv">2</span>, add_labels<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>        transform<span class="op">=</span>PlateCarree(), </span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>        cmap<span class="op">=</span><span class="st">'seismic'</span>, cbar_kwargs<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"("</span><span class="op">+</span><span class="vs">r"$^\circ$"</span><span class="op">+</span><span class="st">"C)"</span>}</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"Mode "</span><span class="op">+</span><span class="bu">str</span>(i)<span class="op">+</span><span class="st">": "</span><span class="op">+</span><span class="bu">str</span>(<span class="bu">round</span>(expvar.values[i<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">1</span>))<span class="op">+</span><span class="st">"%"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="eof_example_ersst_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">## PC's</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The format of the ERSST timestamps cannot be read by matplotlib without additional packages.</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Instead, convert them to numpy.datetime64:</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>timestamps_np <span class="op">=</span> [np.datetime64(<span class="bu">str</span>(t)) <span class="cf">for</span> t <span class="kw">in</span> sst[<span class="st">'time'</span>].data]</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>fig5, axes5 <span class="op">=</span> plt.subplots(<span class="dv">6</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>zeroline <span class="op">=</span> np.zeros(<span class="bu">len</span>(timestamps_np)) <span class="co"># For use with matplotlib's fill_between()</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>), axes5):</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    scores_i <span class="op">=</span> scores_scaled.sel(mode<span class="op">=</span>i).values</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    pos_score <span class="op">=</span> scores_i <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(timestamps_np, scores_i, zeroline, where<span class="op">=</span>pos_score, facecolor<span class="op">=</span><span class="st">'lightcoral'</span>, interpolate<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(timestamps_np, scores_i, zeroline, where<span class="op">=~</span>pos_score, facecolor<span class="op">=</span><span class="st">'royalblue'</span>, interpolate<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>    ax.plot(timestamps_np, scores_i, color<span class="op">=</span><span class="st">'lightgrey'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>    ax.grid(axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"year"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"M"</span><span class="op">+</span><span class="bu">str</span>(i)<span class="op">+</span><span class="st">": "</span><span class="op">+</span><span class="bu">str</span>(<span class="bu">round</span>(expvar.values[i<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">1</span>))<span class="op">+</span><span class="st">"%"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="eof_example_ersst_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="brief-discussion" class="level1">
+<h1>Brief discussion</h1>
+<p>Our results are similar but not identical to those of Messie and Chavez (2011). We find the first 6 modes explain 33.8% of the SST variance, in comparison to their 38.1%. Our modes 1 and 2 and their corresponding PC’s are similar to theirs (their Figures 4 and 5), the first clearly being ENSO. Our EOF 3 has the same spatial pattern if inverted (multiplied by -1). Our mode 5 (both EOF and PC) resembles their mode 4 and our EOF 6 resembles their EOF 5 multiplied by -1 (the PC is harder to compare). The exchange of the order of the modes is not unreasonable since each mode from 4 onward explains less than 4% of the variance and with a difference of less than 1.2% explained variance between them. One reason for the differences could be dataset versions: Messie and Chavez (2011) use version 3b of the dataset while we use v5 (some of the updates to v5 can be found at https://doi.org/10.5067/ERSST-L4N50).</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../quarto_text/ScienceDataStories.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Science Data Stories</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../notebooks/meetings_workshops/arctic_2019.html" class="pagination-link">
+        <span class="nav-page-text">SSS Changes in the Arctic</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
