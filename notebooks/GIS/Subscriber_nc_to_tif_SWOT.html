@@ -905,7 +905,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Author: Jack McNelis, PO.DAAC</em></p>
 <section id="summary" class="level3">
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<p>The following workflow extracts a single variable of interest (water surface elevation (wse)) from the SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1 and writes the original raster netCDF it to a geotiff via the <a href="https://github.com/podaac/data-subscriber">podaac-data-subscriber tool</a>.</p>
+<p>The following workflow extracts a single variable of interest (water surface elevation (wse)) from the SWOT_L2_HR_Raster_1.1 and writes the original raster netCDF it to a geotiff via the <a href="https://github.com/podaac/data-subscriber">podaac-data-subscriber tool</a>.</p>
 </section>
 <section id="requirements" class="level3">
 <h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
@@ -935,23 +935,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="call-the-data-subscriber" class="level3">
 <h3 class="anchored" data-anchor-id="call-the-data-subscriber">Call the Data Subscriber</h3>
 <p>Then, after <a href="https://github.com/podaac/data-subscriber#installation">installing the podaac-data-subscriber package</a>, write the following command in your terminal that uses the podaac-data-subscriber to run the bash script:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1 <span class="at">-d</span> ~/test_podaac/ <span class="at">-sd</span> 2022-08-22T19:30:00Z <span class="at">-ed</span> 2022-08-22T19:35:00Z <span class="at">--process</span> <span class="st">"</span><span class="va">${PWD}</span><span class="st">/test.sh"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_L2_HR_Raster_1.1 <span class="at">-d</span> ~/test_podaac/ <span class="at">-sd</span> 2023-04-15T15:15:00Z <span class="at">-ed</span> 2023-04-15T15:20:00Z <span class="at">--process</span> <span class="st">"</span><span class="va">${PWD}</span><span class="st">/test.sh"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you get a permission denied error for test.sh, Make sure the permissions on the .sh file are set to read, write &amp; executable. If you are unsure what your permissions are, in the command prompt you can execute “chmod 0755 test.sh” and permissions should be updated.</p>
 <p><strong>Listed Results from the above command should be as follows:</strong></p>
 <pre><code>$ ls
-SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.nc
-SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.wse.tif
-SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_051F_20220822T193010_20220822T193031_Dx0000_01.nc
-SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_051F_20220822T193010_20220822T193031_Dx0000_01.wse.tif
-SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_052F_20220822T193030_20220822T193051_Dx0000_01.nc
-SWOT_L2_HR_Raster_100m_UTM16R_N_x_x_x_007_522_052F_20220822T193030_20220822T193051_Dx0000_01.wse.tif
-SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.nc
-SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_050F_20220822T192950_20220822T193011_Dx0000_01.wse.tif
-SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_051F_20220822T193010_20220822T193031_Dx0000_01.nc
-SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_051F_20220822T193010_20220822T193031_Dx0000_01.wse.tif
-SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_052F_20220822T193030_20220822T193051_Dx0000_01.nc
-SWOT_L2_HR_Raster_250m_UTM16R_N_x_x_x_007_522_052F_20220822T193030_20220822T193051_Dx0000_01.wse.tif
-SWOT_SIMULATED_NA_CONTINENT_L2_HR_RASTER_V1.citation.txt
+SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_052F_20230415T151454_20230415T151515_PIB0_01.nc
+SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_052F_20230415T151454_20230415T151515_PIB0_01.wse.tif
+SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_053F_20230415T151514_20230415T151535_PIB0_01.nc
+SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_053F_20230415T151514_20230415T151535_PIB0_01.wse.tif
+SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.nc
+SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_052F_20230415T151454_20230415T151515_PIB0_01.nc
+SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_052F_20230415T151454_20230415T151515_PIB0_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_053F_20230415T151514_20230415T151535_PIB0_01.nc
+SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_053F_20230415T151514_20230415T151535_PIB0_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.nc
+SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.wse.tif
 test.sh</code></pre>
 
 
