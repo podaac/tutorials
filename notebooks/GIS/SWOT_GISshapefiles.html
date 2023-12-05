@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PO.DAAC Cookbook - SWOT North American Continent Hydrology Dataset</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../notebooks/GIS/SWOTshp_CSVconversion.html" rel="next">
+<link href="../../notebooks/datasets/Localmachine_SWOT_Oceanography.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/SWOT.html">SWOT</a></li><li class="breadcrumb-item"><a href="https://storymaps.arcgis.com/stories/4a9184e813e540248040069580f6a54c">GIS Workflows</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/SWOT_GISshapefiles.html">Shapefile Exploration</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets &amp; Guides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How To</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Find Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">using Earthdata Search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">using Code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authenticate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Access Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">in the Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-local-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Locally</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via OPeNDAP</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/read_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Read Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download/Subscribe</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Specific</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECCO</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-cloud Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local Download Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GHRSST</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In QGIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-Cloud Access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPERA</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Visualization and Mosaicking</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access by Cycle/Pass</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access NRT Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMAP</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S-MODE</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study In Situ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SWOT</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">Search</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via GUI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmatically</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via Command Line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#tips-for-swot-hr-spatial-search" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tips for SWOT HR Spatial Search</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+ <span class="menu-text">Access &amp; Visualization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+ <span class="menu-text">SWOT Hydrology</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOTHR_s3Access_real_data_v11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOTHR_localmachine_real_data_v11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+ <span class="menu-text">SWOT Oceanography</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/DirectCloud_Access_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="true">
+ <span class="menu-text">GIS Workflows</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth4 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://storymaps.arcgis.com/stories/4a9184e813e540248040069580f6a54c" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StoryMap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOT_GISshapefiles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Shapefile Exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+ <span class="menu-text">Transform Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hydrology Time Series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false">
+ <span class="menu-text">NetCDF to Geotiff</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mac/Linux</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Windows</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud vs. Local Workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false">
+ <span class="menu-text">Estuary Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false">
+ <span class="menu-text">Reservoir Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false">
+ <span class="menu-text">Lake Extent Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science Data Stories</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false">
+ <span class="menu-text">Amazon Estuary Exploration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monthly SST EOF Decomposition</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SSS Changes in the Arctic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mississippi River Heights</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SST Cross Validation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Optimized Examples</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Access for NetCDF4 Files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr-eosdis-store library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr2netCDF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Cloud</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-28" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AWS Lambda</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-29" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notebook</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kerchunk</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dask, Kerchunk, &amp; Zarr</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In Development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshops</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webinars</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-30" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">July 2022 Earthdata Webinar Notebook</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tech Guides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contribute</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-31" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial Template</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions?</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset" id="toc-finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset" class="nav-link active" data-scroll-target="#finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset">Finding ways to visualize SWOT Hydrology River Shapefile Dataset</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
+  <ul class="collapse">
+  <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
+  <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">2. Earthdata Login</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives:</a></li>
+  <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import libraries</a></li>
+  </ul></li>
+  <li><a href="#authentication-with-earthaccess" id="toc-authentication-with-earthaccess" class="nav-link" data-scroll-target="#authentication-with-earthaccess">Authentication with earthaccess</a>
+  <ul class="collapse">
+  <li><a href="#search-using-earthaccess-for-swot-river-reaches" id="toc-search-using-earthaccess-for-swot-river-reaches" class="nav-link" data-scroll-target="#search-using-earthaccess-for-swot-river-reaches">Search using <code>earthaccess</code> for SWOT River Reaches</a></li>
+  <li><a href="#download-the-data-into-a-folder" id="toc-download-the-data-into-a-folder" class="nav-link" data-scroll-target="#download-the-data-into-a-folder">Download the Data into a folder</a></li>
+  <li><a href="#unzip-shapefiles-to-existing-folder" id="toc-unzip-shapefiles-to-existing-folder" class="nav-link" data-scroll-target="#unzip-shapefiles-to-existing-folder">Unzip shapefiles to existing folder</a></li>
+  <li><a href="#opening-a-single-shapefile" id="toc-opening-a-single-shapefile" class="nav-link" data-scroll-target="#opening-a-single-shapefile">Opening a Single Shapefile</a></li>
+  <li><a href="#plotting-a-shapefile" id="toc-plotting-a-shapefile" class="nav-link" data-scroll-target="#plotting-a-shapefile">Plotting a Shapefile</a></li>
+  <li><a href="#shapefile-attribute-visualization" id="toc-shapefile-attribute-visualization" class="nav-link" data-scroll-target="#shapefile-attribute-visualization">Shapefile Attribute Visualization</a></li>
+  <li><a href="#querying-a-shapefile" id="toc-querying-a-shapefile" class="nav-link" data-scroll-target="#querying-a-shapefile">Querying a Shapefile</a></li>
+  <li><a href="#you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." id="toc-you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." class="nav-link" data-scroll-target="#you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters.">You can specify river reaches that have a water surface elevation greater than 35 meters.</a></li>
+  </ul></li>
+  <li><a href="#merging-multiple-reaches-to-a-single-shapefile" id="toc-merging-multiple-reaches-to-a-single-shapefile" class="nav-link" data-scroll-target="#merging-multiple-reaches-to-a-single-shapefile">Merging multiple reaches to a single shapefile</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SWOT North American Continent Hydrology Dataset</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset">Finding ways to visualize SWOT Hydrology River Shapefile Dataset</h2>
+<p>Authored by Nicholas Tarpinian, <em>PO.DAAC</em></p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>The following tutorial is looking to explore geospatial libraries and visualizing vector datasets without the use of a GIS desktop software. Specifically looking at the latest Surface Water and Ocean Topography (SWOT) river reach hydrology dataset.</p>
+<hr>
+</section>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<section id="compute-environment" class="level3">
+<h3 class="anchored" data-anchor-id="compute-environment">1. Compute environment</h3>
+<ul>
+<li><strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine.</li>
+<li><strong>Utilizing Anaconda Navigator</strong> to create your enviroments. Accessing the Conda-Forge channel to install geopsatial libraries, e.g.&nbsp;GDAL and GeoPandas.</li>
+</ul>
+</section>
+<section id="earthdata-login" class="level3">
+<h3 class="anchored" data-anchor-id="earthdata-login">2. Earthdata Login</h3>
+<p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
+<hr>
+</section>
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning Objectives:</h3>
+<ul>
+<li>Accessing SWOT shapefile hydrology dataset through earthaccess and visualizing it locally.</li>
+<li>Visualizing the dataset through the use of geospatial libraries; including Geopandas &amp; Matplotlib.</li>
+<li>Visualzing either a single river reach or merging multiple reaches to a single shapefile.</li>
+<li>Querying specific variables of interest.</li>
+</ul>
+<hr>
+</section>
+<section id="import-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> earthaccess <span class="im">import</span> Auth, DataCollections, DataGranules, Store</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="authentication-with-earthaccess" class="level2">
+<h2 class="anchored" data-anchor-id="authentication-with-earthaccess">Authentication with earthaccess</h2>
+<p>In this notebook, we will be calling the authentication in the below cell.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>EARTHDATA_USERNAME and EARTHDATA_PASSWORD are not set in the current environment, try setting them or use a different strategy (netrc, interactive)
+You're now authenticated with NASA Earthdata Login
+Using token with expiration date: 12/22/2023
+Using .netrc file for EDL</code></pre>
+</div>
+</div>
+<section id="search-using-earthaccess-for-swot-river-reaches" class="level3">
+<h3 class="anchored" data-anchor-id="search-using-earthaccess-for-swot-river-reaches">Search using <code>earthaccess</code> for SWOT River Reaches</h3>
+<p>Each dataset has it’s own unique collection concept ID. For this dataset it is SWOT_L2_HR_RiverSP_1.0. We don’t need 1000+ files, we just want the river reach files over North America. SWOT files come in “reach” and “node” versions in the same collection, here we want the 10km reaches rather than the nodes. We will also only get files for North America, or ‘NA’ via wildcard search.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_RIVERSP_1.1'</span>, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                                  temporal <span class="op">=</span> (<span class="st">'2023-04-08 00:00:00'</span>, <span class="st">'2023-04-25 23:59:59'</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Reach*_NA_*'</span>) <span class="co"># here we filter by Reach files (not node), pass #13 and continent code=NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Granules found: 119</code></pre>
+</div>
+</div>
+</section>
+<section id="download-the-data-into-a-folder" class="level3">
+<h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"../datasets/data_downloads/SWOT_River_Apr2023"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Getting 119 granules, approx download size: 0.42 GB</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"ff1210c43b8a4646a55a866789491bac","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"10e20cbc7b09444ab0330489774d6698","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"a301be2278b5453a8ce9ecafe0a46462","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>['SWOT_L2_HR_RiverSP_Reach_484_009_NA_20230408T035428_20230408T035439_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_484_011_NA_20230408T053314_20230408T053322_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_484_011_NA_20230408T053314_20230408T053322_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_484_013_NA_20230408T071821_20230408T071832_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_484_022_NA_20230408T143144_20230408T143150_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_484_024_NA_20230408T161231_20230408T161242_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_484_026_NA_20230408T175410_20230408T175414_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_485_009_NA_20230409T034506_20230409T034517_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_485_011_NA_20230409T052352_20230409T052400_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_485_013_NA_20230409T070859_20230409T070910_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_485_022_NA_20230409T142222_20230409T142228_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_485_024_NA_20230409T160309_20230409T160320_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_485_026_NA_20230409T174448_20230409T174452_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_486_009_NA_20230410T033544_20230410T033555_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_486_011_NA_20230410T051430_20230410T051438_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_486_011_NA_20230410T051430_20230410T051438_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_486_013_NA_20230410T065937_20230410T065948_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_486_022_NA_20230410T141300_20230410T141305_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_486_024_NA_20230410T155347_20230410T155358_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_486_026_NA_20230410T173527_20230410T173530_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_487_009_NA_20230411T032622_20230411T032633_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_487_011_NA_20230411T050509_20230411T050516_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_487_011_NA_20230411T050509_20230411T050516_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_487_013_NA_20230411T065015_20230411T065026_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_487_022_NA_20230411T140338_20230411T140345_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_487_024_NA_20230411T154425_20230411T154436_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_487_026_NA_20230411T172605_20230411T172608_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_488_009_NA_20230412T031700_20230412T031711_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_488_011_NA_20230412T045547_20230412T045554_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_488_011_NA_20230412T045547_20230412T045554_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_488_013_NA_20230412T064053_20230412T064104_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_488_022_NA_20230412T135416_20230412T135423_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_488_024_NA_20230412T153503_20230412T153514_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_488_026_NA_20230412T171643_20230412T171646_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_489_009_NA_20230413T030738_20230413T030749_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_489_011_NA_20230413T044625_20230413T044632_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_489_013_NA_20230413T063131_20230413T063142_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_489_022_NA_20230413T134454_20230413T134501_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_489_024_NA_20230413T152541_20230413T152553_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_489_026_NA_20230413T170721_20230413T170724_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_490_009_NA_20230414T025816_20230414T025827_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_490_011_NA_20230414T043703_20230414T043710_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_490_011_NA_20230414T043703_20230414T043710_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_490_013_NA_20230414T062209_20230414T062220_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_490_022_NA_20230414T133532_20230414T133539_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_490_024_NA_20230414T151619_20230414T151630_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_490_026_NA_20230414T165759_20230414T165802_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_491_009_NA_20230415T024854_20230415T024905_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_491_011_NA_20230415T042741_20230415T042748_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_491_011_NA_20230415T042741_20230415T042748_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_491_022_NA_20230415T132610_20230415T132617_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_491_024_NA_20230415T150657_20230415T150708_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_491_026_NA_20230415T164837_20230415T164840_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_492_009_NA_20230416T023932_20230416T023943_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_492_011_NA_20230416T041819_20230416T041826_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_492_011_NA_20230416T041819_20230416T041826_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_492_013_NA_20230416T060325_20230416T060336_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_492_022_NA_20230416T131648_20230416T131655_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_492_024_NA_20230416T145735_20230416T145746_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_492_026_NA_20230416T163915_20230416T163918_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_493_009_NA_20230417T023010_20230417T023021_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_493_011_NA_20230417T040856_20230417T040904_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_493_011_NA_20230417T040856_20230417T040904_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_493_013_NA_20230417T055403_20230417T055414_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_493_022_NA_20230417T130726_20230417T130733_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_493_024_NA_20230417T144813_20230417T144824_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_493_026_NA_20230417T162952_20230417T162956_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_494_009_NA_20230418T022048_20230418T022059_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_494_011_NA_20230418T035934_20230418T035942_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_494_013_NA_20230418T054441_20230418T054452_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_494_022_NA_20230418T125804_20230418T125810_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_494_024_NA_20230418T143851_20230418T143902_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_494_026_NA_20230418T162030_20230418T162034_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_495_009_NA_20230419T021126_20230419T021137_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_495_011_NA_20230419T035012_20230419T035020_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_495_013_NA_20230419T053519_20230419T053530_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_495_022_NA_20230419T124842_20230419T124848_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_495_024_NA_20230419T142929_20230419T142940_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_495_026_NA_20230419T161108_20230419T161111_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_496_009_NA_20230420T020203_20230420T020214_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_496_011_NA_20230420T034050_20230420T034057_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_496_011_NA_20230420T034050_20230420T034057_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_496_013_NA_20230420T052556_20230420T052607_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_496_022_NA_20230420T123919_20230420T123926_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_496_024_NA_20230420T142007_20230420T142018_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_496_026_NA_20230420T160146_20230420T160149_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_497_009_NA_20230421T015241_20230421T015252_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_497_011_NA_20230421T033128_20230421T033135_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_497_011_NA_20230421T033128_20230421T033135_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_497_013_NA_20230421T051634_20230421T051645_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_497_022_NA_20230421T122957_20230421T123004_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_497_024_NA_20230421T141044_20230421T141055_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_497_026_NA_20230421T155224_20230421T155227_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_498_009_NA_20230422T014319_20230422T014330_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_498_011_NA_20230422T032206_20230422T032213_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_498_011_NA_20230422T032206_20230422T032213_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_498_013_NA_20230422T050712_20230422T050723_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_498_022_NA_20230422T122035_20230422T122042_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_498_024_NA_20230422T140122_20230422T140133_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_498_026_NA_20230422T154302_20230422T154305_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_499_009_NA_20230423T013357_20230423T013408_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_499_011_NA_20230423T031244_20230423T031251_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_499_013_NA_20230423T045750_20230423T045801_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_499_022_NA_20230423T121113_20230423T121120_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_499_024_NA_20230423T135200_20230423T135211_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_499_026_NA_20230423T153340_20230423T153343_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_500_009_NA_20230424T012435_20230424T012446_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_500_011_NA_20230424T030321_20230424T030329_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_500_013_NA_20230424T044828_20230424T044839_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_500_022_NA_20230424T120151_20230424T120158_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_500_024_NA_20230424T134238_20230424T134249_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_500_026_NA_20230424T152418_20230424T152421_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_501_009_NA_20230425T011513_20230425T011524_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_501_011_NA_20230425T025359_20230425T025407_PIB0_02.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_501_011_NA_20230425T025359_20230425T025407_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_501_013_NA_20230425T043906_20230425T043917_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_501_022_NA_20230425T115229_20230425T115235_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_501_024_NA_20230425T133316_20230425T133327_PIB0_01.zip',
+ 'SWOT_L2_HR_RiverSP_Reach_501_026_NA_20230425T151455_20230425T151459_PIB0_01.zip']</code></pre>
+</div>
+</div>
+</section>
+<section id="unzip-shapefiles-to-existing-folder" class="level3">
+<h3 class="anchored" data-anchor-id="unzip-shapefiles-to-existing-folder">Unzip shapefiles to existing folder</h3>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"../datasets/data_downloads/SWOT_River_Apr2023"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="opening-a-single-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="opening-a-single-shapefile">Opening a Single Shapefile</h3>
+<p>Using Geopandas to open &amp; read a single shapefile. (Select desired single pass from list with path to downloaded shapefile)</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>River <span class="op">=</span> gpd.read_file(folder <span class="op">/</span> <span class="st">'SWOT_L2_HR_RiverSP_Reach_484_009_NA_20230408T035428_20230408T035439_PIB0_01.shp'</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>River</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">reach_id</th>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">time_tai</th>
+<th data-quarto-table-cell-role="th">time_str</th>
+<th data-quarto-table-cell-role="th">p_lat</th>
+<th data-quarto-table-cell-role="th">p_lon</th>
+<th data-quarto-table-cell-role="th">river_name</th>
+<th data-quarto-table-cell-role="th">wse</th>
+<th data-quarto-table-cell-role="th">wse_u</th>
+<th data-quarto-table-cell-role="th">wse_r_u</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">p_wid_var</th>
+<th data-quarto-table-cell-role="th">p_n_nodes</th>
+<th data-quarto-table-cell-role="th">p_dist_out</th>
+<th data-quarto-table-cell-role="th">p_length</th>
+<th data-quarto-table-cell-role="th">p_maf</th>
+<th data-quarto-table-cell-role="th">p_dam_id</th>
+<th data-quarto-table-cell-role="th">p_n_ch_max</th>
+<th data-quarto-table-cell-role="th">p_n_ch_mod</th>
+<th data-quarto-table-cell-role="th">p_low_slp</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>72280200251</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>58.099444</td>
+<td>-64.477985</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>3476.514</td>
+<td>43</td>
+<td>145938.051</td>
+<td>8656.631250</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.53530 58.08282, -64.53491 58.0...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>72280200261</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>58.153381</td>
+<td>-64.467326</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>1244.502</td>
+<td>43</td>
+<td>154604.372</td>
+<td>8666.321621</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.44973 58.12074, -64.44964 58.1...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>72280200273</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>58.189493</td>
+<td>-64.480360</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>11463.153</td>
+<td>9</td>
+<td>156433.397</td>
+<td>1829.024940</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.48798 58.18298, -64.48748 58.1...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>72280200281</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>58.202248</td>
+<td>-64.486463</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>7354.472</td>
+<td>14</td>
+<td>159328.921</td>
+<td>2895.523382</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.47272 58.19647, -64.47243 58.1...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>72280200293</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>58.216592</td>
+<td>-64.503730</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>542.971</td>
+<td>7</td>
+<td>160741.966</td>
+<td>1413.044983</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.50117 58.21015, -64.50128 58.2...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">611</td>
+<td>73130000021</td>
+<td>7.342413e+08</td>
+<td>7.342413e+08</td>
+<td>2023-04-08T03:54:30Z</td>
+<td>41.279229</td>
+<td>-73.084713</td>
+<td>Housatonic River</td>
+<td>1.775000e-01</td>
+<td>1.160600e-01</td>
+<td>7.327000e-02</td>
+<td>...</td>
+<td>8895.093</td>
+<td>67</td>
+<td>21002.661</td>
+<td>13389.150868</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-73.10890 41.22987, -73.10875 41.2...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">612</td>
+<td>73130000034</td>
+<td>7.342413e+08</td>
+<td>7.342413e+08</td>
+<td>2023-04-08T03:54:30Z</td>
+<td>41.325029</td>
+<td>-73.103215</td>
+<td>Housatonic River</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>2538.331</td>
+<td>2</td>
+<td>21362.818</td>
+<td>360.156442</td>
+<td>-1.000000e+12</td>
+<td>28357</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-73.10110 41.32378, -73.10145 41.3...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">613</td>
+<td>73130000041</td>
+<td>7.342413e+08</td>
+<td>7.342413e+08</td>
+<td>2023-04-08T03:54:30Z</td>
+<td>41.356524</td>
+<td>-73.138070</td>
+<td>Housatonic River</td>
+<td>7.048900e+00</td>
+<td>7.562870e+00</td>
+<td>7.562340e+00</td>
+<td>...</td>
+<td>4857.857</td>
+<td>46</td>
+<td>30467.980</td>
+<td>9105.162038</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-73.10533 41.32612, -73.10569 41.3...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">614</td>
+<td>73130000054</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>41.382209</td>
+<td>-73.172231</td>
+<td>Housatonic River</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>10522.698</td>
+<td>2</td>
+<td>30857.397</td>
+<td>389.417460</td>
+<td>-1.000000e+12</td>
+<td>19700</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-73.16973 41.38169, -73.17009 41.3...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">615</td>
+<td>73130000061</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>no_data</td>
+<td>41.424945</td>
+<td>-73.230960</td>
+<td>Housatonic River</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>...</td>
+<td>10469.706</td>
+<td>82</td>
+<td>47161.191</td>
+<td>16303.793847</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-73.17436 41.38295, -73.17465 41.3...</td>
+</tr>
+</tbody>
+</table>
+
+<p>616 rows × 127 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting-a-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-a-shapefile">Plotting a Shapefile</h3>
+<p>Using Matplotlib to plot the shapefile, then adding a basemap for context using the library Contextily.</p>
+<p>Contextily offers a list of basemap providers that can be easily visualized.</p>
+<p>https://contextily.readthedocs.io/en/latest/intro_guide.html</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>River.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.OpenTopoMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOT_GISshapefiles_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="shapefile-attribute-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="shapefile-attribute-visualization">Shapefile Attribute Visualization</h3>
+<p>Shapefiles have various attributes or variables with each column signifiying individual data values.</p>
+<p>Previously, we plotted by showcasing the full path of the river reach on the map.</p>
+<p>You can also plot a shapefile based on a specific variable.</p>
+<p>Within Matplotlib you can specifiy the column parameter based on the column within the datasets attributes.</p>
+<p>For the example below, we will look at the column ‘wse’ which stands for water surface elevation.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First, we set all -999999999999 values to nan so that the color variation shows in the values.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>River[<span class="st">"wse"</span>] <span class="op">=</span> River.wse.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="cf">if</span> x <span class="op">&gt;</span> <span class="op">-</span><span class="dv">10</span> <span class="cf">else</span> np.nan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">15</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>River.plot(column<span class="op">=</span><span class="st">'wse'</span>, ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOT_GISshapefiles_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="querying-a-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="querying-a-shapefile">Querying a Shapefile</h3>
+<p>If you want to search for a specific reach id or a specific length of river reach that is possible through a spatial query using Geopandas.</p>
+<p>Utilizing comparison operators (&gt;, &lt;, ==, &gt;=, &lt;=).</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Query <span class="op">=</span> River.query(<span class="st">"reach_id == '73130000021'"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Query</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">reach_id</th>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">time_tai</th>
+<th data-quarto-table-cell-role="th">time_str</th>
+<th data-quarto-table-cell-role="th">p_lat</th>
+<th data-quarto-table-cell-role="th">p_lon</th>
+<th data-quarto-table-cell-role="th">river_name</th>
+<th data-quarto-table-cell-role="th">wse</th>
+<th data-quarto-table-cell-role="th">wse_u</th>
+<th data-quarto-table-cell-role="th">wse_r_u</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">p_wid_var</th>
+<th data-quarto-table-cell-role="th">p_n_nodes</th>
+<th data-quarto-table-cell-role="th">p_dist_out</th>
+<th data-quarto-table-cell-role="th">p_length</th>
+<th data-quarto-table-cell-role="th">p_maf</th>
+<th data-quarto-table-cell-role="th">p_dam_id</th>
+<th data-quarto-table-cell-role="th">p_n_ch_max</th>
+<th data-quarto-table-cell-role="th">p_n_ch_mod</th>
+<th data-quarto-table-cell-role="th">p_low_slp</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">611</td>
+<td>73130000021</td>
+<td>7.342413e+08</td>
+<td>7.342413e+08</td>
+<td>2023-04-08T03:54:30Z</td>
+<td>41.279229</td>
+<td>-73.084713</td>
+<td>Housatonic River</td>
+<td>0.1775</td>
+<td>0.11606</td>
+<td>0.07327</td>
+<td>...</td>
+<td>8895.093</td>
+<td>67</td>
+<td>21002.661</td>
+<td>13389.150868</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-73.10890 41.22987, -73.10875 41.2...</td>
+</tr>
+</tbody>
+</table>
+
+<p>1 rows × 127 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Query.plot(ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.Esri.NatGeoWorldMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOT_GISshapefiles_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." class="level3">
+<h3 class="anchored" data-anchor-id="you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters.">You can specify river reaches that have a water surface elevation greater than 35 meters.</h3>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>WSE <span class="op">=</span> River.query(<span class="st">'wse &gt; 35'</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>WSE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">reach_id</th>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">time_tai</th>
+<th data-quarto-table-cell-role="th">time_str</th>
+<th data-quarto-table-cell-role="th">p_lat</th>
+<th data-quarto-table-cell-role="th">p_lon</th>
+<th data-quarto-table-cell-role="th">river_name</th>
+<th data-quarto-table-cell-role="th">wse</th>
+<th data-quarto-table-cell-role="th">wse_u</th>
+<th data-quarto-table-cell-role="th">wse_r_u</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">p_wid_var</th>
+<th data-quarto-table-cell-role="th">p_n_nodes</th>
+<th data-quarto-table-cell-role="th">p_dist_out</th>
+<th data-quarto-table-cell-role="th">p_length</th>
+<th data-quarto-table-cell-role="th">p_maf</th>
+<th data-quarto-table-cell-role="th">p_dam_id</th>
+<th data-quarto-table-cell-role="th">p_n_ch_max</th>
+<th data-quarto-table-cell-role="th">p_n_ch_mod</th>
+<th data-quarto-table-cell-role="th">p_low_slp</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11</td>
+<td>72290000071</td>
+<td>7.342416e+08</td>
+<td>7.342416e+08</td>
+<td>2023-04-08T03:59:39Z</td>
+<td>58.643028</td>
+<td>-64.766113</td>
+<td>no_data</td>
+<td>189.7760</td>
+<td>21.11379</td>
+<td>21.11359</td>
+<td>...</td>
+<td>1146.569</td>
+<td>48</td>
+<td>90419.400</td>
+<td>9535.571996</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.77144 58.60798, -64.77197 58.6...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">12</td>
+<td>72290000081</td>
+<td>7.342416e+08</td>
+<td>7.342416e+08</td>
+<td>2023-04-08T03:59:39Z</td>
+<td>58.714369</td>
+<td>-64.738308</td>
+<td>no_data</td>
+<td>294.3835</td>
+<td>0.25529</td>
+<td>0.23890</td>
+<td>...</td>
+<td>964.470</td>
+<td>48</td>
+<td>99934.603</td>
+<td>9515.202203</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.74790 58.67648, -64.74812 58.6...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>72290000091</td>
+<td>7.342416e+08</td>
+<td>7.342416e+08</td>
+<td>2023-04-08T03:59:47Z</td>
+<td>58.779820</td>
+<td>-64.695449</td>
+<td>no_data</td>
+<td>311.2570</td>
+<td>0.32269</td>
+<td>0.30988</td>
+<td>...</td>
+<td>1322.264</td>
+<td>48</td>
+<td>109456.472</td>
+<td>9521.869544</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.73733 58.75101, -64.73744 58.7...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14</td>
+<td>72290000101</td>
+<td>7.342416e+08</td>
+<td>7.342416e+08</td>
+<td>2023-04-08T03:59:48Z</td>
+<td>58.845117</td>
+<td>-64.561029</td>
+<td>no_data</td>
+<td>365.2844</td>
+<td>1.21278</td>
+<td>1.20943</td>
+<td>...</td>
+<td>1967.645</td>
+<td>91</td>
+<td>127615.429</td>
+<td>18158.956537</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.65936 58.81024, -64.65906 58.8...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>72290000121</td>
+<td>7.342416e+08</td>
+<td>7.342416e+08</td>
+<td>2023-04-08T03:59:38Z</td>
+<td>58.609514</td>
+<td>-64.561682</td>
+<td>no_data</td>
+<td>116.8113</td>
+<td>3.96043</td>
+<td>3.95941</td>
+<td>...</td>
+<td>4144.533</td>
+<td>44</td>
+<td>89650.564</td>
+<td>8766.735629</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-64.62896 58.60922, -64.62844 58.6...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">601</td>
+<td>73120000881</td>
+<td>7.342413e+08</td>
+<td>7.342414e+08</td>
+<td>2023-04-08T03:55:20Z</td>
+<td>44.351102</td>
+<td>-72.039760</td>
+<td>Passumsic River</td>
+<td>174.9508</td>
+<td>4.47919</td>
+<td>4.47829</td>
+<td>...</td>
+<td>131.791</td>
+<td>33</td>
+<td>497855.958</td>
+<td>6601.016442</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-72.03762 44.32713, -72.03799 44.3...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">603</td>
+<td>73120000901</td>
+<td>7.342413e+08</td>
+<td>7.342414e+08</td>
+<td>2023-04-08T03:55:20Z</td>
+<td>44.386181</td>
+<td>-72.021869</td>
+<td>Passumsic River</td>
+<td>173.7937</td>
+<td>0.55437</td>
+<td>0.54701</td>
+<td>...</td>
+<td>309.045</td>
+<td>14</td>
+<td>501124.567</td>
+<td>2797.247947</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-72.02436 44.37642, -72.02420 44.3...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">605</td>
+<td>73120000921</td>
+<td>7.342413e+08</td>
+<td>7.342414e+08</td>
+<td>2023-04-08T03:55:20Z</td>
+<td>44.411236</td>
+<td>-72.014336</td>
+<td>Passumsic River</td>
+<td>166.5888</td>
+<td>0.10145</td>
+<td>0.04683</td>
+<td>...</td>
+<td>311.007</td>
+<td>16</td>
+<td>504771.255</td>
+<td>3198.652675</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-72.02228 44.39954, -72.02190 44.3...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">607</td>
+<td>73120000941</td>
+<td>7.342413e+08</td>
+<td>7.342414e+08</td>
+<td>2023-04-08T03:55:29Z</td>
+<td>44.452938</td>
+<td>-72.015137</td>
+<td>Passumsic River</td>
+<td>183.2997</td>
+<td>2.06531</td>
+<td>2.06334</td>
+<td>...</td>
+<td>309.865</td>
+<td>31</td>
+<td>511419.028</td>
+<td>6166.254368</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-72.01456 44.42694, -72.01485 44.4...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">608</td>
+<td>73120000951</td>
+<td>7.342413e+08</td>
+<td>7.342413e+08</td>
+<td>2023-04-08T03:54:59Z</td>
+<td>42.902949</td>
+<td>-72.594959</td>
+<td>Connecticut River</td>
+<td>74.8295</td>
+<td>11.74827</td>
+<td>11.74793</td>
+<td>...</td>
+<td>4382.769</td>
+<td>60</td>
+<td>284718.454</td>
+<td>11949.727883</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-72.55433 42.86586, -72.55470 42.8...</td>
+</tr>
+</tbody>
+</table>
+
+<p>351 rows × 127 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>WSE.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.Esri.NatGeoWorldMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOT_GISshapefiles_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="merging-multiple-reaches-to-a-single-shapefile" class="level2">
+<h2 class="anchored" data-anchor-id="merging-multiple-reaches-to-a-single-shapefile">Merging multiple reaches to a single shapefile</h2>
+<ul>
+<li>If you have multiple River Reaches or Nodes in a folder, it is possible to visualize all on a single map.</li>
+<li>Utilizing both Glob and Pathlib libraries to read the folder, then using Pandas concat to merge the reaches to its own variable.</li>
+</ul>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># State filename extension to look for within folder, in this case .shp which is the shapefile</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>shapefiles <span class="op">=</span> folder.glob(<span class="st">"*.shp"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge/Combine multiple shapefiles in folder into one</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> pd.concat([</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    gpd.read_file(shp)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> shp <span class="kw">in</span> shapefiles</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>]).pipe(gpd.GeoDataFrame)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Export merged geodataframe into shapefile</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>gdf.to_file(folder <span class="op">/</span> <span class="st">'SWOTReaches_Aug.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>gdf.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>gdf.crs, source<span class="op">=</span>cx.providers.OpenTopoMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SWOT_GISshapefiles_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The above plot shows the passes for the calibration phase of the SWOT orbit. The nominal orbit has much more coverage.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Local</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../notebooks/GIS/SWOTshp_CSVconversion.html" class="pagination-link">
+        <span class="nav-page-text">Hydrology Time Series</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
