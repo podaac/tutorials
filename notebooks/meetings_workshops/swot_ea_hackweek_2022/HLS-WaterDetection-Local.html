@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - Estimating Reservoir Surface Area From Harmonized Landsat-Sentinel (HLS) Imagery – Local Machine Version</title>
+<title>PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
@@ -116,12 +123,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../quarto_text/CloudvsLocalWorkflows.html">Cloud vs.&nbsp;Local Workflows</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html">Reservoir Example</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html">Local</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../quarto_text/CloudvsLocalWorkflows.html">Cloud vs.&nbsp;Local Workflows</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html">Reservoir Example</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html">Local</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -131,14 +138,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../../../index.html" class="sidebar-logo-link">
       <img src="../../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -307,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+ <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -895,14 +902,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#initiate-data-search" id="toc-initiate-data-search" class="nav-link active" data-scroll-target="#initiate-data-search">Initiate Data Search</a></li>
+  <li><a href="#estimating-reservoir-surface-area-from-harmonized-landsat-sentinel-hls-imagery-local-machine-version" id="toc-estimating-reservoir-surface-area-from-harmonized-landsat-sentinel-hls-imagery-local-machine-version" class="nav-link active" data-scroll-target="#estimating-reservoir-surface-area-from-harmonized-landsat-sentinel-hls-imagery-local-machine-version">Estimating Reservoir Surface Area From Harmonized Landsat-Sentinel (HLS) Imagery – Local Machine Version</a>
+  <ul class="collapse">
+  <li><a href="#initiate-data-search" id="toc-initiate-data-search" class="nav-link" data-scroll-target="#initiate-data-search">Initiate Data Search</a></li>
   <li><a href="#define-date-range-and-region-of-interest" id="toc-define-date-range-and-region-of-interest" class="nav-link" data-scroll-target="#define-date-range-and-region-of-interest">Define Date Range and Region of Interest</a></li>
   <li><a href="#search-for-hls-imagery-matching-search-criteria" id="toc-search-for-hls-imagery-matching-search-criteria" class="nav-link" data-scroll-target="#search-for-hls-imagery-matching-search-criteria">Search for HLS imagery matching search criteria</a></li>
   <li><a href="#filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification" id="toc-filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification" class="nav-link" data-scroll-target="#filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification">Filter imagery for low cloud images and identify image bands needed for water classification</a></li>
@@ -910,8 +919,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#load-images-and-visualize" id="toc-load-images-and-visualize" class="nav-link" data-scroll-target="#load-images-and-visualize">Load images and visualize</a></li>
   <li><a href="#caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas" id="toc-caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas" class="nav-link" data-scroll-target="#caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas">Caclulate Normalized Difference Water Index (NDWI) and Classify Innundated Areas</a></li>
   <li><a href="#caclulate-surface-area-of-reservoir-and-plot-time-series" id="toc-caclulate-surface-area-of-reservoir-and-plot-time-series" class="nav-link" data-scroll-target="#caclulate-surface-area-of-reservoir-and-plot-time-series">Caclulate surface area of reservoir and plot time series</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -919,27 +929,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Estimating Reservoir Surface Area From Harmonized Landsat-Sentinel (HLS) Imagery – Local Machine Version</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <blockquote class="blockquote">
 <p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.ipynb">this link</a>.</p>
 </blockquote>
-<div class="cell" data-execution_count="2">
+<section id="estimating-reservoir-surface-area-from-harmonized-landsat-sentinel-hls-imagery-local-machine-version" class="level1">
+<h1>Estimating Reservoir Surface Area From Harmonized Landsat-Sentinel (HLS) Imagery – Local Machine Version</h1>
+<div id="8d6e1510" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client  </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict    </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
@@ -965,7 +963,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>gv.extension(<span class="st">'bokeh'</span>, <span class="st">'matplotlib'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-
 <script type="application/javascript">
 
 (function(root) {
@@ -2989,7 +2986,7 @@ U9k9N2vl5+cH0en0TRiGWX18fC65vnh+LxqNBq2oqFhgMpmi7XY7arVaj+zdu/fxn/l/4bSZl5fH
 </div>
 <section id="initiate-data-search" class="level2">
 <h2 class="anchored" data-anchor-id="initiate-data-search">Initiate Data Search</h2>
-<div class="cell" data-execution_count="3">
+<div id="d96c74fa" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>STAC_URL <span class="op">=</span> <span class="st">'https://cmr.earthdata.nasa.gov/stac'</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>provider_cat <span class="op">=</span> Client.<span class="bu">open</span>(STAC_URL)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(<span class="ss">f'</span><span class="sc">{</span>STAC_URL<span class="sc">}</span><span class="ss">/LPCLOUD/'</span>)</span>
@@ -2999,7 +2996,7 @@ U9k9N2vl5+cH0en0TRiGWX18fC65vnh+LxqNBq2oqFhgMpmi7XY7arVaj+zdu/fxn/l/4bSZl5fH
 </section>
 <section id="define-date-range-and-region-of-interest" class="level2">
 <h2 class="anchored" data-anchor-id="define-date-range-and-region-of-interest">Define Date Range and Region of Interest</h2>
-<div class="cell" data-execution_count="4">
+<div id="9614a24e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>date_range <span class="op">=</span> <span class="st">"2021-01/2022-01"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>roi <span class="op">=</span> {</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"type"</span>: <span class="st">"Feature"</span>,</span>
@@ -3076,7 +3073,7 @@ U9k9N2vl5+cH0en0TRiGWX18fC65vnh+LxqNBq2oqFhgMpmi7XY7arVaj+zdu/fxn/l/4bSZl5fH
 </section>
 <section id="search-for-hls-imagery-matching-search-criteria" class="level2">
 <h2 class="anchored" data-anchor-id="search-for-hls-imagery-matching-search-criteria">Search for HLS imagery matching search criteria</h2>
-<div class="cell" data-execution_count="5">
+<div id="80dadee0" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> catalog.search(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    collections<span class="op">=</span>collections,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    intersects<span class="op">=</span>roi,</span>
@@ -3093,12 +3090,12 @@ U9k9N2vl5+cH0en0TRiGWX18fC65vnh+LxqNBq2oqFhgMpmi7XY7arVaj+zdu/fxn/l/4bSZl5fH
 </section>
 <section id="filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification" class="level2">
 <h2 class="anchored" data-anchor-id="filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification">Filter imagery for low cloud images and identify image bands needed for water classification</h2>
-<div class="cell" data-execution_count="6">
+<div id="d1e85061" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>s30_bands <span class="op">=</span> [<span class="st">'B8A'</span>, <span class="st">'B03'</span>]    <span class="co"># S30 bands for NDWI calculation and quality filtering -&gt; NIR, GREEN, Quality </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>l30_bands <span class="op">=</span> [<span class="st">'B05'</span>, <span class="st">'B03'</span>]    <span class="co"># L30 bands for NDWI calculation and quality filtering -&gt; NIR, GREEN, Quality </span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>cloudcover <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="7">
+<div id="aa59e302" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ndwi_band_links <span class="op">=</span> []</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> item_collection:</span>
@@ -3114,7 +3111,7 @@ U9k9N2vl5+cH0en0TRiGWX18fC65vnh+LxqNBq2oqFhgMpmi7XY7arVaj+zdu/fxn/l/4bSZl5fH
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">any</span>(b<span class="op">==</span>a <span class="cf">for</span> b <span class="kw">in</span> ndwi_bands):</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                ndwi_band_links.append(i.assets[a].href)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-scrolled="true" data-execution_count="8">
+<div id="f9cde5bf" class="cell" data-scrolled="true" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ndwi_band_links[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>['https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/HLSL30.020/HLS.L30.T10TFK.2021016T184526.v2.0/HLS.L30.T10TFK.2021016T184526.v2.0.B03.tif',
@@ -3129,24 +3126,24 @@ U9k9N2vl5+cH0en0TRiGWX18fC65vnh+LxqNBq2oqFhgMpmi7XY7arVaj+zdu/fxn/l/4bSZl5fH
  'https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/HLSL30.020/HLS.L30.T10TFK.2021064T184513.v2.0/HLS.L30.T10TFK.2021064T184513.v2.0.B05.tif']</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="9">
+<div id="fac05ff2" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tile_dicts <span class="op">=</span> defaultdict(<span class="bu">list</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="10">
+<div id="c5c06be9" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> l <span class="kw">in</span> ndwi_band_links:</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    tile <span class="op">=</span> l.split(<span class="st">'.'</span>)[<span class="op">-</span><span class="dv">6</span>]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    tile_dicts[tile].append(l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="11">
+<div id="eb641ea5" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tile_dicts.keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>dict_keys(['T10TFK', 'T10SFJ'])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="12">
+<div id="6b7daa69" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tile_links <span class="op">=</span> tile_dicts[<span class="st">'T10SFJ'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="13">
+<div id="4fc92c89" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>bands_dicts <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> tile_links:</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    band <span class="op">=</span> b.split(<span class="st">'.'</span>)[<span class="op">-</span><span class="dv">2</span>]</span>
@@ -3161,10 +3158,10 @@ B05</code></pre>
 </section>
 <section id="download-identified-images-to-local-computer" class="level2">
 <h2 class="anchored" data-anchor-id="download-identified-images-to-local-computer">Download identified images to local computer</h2>
-<div class="cell" data-execution_count="14">
+<div id="d98fb809" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">"downloads"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="15">
+<div id="48bb6301" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download(url: <span class="bu">str</span>, fname: <span class="bu">str</span>):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    resp <span class="op">=</span> requests.get(url, stream<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">int</span>(resp.headers.get(<span class="st">'content-length'</span>, <span class="dv">0</span>))</span>
@@ -3180,7 +3177,7 @@ B05</code></pre>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>            size <span class="op">=</span> <span class="bu">file</span>.write(data)</span>
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>            bar.update(size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="16">
+<div id="453fdbf6" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>path_dicts <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Begin Downloading Imagery'</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
@@ -3236,11 +3233,11 @@ Download Complete
 </section>
 <section id="load-images-and-visualize" class="level2">
 <h2 class="anchored" data-anchor-id="load-images-and-visualize">Load images and visualize</h2>
-<div class="cell">
+<div id="17b49686" class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> time_index_from_filenames(file_links):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [datetime.strptime(f.split(<span class="st">'.'</span>)[<span class="op">-</span><span class="dv">5</span>], <span class="st">'%Y%jT%H%M%S'</span>) <span class="cf">for</span> f <span class="kw">in</span> file_links]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="768a703c" class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> xr.Variable(<span class="st">'time'</span>, time_index_from_filenames(path_dicts[<span class="st">'B03'</span>]))</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>chunks<span class="op">=</span><span class="bu">dict</span>(band<span class="op">=</span><span class="dv">1</span>, x<span class="op">=</span><span class="dv">512</span>, y<span class="op">=</span><span class="dv">512</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>hls_ts_da_LB3 <span class="op">=</span> xr.concat([rioxarray.open_rasterio(f, chunks<span class="op">=</span>chunks).squeeze(<span class="st">'band'</span>, drop<span class="op">=</span><span class="va">True</span>) <span class="cf">for</span> f <span class="kw">in</span> path_dicts[<span class="st">'B03'</span>]], dim<span class="op">=</span>time)</span>
@@ -3248,32 +3245,32 @@ Download Complete
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>hls_ts_da_LB3 <span class="op">=</span> hls_ts_da_LB3.rio.reproject(<span class="st">"epsg:4326"</span>)</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>hls_ts_da_LB5 <span class="op">=</span> hls_ts_da_LB5.rio.reproject(<span class="st">"epsg:4326"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="16876756" class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB3 <span class="op">=</span> hls_ts_da_LB3.load()</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB5 <span class="op">=</span> hls_ts_da_LB5.load()</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB3 <span class="op">=</span> hls_ts_da_data_LB3.rio.clip([roi])</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB5 <span class="op">=</span> hls_ts_da_data_LB5.rio.clip([roi])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="7c0d2eaf" class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB5.hvplot.image(x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>, rasterize<span class="op">=</span><span class="va">True</span>, width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>, colorbar<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'gray'</span>).opts(clim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">2000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas" class="level2">
 <h2 class="anchored" data-anchor-id="caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas">Caclulate Normalized Difference Water Index (NDWI) and Classify Innundated Areas</h2>
-<div class="cell">
+<div id="b8ed3c2b" class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>LB3 <span class="op">=</span> hls_ts_da_data_LB3 </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>LB5 <span class="op">=</span> hls_ts_da_data_LB5</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>NDWI <span class="op">=</span> (LB3<span class="op">-</span>LB5)<span class="op">/</span>(LB3<span class="op">+</span>LB5)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>NDWI.hvplot.image(x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>, rasterize<span class="op">=</span><span class="va">True</span>, width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>, colorbar<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>).opts(clim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="193965f4" class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>water <span class="op">=</span> NDWI<span class="op">&gt;</span><span class="dv">0</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>water.hvplot.image(x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>, rasterize<span class="op">=</span><span class="va">True</span>, width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>, colorbar<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'PuOr'</span>).opts(clim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="caclulate-surface-area-of-reservoir-and-plot-time-series" class="level2">
 <h2 class="anchored" data-anchor-id="caclulate-surface-area-of-reservoir-and-plot-time-series">Caclulate surface area of reservoir and plot time series</h2>
-<div class="cell">
+<div id="1a7c85d4" class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> water.variable.<span class="bu">max</span>() <span class="op">==</span> <span class="va">True</span>:</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    water_real <span class="op">=</span> water<span class="op">*</span><span class="dv">30</span><span class="op">*</span><span class="dv">30</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>water_area <span class="op">=</span> water_real.<span class="bu">sum</span>(axis<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
@@ -3287,6 +3284,7 @@ Download Complete
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -3331,6 +3329,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -3399,13 +3424,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -3484,10 +3511,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -3497,8 +3523,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -3511,6 +3546,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -3554,6 +3708,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -3579,6 +3734,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -3640,12 +3821,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="pagination-link">
+      <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="pagination-link  aria-label=" cloud"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cloud</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../quarto_text/ScienceDataStories.html" class="pagination-link">
+      <a href="../../../quarto_text/ScienceDataStories.html" class="pagination-link" aria-label="Science Data Stories">
         <span class="nav-page-text">Science Data Stories</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -3653,13 +3834,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,7 +80,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -89,6 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -111,12 +118,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Use Case: Study Amazon Estuaries with Data from the EOSDIS Cloud</li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Use Case: Study Amazon Estuaries with Data from the EOSDIS Cloud</li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -126,14 +133,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -302,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+ <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -890,14 +897,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <li><a href="#use-case-study-amazon-estuaries-with-data-from-the-eosdis-cloud" id="toc-use-case-study-amazon-estuaries-with-data-from-the-eosdis-cloud" class="nav-link active" data-scroll-target="#use-case-study-amazon-estuaries-with-data-from-the-eosdis-cloud">Use Case: Study Amazon Estuaries with Data from the EOSDIS Cloud</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives:</a></li>
   <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
@@ -920,8 +929,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#open-netcdf-file-with-xarray" id="toc-open-netcdf-file-with-xarray" class="nav-link" data-scroll-target="#open-netcdf-file-with-xarray">Open netCDF file with <em>xarray</em></a></li>
   <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot">Plot</a></li>
   </ul></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -944,8 +954,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
+
+<section id="use-case-study-amazon-estuaries-with-data-from-the-eosdis-cloud" class="level1">
+<h1>Use Case: Study Amazon Estuaries with Data from the EOSDIS Cloud</h1>
 <p><img src="https://cdn.earthdata.nasa.gov/conduit/upload/12946/EOSDISCloud-logo.jpg" width="45%"></p>
 <p>
 <left>Read more about the EOSDIS Cloud at <a href="https://earthdata.nasa.gov/eosdis/cloud-evolution">NASA Earthdata</a>.
@@ -977,7 +991,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You will also need a netrc file containing your NASA Earthdata Login credentials in order to execute this notebook. A netrc file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-via-netrc-file">Authentication for NASA Earthdata</a>.</p>
 <p>In this notebook, we will be calling the authentication in the below cell, a work around if you do not yet have a netrc file.</p>
 <p>This notebook was developed in Python 3.6.</p>
-<div class="cell" data-execution_count="1">
+<div id="cell-1" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> http.cookiejar <span class="im">import</span> CookieJar</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> getpass <span class="im">import</span> getpass</span>
@@ -1012,7 +1026,7 @@ Your info will only be passed to urs.earthdata.nasa.gov and will not be exposed 
 Password:  ···········</code></pre>
 </div>
 </div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:15:51.072616Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:15:51.069656Z&quot;}" data-execution_count="2">
+<div id="cell-2" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:15:51.072616Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:15:51.069656Z&quot;}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1034,7 +1048,7 @@ Password:  ···········</code></pre>
 <section id="endpoints" class="level3">
 <h3 class="anchored" data-anchor-id="endpoints">Endpoints</h3>
 <p>Set a few endpoints for use during the remainder of the workflow:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:15:51.600827Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:15:51.597163Z&quot;}" data-execution_count="3">
+<div id="cell-4" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:15:51.600827Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:15:51.597163Z&quot;}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cmr <span class="op">=</span> <span class="st">"cmr.earthdata.nasa.gov"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>urs <span class="op">=</span> <span class="st">"urs.earthdata.nasa.gov"</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>harmony <span class="op">=</span> <span class="st">"harmony.earthdata.nasa.gov"</span></span>
@@ -1053,7 +1067,7 @@ Password:  ···········</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://podaac.jpl.nasa.gov/Podaac/thumbnails/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06_V2.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">grace mascon</figcaption>
+<figcaption>grace mascon</figcaption>
 </figure>
 </div>
 <p><strong>JPL GRACE and GRACE-FO Mascon Ocean, Ice, and Hydrology Equivalent Water Height Coastal Resolution Improvement (CRI) Filtered Release 06 Version 02</strong></p>
@@ -1063,7 +1077,7 @@ Password:  ···········</code></pre>
 <section id="metadata" class="level3">
 <h3 class="anchored" data-anchor-id="metadata">Metadata</h3>
 <p>Data from the <a href="https://podaac.jpl.nasa.gov/dataset/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06_V2">TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06_V2</a> dataset can be obtained from AWS S3. Use its <em>ShortName</em> to retrieve the <em>collection</em> metadata from CMR:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:15:59.207491Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:15:59.204272Z&quot;}" data-execution_count="4">
+<div id="cell-6" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:15:59.207491Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:15:59.204272Z&quot;}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>grace_ShortName <span class="op">=</span> <span class="st">"TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06_V2"</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>grace_ShortName</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -1073,7 +1087,7 @@ Password:  ···········</code></pre>
 <section id="collection-dataset" class="level4">
 <h4 class="anchored" data-anchor-id="collection-dataset">Collection (dataset)</h4>
 <p>Get the UMM Collection metadata using <code>requests.get</code>:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:00.874308Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:00.507101Z&quot;}" data-execution_count="5">
+<div id="cell-8" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:00.874308Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:00.507101Z&quot;}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url<span class="op">=</span><span class="ss">f"https://</span><span class="sc">{</span>cmr<span class="sc">}</span><span class="ss">/search/collections.umm_json"</span>, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                 params<span class="op">=</span>{<span class="st">'provider'</span>: <span class="st">"POCLOUD"</span>, </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'ShortName'</span>: grace_ShortName})</span>
@@ -1085,7 +1099,7 @@ Password:  ···········</code></pre>
 </div>
 </div>
 <p>There should be only one result. Select and print its CMR Search metadata:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:02.370715Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:02.366727Z&quot;}" data-execution_count="6">
+<div id="cell-10" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:02.370715Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:02.366727Z&quot;}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>grace_coll_meta <span class="op">=</span> grace_coll[<span class="st">'items'</span>][<span class="dv">0</span>][<span class="st">'meta'</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>grace_coll_meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -1121,7 +1135,7 @@ Password:  ···········</code></pre>
 <section id="granule-file" class="level4">
 <h4 class="anchored" data-anchor-id="granule-file">Granule (file)</h4>
 <p>Get the UMM Granule metadata using <code>requests.get</code>:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:05.009606Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:04.611372Z&quot;}" data-execution_count="7">
+<div id="cell-12" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:05.009606Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:04.611372Z&quot;}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url<span class="op">=</span><span class="ss">f"https://</span><span class="sc">{</span>cmr<span class="sc">}</span><span class="ss">/search/granules.umm_json"</span>, </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                 params<span class="op">=</span>{<span class="st">'provider'</span>: <span class="st">"POCLOUD"</span>, </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'ShortName'</span>: grace_ShortName})</span>
@@ -1133,7 +1147,7 @@ Password:  ···········</code></pre>
 </div>
 </div>
 <p>As you can see, one result was returned (one <em>hit</em>). Print the CMR Search metadata for the granule (<code>meta</code>):</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:05.826774Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:05.822727Z&quot;}" data-execution_count="8">
+<div id="cell-14" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:05.826774Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:05.822727Z&quot;}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>grace_gran[<span class="st">'items'</span>][<span class="dv">0</span>][<span class="st">'meta'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>{'concept-type': 'granule',
@@ -1146,7 +1160,7 @@ Password:  ···········</code></pre>
 </div>
 </div>
 <p>The other component in each result (from the list of <code>items</code>) is the UMM metadata, accessible from the <code>umm</code> key. Print the <em>RelatedUrls</em> metadata field for the granule:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:08.174857Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:08.171739Z&quot;}" data-execution_count="9">
+<div id="cell-16" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:08.174857Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:08.171739Z&quot;}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>grace_gran[<span class="st">'items'</span>][<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'RelatedUrls'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>[{'URL': 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06_V2/GRCTellus.JPL.200204_202207.GLO.RL06M.MSCNv02CRI.nc',
@@ -1171,7 +1185,7 @@ Password:  ···········</code></pre>
 </div>
 </div>
 <p>We want the URL corresponding to <code>'Type': 'GET DATA'</code>. Select the URL from appropriate item in the list, then print:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:09.265491Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:09.261932Z&quot;}" data-execution_count="10">
+<div id="cell-18" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:09.265491Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:09.261932Z&quot;}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>grace_url <span class="op">=</span> grace_gran[<span class="st">'items'</span>][<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'RelatedUrls'</span>][<span class="dv">0</span>][<span class="st">'URL'</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>grace_url</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -1191,13 +1205,13 @@ Password:  ···········</code></pre>
 <h3 class="anchored" data-anchor-id="request-to-harmony-api-zarr-reformatter">Request to Harmony API: Zarr Reformatter</h3>
 <p>If you have a <code>jobID</code> you’d like to re-visit instead of running this command again, modify the cell below to set the <em>async_jobId</em> then skip to <code>Format and display the complete url to the Harmony API job:</code>.</p>
 <p><em>If you are running for the first time, proceed to the next cells to submit the harmony request.</em></p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:10.167583Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:10.165586Z&quot;}" data-execution_count="11">
+<div id="cell-21" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:10.167583Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:10.165586Z&quot;}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#async_jobId = "dfefc536-768c-4db3-a7d2-c326e9253042"  # jobId belongs to dev. You wont have access.</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>async_jobId <span class="op">=</span> <span class="va">None</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>See important usage note below if this is your first time submitting a request to the Zarr Reformatter service.</em></p>
 <p>The Zarr Reformatter service operates on an input Collection <em>concept-id</em> (a CMR construct). The service will accept more user-friendly inputs (like a Collection <em>ShortName</em>) in future releases. Here’s how you identify the CMR <em>concept-id</em> for the JPL GRACE/GRACE-FO Mascon dataset:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:10.754985Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:10.752180Z&quot;}" data-execution_count="12">
+<div id="cell-23" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:16:10.754985Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:10.752180Z&quot;}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>collection_concept_id <span class="op">=</span> grace_coll_meta[<span class="st">'concept-id'</span>]</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>collection_concept_id</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -1205,7 +1219,7 @@ Password:  ···········</code></pre>
 </div>
 </div>
 <p>Most of this next cell will only evaluate if there’s NOT a valid job identifier set to the <code>async_jobId</code> variable above. It submits the Harmony request, and prints the JSON response.</p>
-<div class="cell" data-execution_count="13">
+<div id="cell-25" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>harmony_client <span class="op">=</span> Client(env<span class="op">=</span>Environment.PROD)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> Collection(collection_concept_id) </span>
@@ -1220,7 +1234,7 @@ Password:  ···········</code></pre>
 <pre><code>True</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="14">
+<div id="cell-26" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> async_jobId <span class="kw">is</span> <span class="va">None</span>:</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(harmony_client.request_as_curl(request))</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    async_jobId <span class="op">=</span> harmony_client.submit(request)</span>
@@ -1242,7 +1256,7 @@ Job ID: 9c93ee8e-1b5d-4d65-bacd-a91070e0c44c
 </div>
 </div>
 <p>Query for the job status and links in case the request is still processing:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:19:14.363805Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:22.429255Z&quot;}" data-execution_count="15">
+<div id="cell-28" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:19:14.363805Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:16:22.429255Z&quot;}" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    job_json <span class="op">=</span> harmony_client.status(async_jobId)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> job_json[<span class="st">'status'</span>] <span class="op">!=</span> <span class="st">'running'</span>:</span>
@@ -1272,7 +1286,7 @@ Job ID: 9c93ee8e-1b5d-4d65-bacd-a91070e0c44c
 <p><strong>Access url for the output zarr file</strong></p>
 <p>The new zarr dataset is staged for us in an S3 bucket. The url is the second to last one in the list shown above.</p>
 <p>Select the url and display below:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:33.428520Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:33.425733Z&quot;}" data-execution_count="16">
+<div id="cell-30" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:33.428520Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:33.425733Z&quot;}" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>zarr_url <span class="op">=</span> links[<span class="op">-</span><span class="dv">2</span>]</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>zarr_url</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
@@ -1282,7 +1296,7 @@ Job ID: 9c93ee8e-1b5d-4d65-bacd-a91070e0c44c
 <p><strong>Access credentials for the output zarr file</strong></p>
 <p>Credentials provided at the third and fourth urls in the list grant authenticated access to your staged S3 resources.</p>
 <p>Grab the credentials as a JSON string, load to a Python dictionary, and display their expiration date:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:35.591343Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:33.865959Z&quot;}" data-execution_count="17">
+<div id="cell-32" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:35.591343Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:33.865959Z&quot;}" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.request <span class="im">import</span> urlopen</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1298,7 +1312,7 @@ Job ID: 9c93ee8e-1b5d-4d65-bacd-a91070e0c44c
 <section id="open-staged-zarr-file-with-s3fs" class="level3">
 <h3 class="anchored" data-anchor-id="open-staged-zarr-file-with-s3fs">Open staged zarr file with <em>s3fs</em></h3>
 <p>We use the AWS <code>s3fs</code> package to get metadata about the zarr data store and list its contents:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:36.753412Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:35.593357Z&quot;}" data-execution_count="18">
+<div id="cell-34" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:36.753412Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:35.593357Z&quot;}" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>zarr_fs <span class="op">=</span> s3fs.S3FileSystem(</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    key<span class="op">=</span>creds[<span class="st">'AccessKeyId'</span>],</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    secret<span class="op">=</span>creds[<span class="st">'SecretAccessKey'</span>],</span>
@@ -1322,7 +1336,7 @@ Job ID: 9c93ee8e-1b5d-4d65-bacd-a91070e0c44c
 </div>
 </div>
 <p>Now print metadata for the <em>lwe_thickness</em> variable:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:36.755143Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:35.063Z&quot;}" data-execution_count="19">
+<div id="cell-36" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:36.755143Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:35.063Z&quot;}" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(zarr_dataset.lwe_thickness.info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Name               : /lwe_thickness
@@ -1346,7 +1360,7 @@ Chunks initialized : 36/36
 <h3 class="anchored" data-anchor-id="open-staged-zarr-file-with-xarray">Open staged zarr file with <em>xarray</em></h3>
 <p>Here’s the documentation for <code>xarray</code>’s zarr reader: http://xarray.pydata.org/en/stable/generated/xarray.open_zarr.html</p>
 <p>Open the zarr dataset and print the dataset:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:36.756506Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:35.864Z&quot;}">
+<div id="cell-38" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-03-15T21:28:36.756506Z&quot;,&quot;start_time&quot;:&quot;2021-03-15T21:28:35.864Z&quot;}">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ds_GRACE <span class="op">=</span> xr.open_dataset(zarr_store, engine<span class="op">=</span><span class="st">"zarr"</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ds_GRACE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1354,7 +1368,7 @@ Chunks initialized : 36/36
 <p>Once we have obtained all the data, to make processing quicker, we are going to subset datasets by latitude/longitude for the Amazon River estuary.</p>
 <p>Once we have obtained the GRACE-FO data, we should spatial subset the data to the minimal area covering the Amazon River estuary. This will reduce processing load and reduce cloud costs for the user.</p>
 <p>Make a GRACE-FO subset and display the min, max of the <em>lat</em> and <em>lon</em> variables:</p>
-<div class="cell">
+<div id="cell-40" class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>subset_GRACE <span class="op">=</span> ds_GRACE.sel(lat<span class="op">=</span><span class="bu">slice</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">10</span>), lon<span class="op">=</span><span class="bu">slice</span>(<span class="dv">275</span>, <span class="dv">330</span>))</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(subset_GRACE.lat.<span class="bu">min</span>().data, </span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>      subset_GRACE.lat.<span class="bu">max</span>().data,</span>
@@ -1363,7 +1377,7 @@ Chunks initialized : 36/36
 </div>
 <p><strong>Select the variable for Land Water Equivalent Thickness (<em>lwe_thickness</em>)</strong></p>
 <p>Grab the land water equivalent thickness variable from the GRACE subset:</p>
-<div class="cell">
+<div id="cell-42" class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>lwe <span class="op">=</span> subset_GRACE.lwe_thickness</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lwe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1371,7 +1385,7 @@ Chunks initialized : 36/36
 <section id="plots" class="level3">
 <h3 class="anchored" data-anchor-id="plots">Plots</h3>
 <p>We will create an animation from sequential GRACE-FO plots over the Amazon Rainforest in the following cells. Define two functions to make the process a bit more convenient:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:47:58.175973Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:47:58.172032Z&quot;}">
+<div id="cell-44" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:47:58.175973Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:47:58.172032Z&quot;}">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> setup_map(ax, pmap, ds_subset, x, y, var, t, cmap, levels, extent):</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="bu">str</span>(pd.to_datetime(ds_subset.time[t].values))</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    pmap.set_title(title, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
@@ -1387,7 +1401,7 @@ Chunks initialized : 36/36
 <span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cont</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot the first timestep in the JPL GRACE/GRACE-FO Mascon time series:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:48:01.317686Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:48:00.783305Z&quot;}">
+<div id="cell-46" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:48:01.317686Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:48:00.783305Z&quot;}">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize a matplotlib plot object and add subplot:</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">13</span>,<span class="dv">9</span>]) </span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
@@ -1410,7 +1424,7 @@ Chunks initialized : 36/36
 <span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>fig.colorbar(cont, ticks<span class="op">=</span>cmap_levels, orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="st">'Land Water Equivalent Thickness (cm)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot all the 2019 timesteps sequentially to create an animation of land water equivalent thickness for the Amazon Rainforest territories:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:48:06.741616Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:48:04.843045Z&quot;}">
+<div id="cell-48" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:48:06.741616Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:48:04.843045Z&quot;}">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ani <span class="op">=</span> animation.FuncAnimation(fig, animate_ts, frames<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">12</span>), fargs<span class="op">=</span>(</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    ax, pmap, subset_GRACE, x, y, lwe, time_start, cmap_name, cmap_levels, map_extent</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>), interval<span class="op">=</span><span class="dv">500</span>)</span>
@@ -1420,7 +1434,7 @@ Chunks initialized : 36/36
 <p>User note: You will need to install ‘ffmpeg’ in the cmd prompt to save the .mpg to disk. Use the following command to install from the conda-forge channel:</p>
 <pre class="shell"><code>conda install -c conda-forge ffmpeg</code></pre>
 <p>Uncomment, run the next cell to save the animation to MP4:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:48:17.741846Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:48:14.627311Z&quot;}">
+<div id="cell-50" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:48:17.741846Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:48:14.627311Z&quot;}">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ani.save("tutorial7_animation_GRACEFO.mp4", writer=animation.FFMpegWriter())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -1440,7 +1454,7 @@ Chunks initialized : 36/36
 <section id="open-netcdf-file-with-xarray" class="level3">
 <h3 class="anchored" data-anchor-id="open-netcdf-file-with-xarray">Open netCDF file with <em>xarray</em></h3>
 <p>Open the netCDF dataset via OPeNDAP using <em>xarray</em>:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:51:48.641119Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:51:48.628878Z&quot;}" data-execution_count="22">
+<div id="cell-52" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:51:48.641119Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:51:48.628878Z&quot;}" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ds_MEaSUREs <span class="op">=</span> xr.open_dataset(<span class="st">'https://opendap.jpl.nasa.gov/opendap/allData/preswot_hydrology/L2/rivers/daily/South_America_Amazon1kmdaily.nc'</span>)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ds_MEaSUREs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1482,7 +1496,7 @@ Attributes: (12/40)
 <h3 class="anchored" data-anchor-id="plot">Plot</h3>
 <p><strong>Amazon River heights for March 16, 2018</strong></p>
 <p>Plot the river distances and associated heights on the map at time t=9069:</p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:51:55.078273Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:51:54.929376Z&quot;}" data-execution_count="23">
+<div id="cell-54" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-11-20T21:51:55.078273Z&quot;,&quot;start_time&quot;:&quot;2020-11-20T21:51:54.929376Z&quot;}" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">13</span>,<span class="dv">9</span>]) </span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>ax.coastlines()</span>
@@ -1495,13 +1509,17 @@ Attributes: (12/40)
 <span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="Estuary_explore_inCloud_zarr_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="Estuary_explore_inCloud_zarr_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>For GRACE-FO, plotting lwe_thickness[107:179,34,69] indicates time, latitude, and longitude indices corresponding to the pixel for the time period 1/2019 to 12/2019 at lat/lon (-0.7, -50). For the 2019 year, measurements of LWE thickness followd expected patterns of high volume of water from the river output into the estuary.</p>
 <p><strong>2011-2019 Seasonality Plots (WIP)</strong></p>
 <p>For GRACE-FO, plotting lwe_thickness[107:179,34,69] indicates time, latitude, and longitude indices corresponding to the pixel for the time period 8/2011 to 12/2019 at lat/lon (-0.7, -50).</p>
-<div class="cell">
+<div id="cell-56" class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot variables associated with river</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>[<span class="dv">12</span>,<span class="dv">7</span>])</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plot river height</span></span>
@@ -1523,6 +1541,7 @@ Attributes: (12/40)
 </div>
 
 
+</section>
 </section>
 </section>
 
@@ -1568,6 +1587,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1636,13 +1682,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1721,10 +1769,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1734,8 +1781,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1748,6 +1804,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1791,6 +1966,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1816,6 +1992,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1878,13 +2080,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

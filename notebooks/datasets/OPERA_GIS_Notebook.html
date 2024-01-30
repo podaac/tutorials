@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - Working with OPERA Dynamic Surface Water Extent (DSWx) Data:</title>
+<title>PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
@@ -117,12 +124,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/OPERA.html">OPERA</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/OPERA_GIS_Cloud.html">Visualization and Mosaicking</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/OPERA_GIS_Notebook.html">Local</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/OPERA.html">OPERA</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/OPERA_GIS_Cloud.html">Visualization and Mosaicking</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/OPERA_GIS_Notebook.html">Local</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -132,14 +139,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -308,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+ <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -896,14 +903,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#local-machine-download-version" id="toc-local-machine-download-version" class="nav-link active" data-scroll-target="#local-machine-download-version">Local Machine Download Version</a></li>
+  <li><a href="#working-with-opera-dynamic-surface-water-extent-dswx-data" id="toc-working-with-opera-dynamic-surface-water-extent-dswx-data" class="nav-link active" data-scroll-target="#working-with-opera-dynamic-surface-water-extent-dswx-data">Working with OPERA Dynamic Surface Water Extent (DSWx) Data:</a>
+  <ul class="collapse">
+  <li><a href="#local-machine-download-version" id="toc-local-machine-download-version" class="nav-link" data-scroll-target="#local-machine-download-version">Local Machine Download Version</a></li>
   <li><a href="#summary-learning-objectives" id="toc-summary-learning-objectives" class="nav-link" data-scroll-target="#summary-learning-objectives">Summary &amp; Learning Objectives</a>
   <ul class="collapse">
   <li><a href="#notebook-showcasing-how-to-work-with-opera-dswx-data-on-a-local-machine" id="toc-notebook-showcasing-how-to-work-with-opera-dswx-data-on-a-local-machine" class="nav-link" data-scroll-target="#notebook-showcasing-how-to-work-with-opera-dswx-data-on-a-local-machine">Notebook showcasing how to work with OPERA DSWx data on a local machine</a></li>
@@ -925,8 +934,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area." id="toc-to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area." class="nav-link" data-scroll-target="#to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area.">To take a closer look at a specific area of the image, we can create an inset map of a specified area.</a></li>
   <li><a href="#change-detection" id="toc-change-detection" class="nav-link" data-scroll-target="#change-detection">Change Detection</a></li>
   </ul></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -934,26 +944,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Working with OPERA Dynamic Surface Water Extent (DSWx) Data:</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <blockquote class="blockquote">
 <p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/datasets/OPERA_GIS_Notebook.ipynb">this link</a>.</p>
 </blockquote>
+<section id="working-with-opera-dynamic-surface-water-extent-dswx-data" class="level1">
+<h1>Working with OPERA Dynamic Surface Water Extent (DSWx) Data:</h1>
 <section id="local-machine-download-version" class="level2">
 <h2 class="anchored" data-anchor-id="local-machine-download-version">Local Machine Download Version</h2>
 <section id="author-nicholas-tarpinian-po.daac" class="level4">
@@ -985,7 +983,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
-<div class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#from original notebook:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
@@ -1010,7 +1008,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="authentication-with-earthaccess" class="level2">
 <h2 class="anchored" data-anchor-id="authentication-with-earthaccess">Authentication with earthaccess</h2>
 <p>In this notebook, we will be calling the authentication in the below cell.</p>
-<div class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>You're now authenticated with NASA Earthdata Login
@@ -1026,7 +1024,7 @@ Persisting credentials to .netrc</code></pre>
 <p>We used <a href="http://bboxfinder.com/">bbox finder</a> to get the exact coordinates for our area of interest.</p>
 <p>We want to look at two different times for comparison: 04/11/2023 and 08/30/2023. To find these dates, let’s search for all the data granules between the two.</p>
 <p>Finding 08/30/23 you must search a couple days after at 09/01/23 for when the product was generated for 08/30/23.</p>
-<div class="cell" data-execution_count="3">
+<div id="cell-6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#earthaccess data search</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(concept_id<span class="op">=</span><span class="st">"C2617126679-POCLOUD"</span>, bounding_box<span class="op">=</span>(<span class="op">-</span><span class="fl">111.144811</span>,<span class="fl">36.980121</span>,<span class="op">-</span><span class="fl">110.250799</span>,<span class="fl">37.915625</span>), temporal<span class="op">=</span>(<span class="st">"2023-04-11"</span>,<span class="st">"2023-09-01"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1039,14 +1037,14 @@ Persisting credentials to .netrc</code></pre>
 <p>OPERA has 10 different available layers within each granule. Each granule consists of 10 files, one for each layer. We will only need one of these files since we are only looking at one layer.</p>
 <p>Let’s get the download links for the desired files. We want to query the dataset based on a specific classified layer ‘B01’ or sensor (‘L8_30_v1.0_B01_WTR’) as well as for the two dates (04/11/2023 and 08/30/2023).</p>
 <p>We will look at ‘B01_WTR’ which is the Water Classification (WTR) layer of the OPERA DSWx dataset. Details on each available layer and the data product can be found <a href="https://d2pn8kiwq2w21t.cloudfront.net/documents/ProductSpec_DSWX_URS309746.pdf">here</a>.</p>
-<div class="cell" data-execution_count="4">
+<div id="cell-8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(results[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>earthaccess.results.DataGranule</code></pre>
 </div>
 </div>
 <p>Here, we see that the results output is in the DataGranule format, allowing us to to use the data_links call</p>
-<div class="cell" data-execution_count="5">
+<div id="cell-10" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add the necessary data to a list, here we are looking for B01_WTR layer and two dates specified earlier</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>downloads_04112023 <span class="op">=</span> []</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>downloads_08302023 <span class="op">=</span> []</span>
@@ -1071,7 +1069,7 @@ Persisting credentials to .netrc</code></pre>
 <section id="download-the-data-into-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
 <p>Since we are looking at two seperate times, we create two folder path names, one for each date, so we can mosaic all the files within one folder based on its respective time range later.</p>
-<div class="cell" data-execution_count="6">
+<div id="cell-13" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download data into folder on local machine</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>earthaccess.download(downloads_04112023, <span class="st">"./data_downloads/OPERA_041123"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>earthaccess.download(downloads_08302023, <span class="st">"./data_downloads/OPERA_083023"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1127,18 +1125,18 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <section id="visualizing-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-the-dataset">Visualizing the Dataset</h3>
 <p>Let’s now visualize an individual layer for a single file that was downloaded using Rasterio to read the GeoTIFF image.</p>
-<div class="cell" data-execution_count="7">
+<div id="cell-16" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dsw <span class="op">=</span> rio.<span class="bu">open</span>(<span class="st">'data_downloads/OPERA_041123/OPERA_L3_DSWx-HLS_T12SVG_20230411T180222Z_20230414T030945Z_L8_30_v1.0_B01_WTR.tif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>OPERA is a single band image with specific classified rgb values.</p>
 <p>This requires to read the single band, then creating a numpy array of the specified rgb values. e.g.&nbsp;‘variable’.colormap</p>
-<div class="cell" data-execution_count="8">
+<div id="cell-18" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> dsw.read(<span class="dv">1</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>dsw2 <span class="op">=</span> color_array[image]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="9">
+<div id="cell-19" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"OPERA DSWx - Lake Powell: 04/11/2023"</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1153,7 +1151,11 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>plt.imshow(dsw2)</span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -1161,12 +1163,12 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <h3 class="anchored" data-anchor-id="mosaic-multiple-opera-layers">Mosaic Multiple OPERA Layers</h3>
 <p>When creating a mosaic, make sure the temporal range is correct/matching. We define the output directory for the mosaic GeoTIFFs below.</p>
 <p>The mosaic is being created because we have 4 results from the bounding box area provided. If you receive more than 1 result and would like to see a single raster image of all the results, mosaicking is the solution.</p>
-<div class="cell" data-execution_count="10">
+<div id="cell-21" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">'data_downloads/mosaic_outputs'</span>).mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="st">'data_downloads/mosaic_outputs'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We define a function to convert files per timestamp to mosaicked geoTIFFs.</p>
-<div class="cell" data-execution_count="11">
+<div id="cell-23" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> raster2mosaic(data_folder, output_path, output_file_name):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    raster_files <span class="op">=</span> <span class="bu">list</span>(data_folder.iterdir())</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    raster_to_mosaic_list <span class="op">=</span> [] <span class="co">#create empty list</span></span>
@@ -1187,7 +1189,7 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rio.<span class="bu">open</span>(os.path.join(output_path, output_file_name), <span class="st">'w'</span>, <span class="op">**</span>output_meta) <span class="im">as</span> m:</span>
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        m.write(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="12">
+<div id="cell-24" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#set data to a list for each of the two data sets</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>folder1 <span class="op">=</span> Path(<span class="st">"data_downloads/OPERA_041123"</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>folder2 <span class="op">=</span> Path(<span class="st">"data_downloads/OPERA_083023"</span>)</span>
@@ -1199,25 +1201,25 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <section id="visualizing-the-mosaic" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-the-mosaic">Visualizing the Mosaic</h3>
 <p>Open the new mosaicked raster images individually with its respective paths.</p>
-<div class="cell" data-execution_count="13">
+<div id="cell-26" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mos1 <span class="op">=</span> rio.<span class="bu">open</span>(os.path.join(output_path, <span class="st">'mosaic_041123.tif'</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mos2 <span class="op">=</span> rio.<span class="bu">open</span>(os.path.join(output_path, <span class="st">'mosaic_083023.tif'</span>))   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To visualize the mosaic, you must utilize the single layer colormap.</p>
 <p>This will be the ‘dsw’ variable used earlier to visualize a single layer. Similarly reading the single band, then creating a numpy array of the specified rgb values. e.g.&nbsp;‘variable’.colormap</p>
-<div class="cell" data-execution_count="14">
+<div id="cell-28" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>image1 <span class="op">=</span> mos1.read(<span class="dv">1</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>dsw3 <span class="op">=</span> color_array[image1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="15">
+<div id="cell-29" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>image2 <span class="op">=</span> mos2.read(<span class="dv">1</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>color_array <span class="op">=</span> np.asarray(</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    [dsw.colormap(<span class="dv">1</span>)[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)], dtype<span class="op">=</span>np.uint8)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>dsw4 <span class="op">=</span> color_array[image2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="16">
+<div id="cell-30" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> <span class="dv">1</span></span>
@@ -1251,13 +1253,17 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area." class="level3">
 <h3 class="anchored" data-anchor-id="to-take-a-closer-look-at-a-specific-area-of-the-image-we-can-create-an-inset-map-of-a-specified-area.">To take a closer look at a specific area of the image, we can create an inset map of a specified area.</h3>
-<div class="cell" data-execution_count="17">
+<div id="cell-32" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].imshow(dsw3)</span>
@@ -1304,7 +1310,11 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -1312,16 +1322,16 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <h3 class="anchored" data-anchor-id="change-detection">Change Detection</h3>
 <p>Further analysis can involve change detection between the two images, if any gains or losses occurred.</p>
 <p>Looking at the difference by subtracting the latest date to the oldest date.</p>
-<div class="cell" data-execution_count="18">
+<div id="cell-34" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>difference <span class="op">=</span> np.<span class="bu">abs</span>(image2 <span class="op">-</span> image1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Utilizing numpy where; by setting the given condition and returning the satisfied conditions. e.g.&nbsp;numpy.where(condition, [x, y, ])</p>
 <p>In this case, any non-zero values indicate the areas of change between the two images.</p>
 <p>Values closest to 1 shows the greatest gains in change and values closest to zero show the least amount of change.</p>
-<div class="cell" data-execution_count="19">
+<div id="cell-36" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>change_map <span class="op">=</span> np.where(difference <span class="op">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="20">
+<div id="cell-37" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>))</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining and zooming into an ROI</span></span>
@@ -1338,11 +1348,16 @@ File OPERA_L3_DSWx-HLS_T12SVF_20230830T180919Z_20230901T101722Z_S2B_30_v1.0_B01_
 <span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-21-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="OPERA_GIS_Notebook_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 
 
+</section>
 </section>
 </section>
 
@@ -1388,6 +1403,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1456,13 +1498,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1541,10 +1585,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1554,8 +1597,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1568,6 +1620,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1611,6 +1782,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1636,6 +1808,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1697,12 +1895,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="pagination-link">
+      <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="pagination-link  aria-label=" cloud"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cloud</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../quarto_text/Sentinel6MF.html" class="pagination-link">
+      <a href="../../quarto_text/Sentinel6MF.html" class="pagination-link" aria-label="Sentinel-6 Michael Freilich">
         <span class="nav-page-text">Sentinel-6 Michael Freilich</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1710,13 +1908,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

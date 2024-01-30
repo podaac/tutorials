@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,11 +111,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -118,12 +152,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Webinars.html">Webinars</a></li><li class="breadcrumb-item"><a href="../external/July_2022_Earthdata_Webinar.html">July 2022 Earthdata Webinar Notebook</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Webinars.html">Webinars</a></li><li class="breadcrumb-item"><a href="../external/July_2022_Earthdata_Webinar.html">July 2022 Earthdata Webinar Notebook</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -133,14 +167,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -309,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+ <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -897,14 +931,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" id="toc-moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" class="nav-link active" data-scroll-target="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud">Moving Code to the Data: Analyzing Sea Level Rise Using Earth Data in the Cloud</a>
+  <li><a href="#earthdata-webinar" id="toc-earthdata-webinar" class="nav-link active" data-scroll-target="#earthdata-webinar">Earthdata Webinar</a></li>
+  <li><a href="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" id="toc-moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" class="nav-link" data-scroll-target="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud">Moving Code to the Data: Analyzing Sea Level Rise Using Earth Data in the Cloud</a>
   <ul class="collapse">
   <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
   <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
@@ -940,7 +975,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -948,7 +983,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Webinars.html">Webinars</a></li><li class="breadcrumb-item"><a href="../external/July_2022_Earthdata_Webinar.html">July 2022 Earthdata Webinar Notebook</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Earthdata Webinar</h1>
 </div>
@@ -963,9 +998,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
-<p>imported on: <strong>2024-01-22</strong></p>
+
+<section id="earthdata-webinar" class="level1">
+<h1>Earthdata Webinar</h1>
+<p>imported on: <strong>2024-01-30</strong></p>
 <p>
 This notebook is from a different repository in NASA’s PO.DAAC, the-coding-club
 </p>
@@ -975,6 +1014,7 @@ This notebook is from a different repository in NASA’s PO.DAAC, the-coding-clu
 <div class="alert alert-block alert-warning">
 <p>Disclaimer: Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or otherwise, does not constitute or imply its endorsement by the United States Government or the Jet Propulsion Laboratory, California Institute of Technology.</p>
 </div>
+</section>
 <section id="moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" class="level1">
 <h1>Moving Code to the Data: Analyzing Sea Level Rise Using Earth Data in the Cloud</h1>
 <blockquote class="blockquote">
@@ -990,7 +1030,7 @@ This notebook is from a different repository in NASA’s PO.DAAC, the-coding-clu
 <p>Ackowledgement: <a href="https://github.com/podaac/the-coding-club">PO.DAAC coding club team</a>, <a href="https://www.openscapes.org">Openscapes</a>, <a href="https://www.earthdata.nasa.gov/eosdis">NASA Earthdata EOSDIS</a></p>
 </blockquote>
 <p>This note book was created for the Earthdata webinar. The webinar recording is available on NASA’s Earthdata youtube channel and embeded below.</p>
-<div class="cell" data-execution_count="27">
+<div id="cell-2" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>html</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>iframe width<span class="op">=</span><span class="st">"560"</span> height<span class="op">=</span><span class="st">"315"</span> src<span class="op">=</span><span class="st">"https://www.youtube.com/embed/4BcoLh8vMG4"</span> title<span class="op">=</span><span class="st">"YouTube video player"</span> frameborder<span class="op">=</span><span class="st">"0"</span> allow<span class="op">=</span><span class="st">"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"</span> allowfullscreen<span class="op">&gt;&lt;/</span>iframe<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1223,7 +1263,7 @@ Detach the screen by pressing CTRL + b -&gt; d.
    - short name: `ECCO_L4_GMSL_TIME_SERIES_MONTHLY_V4R4`
    - [landing page](https://doi.org/10.5067/ECTSM-MSL44)
 
-::: {.cell execution_count=28}
+::: {#cell-10 .cell execution_count=28}
 ``` {.python .cell-code}
 #load python modules
 
@@ -1253,7 +1293,7 @@ short_name='SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812'</code><
 <p>{“accessKeyId”: “xxxx”, “secretAccessKey”: “xxxx”, “sessionToken”: “xxxx”, “expiration”: “2022-07-22 15:56:34+00:00”}</p>
 </blockquote>
 <p>Further reading: https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html</p>
-<div class="cell" data-tags="[]" data-execution_count="29">
+<div id="cell-12" class="cell" data-tags="[]" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_S3FileSystem():</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">    This routine automatically pull your EDL crediential from .netrc file and use it to obtain an AWS S3 credential through a podaac service accessable at https://archive.podaac.earthdata.nasa.gov/s3credentials</span></span>
@@ -1279,7 +1319,7 @@ short_name='SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812'</code><
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">s3://podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Using the following will get a list netcdf filenames:</p>
 <pre><code>fns=s3sys.glob("s3://podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/*.nc")</code></pre>
-<div class="cell" data-execution_count="30">
+<div id="cell-14" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>s3sys<span class="op">=</span>init_S3FileSystem()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>s3path<span class="op">=</span><span class="st">"s3://podaac-ops-cumulus-protected/</span><span class="sc">%s</span><span class="st">/"</span><span class="op">%</span>short_name</span>
@@ -1291,18 +1331,17 @@ short_name='SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812'</code><
 <pre><code>podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/ssh_grids_v1812_1992100212.nc</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="31">
+<div id="cell-15" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'There are </span><span class="sc">%i</span><span class="st"> files.'</span><span class="op">%</span><span class="bu">len</span>(fns))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 1922 files.</code></pre>
 </div>
 </div>
 <p>Here is an example file.</p>
-<div class="cell" data-execution_count="32">
+<div id="cell-17" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span>xr.open_dataset(s3sys.<span class="bu">open</span>(fns[<span class="dv">0</span>]))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1700,7 +1739,7 @@ Attributes: (12/13)
 </div>
 <section id="plot-an-example" class="level3">
 <h3 class="anchored" data-anchor-id="plot-an-example">Plot an example</h3>
-<div class="cell" data-execution_count="33">
+<div id="cell-19" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">7</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.contourf(d[<span class="st">'Longitude'</span>],d[<span class="st">'Latitude'</span>],d[<span class="st">'SLA'</span>][<span class="dv">0</span>,...].T,levels<span class="op">=</span>np.arange(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.6</span>,<span class="fl">0.05</span>))</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
@@ -1710,7 +1749,11 @@ Attributes: (12/13)
 <pre><code>Text(0.5, 1.0, 'Sea Level Anomaly 1992-10-02')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -1720,7 +1763,7 @@ Attributes: (12/13)
 <p>The global mean SSH is calculated as follows.</p>
 <p><span class="math inline">\(SSH_{mean} = \sum \eta(\phi,\lambda)*A(\phi)\)</span>, where <span class="math inline">\(\phi\)</span> is latitude, <span class="math inline">\(\lambda\)</span> is longitude, <span class="math inline">\(A\)</span> is the area of the grid at latitude <span class="math inline">\(\phi\)</span>, and <span class="math inline">\(\eta(\phi,\lambda)*A(\phi)\)</span> is the weighted SLA at <span class="math inline">\((\phi,\lambda)\)</span>.</p>
 <p>The following routine <code>area</code> pre-calculates the area as a function of latitude for the 1/6-degree resolution grids.</p>
-<div class="cell" data-execution_count="34">
+<div id="cell-21" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area(lats):</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculate the area associated with a 1/6 by 1/6 degree box at latitude specified in 'lats'. </span></span>
@@ -1765,12 +1808,12 @@ Attributes: (12/13)
 <span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>        dout<span class="op">=</span>((d<span class="op">*</span>ssh_area).<span class="bu">sum</span>()<span class="op">/</span>(d<span class="op">/</span>d<span class="op">*</span>ssh_area).<span class="bu">sum</span>()).values</span>
 <span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="35">
+<div id="cell-22" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span>xr.open_dataset(s3sys.<span class="bu">open</span>(fns[<span class="dv">0</span>]))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pre-calculate the area for reuse</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ssh_area<span class="op">=</span>area(d.Latitude.data).reshape(<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="36">
+<div id="cell-23" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The global mean sea level from </span><span class="sc">%s</span><span class="st"> is </span><span class="sc">%7.5f</span><span class="st"> meters.'</span><span class="op">%</span>(fns[<span class="dv">0</span>],global_mean(fns[<span class="dv">0</span>],s3sys,ssh_area) ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The global mean sea level from podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/ssh_grids_v1812_1992100212.nc is -0.00632 meters.</code></pre>
@@ -1782,7 +1825,7 @@ Attributes: (12/13)
 <div class="alert alert-block alert-success">
 <p>Benchmark: using a single thread takes about 17 min to calculate all 1922 files. Here the program is sped up by skipping every 360 days (72 steps). The small EC2 can handle the computation because it involves one file per step.</p>
 </div>
-<div class="cell" data-execution_count="37">
+<div id="cell-25" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Loop 26-year 5-daily SSH fields (1922 files)</span></span>
@@ -1798,7 +1841,7 @@ Attributes: (12/13)
 Wall time: 45 s</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="38">
+<div id="cell-26" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> linregress</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">5</span>))</span>
@@ -1821,7 +1864,11 @@ Wall time: 45 s</code></pre>
 <pre><code>The estimated sea level rise rate between 1993 and 2018:   2.5mm/year.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="alert alert-block alert-success">
@@ -1830,7 +1877,7 @@ Wall time: 45 s</code></pre>
 </div>
 <section id="add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl" class="level3">
 <h3 class="anchored" data-anchor-id="add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl">Add the GMSL from Frederikse et al.&nbsp;https://podaac.jpl.nasa.gov/dataset/JPL_RECON_GMSL</h3>
-<div class="cell" data-execution_count="39">
+<div id="cell-29" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> linregress</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">5</span>))</span>
@@ -1883,7 +1930,11 @@ Attributes: (12/42)
     date_modified:             2020-09-14</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="July_2022_Earthdata_Webinar_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="alert alert-block alert-success">
@@ -1906,19 +1957,19 @@ Attributes: (12/42)
 </blockquote>
 <pre class="shell"><code>sudo service httpd start</code></pre>
 <p>Copy and paste the following code to make a webpage <code>index.html</code></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;head&gt;</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;center&gt;</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h1</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:30px"</span><span class="kw">&gt;</span>The global mean sea level <span class="kw">&lt;/h1&gt;</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h2</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:20px"</span><span class="kw">&gt;</span>Hosted on my personal AWS EC2<span class="kw">&lt;/h2&gt;</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">"gmsl.png"</span> <span class="er">alt</span><span class="ot">=</span><span class="st">"Global Mean Sea Level"</span> <span class="er">width</span><span class="ot">=</span><span class="st">"700"</span><span class="kw">&gt;</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h1</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:20px"</span><span class="kw">&gt;</span>Diagnosed from MEaSURES-SSH (red) and JPL_RECON_GMSL (blue)<span class="kw">&lt;/h1&gt;</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h1</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:20px"</span><span class="kw">&gt;</span>Earthdata webinar, 07/27/2022<span class="kw">&lt;/h1&gt;</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;h1</span> <span class="er">style</span><span class="ot">=</span><span class="st">"font-size:20px;color=purple"</span><span class="kw">&gt;</span>Cloud-based analysis is fun!<span class="kw">&lt;/h1&gt;</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://chucktownfloods.cofc.edu/wp-content/uploads/2019/07/Earthdata-Logo.jpg"</span> <span class="er">width</span><span class="ot">=</span><span class="st">"200"</span><span class="kw">&gt;</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/center&gt;</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">center</span><span class="dt">&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>     <span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size:30px"</span><span class="dt">&gt;</span>The global mean sea level <span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>     <span class="dt">&lt;</span><span class="kw">h2</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size:20px"</span><span class="dt">&gt;</span>Hosted on my personal AWS EC2<span class="dt">&lt;/</span><span class="kw">h2</span><span class="dt">&gt;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>     <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"gmsl.png"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Global Mean Sea Level"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"700"</span><span class="dt">&gt;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>     <span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size:20px"</span><span class="dt">&gt;</span>Diagnosed from MEaSURES-SSH (red) and JPL_RECON_GMSL (blue)<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>     <span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size:20px"</span><span class="dt">&gt;</span>Earthdata webinar, 07/27/2022<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>     <span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> style</span><span class="op">=</span><span class="st">"font-size:20px;color=purple"</span><span class="dt">&gt;</span>Cloud-based analysis is fun!<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>     <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"https://chucktownfloods.cofc.edu/wp-content/uploads/2019/07/Earthdata-Logo.jpg"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"200"</span><span class="dt">&gt;</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">center</span><span class="dt">&gt;</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Move <code>index.html</code> to the default location <code>/var/www/html/</code> using &gt;</p>
 <pre class="shell"><code>sudo cp index.html /var/www/html/</code></pre>
 <p>Make sure to use <code>cp</code> not <code>mv</code> to change the ownership to <code>root</code>. Note, it is the default but not the good practice to use root for this. We use it to simplify the tutorial.</p>
@@ -2029,6 +2080,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -2095,13 +2173,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2180,10 +2260,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2193,8 +2272,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2207,6 +2295,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2250,6 +2457,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2275,6 +2483,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2336,12 +2570,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../quarto_text/Webinars.html" class="pagination-link">
+      <a href="../quarto_text/Webinars.html" class="pagination-link  aria-label=" webinars"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Webinars</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../quarto_text/TechGuides.html" class="pagination-link">
+      <a href="../quarto_text/TechGuides.html" class="pagination-link" aria-label="Tech Guides">
         <span class="nav-page-text">Tech Guides</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -2349,13 +2583,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

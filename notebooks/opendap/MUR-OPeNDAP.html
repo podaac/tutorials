@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - OPeNDAP Access</title>
+<title>PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
@@ -116,12 +123,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/GHRSST.html">GHRSST</a></li><li class="breadcrumb-item"><a href="../../notebooks/opendap/MUR-OPeNDAP.html">OPeNDAP Access</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/GHRSST.html">GHRSST</a></li><li class="breadcrumb-item"><a href="../../notebooks/opendap/MUR-OPeNDAP.html">OPeNDAP Access</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -131,14 +138,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -307,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+ <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -895,16 +902,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link active" data-scroll-target="#before-you-start">Before you start</a></li>
+  <li><a href="#opendap-access" id="toc-opendap-access" class="nav-link active" data-scroll-target="#opendap-access">OPeNDAP Access</a>
+  <ul class="collapse">
+  <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link" data-scroll-target="#before-you-start">Before you start</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -912,26 +922,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">OPeNDAP Access</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <blockquote class="blockquote">
 <p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/opendap/MUR-OPeNDAP.ipynb">this link</a>.</p>
 </blockquote>
+<section id="opendap-access" class="level1">
+<h1>OPeNDAP Access</h1>
 <section id="notebook-objectives" class="level4">
 <h4 class="anchored" data-anchor-id="notebook-objectives">Notebook Objectives:</h4>
 <ul>
@@ -939,7 +937,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Obtain OPeNDAP links from CMR search</li>
 <li>Download data from OPeNDAP links and open via xarray to visualize data</li>
 </ul>
-<div class="cell" data-execution_count="1">
+<div id="cell-1" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#https://ghrc.nsstc.nasa.gov/opendap/globalir/data/2020/0525/globir.20146.0000</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> netCDF4 <span class="im">import</span> Dataset</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
@@ -957,7 +955,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Before you beginning this tutorial, make sure you have an account in the Earthdata Login, which is required to access data from the NASA Earthdata system. Please visit https://urs.earthdata.nasa.gov to register for an Earthdata Login account. It is free to create and only takes a moment to set up.</p>
 <p>You will also need a netrc file containing your NASA Earthdata Login credentials in order to execute this notebook. A netrc file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-via-netrc-file">Authentication for NASA Earthdata</a></p>
 <p>In this notebook, we will be calling the authentication in the below cell, a work around if you do not yet have a netrc file.</p>
-<div class="cell" data-execution_count="15">
+<div id="cell-3" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request, parse</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> http.cookiejar <span class="im">import</span> CookieJar</span>
@@ -1005,13 +1003,13 @@ Your credentials will only be passed to urs.earthdata.nasa.gov and will not be e
  ···········</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="6">
+<div id="cell-4" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#CMR Link to use</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C1625128926-GHRC_CLOUD&amp;temporal=2019-01-01T10:00:00Z,2019-12-31T23:59:59Z</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(<span class="st">'https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C1996881146-POCLOUD&amp;temporal=2019-01-01T10:00:00Z,2019-02-01T00:00:00Z&amp;pageSize=365'</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>response_body <span class="op">=</span> r.json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="7">
+<div id="cell-5" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>od_files <span class="op">=</span> []</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> itm <span class="kw">in</span> response_body[<span class="st">'items'</span>]:</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> urls <span class="kw">in</span> itm[<span class="st">'umm'</span>][<span class="st">'RelatedUrls'</span>]:</span>
@@ -1055,13 +1053,13 @@ Your credentials will only be passed to urs.earthdata.nasa.gov and will not be e
  'https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190201090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1']</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="8">
+<div id="cell-6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(od_files)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>32</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="9">
+<div id="cell-7" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> od_files:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> (<span class="st">" opening "</span> <span class="op">+</span> f)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    data_url <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">.dap.nc4'</span></span>
@@ -1125,14 +1123,13 @@ Your credentials will only be passed to urs.earthdata.nasa.gov and will not be e
  opening https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190201090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="10">
+<div id="cell-8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cloud_data <span class="op">=</span> xr.open_mfdataset(<span class="st">'*.dap.nc4'</span>, engine<span class="op">=</span><span class="st">'h5netcdf'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="11">
+<div id="cell-9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cloud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1563,10 +1560,15 @@ Attributes: (12/48)
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjE4NCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIxMjAiIHgyPSIyNCIgeTI9IjEzNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjEwIiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIxMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMTEiIHkxPSIxIiB4Mj0iMTEiIHkyPSIxMjEiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iMTIiIHkyPSIxMjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iMTIiIHkyPSIxMjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSIxMjMiPjwvbGluZT4KICA8bGluZSB4MT0iMTQiIHkxPSI0IiB4Mj0iMTQiIHkyPSIxMjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSIxMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIxMjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSIxMjciPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSIxMjciPjwvbGluZT4KICA8bGluZSB4MT0iMTgiIHkxPSI4IiB4Mj0iMTgiIHkyPSIxMjgiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSI5IiB4Mj0iMTkiIHkyPSIxMjkiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSI5IiB4Mj0iMTkiIHkyPSIxMjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iMTMwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIxIiB5MT0iMTEiIHgyPSIyMSIgeTI9IjEzMSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMiIgeTE9IjEyIiB4Mj0iMjIiIHkyPSIxMzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iMTMzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjI0IiB5MT0iMTQiIHgyPSIyNCIgeTI9IjEzNCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSIxMzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCwxMzQuOTQ4NTk3OTQ5NzU0NCAxMC4wLDEyMC4wIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iMTMyIiB5Mj0iMiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iNyIgeDI9IjEzNyIgeTI9IjciPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSI5IiB4Mj0iMTM5IiB5Mj0iOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMTQwIiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjE0MSIgeTI9IjExIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIyIiB5MT0iMTIiIHgyPSIxNDIiIHkyPSIxMiI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMTQzIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjI0IiB5MT0iMTQiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjI0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMzAiIHkxPSIwIiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMTMwLjAsMC4wIDE0NC45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyAyNC45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxMzQiIHgyPSIxNDQiIHkyPSIxMzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSIxMzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxNDQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjEzNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIyNC45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyAxNDQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTM0Ljk0ODU5Nzk0OTc1NDQgMjQuOTQ4NTk3OTQ5NzU0NCwxMzQuOTQ4NTk3OTQ5NzU0NCIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSI4NC45NDg1OTgiIHk9IjE1NC45NDg1OTgiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj45MDAxPC90ZXh0PgogIDx0ZXh0IHg9IjE2NC45NDg1OTgiIHk9Ijc0Ljk0ODU5OCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxNjQuOTQ4NTk4LDc0Ljk0ODU5OCkiPjkwMDE8L3RleHQ+CiAgPHRleHQgeD0iNy40NzQyOTkiIHk9IjE0Ny40NzQyOTkiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSw3LjQ3NDI5OSwxNDcuNDc0Mjk5KSI+MzI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="184" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="120" x2="24" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="120"></line> <line x1="11" y1="1" x2="11" y2="121"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="13" y1="3" x2="13" y2="123"></line> <line x1="14" y1="4" x2="14" y2="124"></line> <line x1="15" y1="5" x2="15" y2="125"></line> <line x1="16" y1="6" x2="16" y2="126"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="18" y1="8" x2="18" y2="128"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="20" y1="10" x2="20" y2="130"></line> <line x1="21" y1="11" x2="21" y2="131"></line> <line x1="22" y1="12" x2="22" y2="132"></line> <line x1="23" y1="13" x2="23" y2="133"></line> <line x1="24" y1="14" x2="24" y2="134"></line> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,134.9485979497544 10.0,120.0" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="134" x2="144" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,134.9485979497544 24.9485979497544,134.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="154.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">9001</text> <text x="164.948598" y="74.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,74.948598)">9001</text> <text x="7.474299" y="147.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,147.474299)">32</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
+</div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>analysis_error</span>
 </div>
@@ -1579,7 +1581,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 9001, 9001), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-f41d112b-de80-4550-a537-46e61a9952b1" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-f41d112b-de80-4550-a537-46e61a9952b1" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-1ce45776-4cde-44db-859c-b9fc8f51dd50" class="xr-var-data-in" type="checkbox">
+<label for="data-1ce45776-4cde-44db-859c-b9fc8f51dd50" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -1651,17 +1664,19 @@ analysis_error
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjE4NCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIxMjAiIHgyPSIyNCIgeTI9IjEzNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjEwIiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIxMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMTEiIHkxPSIxIiB4Mj0iMTEiIHkyPSIxMjEiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iMTIiIHkyPSIxMjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iMTIiIHkyPSIxMjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSIxMjMiPjwvbGluZT4KICA8bGluZSB4MT0iMTQiIHkxPSI0IiB4Mj0iMTQiIHkyPSIxMjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSIxMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIxMjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSIxMjciPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSIxMjciPjwvbGluZT4KICA8bGluZSB4MT0iMTgiIHkxPSI4IiB4Mj0iMTgiIHkyPSIxMjgiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSI5IiB4Mj0iMTkiIHkyPSIxMjkiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSI5IiB4Mj0iMTkiIHkyPSIxMjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iMTMwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIxIiB5MT0iMTEiIHgyPSIyMSIgeTI9IjEzMSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMiIgeTE9IjEyIiB4Mj0iMjIiIHkyPSIxMzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iMTMzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjI0IiB5MT0iMTQiIHgyPSIyNCIgeTI9IjEzNCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSIxMzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCwxMzQuOTQ4NTk3OTQ5NzU0NCAxMC4wLDEyMC4wIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iMTMyIiB5Mj0iMiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iNyIgeDI9IjEzNyIgeTI9IjciPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSI5IiB4Mj0iMTM5IiB5Mj0iOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMTQwIiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjE0MSIgeTI9IjExIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIyIiB5MT0iMTIiIHgyPSIxNDIiIHkyPSIxMiI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMTQzIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjI0IiB5MT0iMTQiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjI0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMzAiIHkxPSIwIiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMTMwLjAsMC4wIDE0NC45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyAyNC45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxMzQiIHgyPSIxNDQiIHkyPSIxMzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSIxMzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxNDQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjEzNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIyNC45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyAxNDQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTM0Ljk0ODU5Nzk0OTc1NDQgMjQuOTQ4NTk3OTQ5NzU0NCwxMzQuOTQ4NTk3OTQ5NzU0NCIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSI4NC45NDg1OTgiIHk9IjE1NC45NDg1OTgiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj45MDAxPC90ZXh0PgogIDx0ZXh0IHg9IjE2NC45NDg1OTgiIHk9Ijc0Ljk0ODU5OCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxNjQuOTQ4NTk4LDc0Ljk0ODU5OCkiPjkwMDE8L3RleHQ+CiAgPHRleHQgeD0iNy40NzQyOTkiIHk9IjE0Ny40NzQyOTkiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSw3LjQ3NDI5OSwxNDcuNDc0Mjk5KSI+MzI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="184" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="120" x2="24" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="120"></line> <line x1="11" y1="1" x2="11" y2="121"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="13" y1="3" x2="13" y2="123"></line> <line x1="14" y1="4" x2="14" y2="124"></line> <line x1="15" y1="5" x2="15" y2="125"></line> <line x1="16" y1="6" x2="16" y2="126"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="18" y1="8" x2="18" y2="128"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="20" y1="10" x2="20" y2="130"></line> <line x1="21" y1="11" x2="21" y2="131"></line> <line x1="22" y1="12" x2="22" y2="132"></line> <line x1="23" y1="13" x2="23" y2="133"></line> <line x1="24" y1="14" x2="24" y2="134"></line> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,134.9485979497544 10.0,120.0" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="134" x2="144" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,134.9485979497544 24.9485979497544,134.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="154.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">9001</text> <text x="164.948598" y="74.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,74.948598)">9001</text> <text x="7.474299" y="147.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,147.474299)">32</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-5ec32455-3d6e-45e4-92d9-fe318cf5ff3f" class="xr-section-summary-in" type="checkbox"><label for="section-5ec32455-3d6e-45e4-92d9-fe318cf5ff3f" class="xr-section-summary">Attributes: <span>(48)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.5</dd><dt><span>title :</span></dt><dd>Daily MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>references :</span></dt><dd>http://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.
+</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-5ec32455-3d6e-45e4-92d9-fe318cf5ff3f" class="xr-section-summary-in" type="checkbox"><label for="section-5ec32455-3d6e-45e4-92d9-fe318cf5ff3f" class="xr-section-summary">Attributes: <span>(48)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.5</dd><dt><span>title :</span></dt><dd>Daily MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>references :</span></dt><dd>http://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.
 2022-11-07 18:15:24 GMT hyrax-1.16.8-94 https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.dap.nc4?dap4.ce=lat%5B000%3A1%3A9000%5D%3Banalysed_sst%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Banalysis_error%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Btime%5B0%3A1%3A0%5D%3Blon%5B000%3A1%3A9000%5D
-</dd><dt><span>comment :</span></dt><dd>MUR = \"Multi-scale Ultra-high Reolution\"</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR-JPL-L4-GLOB-v04.1</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>product_version :</span></dt><dd>04.1</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>4.1</dd><dt><span>date_created :</span></dt><dd>20190110T004403Z</dd><dt><span>start_time :</span></dt><dd>20190101T090000Z</dd><dt><span>stop_time :</span></dt><dd>20190101T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20181231T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20190101T210000Z</dd><dt><span>file_quality_level :</span></dt><dd>3</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Terra, Aqua, GCOM-W, NOAA-19, MetOp-A, Buoys/Ships</dd><dt><span>sensor :</span></dt><dd>MODIS, AMSR2, AVHRR, in-situ</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Observation Dataset v1.0</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR-JPL-L4-GLOB-v04.1</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>southernmost_latitude :</span></dt><dd>[-90.]</dd><dt><span>northernmost_latitude :</span></dt><dd>[90.]</dd><dt><span>westernmost_longitude :</span></dt><dd>[-180.]</dd><dt><span>easternmost_longitude :</span></dt><dd>[180.]</dd><dt><span>spatial_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs program.</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>project :</span></dt><dd>NASA Making Earth Science Data Records for Use in Research Environments (MEaSUREs) Program</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>http://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>ghrsst-po@nceo.ac.uk</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>history_json :</span></dt><dd>[{"$schema":"https:\/\/harmony.earthdata.nasa.gov\/schemas\/history\/0.1.0\/history-0.1.0.json","date_time":"2022-11-07T18:15:24.699+0000","program":"hyrax","version":"1.16.8-94","parameters":[{"request_url":"https:\/\/opendap.earthdata.nasa.gov\/providers\/POCLOUD\/collections\/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)\/granules\/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.dap.nc4?dap4.ce=lat%5B000%3A1%3A9000%5D%3Banalysed_sst%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Banalysis_error%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Btime%5B0%3A1%3A0%5D%3Blon%5B000%3A1%3A9000%5D"},{"decoded_constraint":"dap4.ce=lat[000:1:9000];analysed_sst[0:1:0][000:1:9000][000:1:9000];analysis_error[0:1:0][000:1:9000][000:1:9000];time[0:1:0];lon[000:1:9000]"}]}]</dd></dl></div></li></ul></div></div>
+</dd><dt><span>comment :</span></dt><dd>MUR = \"Multi-scale Ultra-high Reolution\"</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR-JPL-L4-GLOB-v04.1</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>product_version :</span></dt><dd>04.1</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>4.1</dd><dt><span>date_created :</span></dt><dd>20190110T004403Z</dd><dt><span>start_time :</span></dt><dd>20190101T090000Z</dd><dt><span>stop_time :</span></dt><dd>20190101T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20181231T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20190101T210000Z</dd><dt><span>file_quality_level :</span></dt><dd>3</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Terra, Aqua, GCOM-W, NOAA-19, MetOp-A, Buoys/Ships</dd><dt><span>sensor :</span></dt><dd>MODIS, AMSR2, AVHRR, in-situ</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Observation Dataset v1.0</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR-JPL-L4-GLOB-v04.1</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>southernmost_latitude :</span></dt><dd>[-90.]</dd><dt><span>northernmost_latitude :</span></dt><dd>[90.]</dd><dt><span>westernmost_longitude :</span></dt><dd>[-180.]</dd><dt><span>easternmost_longitude :</span></dt><dd>[180.]</dd><dt><span>spatial_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs program.</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>project :</span></dt><dd>NASA Making Earth Science Data Records for Use in Research Environments (MEaSUREs) Program</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>http://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>ghrsst-po@nceo.ac.uk</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>history_json :</span></dt><dd>[{"$schema":"https:\/\/harmony.earthdata.nasa.gov\/schemas\/history\/0.1.0\/history-0.1.0.json","date_time":"2022-11-07T18:15:24.699+0000","program":"hyrax","version":"1.16.8-94","parameters":[{"request_url":"https:\/\/opendap.earthdata.nasa.gov\/providers\/POCLOUD\/collections\/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)\/granules\/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.dap.nc4?dap4.ce=lat%5B000%3A1%3A9000%5D%3Banalysed_sst%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Banalysis_error%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Btime%5B0%3A1%3A0%5D%3Blon%5B000%3A1%3A9000%5D"},{"decoded_constraint":"dap4.ce=lat[000:1:9000];analysed_sst[0:1:0][000:1:9000][000:1:9000];analysis_error[0:1:0][000:1:9000][000:1:9000];time[0:1:0];lon[000:1:9000]"}]}]</dd></dl></div></li></div></div>
 </div>
-</div>
-<div class="cell" data-execution_count="12">
+</section></section></main></div>
+<div id="cell-10" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Histogram</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1677,37 +1692,47 @@ analysis_error
  &lt;BarContainer object of 10 artists&gt;)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="MUR-OPeNDAP_files/figure-html/cell-10-output-3.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="MUR-OPeNDAP_files/figure-html/cell-10-output-3.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="13">
+</div>
+<div id="cell-11" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose one time segment, plot the data</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].isel(time<span class="op">=</span><span class="dv">4</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[########################################] | 100% Completed |  1.8s</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>&lt;matplotlib.collections.QuadMesh at 0x1ede51eca30&gt;</code></pre>
-</div>
 <div class="cell-output cell-output-display">
-<p><img src="MUR-OPeNDAP_files/figure-html/cell-11-output-3.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="MUR-OPeNDAP_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot a single point over time</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].isel(lat<span class="op">=</span><span class="dv">7000</span>, lon<span class="op">=</span><span class="dv">7000</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-12" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot a single point over time</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].isel(lat<span class="op">=</span><span class="dv">7000</span>, lon<span class="op">=</span><span class="dv">7000</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[########################################] | 100% Completed |  0.3s</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="MUR-OPeNDAP_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="MUR-OPeNDAP_files/figure-html/cell-12-output-2.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
+</div>
 
 
-</section>
 
-</main> <!-- /main -->
+
+
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1749,6 +1774,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1817,13 +1869,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1902,10 +1956,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1915,8 +1968,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1929,6 +1991,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1972,6 +2153,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1997,6 +2179,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2058,26 +2266,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../notebooks/GIS/MUR_SSTA_QGIS.html" class="pagination-link">
+      <a href="../../notebooks/GIS/MUR_SSTA_QGIS.html" class="pagination-link  aria-label=" in="" qgis"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">In QGIS</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="pagination-link">
+      <a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="pagination-link" aria-label="In-Cloud Access">
         <span class="nav-page-text">In-Cloud Access</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

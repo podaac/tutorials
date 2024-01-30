@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - MUR Sea Surface Temperature Analysis of Washington State</title>
+<title>PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
@@ -117,12 +124,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/GHRSST.html">GHRSST</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html">In-Cloud Access</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/GHRSST.html">GHRSST</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html">In-Cloud Access</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -132,14 +139,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -308,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+ <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -896,20 +903,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#requirement" id="toc-requirement" class="nav-link active" data-scroll-target="#requirement">Requirement:</a></li>
+  <li><a href="#mur-sea-surface-temperature-analysis-of-washington-state" id="toc-mur-sea-surface-temperature-analysis-of-washington-state" class="nav-link active" data-scroll-target="#mur-sea-surface-temperature-analysis-of-washington-state">MUR Sea Surface Temperature Analysis of Washington State</a>
+  <ul class="collapse">
+  <li><a href="#requirement" id="toc-requirement" class="nav-link" data-scroll-target="#requirement">Requirement:</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives:</a></li>
   <li><a href="#ghrsst-level-4-mur-global-foundation-sea-surface-temperature-analysis-v4.1-dataset" id="toc-ghrsst-level-4-mur-global-foundation-sea-surface-temperature-analysis-v4.1-dataset" class="nav-link" data-scroll-target="#ghrsst-level-4-mur-global-foundation-sea-surface-temperature-analysis-v4.1-dataset">GHRSST Level 4 MUR Global Foundation Sea Surface Temperature Analysis (v4.1) Dataset:</a></li>
   <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import Packages</a></li>
   <li><a href="#access-and-visualize-data" id="toc-access-and-visualize-data" class="nav-link" data-scroll-target="#access-and-visualize-data">Access and Visualize Data</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -917,26 +927,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">MUR Sea Surface Temperature Analysis of Washington State</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <blockquote class="blockquote">
 <p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/datasets/MUR_SST_Washington_Comparison.ipynb">this link</a>.</p>
 </blockquote>
+<section id="mur-sea-surface-temperature-analysis-of-washington-state" class="level1">
+<h1>MUR Sea Surface Temperature Analysis of Washington State</h1>
 <section id="requirement" class="level3">
 <h3 class="anchored" data-anchor-id="requirement">Requirement:</h3>
 <ol type="1">
@@ -968,7 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-packages" class="level3">
 <h3 class="anchored" data-anchor-id="import-packages">Import Packages</h3>
-<div class="cell" data-tags="[]" data-execution_count="1">
+<div id="395dd504-f923-4fad-8327-11ff43ce5e89" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5netcdf</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -979,7 +977,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> earthaccess <span class="im">import</span> Auth, DataCollections, DataGranules, Store</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-
 <script type="application/javascript">
 (function(root) {
   function now() {
@@ -2897,20 +2894,20 @@ if (window.Jupyter !== undefined) {
 </div>
 </div>
 <p>In this notebook, we will be calling the authentication in the below cell.</p>
-<div class="cell" data-tags="[]">
+<div id="aaa3534a-2081-42dd-a272-e42deaf8bc92" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="access-and-visualize-data" class="level3">
 <h3 class="anchored" data-anchor-id="access-and-visualize-data">Access and Visualize Data</h3>
 <p>Let’s look at the Sea Surface Temperature of first summer we have data for (2012) using <code>earthaccess</code></p>
-<div class="cell" data-tags="[]" data-execution_count="3">
+<div id="42c9ed33-d07b-4416-a920-1b4437d6080a" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mur_results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'MUR-JPL-L4-GLOB-v4.1'</span>, temporal <span class="op">=</span> (<span class="st">'2012-05-21'</span>, <span class="st">'2012-08-20'</span>), bounding_box <span class="op">=</span> (<span class="st">'-125.41992'</span>,<span class="st">'45.61181'</span>,<span class="st">'-116.64844'</span>,<span class="st">'49.2315'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Granules found: 92</code></pre>
 </div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="4">
+<div id="93645bc2-6e6c-494b-947f-4e21cf6bdd5a" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ds_mur <span class="op">=</span> xr.open_mfdataset(earthaccess.<span class="bu">open</span>(mur_results), engine <span class="op">=</span> <span class="st">'h5netcdf'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ds_mur</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2932,7 +2929,6 @@ if (window.Jupyter !== undefined) {
 </script>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="4">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -3404,10 +3400,15 @@ Attributes: (12/47)
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
+</div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>analysis_error</span>
 </div>
@@ -3420,7 +3421,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 17999, 36000), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-b08e796a-296c-469a-b406-f42fe5de5553" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-b08e796a-296c-469a-b406-f42fe5de5553" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-e4852a51-f183-4bd4-aba0-507506a2ce8c" class="xr-var-data-in" type="checkbox">
+<label for="data-e4852a51-f183-4bd4-aba0-507506a2ce8c" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -3482,11 +3494,15 @@ none
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>mask</span>
 </div>
@@ -3499,7 +3515,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 17999, 36000), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-9ea205bb-aa90-4535-ac3f-34e502ee7f35" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-9ea205bb-aa90-4535-ac3f-34e502ee7f35" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-0fa7dd94-1ca2-438c-b2b4-2842ebabd4cd" class="xr-var-data-in" type="checkbox">
+<label for="data-0fa7dd94-1ca2-438c-b2b4-2842ebabd4cd" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -3573,11 +3600,15 @@ GMT "grdlandmask", ice flag from sea_ice_fraction data
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>sea_ice_fraction</span>
 </div>
@@ -3590,7 +3621,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 17999, 36000), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-d727fc0e-a9e9-4868-a49f-1965a669227d" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-d727fc0e-a9e9-4868-a49f-1965a669227d" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-379b500c-e215-43a7-b241-495438e8188f" class="xr-var-data-in" type="checkbox">
+<label for="data-379b500c-e215-43a7-b241-495438e8188f" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -3660,12 +3702,14 @@ ice data interpolated by a nearest neighbor approach.
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-fe0f22d4-d351-469d-b0be-5c1cdd950bce" class="xr-section-summary-in" type="checkbox"><label for="section-fe0f22d4-d351-469d-b0be-5c1cdd950bce" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-07b3f341-37b3-4ef8-b017-616d47ed903e" class="xr-index-data-in" type="checkbox"><label for="index-07b3f341-37b3-4ef8-b017-616d47ed903e" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2012-05-21 09:00:00', '2012-05-22 09:00:00',
+</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-fe0f22d4-d351-469d-b0be-5c1cdd950bce" class="xr-section-summary-in" type="checkbox"><label for="section-fe0f22d4-d351-469d-b0be-5c1cdd950bce" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-07b3f341-37b3-4ef8-b017-616d47ed903e" class="xr-index-data-in" type="checkbox"><label for="index-07b3f341-37b3-4ef8-b017-616d47ed903e" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2012-05-21 09:00:00', '2012-05-22 09:00:00',
                '2012-05-23 09:00:00', '2012-05-24 09:00:00',
                '2012-05-25 09:00:00', '2012-05-26 09:00:00',
                '2012-05-27 09:00:00', '2012-05-28 09:00:00',
@@ -3729,10 +3773,10 @@ ice data interpolated by a nearest neighbor approach.
         179.94000244140625,   179.9499969482422,   179.9600067138672,
         179.97000122070312,  179.97999572753906,  179.99000549316406,
                      180.0],
-      dtype='float32', name='lon', length=36000))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-bcaa9276-0780-449c-887d-56722985def0" class="xr-section-summary-in" type="checkbox"><label for="section-bcaa9276-0780-449c-887d-56722985def0" class="xr-section-summary">Attributes: <span>(47)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.5</dd><dt><span>title :</span></dt><dd>Daily MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>references :</span></dt><dd>http://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.</dd><dt><span>comment :</span></dt><dd>MUR = "Multi-scale Ultra-high Reolution"</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR-JPL-L4-GLOB-v04.1</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>product_version :</span></dt><dd>04.1</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>4.1</dd><dt><span>date_created :</span></dt><dd>20150711T060041Z</dd><dt><span>start_time :</span></dt><dd>20120521T090000Z</dd><dt><span>stop_time :</span></dt><dd>20120521T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20120520T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20120521T210000Z</dd><dt><span>file_quality_level :</span></dt><dd>1</dd><dt><span>source :</span></dt><dd>AVHRR18_G-NAVO, AVHRR19_G-NAVO, AVHRR_METOP_A-EUMETSAT, MODIS_A-JPL, MODIS_T-JPL, WSAT-REMSS, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Aqua, DMSP, NOAA-POES, Suomi-NPP, Terra</dd><dt><span>sensor :</span></dt><dd>AMSR-E, AVHRR, MODIS, SSM/I, VIIRS, in-situ</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Observation Dataset v1.0</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR-JPL-L4-GLOB-v04.1</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>southernmost_latitude :</span></dt><dd>-90.0</dd><dt><span>northernmost_latitude :</span></dt><dd>90.0</dd><dt><span>westernmost_longitude :</span></dt><dd>-180.0</dd><dt><span>easternmost_longitude :</span></dt><dd>180.0</dd><dt><span>spatial_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs program.</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>project :</span></dt><dd>NASA Making Earth Science Data Records for Use in Research Environments (MEaSUREs) Program</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>http://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>ghrsst-po@nceo.ac.uk</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd></dl></div></li></ul></div></div>
+      dtype='float32', name='lon', length=36000))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-bcaa9276-0780-449c-887d-56722985def0" class="xr-section-summary-in" type="checkbox"><label for="section-bcaa9276-0780-449c-887d-56722985def0" class="xr-section-summary">Attributes: <span>(47)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.5</dd><dt><span>title :</span></dt><dd>Daily MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>references :</span></dt><dd>http://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.</dd><dt><span>comment :</span></dt><dd>MUR = "Multi-scale Ultra-high Reolution"</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR-JPL-L4-GLOB-v04.1</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>product_version :</span></dt><dd>04.1</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>4.1</dd><dt><span>date_created :</span></dt><dd>20150711T060041Z</dd><dt><span>start_time :</span></dt><dd>20120521T090000Z</dd><dt><span>stop_time :</span></dt><dd>20120521T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20120520T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20120521T210000Z</dd><dt><span>file_quality_level :</span></dt><dd>1</dd><dt><span>source :</span></dt><dd>AVHRR18_G-NAVO, AVHRR19_G-NAVO, AVHRR_METOP_A-EUMETSAT, MODIS_A-JPL, MODIS_T-JPL, WSAT-REMSS, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Aqua, DMSP, NOAA-POES, Suomi-NPP, Terra</dd><dt><span>sensor :</span></dt><dd>AMSR-E, AVHRR, MODIS, SSM/I, VIIRS, in-situ</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Observation Dataset v1.0</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR-JPL-L4-GLOB-v04.1</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>southernmost_latitude :</span></dt><dd>-90.0</dd><dt><span>northernmost_latitude :</span></dt><dd>90.0</dd><dt><span>westernmost_longitude :</span></dt><dd>-180.0</dd><dt><span>easternmost_longitude :</span></dt><dd>180.0</dd><dt><span>spatial_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs program.</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>project :</span></dt><dd>NASA Making Earth Science Data Records for Use in Research Environments (MEaSUREs) Program</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>http://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>ghrsst-po@nceo.ac.uk</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd></dl></div></li></div></div>
 </div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="5">
+</section></section></main></div>
+<div id="821aa344-7f47-4d1d-9b1e-dfb330d616ab" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we want the sea surface temperature variable for this visualization</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> ds_mur[<span class="st">'analysed_sst'</span>]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3743,11 +3787,11 @@ ice data interpolated by a nearest neighbor approach.
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>ds_subset <span class="op">=</span> ds_subset.sel(lat<span class="op">=</span>lat_range, lon<span class="op">=</span>lon_range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To plot the data, we will be looking at the mean temperature across the summer.</p>
-<div class="cell" data-tags="[]" data-execution_count="6">
+<div id="977a080e-9001-43e9-8eaf-b1c4a869c3b4" class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean across the time dimension</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mean_data <span class="op">=</span> ds_subset.mean(dim<span class="op">=</span><span class="st">'time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="7">
+<div id="027a8118-3fc5-4c0f-8303-4a5cb5f3f200" class="cell" data-tags="[]" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot the figure</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
@@ -3766,17 +3810,21 @@ ice data interpolated by a nearest neighbor approach.
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Let’s also look at the most recent summer we have data for (2022) in comparison.</p>
-<div class="cell" data-tags="[]" data-execution_count="8">
+<div id="4e3bc0d0-de14-4a44-97e8-6a2c7e675f34" class="cell" data-tags="[]" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mur_results_2 <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'MUR-JPL-L4-GLOB-v4.1'</span>, temporal <span class="op">=</span> (<span class="st">'2022-05-21'</span>, <span class="st">'2022-08-20'</span>), bounding_box <span class="op">=</span> (<span class="st">'-125.41992'</span>,<span class="st">'45.61181'</span>,<span class="st">'-116.64844'</span>,<span class="st">'49.2315'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Granules found: 92</code></pre>
 </div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="9">
+<div id="d19ec0b0-5426-45e7-abeb-f002b2368a12" class="cell" data-tags="[]" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ds_mur_2 <span class="op">=</span> xr.open_mfdataset(earthaccess.<span class="bu">open</span>(mur_results_2), engine <span class="op">=</span> <span class="st">'h5netcdf'</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ds_mur_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -3798,7 +3846,6 @@ ice data interpolated by a nearest neighbor approach.
 </script>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -4272,10 +4319,15 @@ Attributes: (12/47)
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
+</div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>analysis_error</span>
 </div>
@@ -4288,7 +4340,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 17999, 36000), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-3c568fed-93e2-4573-872d-0eea33bb4845" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-3c568fed-93e2-4573-872d-0eea33bb4845" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-b9b2d8d8-54be-4049-9f27-5239bacefc30" class="xr-var-data-in" type="checkbox">
+<label for="data-b9b2d8d8-54be-4049-9f27-5239bacefc30" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -4350,11 +4413,15 @@ uncertainty in "analysed_sst"
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>mask</span>
 </div>
@@ -4367,7 +4434,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 17999, 36000), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-023f124f-9a81-47f4-894c-51acfd3bf10f" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-023f124f-9a81-47f4-894c-51acfd3bf10f" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-205f62eb-8b9f-4fc4-9885-97568b7335ff" class="xr-var-data-in" type="checkbox">
+<label for="data-205f62eb-8b9f-4fc4-9885-97568b7335ff" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -4437,11 +4515,15 @@ GMT "grdlandmask", ice flag from sea_ice_fraction data
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>sea_ice_fraction</span>
 </div>
@@ -4454,7 +4536,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 17999, 36000), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-28b61e32-6888-4069-b88e-2c972296a4fe" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-28b61e32-6888-4069-b88e-2c972296a4fe" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-4fb975a2-e3ce-4dff-9684-6db59d92d491" class="xr-var-data-in" type="checkbox">
+<label for="data-4fb975a2-e3ce-4dff-9684-6db59d92d491" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -4520,11 +4613,15 @@ ice fraction is a dimensionless quantity between 0 and 1; it has been interpolat
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>dt_1km_data</span>
 </div>
@@ -4537,7 +4634,18 @@ timedelta64[ns]
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 17999, 36000), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-d754eef0-6a57-47eb-bdfc-0a7d960c3944" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-d754eef0-6a57-47eb-bdfc-0a7d960c3944" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-284c5ea8-fe91-4f95-94f1-a7f76e98e034" class="xr-var-data-in" type="checkbox">
+<label for="data-284c5ea8-fe91-4f95-94f1-a7f76e98e034" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -4599,11 +4707,15 @@ The grid value is hours between the analysis time and the most recent MODIS or V
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>sst_anomaly</span>
 </div>
@@ -4616,7 +4728,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(1, 17999, 36000), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-d67433f6-8c18-4795-8b2b-8c808b20df0d" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-d67433f6-8c18-4795-8b2b-8c808b20df0d" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-523b894a-38ee-43e0-8be7-eb96cfd5cd3e" class="xr-var-data-in" type="checkbox">
+<label for="data-523b894a-38ee-43e0-8be7-eb96cfd5cd3e" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -4678,12 +4801,14 @@ anomaly reference to the day-of-year average between 2003 and 2014
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIyNCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSI1OSIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjU5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMSIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEyIiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSI2MyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMyIgeTI9IjYzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjE0IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjY2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjE2IiB5Mj0iNjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTciIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxOCIgeTI9IjY4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjE5IiB5Mj0iNjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjIwIiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjEiIHkxPSIxMSIgeDI9IjIxIiB5Mj0iNzEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iNzIiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjIzIiB5Mj0iNzMiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjI0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQuOTQ4NTk3OTQ5NzU0NCw3NC45NDUyNjQ2MTY0MjEwNyAxMC4wLDU5Ljk5NjY2NjY2NjY2NjY3IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMzAiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTMwIiB5Mj0iMCI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjEiIHgyPSIxMzEiIHkyPSIxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyIiB5MT0iMiIgeDI9IjEzMiIgeTI9IjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMzIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjMiIHgyPSIxMzMiIHkyPSIzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNCIgeDI9IjEzNCIgeTI9IjQiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSI1IiB4Mj0iMTM1IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxMzYiIHkyPSI2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iNiIgeDI9IjEzNiIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSI3IiB4Mj0iMTM3IiB5Mj0iNyI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSIxMzgiIHkyPSI4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iOSIgeDI9IjEzOSIgeTI9IjkiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjE0MCIgeTI9IjEwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIxNDAiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjExIiB4Mj0iMTQxIiB5Mj0iMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIxMiIgeDI9IjE0MiIgeTI9IjEyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIxNDMiIHkyPSIxMyI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjE0NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMjQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCAxMzAuMCwwLjAgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9Ijc0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE0NCIgeTE9IjE0IiB4Mj0iMTQ0IiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMjQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTQ0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE0NC45NDg1OTc5NDk3NTQ0LDc0Ljk0NTI2NDYxNjQyMTA3IDI0Ljk0ODU5Nzk0OTc1NDQsNzQuOTQ1MjY0NjE2NDIxMDciIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iODQuOTQ4NTk4IiB5PSI5NC45NDUyNjUiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwMDwvdGV4dD4KICA8dGV4dCB4PSIxNjQuOTQ4NTk4IiB5PSI0NC45NDY5MzEiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTY0Ljk0ODU5OCw0NC45NDY5MzEpIj4xNzk5OTwvdGV4dD4KICA8dGV4dCB4PSI3LjQ3NDI5OSIgeT0iODcuNDcwOTY2IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsNy40NzQyOTksODcuNDcwOTY2KSI+OTI8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="194" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="59" x2="24" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="59" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="60"></line> <line x1="11" y1="1" x2="11" y2="61"></line> <line x1="12" y1="2" x2="12" y2="62"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="13" y1="3" x2="13" y2="63"></line> <line x1="14" y1="4" x2="14" y2="64"></line> <line x1="15" y1="5" x2="15" y2="65"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="16" y1="6" x2="16" y2="66"></line> <line x1="17" y1="7" x2="17" y2="67"></line> <line x1="18" y1="8" x2="18" y2="68"></line> <line x1="19" y1="9" x2="19" y2="69"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="20" y1="10" x2="20" y2="70"></line> <line x1="21" y1="11" x2="21" y2="71"></line> <line x1="22" y1="12" x2="22" y2="72"></line> <line x1="23" y1="13" x2="23" y2="73"></line> <line x1="24" y1="14" x2="24" y2="74"></line> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,74.94526461642107 10.0,59.99666666666667" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="74" x2="144" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="74" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,74.94526461642107 24.9485979497544,74.94526461642107" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="94.945265" font-size="1.0rem" font-weight="100" text-anchor="middle">36000</text> <text x="164.948598" y="44.946931" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,44.946931)">17999</text> <text x="7.474299" y="87.470966" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,87.470966)">92</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-215439b0-2b8b-4c78-b764-741007594708" class="xr-section-summary-in" type="checkbox"><label for="section-215439b0-2b8b-4c78-b764-741007594708" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-572ea51a-1162-4dbc-a53e-4f3489cb3601" class="xr-index-data-in" type="checkbox"><label for="index-572ea51a-1162-4dbc-a53e-4f3489cb3601" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-05-21 09:00:00', '2022-05-22 09:00:00',
+</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-215439b0-2b8b-4c78-b764-741007594708" class="xr-section-summary-in" type="checkbox"><label for="section-215439b0-2b8b-4c78-b764-741007594708" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-572ea51a-1162-4dbc-a53e-4f3489cb3601" class="xr-index-data-in" type="checkbox"><label for="index-572ea51a-1162-4dbc-a53e-4f3489cb3601" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-05-21 09:00:00', '2022-05-22 09:00:00',
                '2022-05-23 09:00:00', '2022-05-24 09:00:00',
                '2022-05-25 09:00:00', '2022-05-26 09:00:00',
                '2022-05-27 09:00:00', '2022-05-28 09:00:00',
@@ -4747,19 +4872,19 @@ anomaly reference to the day-of-year average between 2003 and 2014
         179.94000244140625,   179.9499969482422,   179.9600067138672,
         179.97000122070312,  179.97999572753906,  179.99000549316406,
                      180.0],
-      dtype='float32', name='lon', length=36000))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c80b2d87-3a6e-4f4e-b312-554ae4f96888" class="xr-section-summary-in" type="checkbox"><label for="section-c80b2d87-3a6e-4f4e-b312-554ae4f96888" class="xr-section-summary">Attributes: <span>(47)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.7</dd><dt><span>title :</span></dt><dd>Daily MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>references :</span></dt><dd>http://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.</dd><dt><span>comment :</span></dt><dd>MUR = "Multi-scale Ultra-high Resolution"</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR-JPL-L4-GLOB-v04.1</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>product_version :</span></dt><dd>04.1</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>4.1</dd><dt><span>date_created :</span></dt><dd>20220530T072023Z</dd><dt><span>start_time :</span></dt><dd>20220521T090000Z</dd><dt><span>stop_time :</span></dt><dd>20220521T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20220520T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20220521T210000Z</dd><dt><span>file_quality_level :</span></dt><dd>3</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRRMTB_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Terra, Aqua, GCOM-W, MetOp-B, Buoys/Ships</dd><dt><span>sensor :</span></dt><dd>MODIS, AMSR2, AVHRR, in-situ</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Observation Dataset v1.0</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR-JPL-L4-GLOB-v04.1</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>southernmost_latitude :</span></dt><dd>-90.0</dd><dt><span>northernmost_latitude :</span></dt><dd>90.0</dd><dt><span>westernmost_longitude :</span></dt><dd>-180.0</dd><dt><span>easternmost_longitude :</span></dt><dd>180.0</dd><dt><span>spatial_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.01</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.01</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs program.</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>project :</span></dt><dd>NASA Making Earth Science Data Records for Use in Research Environments (MEaSUREs) Program</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>http://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>ghrsst-po@nceo.ac.uk</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd></dl></div></li></ul></div></div>
+      dtype='float32', name='lon', length=36000))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c80b2d87-3a6e-4f4e-b312-554ae4f96888" class="xr-section-summary-in" type="checkbox"><label for="section-c80b2d87-3a6e-4f4e-b312-554ae4f96888" class="xr-section-summary">Attributes: <span>(47)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.7</dd><dt><span>title :</span></dt><dd>Daily MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>references :</span></dt><dd>http://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.</dd><dt><span>comment :</span></dt><dd>MUR = "Multi-scale Ultra-high Resolution"</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR-JPL-L4-GLOB-v04.1</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>product_version :</span></dt><dd>04.1</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>4.1</dd><dt><span>date_created :</span></dt><dd>20220530T072023Z</dd><dt><span>start_time :</span></dt><dd>20220521T090000Z</dd><dt><span>stop_time :</span></dt><dd>20220521T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20220520T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20220521T210000Z</dd><dt><span>file_quality_level :</span></dt><dd>3</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRRMTB_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Terra, Aqua, GCOM-W, MetOp-B, Buoys/Ships</dd><dt><span>sensor :</span></dt><dd>MODIS, AMSR2, AVHRR, in-situ</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Observation Dataset v1.0</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR-JPL-L4-GLOB-v04.1</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>southernmost_latitude :</span></dt><dd>-90.0</dd><dt><span>northernmost_latitude :</span></dt><dd>90.0</dd><dt><span>westernmost_longitude :</span></dt><dd>-180.0</dd><dt><span>easternmost_longitude :</span></dt><dd>180.0</dd><dt><span>spatial_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.01</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.01</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs program.</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>project :</span></dt><dd>NASA Making Earth Science Data Records for Use in Research Environments (MEaSUREs) Program</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>http://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>ghrsst-po@nceo.ac.uk</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd></dl></div></li></div></div>
 </div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="10">
+
+<div id="62e90ac6-2df4-4877-961e-3c408752328c" class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ds_2 <span class="op">=</span> ds_mur_2[<span class="st">'analysed_sst'</span>]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ds_subset_2 <span class="op">=</span> ds_2.sel(time<span class="op">=</span><span class="bu">slice</span>(<span class="st">'2022-05-21T09:00:00'</span>, <span class="st">'2022-08-20T09:00:00'</span>))</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ds_subset_2 <span class="op">=</span> ds_subset_2.sel(lat<span class="op">=</span>lat_range, lon<span class="op">=</span>lon_range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="11">
+<div id="3655ca3c-dc68-4769-bc76-378500b3a344" class="cell" data-tags="[]" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mean_data_2 <span class="op">=</span> ds_subset_2.mean(dim<span class="op">=</span><span class="st">'time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="12">
+<div id="99b432c2-7c4d-4167-9e61-de5059bea05d" class="cell" data-tags="[]" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>colorbar_range <span class="op">=</span> (<span class="dv">282</span>, <span class="dv">291</span>)</span>
@@ -4776,15 +4901,19 @@ anomaly reference to the day-of-year average between 2003 and 2014
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Let’s plot the difference between these two summers.</p>
-<div class="cell" data-tags="[]" data-execution_count="13">
+<div id="39ae2d5d-82d4-4b71-b5cf-ab54154c7ae4" class="cell" data-tags="[]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the difference between the two mean datasets</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>data_diff <span class="op">=</span> mean_data_2 <span class="op">-</span> mean_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="14">
+<div id="c2ef7406-26fb-428e-879e-081151e80e09" class="cell" data-tags="[]" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4803,11 +4932,15 @@ anomaly reference to the day-of-year average between 2003 and 2014
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Let’s zoom in on Lake Chelan in central Washington to look at the difference between the averages of the two summers.</p>
-<div class="cell" data-tags="[]" data-execution_count="15">
+<div id="fdf60efc-74b0-4d73-9bd6-c687e96434a5" class="cell" data-tags="[]" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset the data for Lake Chelan in 2012</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ds_subset_3 <span class="op">=</span> ds.sel(time<span class="op">=</span><span class="bu">slice</span>(<span class="st">'2012-05-21T09:00:00'</span>, <span class="st">'2012-08-20T09:00:00'</span>))</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>lat_range_2 <span class="op">=</span> <span class="bu">slice</span>(<span class="fl">47.7926</span>, <span class="fl">48.44274</span>)</span>
@@ -4816,18 +4949,18 @@ anomaly reference to the day-of-year average between 2003 and 2014
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>mean_data_3 <span class="op">=</span> ds_subset_3.mean(dim<span class="op">=</span><span class="st">'time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="16">
+<div id="fa9f97d0-b7c8-49a8-a7d1-fa262e5eeda5" class="cell" data-tags="[]" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset the data for Lake Chelan in 2022</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ds_subset_4 <span class="op">=</span> ds_2.sel(time<span class="op">=</span><span class="bu">slice</span>(<span class="st">'2022-05-21T09:00:00'</span>, <span class="st">'2022-08-20T09:00:00'</span>))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ds_subset_4 <span class="op">=</span> ds_subset_4.sel(lat<span class="op">=</span>lat_range_2, lon<span class="op">=</span>lon_range_2)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>mean_data_4 <span class="op">=</span> ds_subset_4.mean(dim<span class="op">=</span><span class="st">'time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="17">
+<div id="b9b71445-d08a-4702-9fdc-d3534b5a095c" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the difference between the two mean datasets</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data_diff_2 <span class="op">=</span> mean_data_4 <span class="op">-</span> mean_data_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="18">
+<div id="da2260ba-bb46-4ebb-89b0-8c4ed1e83101" class="cell" data-tags="[]" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4845,15 +4978,20 @@ anomaly reference to the day-of-year average between 2003 and 2014
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Please note that the GHRSST dataset is optimized for ocean sea surface temperature, so caution should be exercised when visualizing inland water bodies.</p>
 
 
-</section>
 
-</main> <!-- /main -->
+
+
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -4895,6 +5033,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -4963,13 +5128,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -5048,10 +5215,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -5061,8 +5227,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -5075,6 +5250,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -5118,6 +5412,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -5143,6 +5438,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -5204,26 +5525,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../notebooks/opendap/MUR-OPeNDAP.html" class="pagination-link">
+      <a href="../../notebooks/opendap/MUR-OPeNDAP.html" class="pagination-link  aria-label=" opendap="" access"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">OPeNDAP Access</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../quarto_text/OPERA.html" class="pagination-link">
+      <a href="../../quarto_text/OPERA.html" class="pagination-link" aria-label="OPERA">
         <span class="nav-page-text">OPERA</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

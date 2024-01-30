@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - SWORD River Demo</title>
+<title>PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -80,7 +80,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -89,6 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -101,9 +108,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
         <script type="text/javascript">
         window.PlotlyConfig = {MathJaxConfig: 'local'};
@@ -194,12 +200,12 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">SWORD River Demo</li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -209,14 +215,14 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -385,7 +391,7 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+ <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -973,14 +979,16 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#sword-river-demo" id="toc-sword-river-demo" class="nav-link active" data-scroll-target="#sword-river-demo">SWORD River Demo</a>
+  <ul class="collapse">
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
   <ul class="collapse">
   <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
@@ -998,8 +1006,9 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
   <li><a href="#multiple-river-reaches" id="toc-multiple-river-reaches" class="nav-link" data-scroll-target="#multiple-river-reaches">Multiple River Reaches</a></li>
   <li><a href="#river-nodes-within-a-reach" id="toc-river-nodes-within-a-reach" class="nav-link" data-scroll-target="#river-nodes-within-a-reach">River Nodes within a Reach</a></li>
   </ul></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -1007,26 +1016,14 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">SWORD River Demo</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <blockquote class="blockquote">
 <p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/SWORD_River_Demo.ipynb">this link</a>.</p>
 </blockquote>
+<section id="sword-river-demo" class="level1">
+<h1>SWORD River Demo</h1>
 <section id="authors-alireza-farahmand-cassandra-nickles-po.daac" class="level4">
 <h4 class="anchored" data-anchor-id="authors-alireza-farahmand-cassandra-nickles-po.daac"><em>Authors: Alireza Farahmand, Cassandra Nickles, PO.DAAC</em></h4>
 </section>
@@ -1046,7 +1043,7 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
-<div class="cell" data-tags="[]" data-execution_count="1">
+<div id="cell-2" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pprint</span>
@@ -1059,14 +1056,14 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
 </section>
 <section id="authenticate-earthdata-login-via-earthaccess" class="level3">
 <h3 class="anchored" data-anchor-id="authenticate-earthdata-login-via-earthaccess">Authenticate Earthdata Login via <code>earthaccess</code></h3>
-<div class="cell" data-tags="[]">
+<div id="cell-4" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="define-a-function-to-query-easier" class="level3">
 <h3 class="anchored" data-anchor-id="define-a-function-to-query-easier">Define a Function to Query Easier</h3>
 <p>First, we <strong>define a function to query a single reach, multiple reaches, or river nodes</strong>. This function returns the properties of river reaches including name, length, coordinates as well as individual node properties.</p>
-<div class="cell" data-tags="[]" data-execution_count="3">
+<div id="cell-6" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> response_to_FeatureCollection(response):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    This function will return a geojson.FeatureCollection representation of the features found in the provided response.</span></span>
@@ -1090,7 +1087,7 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
 <section id="plot-a-single-river-reach-from-the-sword-database" class="level2">
 <h2 class="anchored" data-anchor-id="plot-a-single-river-reach-from-the-sword-database">Plot a Single River Reach from the SWORD Database</h2>
 <p>In this section, we query the Feature Translation Service (FTS) SWORD service using a single Reach ID (from <a href="https://www.swordexplorer.com/">SWORD</a>) to give us all of the metadata regarding the particular reach. In this example, we use the river Reach ID <code>13227000061</code>. This ID represents a specific reach along the Kasai River, a tributary of the Congo River in Africa.</p>
-<div class="cell" data-tags="[]" data-execution_count="4">
+<div id="cell-9" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#change the reach ID in the link below for a different location.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>response_reach <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/reach/13227000061"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>featureCollection_reach <span class="op">=</span> response_to_FeatureCollection(response_reach)</span>
@@ -1108,7 +1105,7 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
 </div>
 </div>
 <p>Let’s plot the reach to check the location!</p>
-<div class="cell" data-tags="[]" data-execution_count="5">
+<div id="cell-11" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> go.Figure(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    go.Scattermapbox(),</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    layout <span class="op">=</span> {</span>
@@ -1149,7 +1146,6 @@ e.exports=function(t){return null!=t&&(n(t)||function(t){return"function"==typeo
 <pre><code>20.9611425 -4.6221515</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-
 <div>                            <div id="d9720c78-082f-489f-b295-359ca93c32a8" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("d9720c78-082f-489f-b295-359ca93c32a8")) {                    Plotly.newPlot(                        "d9720c78-082f-489f-b295-359ca93c32a8",                        [{"type":"scattermapbox"}],                        {"mapbox":{"style":"stamen-terrain","zoom":12,"layers":[{"below":"traces","color":"royalblue","line":{"width":5},"source":{"type":"LineString","coordinates":[[20.917191,-4.611049],[20.917461,-4.611103],[20.917731,-4.611157],[20.918002,-4.611212],[20.918272,-4.611266],[20.918543,-4.611266],[20.918813,-4.61132],[20.919084,-4.611375],[20.919354,-4.611429],[20.919625,-4.611483],[20.919895,-4.611538],[20.920166,-4.611538],[20.920436,-4.611592],[20.920707,-4.611646],[20.920977,-4.611755],[20.921248,-4.611863],[20.921518,-4.612026],[20.921788,-4.612135],[20.922059,-4.612298],[20.922329,-4.612406],[20.9226,-4.612569],[20.92287,-4.612678],[20.923141,-4.612786],[20.923411,-4.612895],[20.923682,-4.613004],[20.923952,-4.613058],[20.924223,-4.613166],[20.924493,-4.613275],[20.924763,-4.613329],[20.925034,-4.613438],[20.925304,-4.613547],[20.925575,-4.613601],[20.925845,-4.613709],[20.926116,-4.613818],[20.926386,-4.613872],[20.926657,-4.613927],[20.926927,-4.614035],[20.927198,-4.61409],[20.927468,-4.614144],[20.927739,-4.614198],[20.928009,-4.614307],[20.92828,-4.614361],[20.92855,-4.614415],[20.92882,-4.61447],[20.929091,-4.614578],[20.929361,-4.614633],[20.929632,-4.614687],[20.929902,-4.614741],[20.930173,-4.61485],[20.930443,-4.614904],[20.930714,-4.614958],[20.930984,-4.615013],[20.931255,-4.615121],[20.931525,-4.615176],[20.931796,-4.61523],[20.932066,-4.615284],[20.932337,-4.615339],[20.932607,-4.615339],[20.932877,-4.615339],[20.933148,-4.615393],[20.933418,-4.615447],[20.933689,-4.615501],[20.933959,-4.615556],[20.93423,-4.61561],[20.9345,-4.61561],[20.934771,-4.615664],[20.935041,-4.615719],[20.935312,-4.615773],[20.935582,-4.615827],[20.935853,-4.615882],[20.936123,-4.615882],[20.936394,-4.615882],[20.936664,-4.615882],[20.936935,-4.615882],[20.937205,-4.615882],[20.937475,-4.615882],[20.937746,-4.615882],[20.938016,-4.615882],[20.938287,-4.615882],[20.938557,-4.615882],[20.938828,-4.615882],[20.939098,-4.615882],[20.939369,-4.615882],[20.939639,-4.615882],[20.93991,-4.615882],[20.94018,-4.615936],[20.940451,-4.615991],[20.940721,-4.616045],[20.940992,-4.616099],[20.941262,-4.616208],[20.941533,-4.616262],[20.941803,-4.616316],[20.942073,-4.616425],[20.942344,-4.616588],[20.942614,-4.616696],[20.942885,-4.616859],[20.943155,-4.617076],[20.943426,-4.617239],[20.943696,-4.617402],[20.943967,-4.617619],[20.944237,-4.617782],[20.944508,-4.617945],[20.944778,-4.618162],[20.945049,-4.618379],[20.945319,-4.618596],[20.945589,-4.618868],[20.94586,-4.619085],[20.94613,-4.619248],[20.946401,-4.619356],[20.946671,-4.619411],[20.946942,-4.619465],[20.947212,-4.619519],[20.947483,-4.619574],[20.947753,-4.619628],[20.948024,-4.619682],[20.948294,-4.619682],[20.948565,-4.619628],[20.948835,-4.619574],[20.949106,-4.619465],[20.949376,-4.619357],[20.949647,-4.619248],[20.949917,-4.61914],[20.950188,-4.619031],[20.950458,-4.618923],[20.950728,-4.618814],[20.950999,-4.618651],[20.951269,-4.618543],[20.95154,-4.618434],[20.95181,-4.61838],[20.952081,-4.618271],[20.952351,-4.618217],[20.952622,-4.618163],[20.952892,-4.618108],[20.953163,-4.618],[20.953433,-4.617946],[20.953704,-4.617891],[20.953974,-4.617837],[20.954245,-4.617783],[20.954515,-4.617783],[20.954786,-4.617783],[20.955056,-4.617783],[20.955327,-4.617729],[20.955597,-4.617674],[20.955868,-4.61762],[20.956138,-4.617566],[20.956409,-4.617512],[20.956679,-4.617512],[20.956949,-4.617512],[20.95722,-4.617512],[20.95749,-4.617457],[20.957761,-4.617403],[20.958031,-4.617349],[20.958302,-4.617295],[20.958572,-4.617295],[20.958843,-4.617349],[20.959113,-4.617403],[20.959384,-4.617458],[20.959654,-4.617512],[20.959925,-4.617512],[20.960195,-4.617512],[20.960466,-4.617512],[20.960736,-4.617512],[20.961007,-4.617512],[20.961277,-4.617512],[20.961548,-4.617512],[20.961818,-4.617566],[20.962088,-4.61762],[20.962359,-4.617675],[20.962629,-4.617729],[20.9629,-4.617783],[20.96317,-4.617783],[20.963441,-4.617783],[20.963711,-4.617783],[20.963982,-4.617783],[20.964252,-4.617783],[20.964523,-4.617783],[20.964793,-4.617783],[20.965064,-4.617783],[20.965334,-4.617783],[20.965605,-4.617784],[20.965875,-4.617784],[20.966146,-4.617784],[20.966416,-4.617784],[20.966687,-4.617784],[20.966957,-4.617784],[20.967228,-4.617784],[20.967498,-4.617784],[20.967768,-4.617784],[20.968039,-4.617784],[20.968309,-4.617784],[20.96858,-4.617729],[20.96885,-4.617675],[20.969121,-4.617621],[20.969391,-4.617512],[20.969662,-4.617404],[20.969932,-4.617349],[20.970203,-4.617295],[20.970473,-4.617241],[20.970744,-4.617241],[20.971014,-4.617241],[20.971285,-4.617187],[20.971555,-4.617187],[20.971826,-4.617187],[20.972096,-4.617187],[20.972367,-4.617187],[20.972637,-4.617241],[20.972907,-4.617241],[20.973178,-4.617241],[20.973448,-4.617295],[20.973719,-4.61735],[20.973989,-4.617404],[20.97426,-4.617458],[20.97453,-4.617567],[20.974801,-4.617621],[20.975071,-4.617675],[20.975342,-4.617784],[20.975612,-4.617892],[20.975883,-4.618001],[20.976153,-4.61811],[20.976424,-4.618218],[20.976694,-4.618272],[20.976965,-4.618327],[20.977235,-4.618327],[20.977506,-4.618327],[20.977776,-4.618327],[20.978046,-4.618327],[20.978317,-4.618381],[20.978587,-4.618435],[20.978858,-4.61849],[20.979128,-4.618598],[20.979399,-4.618707],[20.979669,-4.618761],[20.97994,-4.61887],[20.98021,-4.618978],[20.980481,-4.619087],[20.980751,-4.619195],[20.981022,-4.619358],[20.981292,-4.619467],[20.981563,-4.619575],[20.981833,-4.619684],[20.982104,-4.619792],[20.982374,-4.619901],[20.982644,-4.62001],[20.982915,-4.620118],[20.983185,-4.620227],[20.983456,-4.620335],[20.983726,-4.620444],[20.983997,-4.620552],[20.984267,-4.620661],[20.984538,-4.620715],[20.984808,-4.620824],[20.985079,-4.620878],[20.985349,-4.620932],[20.98562,-4.621041],[20.98589,-4.62115],[20.986161,-4.621204],[20.986431,-4.621258],[20.986702,-4.621367],[20.986972,-4.621421],[20.987243,-4.62153],[20.987513,-4.621638],[20.987783,-4.621801],[20.988054,-4.62191],[20.988324,-4.622072],[20.988595,-4.622181],[20.988865,-4.622344],[20.989136,-4.622452],[20.989406,-4.622561],[20.989677,-4.62267],[20.989947,-4.622778],[20.990218,-4.622887],[20.990488,-4.623049],[20.990759,-4.623212],[20.991029,-4.623375],[20.9913,-4.623538],[20.99157,-4.623701],[20.991841,-4.623864],[20.992111,-4.624081],[20.992382,-4.624244],[20.992652,-4.624461],[20.992923,-4.624678],[20.993193,-4.624841],[20.993463,-4.625004],[20.993734,-4.625166],[20.994004,-4.625329],[20.994275,-4.625438],[20.994545,-4.625601],[20.994816,-4.625709],[20.995086,-4.625872],[20.995357,-4.625981],[20.995627,-4.626144],[20.995898,-4.626252],[20.996168,-4.626415],[20.996439,-4.626523],[20.996709,-4.626686],[20.99698,-4.626795],[20.99725,-4.626958],[20.997521,-4.627121],[20.997791,-4.627283],[20.998062,-4.627446],[20.998332,-4.627609],[20.998603,-4.627772],[20.998873,-4.62788],[20.999143,-4.628043],[20.999414,-4.628206],[20.999684,-4.628369],[20.999955,-4.628532],[21.000225,-4.628695],[21.000496,-4.628803],[21.000766,-4.628912],[21.001037,-4.629075],[21.001307,-4.629183],[21.001578,-4.629346],[21.001848,-4.629563],[21.002119,-4.62978],[21.002389,-4.629997],[21.00266,-4.630269],[21.00293,-4.63054],[21.003201,-4.630812],[21.003471,-4.631083],[21.003742,-4.631354],[21.004012,-4.631626],[21.004229,-4.631897],[21.004445,-4.632169],[21.004607,-4.63244],[21.004769,-4.632711],[21.004932,-4.632983],[21.005094,-4.633254]],"properties":{"x":20.9614,"y":-4.61891,"reach_id":"13227000061","reach_len":10479.5,"n_nodes":52,"wse":367.45,"wse_var":1.9141,"width":1065.0,"width_var":55760.5,"facc":239185.0,"n_chan_max":6,"n_chan_mod":2,"obstr_type":0,"grod_id":0,"hfalls_id":0,"slope":0.430284,"dist_out":1353360.0,"lakeflag":0,"max_width":2545,"n_rch_up":1,"n_rch_dn":1,"swot_orbit":"55  208","swot_obs":2,"type":1,"river_name":"Kasai","shp_origin":"af_sword_reaches_hb13_v11.shp","netcdf_origin":"af_apriori_rivers_v11.nc"}},"type":"line"}],"center":{"lon":20.9611425,"lat":-4.6221515}},"margin":{"b":0,"l":0,"r":0,"t":0},"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}}},                        {"responsive": true}                    ).then(function(){
                             
 var gd = document.getElementById('d9720c78-082f-489f-b295-359ca93c32a8');
@@ -1182,11 +1178,11 @@ if (outputEl) {{
 <section id="query-data-by-coordinates" class="level2">
 <h2 class="anchored" data-anchor-id="query-data-by-coordinates">Query Data by Coordinates</h2>
 <p>We can use results obtained from the FTS query to then directly and automatically query data using the <code>earthaccess</code> python library. We will use the coordinate information of a single reach to search for granules (files) available through the <a href="https://podaac.jpl.nasa.gov/dataset/PRESWOT_HYDRO_GRRATS_L2_DAILY_VIRTUAL_STATION_HEIGHTS_V2">Pre SWOT Hydrology GRRATS Daily River Heights and Storage Version 2</a> data, which has the collection ID <code>C2036882359-POCLOUD</code>.</p>
-<div class="cell" data-tags="[]" data-execution_count="6">
+<div id="cell-14" class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find max and min of lat and lon derived when visualizing the reach for the bounding box input to earthaccess</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>maxlat, maxlon, minlat, minlon <span class="op">=</span> <span class="bu">max</span>(lats), <span class="bu">max</span>(lons), <span class="bu">min</span>(lats), <span class="bu">min</span>(lons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="7">
+<div id="cell-15" class="cell" data-tags="[]" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#earthaccess data search</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(concept_id<span class="op">=</span><span class="st">"C2036882359-POCLOUD"</span>, bounding_box<span class="op">=</span>(minlon,minlat,maxlon,maxlat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1198,7 +1194,7 @@ if (outputEl) {{
 <section id="accessing-data-in-the-cloud" class="level2">
 <h2 class="anchored" data-anchor-id="accessing-data-in-the-cloud">Accessing Data in the Cloud</h2>
 <p>This code chunk will only work if you are running this script in the cloud, AWS <code>us-west-2</code> region.</p>
-<div class="cell" data-tags="[]" data-execution_count="8">
+<div id="cell-18" class="cell" data-tags="[]" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#access data within the cloud and open into an xarray dataset</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ds_preSWOT <span class="op">=</span> xr.open_mfdataset(earthaccess.<span class="bu">open</span>([results[<span class="dv">0</span>]]), engine<span class="op">=</span><span class="st">"h5netcdf"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ds_preSWOT</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1221,7 +1217,6 @@ if (outputEl) {{
 </script>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1654,10 +1649,15 @@ Attributes: (12/40)
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9Ijc1IiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjEyMCIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IDAuMCwyNS40MTI2MTY1MTQ1ODI0ODUiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI0NS40MTI2MTciIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yNjA5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjEyLjcwNjMwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQwLjAwMDAwMCwxMi43MDYzMDgpIj4xPC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">2609</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
+</div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>lat</span>
 </div>
@@ -1670,7 +1670,18 @@ float64
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(2609,), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-bc1847b9-bb22-4943-8a08-69518d9a7acc" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-bc1847b9-bb22-4943-8a08-69518d9a7acc" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-d70e25c9-6468-4994-9b05-779bca04659e" class="xr-var-data-in" type="checkbox">
+<label for="data-d70e25c9-6468-4994-9b05-779bca04659e" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>units :</span></dt>
@@ -1728,11 +1739,15 @@ Y
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9Ijc1IiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjEyMCIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IDAuMCwyNS40MTI2MTY1MTQ1ODI0ODUiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI0NS40MTI2MTciIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yNjA5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjEyLjcwNjMwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQwLjAwMDAwMCwxMi43MDYzMDgpIj4xPC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">2609</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>FD</span>
 </div>
@@ -1745,7 +1760,18 @@ float64
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(2609,), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-ba68369d-0daf-4224-ade9-9fee2af81d55" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-ba68369d-0daf-4224-ade9-9fee2af81d55" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-b415551c-fd1a-49e5-b59f-da1a6bd1fea0" class="xr-var-data-in" type="checkbox">
+<label for="data-b415551c-fd1a-49e5-b59f-da1a6bd1fea0" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -1799,11 +1825,15 @@ This is the distance along the river centerline from the river mouth to this VS.
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9Ijc1IiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjEyMCIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IDAuMCwyNS40MTI2MTY1MTQ1ODI0ODUiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI0NS40MTI2MTciIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yNjA5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjEyLjcwNjMwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQwLjAwMDAwMCwxMi43MDYzMDgpIj4xPC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">2609</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>height</span>
 </div>
@@ -1816,7 +1846,18 @@ float64
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(2609, 9439), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-da9b2d5c-a533-4bc2-b154-11777be906fe" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-da9b2d5c-a533-4bc2-b154-11777be906fe" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-30a4b791-f529-4bcc-ad31-4d2139ef04a2" class="xr-var-data-in" type="checkbox">
+<label for="data-30a4b791-f529-4bcc-ad31-4d2139ef04a2" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>units :</span></dt>
@@ -1886,11 +1927,15 @@ A time flow distance grid of river water heights with respect to the EGM08 Geoid
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9IjkzIiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI0MyIgeDI9IjEyMCIgeTI9IjQzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iNDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iNDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsNDMuMjYzNDQxNzcxNzQ0NDQ2IDAuMCw0My4yNjM0NDE3NzE3NDQ0NDYiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI2My4yNjM0NDIiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj45NDM5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjIxLjYzMTcyMSIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxNDAuMDAwMDAwLDIxLjYzMTcyMSkiPjI2MDk8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="170" height="93" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="43" x2="120" y2="43" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="43" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="43" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,43.263441771744446 0.0,43.263441771744446" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="63.263442" font-size="1.0rem" font-weight="100" text-anchor="middle">9439</text> <text x="140.000000" y="21.631721" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,140.000000,21.631721)">2609</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>sat</span>
 </div>
@@ -1903,7 +1948,18 @@ A time flow distance grid of river water heights with respect to the EGM08 Geoid
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(26, 9439), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-19a54375-bbeb-4939-828b-25baa23c43eb" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-19a54375-bbeb-4939-828b-25baa23c43eb" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-c4477ea8-cb77-4862-af32-75764d1fb470" class="xr-var-data-in" type="checkbox">
+<label for="data-c4477ea8-cb77-4862-af32-75764d1fb470" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -1953,11 +2009,15 @@ The satellite the measurement is derived from.
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9Ijc1IiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjEyMCIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IDAuMCwyNS40MTI2MTY1MTQ1ODI0ODUiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI0NS40MTI2MTciIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj45NDM5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjEyLjcwNjMwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQwLjAwMDAwMCwxMi43MDYzMDgpIj4yNjwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">9439</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">26</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>storage</span>
 </div>
@@ -1970,7 +2030,18 @@ float64
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(2609, 9439), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-50668e7a-22cc-494b-b95e-80163bb13cf3" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-50668e7a-22cc-494b-b95e-80163bb13cf3" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-8c470427-21d4-408f-9214-6e54fa7aa31c" class="xr-var-data-in" type="checkbox">
+<label for="data-8c470427-21d4-408f-9214-6e54fa7aa31c" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>units :</span></dt>
@@ -2028,11 +2099,15 @@ A time flow distance grid of river channel storage values.
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9IjkzIiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI0MyIgeDI9IjEyMCIgeTI9IjQzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iNDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iNDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsNDMuMjYzNDQxNzcxNzQ0NDQ2IDAuMCw0My4yNjM0NDE3NzE3NDQ0NDYiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI2My4yNjM0NDIiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj45NDM5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjIxLjYzMTcyMSIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxNDAuMDAwMDAwLDIxLjYzMTcyMSkiPjI2MDk8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="170" height="93" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="43" x2="120" y2="43" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="43" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="43" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,43.263441771744446 0.0,43.263441771744446" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="63.263442" font-size="1.0rem" font-weight="100" text-anchor="middle">9439</text> <text x="140.000000" y="21.631721" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,140.000000,21.631721)">2609</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>IceFlag</span>
 </div>
@@ -2045,7 +2120,18 @@ float64
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(9439,), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-85a3f957-f709-4075-b837-9870ddbe6ff0" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-85a3f957-f709-4075-b837-9870ddbe6ff0" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-86c97e16-7202-4b5b-be4d-db77e4432984" class="xr-var-data-in" type="checkbox">
+<label for="data-86c97e16-7202-4b5b-be4d-db77e4432984" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -2107,11 +2193,15 @@ This is a flag for masking out times of Ice Cover.
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9Ijc1IiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjEyMCIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IDAuMCwyNS40MTI2MTY1MTQ1ODI0ODUiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI0NS40MTI2MTciIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj45NDM5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjEyLjcwNjMwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQwLjAwMDAwMCwxMi43MDYzMDgpIj4xPC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">9439</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>LakeFlag</span>
 </div>
@@ -2124,7 +2214,18 @@ float64
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(2609,), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-63341678-bedf-4bd7-b28a-7f6cdd906845" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-63341678-bedf-4bd7-b28a-7f6cdd906845" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-b5732d94-1fe4-43a9-8d0d-fd11eb95d27b" class="xr-var-data-in" type="checkbox">
+<label for="data-b5732d94-1fe4-43a9-8d0d-fd11eb95d27b" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -2186,11 +2287,15 @@ This is a flag for masking out setions that are lakes or reservoirs.
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9Ijc1IiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjEyMCIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IDAuMCwyNS40MTI2MTY1MTQ1ODI0ODUiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI0NS40MTI2MTciIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yNjA5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjEyLjcwNjMwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQwLjAwMDAwMCwxMi43MDYzMDgpIj4xPC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">2609</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>Storage_uncertainty</span>
 </div>
@@ -2203,7 +2308,18 @@ float64
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(2609, 9439), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-d7e1ade5-f9c3-481a-8513-4b2e462c8396" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-d7e1ade5-f9c3-481a-8513-4b2e462c8396" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-afeb92b6-70c0-48c5-96a0-94ed02ae278f" class="xr-var-data-in" type="checkbox">
+<label for="data-afeb92b6-70c0-48c5-96a0-94ed02ae278f" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>units :</span></dt>
@@ -2261,12 +2377,14 @@ A time flow distance grid of river channel storage uncertainty values.
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9IjkzIiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI0MyIgeDI9IjEyMCIgeTI9IjQzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iNDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iNDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAxMjAuMCwwLjAgMTIwLjAsNDMuMjYzNDQxNzcxNzQ0NDQ2IDAuMCw0My4yNjM0NDE3NzE3NDQ0NDYiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iNjAuMDAwMDAwIiB5PSI2My4yNjM0NDIiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj45NDM5PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjIxLjYzMTcyMSIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxNDAuMDAwMDAwLDIxLjYzMTcyMSkiPjI2MDk8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="170" height="93" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="43" x2="120" y2="43" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="43" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="43" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,43.263441771744446 0.0,43.263441771744446" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="63.263442" font-size="1.0rem" font-weight="100" text-anchor="middle">9439</text> <text x="140.000000" y="21.631721" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,140.000000,21.631721)">2609</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-5ba1a5ff-f011-4b24-aebc-f6a34ddd9865" class="xr-section-summary-in" type="checkbox"><label for="section-5ba1a5ff-f011-4b24-aebc-f6a34ddd9865" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-25024767-0121-49c2-92f9-3bf3e2d4fcd9" class="xr-index-data-in" type="checkbox"><label for="index-25024767-0121-49c2-92f9-3bf3e2d4fcd9" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['1993-05-01 20:48:54.565347328',
+</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-5ba1a5ff-f011-4b24-aebc-f6a34ddd9865" class="xr-section-summary-in" type="checkbox"><label for="section-5ba1a5ff-f011-4b24-aebc-f6a34ddd9865" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-25024767-0121-49c2-92f9-3bf3e2d4fcd9" class="xr-index-data-in" type="checkbox"><label for="index-25024767-0121-49c2-92f9-3bf3e2d4fcd9" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['1993-05-01 20:48:54.565347328',
                '1993-05-02 20:48:54.565347328',
                '1993-05-03 20:48:54.565347328',
                '1993-05-04 20:48:54.565347328',
@@ -2287,13 +2405,13 @@ A time flow distance grid of river channel storage uncertainty values.
                '2019-04-17 22:01:11.405563904',
                '2019-04-18 22:01:11.405563904',
                '2019-04-19 22:01:11.405563904'],
-              dtype='datetime64[ns]', name='time', length=9439, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-f7ea57a8-cb85-414b-a187-2b72022da1fa" class="xr-section-summary-in" type="checkbox"><label for="section-f7ea57a8-cb85-414b-a187-2b72022da1fa" class="xr-section-summary">Attributes: <span>(40)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>title :</span></dt><dd>GRRATS (Global River Radar Altimetry Time Series)1km daily interpolation for the Congo River</dd><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD-1.3</dd><dt><span>institution :</span></dt><dd>Ohio State University, School of Earth Sciences</dd><dt><span>source :</span></dt><dd>MEaSUREs OSU Storage toolbox 2018</dd><dt><span>keywords :</span></dt><dd>EARTH SCIENCE,TERRESTRIAL HYDROSPHERE,SURFACE WATER,SURFACE WATER PROCESSES/MEASUREMENTS,STAGE HEIGHT</dd><dt><span>keywords_vocabulary :</span></dt><dd>Global Change Master Directory (GCMD)</dd><dt><span>cdm_data_type :</span></dt><dd>station</dd><dt><span>creator_name :</span></dt><dd>Coss,Steve</dd><dt><span>creator_email :</span></dt><dd>Coss.31@osu.edu</dd><dt><span>project :</span></dt><dd>MEaSUREs OSU</dd><dt><span>program :</span></dt><dd>NASA Earth Science Data Systems (ESDS)</dd><dt><span>publisher_name :</span></dt><dd>PO.DAAC (Physical Oceanography Distributed Active Archive Center)</dd><dt><span>publisher_email :</span></dt><dd>podaac@podaac.jpl.nasa.gov</dd><dt><span>publisher_url :</span></dt><dd>podaac.jpl.nasa.gov</dd><dt><span>publisher_type :</span></dt><dd>Institution</dd><dt><span>publisher_institution :</span></dt><dd>PO.DAAC</dd><dt><span>processing_level :</span></dt><dd>L2</dd><dt><span>doi :</span></dt><dd>10.5067/PSGRA-DA2V2</dd><dt><span>history :</span></dt><dd>This GRRATS product adds data river surface height data from ERS1, ERS2, TOPEX/Poseidon and Jason-3 to expand the temporal coverage of the product. GRRATS1kd includes interpolated daily 1km resolution height measurements as well as river channel storage measurements. </dd><dt><span>platform :</span></dt><dd>ERS-1(L2),ERS-2(L2),TOPEX/POSEIDON(L2), Jason-1(L2),OSTM/Jason-2(L2),Jason-3(L2),Envisat(L2)</dd><dt><span>platform_vocabulary :</span></dt><dd>NASA/GCMD Platform Keywords. Version 8.6</dd><dt><span>instrument :</span></dt><dd>RA(L2),RA-2(L2),ALT(TOPEX)(L2),POSEIDON-2(L2),POSEIDON-3(L2),POSEIDON-3b(L2)</dd><dt><span>instrument_vocabulary :</span></dt><dd>NASA/GCMD Platform Keywords. Version 8.6</dd><dt><span>references :</span></dt><dd>in review :doi.org/10.5194/essd-2019-84</dd><dt><span>id :</span></dt><dd>GRRATS(Global River Radar Altimeter Time Series) 1km/daily</dd><dt><span>summary :</span></dt><dd>The Global River Radar Altimeter Time Series (GRRATS) 1km/daily interpolations are river heights from ERS1, ERS2, TOPEX/Poseidon OSTM/Jason-2 Envisat and Jason-3 that are interpolated and processed to create a continuous heights for the study over the temporal range of the altimeters used. The purpose of these heights are to provide satellite altimetric river height data in a form that is more recognizable to the observational community and as a way to get users use to using satellite data for river hydrology.</dd><dt><span>time_coverage_resolution :</span></dt><dd>1 day</dd><dt><span>date_created :</span></dt><dd>2021-06-30T09:00:17</dd><dt><span>time_coverage_start :</span></dt><dd>1992-05-01T20:48:54</dd><dt><span>time_coverage_end :</span></dt><dd>2018-04-19T22:01:11</dd><dt><span>geospatial_lon_min :</span></dt><dd>12.707728383258313</dd><dt><span>geospatial_lon_max :</span></dt><dd>25.947548933236703</dd><dt><span>geospatial_lon_units :</span></dt><dd>degree_east</dd><dt><span>geospatial_lat_min :</span></dt><dd>-6.013103503124114</dd><dt><span>geospatial_lat_max :</span></dt><dd>2.1851957069163745</dd><dt><span>geospatial_lat_units :</span></dt><dd>degree_north</dd><dt><span>geospatial_vertical_max :</span></dt><dd>455.7337393315697</dd><dt><span>geospatial_vertical_min :</span></dt><dd>-0.9449266750562206</dd><dt><span>geospatial_vertical_units :</span></dt><dd>m</dd><dt><span>geospatial_vertical_positive :</span></dt><dd>up</dd></dl></div></li></ul></div></div>
+              dtype='datetime64[ns]', name='time', length=9439, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-f7ea57a8-cb85-414b-a187-2b72022da1fa" class="xr-section-summary-in" type="checkbox"><label for="section-f7ea57a8-cb85-414b-a187-2b72022da1fa" class="xr-section-summary">Attributes: <span>(40)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>title :</span></dt><dd>GRRATS (Global River Radar Altimetry Time Series)1km daily interpolation for the Congo River</dd><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD-1.3</dd><dt><span>institution :</span></dt><dd>Ohio State University, School of Earth Sciences</dd><dt><span>source :</span></dt><dd>MEaSUREs OSU Storage toolbox 2018</dd><dt><span>keywords :</span></dt><dd>EARTH SCIENCE,TERRESTRIAL HYDROSPHERE,SURFACE WATER,SURFACE WATER PROCESSES/MEASUREMENTS,STAGE HEIGHT</dd><dt><span>keywords_vocabulary :</span></dt><dd>Global Change Master Directory (GCMD)</dd><dt><span>cdm_data_type :</span></dt><dd>station</dd><dt><span>creator_name :</span></dt><dd>Coss,Steve</dd><dt><span>creator_email :</span></dt><dd>Coss.31@osu.edu</dd><dt><span>project :</span></dt><dd>MEaSUREs OSU</dd><dt><span>program :</span></dt><dd>NASA Earth Science Data Systems (ESDS)</dd><dt><span>publisher_name :</span></dt><dd>PO.DAAC (Physical Oceanography Distributed Active Archive Center)</dd><dt><span>publisher_email :</span></dt><dd>podaac@podaac.jpl.nasa.gov</dd><dt><span>publisher_url :</span></dt><dd>podaac.jpl.nasa.gov</dd><dt><span>publisher_type :</span></dt><dd>Institution</dd><dt><span>publisher_institution :</span></dt><dd>PO.DAAC</dd><dt><span>processing_level :</span></dt><dd>L2</dd><dt><span>doi :</span></dt><dd>10.5067/PSGRA-DA2V2</dd><dt><span>history :</span></dt><dd>This GRRATS product adds data river surface height data from ERS1, ERS2, TOPEX/Poseidon and Jason-3 to expand the temporal coverage of the product. GRRATS1kd includes interpolated daily 1km resolution height measurements as well as river channel storage measurements. </dd><dt><span>platform :</span></dt><dd>ERS-1(L2),ERS-2(L2),TOPEX/POSEIDON(L2), Jason-1(L2),OSTM/Jason-2(L2),Jason-3(L2),Envisat(L2)</dd><dt><span>platform_vocabulary :</span></dt><dd>NASA/GCMD Platform Keywords. Version 8.6</dd><dt><span>instrument :</span></dt><dd>RA(L2),RA-2(L2),ALT(TOPEX)(L2),POSEIDON-2(L2),POSEIDON-3(L2),POSEIDON-3b(L2)</dd><dt><span>instrument_vocabulary :</span></dt><dd>NASA/GCMD Platform Keywords. Version 8.6</dd><dt><span>references :</span></dt><dd>in review :doi.org/10.5194/essd-2019-84</dd><dt><span>id :</span></dt><dd>GRRATS(Global River Radar Altimeter Time Series) 1km/daily</dd><dt><span>summary :</span></dt><dd>The Global River Radar Altimeter Time Series (GRRATS) 1km/daily interpolations are river heights from ERS1, ERS2, TOPEX/Poseidon OSTM/Jason-2 Envisat and Jason-3 that are interpolated and processed to create a continuous heights for the study over the temporal range of the altimeters used. The purpose of these heights are to provide satellite altimetric river height data in a form that is more recognizable to the observational community and as a way to get users use to using satellite data for river hydrology.</dd><dt><span>time_coverage_resolution :</span></dt><dd>1 day</dd><dt><span>date_created :</span></dt><dd>2021-06-30T09:00:17</dd><dt><span>time_coverage_start :</span></dt><dd>1992-05-01T20:48:54</dd><dt><span>time_coverage_end :</span></dt><dd>2018-04-19T22:01:11</dd><dt><span>geospatial_lon_min :</span></dt><dd>12.707728383258313</dd><dt><span>geospatial_lon_max :</span></dt><dd>25.947548933236703</dd><dt><span>geospatial_lon_units :</span></dt><dd>degree_east</dd><dt><span>geospatial_lat_min :</span></dt><dd>-6.013103503124114</dd><dt><span>geospatial_lat_max :</span></dt><dd>2.1851957069163745</dd><dt><span>geospatial_lat_units :</span></dt><dd>degree_north</dd><dt><span>geospatial_vertical_max :</span></dt><dd>455.7337393315697</dd><dt><span>geospatial_vertical_min :</span></dt><dd>-0.9449266750562206</dd><dt><span>geospatial_vertical_units :</span></dt><dd>m</dd><dt><span>geospatial_vertical_positive :</span></dt><dd>up</dd></dl></div></li></div></div>
 </div>
-</div>
-</section>
+</section></section></main></div>
+
 <section id="downloading-data-on-a-local-machine" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-data-on-a-local-machine">Downloading Data on a Local Machine</h2>
-<div class="cell" data-execution_count="8">
+<h2 data-anchor-id="downloading-data-on-a-local-machine">Downloading Data on a Local Machine</h2>
+<div id="cell-20" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download data into folder on local machine</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"datasets/data_downloads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2318,12 +2436,11 @@ A time flow distance grid of river channel storage uncertainty values.
 <pre><code>['Africa_Congo1kmdaily.nc']</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="9">
+<div id="cell-21" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#open dataset for visualization</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ds_preSWOT <span class="op">=</span> xr.open_dataset(<span class="st">"datasets/data_downloads/Africa_Congo1kmdaily.nc"</span>, engine<span class="op">=</span><span class="st">"h5netcdf"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>ds_preSWOT</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -2746,11 +2863,11 @@ Attributes: (12/40)
 <p><strong>… Continue to Science!</strong></p>
 </section>
 <section id="other-options-to-query-the-sword-database" class="level2">
-<h2 class="anchored" data-anchor-id="other-options-to-query-the-sword-database">Other Options to query the SWORD Database:</h2>
+<h2 data-anchor-id="other-options-to-query-the-sword-database">Other Options to query the SWORD Database:</h2>
 <section id="multiple-river-reaches" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-river-reaches">Multiple River Reaches</h3>
+<h3 data-anchor-id="multiple-river-reaches">Multiple River Reaches</h3>
 <p>We can query the FTS SWORD service over multiple river reaches too. In this example, we use ID <code>132270000</code>. This ID represents multiple reaches along the Kasai River, a tributary of the Congo River in Africa. Note that this reach includes the reach ID of <code>13227000061</code> we plotted earlier. The response includes 9 individual reaches.</p>
-<div class="cell" data-tags="[]" data-execution_count="9">
+<div id="cell-25" class="cell" data-tags="[]" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>response_multi <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/reach/132270000"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>featureCollection_multi <span class="op">=</span> response_to_FeatureCollection(response_multi)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2776,9 +2893,9 @@ Attributes: (12/40)
 </div>
 </section>
 <section id="river-nodes-within-a-reach" class="level3">
-<h3 class="anchored" data-anchor-id="river-nodes-within-a-reach">River Nodes within a Reach</h3>
+<h3 data-anchor-id="river-nodes-within-a-reach">River Nodes within a Reach</h3>
 <p>We can also query the FTS SWORD service for river nodes, points along the river reaches. In this example, we use the ID of <code>13227000060</code>. Note that this ID corresponds to the same reach ID <code>13227000061</code> we used earlier. The only difference is that the last digit of <code>0</code> corresponds to all the individual <em>nodes</em> along the reach. If the last digit is <code>1</code> in the reach ID, it corresponds to the overall properties of the <em>reach</em> itself. The response returns 52 nodes along the reach.</p>
-<div class="cell" data-tags="[]" data-execution_count="10">
+<div id="cell-28" class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/node/13227000060"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>featureCollection <span class="op">=</span> response_to_FeatureCollection(response)</span>
@@ -2851,7 +2968,8 @@ Attributes: (12/40)
 </section>
 </section>
 
-</main> <!-- /main -->
+
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2893,6 +3011,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -2961,13 +3106,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -3046,10 +3193,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -3059,8 +3205,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -3073,6 +3228,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -3116,6 +3390,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -3141,6 +3416,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -3200,16 +3501,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

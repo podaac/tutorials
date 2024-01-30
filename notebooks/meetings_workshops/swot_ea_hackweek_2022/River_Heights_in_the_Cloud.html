@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - Mississippi River Heights Exploration:</title>
+<title>PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
@@ -116,12 +123,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../quarto_text/ScienceDataStories.html">Science Data Stories</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html">Mississippi River Heights</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../quarto_text/ScienceDataStories.html">Science Data Stories</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html">Mississippi River Heights</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -131,14 +138,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../../../index.html" class="sidebar-logo-link">
       <img src="../../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://podaac.jpl.nasa.gov/" rel="" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/podaac/tutorials" rel="" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -307,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+ <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -895,14 +902,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#working-with-in-situ-measurements-and-satellite-hydrology-data-in-the-cloud" id="toc-working-with-in-situ-measurements-and-satellite-hydrology-data-in-the-cloud" class="nav-link active" data-scroll-target="#working-with-in-situ-measurements-and-satellite-hydrology-data-in-the-cloud">Working with In Situ Measurements and Satellite Hydrology Data in the Cloud</a>
+  <li><a href="#mississippi-river-heights-exploration" id="toc-mississippi-river-heights-exploration" class="nav-link active" data-scroll-target="#mississippi-river-heights-exploration">Mississippi River Heights Exploration:</a>
+  <ul class="collapse">
+  <li><a href="#working-with-in-situ-measurements-and-satellite-hydrology-data-in-the-cloud" id="toc-working-with-in-situ-measurements-and-satellite-hydrology-data-in-the-cloud" class="nav-link" data-scroll-target="#working-with-in-situ-measurements-and-satellite-hydrology-data-in-the-cloud">Working with In Situ Measurements and Satellite Hydrology Data in the Cloud</a>
   <ul class="collapse">
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   </ul></li>
@@ -920,8 +929,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#possible-explanations-for-discrepancies" id="toc-possible-explanations-for-discrepancies" class="nav-link" data-scroll-target="#possible-explanations-for-discrepancies">Possible Explanations for discrepancies</a></li>
   </ul></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -929,26 +939,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Mississippi River Heights Exploration:</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <blockquote class="blockquote">
 <p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.ipynb">this link</a>.*</p>
 </blockquote>
+<section id="mississippi-river-heights-exploration" class="level1">
+<h1>Mississippi River Heights Exploration:</h1>
 <section id="working-with-in-situ-measurements-and-satellite-hydrology-data-in-the-cloud" class="level2">
 <h2 class="anchored" data-anchor-id="working-with-in-situ-measurements-and-satellite-hydrology-data-in-the-cloud">Working with In Situ Measurements and Satellite Hydrology Data in the Cloud</h2>
 <section id="learning-objectives" class="level3">
@@ -977,7 +975,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="needed-packages" class="level2">
 <h2 class="anchored" data-anchor-id="needed-packages">Needed Packages</h2>
-<div class="cell" data-execution_count="1">
+<div id="d527e14a-70c6-4cf0-94d5-5efe55521aa8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
@@ -993,7 +991,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os.path <span class="im">import</span> isfile, basename, abspath</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-
 <script type="application/javascript">
 
 (function(root) {
@@ -2889,23 +2886,23 @@ if (window.Jupyter !== undefined) {
 <h2 class="anchored" data-anchor-id="get-temporary-aws-credentials-for-access">Get Temporary AWS Credentials for Access</h2>
 <p>S3 is an ‘object store’ hosted in AWS for cloud processing. Direct S3 access is achieved by passing NASA supplied temporary credentials to AWS so we can interact with S3 objects from applicable Earthdata Cloud buckets. Note, these temporary credentials are valid for only 1 hour. A netrc file is required to aquire these credentials. Use the <a href="https://github.com/NASA-Openscapes/2021-Cloud-Hackathon/blob/main/tutorials/04_NASA_Earthdata_Authentication.ipynb">NASA Earthdata Authentication</a> to create a netrc file in your home directory. (Note: A NASA Earthdata Login is required to access data from the NASA Earthdata system. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.)</p>
 <p>The following crediential is for PODAAC, but other credentials are needed to access data from other NASA DAACs.</p>
-<div class="cell" data-execution_count="2">
+<div id="80bba65b-adfb-4d89-b030-d689588d3187" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>s3_cred_endpoint <span class="op">=</span> <span class="st">'https://archive.podaac.earthdata.nasa.gov/s3credentials'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a function to make a request to an endpoint for temporary credentials.</p>
-<div class="cell" data-execution_count="3">
+<div id="d5dfe7f9-79c3-4aa0-b075-0333261fee28" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_temp_creds():</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    temp_creds_url <span class="op">=</span> s3_cred_endpoint</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> requests.get(temp_creds_url).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="4">
+<div id="1b532fd7-731a-4636-8e7b-bfe2a3ddccd8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>temp_creds_req <span class="op">=</span> get_temp_creds()</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#temp_creds_req                      # !!! BEWARE, removing the # on this line will print your temporary S3 credentials.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="set-up-an-s3fs-session-for-direct-access" class="level4">
 <h4 class="anchored" data-anchor-id="set-up-an-s3fs-session-for-direct-access">Set up an <code>s3fs</code> session for Direct Access</h4>
 <p><code>s3fs</code> sessions are used for authenticated access to s3 bucket and allows for typical file-system style operations. Below we create session by passing in the temporary credentials we recieved from our temporary credentials endpoint.</p>
-<div class="cell" data-execution_count="5">
+<div id="164513e6-2dce-4ce5-992a-1effe8a7b71f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fs_s3 <span class="op">=</span> s3fs.S3FileSystem(anon<span class="op">=</span><span class="va">False</span>, </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                          key<span class="op">=</span>temp_creds_req[<span class="st">'accessKeyId'</span>], </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                          secret<span class="op">=</span>temp_creds_req[<span class="st">'secretAccessKey'</span>], </span>
@@ -2922,28 +2919,27 @@ if (window.Jupyter !== undefined) {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="River_Heights_in_the_Cloud_files/figure-html/f0cc8822-f70a-49d6-9265-97c4474d5dc6-1-59a10259-e43c-4225-b2c4-7138f89ae7d6.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>The s3 link for this granule can be found in it’s meta data by viewing the details of the granule from the button with three vertical dots in the corner. The s3 link is under ‘relatedURLs’, or it can be found by going through the download process and instead of downloading, clicking the tab entitled “AWS S3 Access.”</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="River_Heights_in_the_Cloud_files/figure-html/f0cc8822-f70a-49d6-9265-97c4474d5dc6-2-6e689a2b-c665-43ca-a05b-2adf8901ae0c.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>Let’s access the netCDF file from an s3 bucket and look at the data structure.</p>
-<div class="cell" data-execution_count="6">
+<div id="bb974284-2be5-4846-8703-a0768f304cce" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>s3_MEaSUREs_url <span class="op">=</span> <span class="st">'s3://podaac-ops-cumulus-protected/PRESWOT_HYDRO_GRRATS_L2_DAILY_VIRTUAL_STATION_HEIGHTS_V2/North_America_Mississippi1kmdaily.nc'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="7">
+<div id="6e0ce134-fe9b-4c16-9038-9b642a0a2db9" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s3_file_obj <span class="op">=</span> fs_s3.<span class="bu">open</span>(s3_MEaSUREs_url, mode<span class="op">=</span><span class="st">'rb'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="8">
+<div id="22873892-b79a-4b11-aa23-19ace891b44d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ds_MEaSUREs <span class="op">=</span> xr.open_dataset(s3_file_obj, engine<span class="op">=</span><span class="st">'h5netcdf'</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ds_MEaSUREs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -3335,7 +3331,7 @@ Attributes: (12/40)
 <section id="plot-a-subset-of-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="plot-a-subset-of-the-data">Plot a subset of the data</h4>
 <p>Plotting the river distances and associated heights on the map at time t=9069 (March 16, 2018) using <code>plt</code>.</p>
-<div class="cell" data-execution_count="9">
+<div id="54b6e23c-09e9-4648-aa71-8bc47c5667ce" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">11</span>,<span class="dv">7</span>]) </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ax.coastlines()</span>
@@ -3348,7 +3344,11 @@ Attributes: (12/40)
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -3359,7 +3359,7 @@ Attributes: (12/40)
 <p>Here, we zoom into one of the streamgauges toward the outlet of the Mississippi River, Monitoring location 07374525: Mississippi River at Belle Chasse, LA highlighted in green. <img src="River_Heights_in_the_Cloud_files/figure-html/5d220275-ba95-4a4b-b38b-7fe4b3ca4971-1-9d3133b3-6d1e-48aa-b8e1-a16d510df1c2.png" class="img-fluid" alt="image.png"></p>
 <p>If the point is selected, data can be obtained for the particular location. This gauge is located at lon, lat: (-89.977847, 29.85715084) and we can obtain gauge height for the time period October 2008 - 2021.</p>
 <p>Once the text file is downloaded for the gauge heights, and the headers removed, it can be uploaded to the cloud as a dataframe to work alongside the MEaSUREs data. Click the <code>upload files</code> button in the top left corner to do so.</p>
-<div class="cell" data-execution_count="10">
+<div id="dace05b5-88df-4d1a-895e-627ac0c7b6e0" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_gauge_data <span class="op">=</span> pd.read_csv(<span class="st">'Mississippi_outlet_gauge.txt'</span>, delimiter <span class="op">=</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#clean data and convert units to meters</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df_gauge_data.columns <span class="op">=</span> [<span class="st">"agency"</span>, <span class="st">"site_no"</span>, <span class="st">"datetime"</span>, <span class="st">"river_height"</span>, <span class="st">"qual_code"</span>]</span>
@@ -3479,7 +3479,7 @@ Attributes: (12/40)
 </div>
 <section id="plot-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="plot-the-data">Plot the data</h4>
-<div class="cell" data-execution_count="11">
+<div id="4f3208f1-813f-4992-81b0-bcf5137a1a4a" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">14</span>,<span class="dv">7</span>]) </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(df_gauge_data.datetime, df_gauge_data.river_height, color <span class="op">=</span> <span class="st">'darkorange'</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3490,17 +3490,20 @@ Attributes: (12/40)
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="find-the-same-location-in-the-measures-dataset-using-latlon" class="level4">
 <h4 class="anchored" data-anchor-id="find-the-same-location-in-the-measures-dataset-using-latlon">Find the same location in the MEaSUREs Dataset using lat/lon</h4>
 <p>The closest location in the MEaSUREs dataset to the gauge (-89.977847, 29.85715084) is at index 106 where lon, lat is (-89.976628, 29.855369). We’ll use this for comparison.</p>
-<div class="cell" data-execution_count="12">
+<div id="ea6767c0-8d82-4a3f-89d5-b0fc27905fa0" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ds_MEaSUREs.lat[<span class="dv">106</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -3861,10 +3864,9 @@ Attributes:
     axis:           Y</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'lat'</div></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-8e3a4281-2fd8-4f1c-ae16-6eab0b186cdd" class="xr-array-in" type="checkbox" checked=""><label for="section-8e3a4281-2fd8-4f1c-ae16-6eab0b186cdd" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>29.86</span></div><div class="xr-array-data"><pre>array(29.855369)</pre></div></div></li><li class="xr-section-item"><input id="section-6292c10b-0fd6-45ce-8f16-4bf840f71889" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-6292c10b-0fd6-45ce-8f16-4bf840f71889" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"></ul></div></li><li class="xr-section-item"><input id="section-0326145d-8833-4d18-a1b3-e81d4d8f9376" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-0326145d-8833-4d18-a1b3-e81d4d8f9376" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div></li></ul></div></div>
 </div>
 </div>
-<div class="cell" data-execution_count="13">
+<div id="dfd4e3b7-a494-449a-8995-a572df2bf65f" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ds_MEaSUREs.lon[<span class="dv">106</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
-
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -4225,7 +4227,7 @@ Attributes:
     axis:           X</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'lon'</div></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-41f7543a-ea60-4235-9954-12caab68cb68" class="xr-array-in" type="checkbox" checked=""><label for="section-41f7543a-ea60-4235-9954-12caab68cb68" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>-89.98</span></div><div class="xr-array-data"><pre>array(-89.976628)</pre></div></div></li><li class="xr-section-item"><input id="section-71aa5879-8712-4dd7-a817-213c3b704231" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-71aa5879-8712-4dd7-a817-213c3b704231" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"></ul></div></li><li class="xr-section-item"><input id="section-daf2bd00-e430-4637-b23f-b80ba75711a4" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-daf2bd00-e430-4637-b23f-b80ba75711a4" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>axis :</span></dt><dd>X</dd></dl></div></li></ul></div></div>
 </div>
 </div>
-<div class="cell" data-execution_count="14">
+<div id="6983f8b9-1f70-4113-9722-a893f09a6992" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">14</span>,<span class="dv">7</span>]) </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>ax.coastlines()</span>
@@ -4238,13 +4240,17 @@ Attributes:
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="combined-timeseries-plot-of-river-heights-from-each-source" class="level3">
 <h3 class="anchored" data-anchor-id="combined-timeseries-plot-of-river-heights-from-each-source">Combined timeseries plot of river heights from each source</h3>
-<div class="cell" data-execution_count="15">
+<div id="e95bfdf7-b023-4f94-9ce1-b88a99f5ed95" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">14</span>,<span class="dv">7</span>]) </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.plot(df_gauge_data.datetime[<span class="dv">0</span>:<span class="dv">3823</span>], df_gauge_data.river_height[<span class="dv">0</span>:<span class="dv">3823</span>], color <span class="op">=</span> <span class="st">'darkorange'</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ds_MEaSUREs.height[<span class="dv">106</span>,<span class="dv">5657</span>:<span class="dv">9439</span>].plot(color<span class="op">=</span><span class="st">'darkblue'</span>)</span>
@@ -4256,7 +4262,11 @@ Attributes:
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -4268,7 +4278,7 @@ Attributes:
 <section id="use-case-validation" class="level2">
 <h2 class="anchored" data-anchor-id="use-case-validation">Use Case: Validation</h2>
 <p>To validate the MEaSUREs dataset, the authors of the dataset actually compare relative heights between gauges, as opposed to absolute heights, in order to avoid the influence of datum errors and the lack of correspondence between satellite ground tracks and gauge locations. They calculate relative heights by removing the long-term mean of difference between the sample pairs of virtual station heights and the stage measured by the stream gauges. We’ll repeat this method below for completeness and calculate the Nash-Sutcliffe Efficiency (NSE) value.</p>
-<div class="cell" data-execution_count="16">
+<div id="727bb963-6592-4ceb-a371-01d1bf7ec823" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create dataframes of the two dataset river heights so values can be subtracted easier (the datasets have different numbers of observations)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>g_height_df <span class="op">=</span> pd.DataFrame()</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>m_height_df <span class="op">=</span> pd.DataFrame()</span>
@@ -4366,7 +4376,7 @@ Attributes:
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="17">
+<div id="b937b0f2-c6c7-4f25-b3cd-65ef102efec4" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> height_df.gauge_height <span class="op">-</span> height_df.MEaSUREs_height</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mean_diff <span class="op">=</span> diff.mean()</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>mean_diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4374,10 +4384,10 @@ Attributes:
 <pre><code>3.451153237576882</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="18">
+<div id="facdedb1-794f-4f9f-aa32-8548d738a36f" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>height_df[<span class="st">'relative_gauge_height'</span>] <span class="op">=</span> height_df.gauge_height <span class="op">-</span> mean_diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="19">
+<div id="a73e4fb4-bb18-430b-ac4b-c1363398bab6" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">14</span>,<span class="dv">7</span>]) </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>plt.plot(height_df.time, height_df.relative_gauge_height, color <span class="op">=</span> <span class="st">'darkorange'</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.plot(height_df.time, height_df.MEaSUREs_height, color <span class="op">=</span> <span class="st">'darkblue'</span>)</span>
@@ -4389,12 +4399,16 @@ Attributes:
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="nash-sutcliffe-efficiency" class="level4">
 <h4 class="anchored" data-anchor-id="nash-sutcliffe-efficiency">Nash Sutcliffe Efficiency</h4>
-<div class="cell" data-execution_count="20">
+<div id="0822bd24-fc1b-4f3e-a3e6-3ebe54ecc263" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>NSE <span class="op">=</span> <span class="dv">1</span><span class="op">-</span>(np.<span class="bu">sum</span>((height_df.MEaSUREs_height<span class="op">-</span>height_df.relative_gauge_height)<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>np.<span class="bu">sum</span>((height_df.relative_gauge_height<span class="op">-</span>np.mean(height_df.relative_gauge_height))<span class="op">**</span><span class="dv">2</span>))</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>NSE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
@@ -4402,7 +4416,7 @@ Attributes:
 </div>
 </div>
 <p>NSE for Oct 2013 - Sept 2014 water year:</p>
-<div class="cell" data-execution_count="21">
+<div id="1db27526-7ea9-432c-9e6d-4544e0c1b87a" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">14</span>,<span class="dv">7</span>]) </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>plt.plot(height_df.time[<span class="dv">1799</span>:<span class="dv">2163</span>], height_df.relative_gauge_height[<span class="dv">1799</span>:<span class="dv">2163</span>], color <span class="op">=</span> <span class="st">'darkorange'</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.plot(height_df.time[<span class="dv">1799</span>:<span class="dv">2163</span>], height_df.MEaSUREs_height[<span class="dv">1799</span>:<span class="dv">2163</span>], color <span class="op">=</span> <span class="st">'darkblue'</span>)</span>
@@ -4414,10 +4428,14 @@ Attributes:
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="River_Heights_in_the_Cloud_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="22">
+</div>
+<div id="b0a7f4d3-2ce7-4ef3-ade7-66d0d938a91b" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>NSE_2014 <span class="op">=</span> <span class="dv">1</span><span class="op">-</span>(np.<span class="bu">sum</span>((height_df.MEaSUREs_height[<span class="dv">1799</span>:<span class="dv">2163</span>]<span class="op">-</span>height_df.relative_gauge_height[<span class="dv">1799</span>:<span class="dv">2163</span>])<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>np.<span class="bu">sum</span>((height_df.relative_gauge_height[<span class="dv">1799</span>:<span class="dv">2163</span>]<span class="op">-</span>np.mean(height_df.relative_gauge_height[<span class="dv">1799</span>:<span class="dv">2163</span>]))<span class="op">**</span><span class="dv">2</span>))</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>NSE_2014</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
@@ -4446,6 +4464,7 @@ Attributes:
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -4490,6 +4509,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -4558,13 +4604,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -4643,10 +4691,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -4656,8 +4703,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -4670,6 +4726,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -4713,6 +4888,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -4738,6 +4914,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -4799,12 +5001,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../notebooks/meetings_workshops/arctic_2019.html" class="pagination-link">
+      <a href="../../../notebooks/meetings_workshops/arctic_2019.html" class="pagination-link  aria-label=" sss="" changes="" in="" the="" arctic"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">SSS Changes in the Arctic</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="pagination-link">
+      <a href="../../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="pagination-link" aria-label="SST Cross Validation">
         <span class="nav-page-text">SST Cross Validation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -4812,13 +5014,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© PO.DAAC, 2022</div>   
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 
