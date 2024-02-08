@@ -571,6 +571,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Shapefile Exploration</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/GIS/SWOT_datetime_GIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datetime Conversion</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
@@ -925,6 +931,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setting-a-bounding-rectangle-for-filtering-results" id="toc-setting-a-bounding-rectangle-for-filtering-results" class="nav-link" data-scroll-target="#setting-a-bounding-rectangle-for-filtering-results">Setting a bounding rectangle for filtering results</a></li>
   <li><a href="#setting-extensions" id="toc-setting-extensions" class="nav-link" data-scroll-target="#setting-extensions">Setting extensions</a></li>
   <li><a href="#run-a-post-download-process" id="toc-run-a-post-download-process" class="nav-link" data-scroll-target="#run-a-post-download-process">run a post download process</a></li>
+  <li><a href="#granule-subsetting" id="toc-granule-subsetting" class="nav-link" data-scroll-target="#granule-subsetting">Granule subsetting</a></li>
   <li><a href="#in-need-of-help" id="toc-in-need-of-help" class="nav-link" data-scroll-target="#in-need-of-help">In need of Help?</a></li>
   </ul></li>
   </ul></li>
@@ -943,6 +950,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setting-a-bounding-rectangle-for-filtering-results-1" id="toc-setting-a-bounding-rectangle-for-filtering-results-1" class="nav-link" data-scroll-target="#setting-a-bounding-rectangle-for-filtering-results-1">Setting a bounding rectangle for filtering results</a></li>
   <li><a href="#setting-extensions-1" id="toc-setting-extensions-1" class="nav-link" data-scroll-target="#setting-extensions-1">Setting extensions</a></li>
   <li><a href="#run-a-post-download-process-1" id="toc-run-a-post-download-process-1" class="nav-link" data-scroll-target="#run-a-post-download-process-1">run a post download process</a></li>
+  <li><a href="#granule-subsetting-1" id="toc-granule-subsetting-1" class="nav-link" data-scroll-target="#granule-subsetting-1">Granule subsetting</a></li>
   <li><a href="#in-need-of-help-1" id="toc-in-need-of-help-1" class="nav-link" data-scroll-target="#in-need-of-help-1">In need of Help?</a></li>
   </ul></li>
   </ul></li>
@@ -1055,6 +1063,7 @@ optional arguments:
                         Specify a provider for collection search. Default is POCLOUD.
   --limit LIMIT         Integer limit for number of granules to download. Useful in testing. Defaults to no limit.
   --dry-run             Search and identify files to download, but do not actually download them
+  --subset              Flag to enable subsetting on the specified collection 
 </code></pre>
 <section id="step-2-run-the-script" class="level2">
 <h2 class="anchored" data-anchor-id="step-2-run-the-script">Step 2: Run the Script</h2>
@@ -1195,6 +1204,10 @@ optional arguments:
 <h3 class="anchored" data-anchor-id="run-a-post-download-process">run a post download process</h3>
 <p>Using the <code>--process</code> option, you can run a simple command agaisnt the “just” downloaded file. This will take the format of “<command> <path to="" file="">”. This means you can run a command like <code>--process gzip</code> to gzip all downloaded files. We do not support more advanced processes at this time (piping, running a process on a directory, etc).</path></command></p>
 </section>
+<section id="granule-subsetting" class="level3">
+<h3 class="anchored" data-anchor-id="granule-subsetting">Granule subsetting</h3>
+<p>To enable granule subsetting, include the <code>--subset</code> flag in your request. This will invoke the NASA Harmony API to subset the granules in the specified collection. The collection must have subsetting enabled for this feature to function. If it does not, the data will be downloaded normally.</p>
+</section>
 <section id="in-need-of-help" class="level3">
 <h3 class="anchored" data-anchor-id="in-need-of-help">In need of Help?</h3>
 <p>The PO.DAAC User Services Office is the primary point of contact for answering your questions concerning data and information held by the PO.DAAC. User Services staff members are knowledgeable about both the data ordering system and the data products themselves. We answer questions about data, route requests to other DAACs, and direct questions we cannot answer to the appropriate information source.</p>
@@ -1235,7 +1248,8 @@ optional arguments:
 --verbose             Verbose mode.
 -p PROVIDER, --provider PROVIDER
                       Specify a provider for collection search. Default is POCLOUD.
---dry-run             Search and identify files to download, but do not actually download them</code></pre>
+--dry-run             Search and identify files to download, but do not actually download them
+--subset              Flag to enable subsetting on the specified collection</code></pre>
 <section id="run-the-script" class="level2">
 <h2 class="anchored" data-anchor-id="run-the-script">Run the Script</h2>
 <p>Usage:</p>
@@ -1344,6 +1358,10 @@ optional arguments:
 <section id="run-a-post-download-process-1" class="level3">
 <h3 class="anchored" data-anchor-id="run-a-post-download-process-1">run a post download process</h3>
 <p>Using the <code>--process</code> option, you can run a simple command agaisnt the “just” downloaded file. This will take the format of “<command> <path to="" file="">”. This means you can run a command like <code>--process gzip</code> to gzip all downloaded files. We do not support more advanced processes at this time (piping, running a process on a directory, etc).</path></command></p>
+</section>
+<section id="granule-subsetting-1" class="level3">
+<h3 class="anchored" data-anchor-id="granule-subsetting-1">Granule subsetting</h3>
+<p>To enable granule subsetting, include the <code>--subset</code> flag in your request. This will invoke the NASA Harmony API to subset the granules in the specified collection. The collection must have subsetting enabled for this feature to function. If it does not, the data will be downloaded normally.</p>
 </section>
 <section id="in-need-of-help-1" class="level3">
 <h3 class="anchored" data-anchor-id="in-need-of-help-1">In need of Help?</h3>
