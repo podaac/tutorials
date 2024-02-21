@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -140,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
@@ -1094,6 +1094,7 @@ using endpoint: https://archive.podaac.earthdata.nasa.gov/s3credentials</code></
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>samplefile <span class="op">=</span> xr.open_dataset(fileobjs[<span class="dv">0</span>], chunks<span class="op">=</span><span class="st">'auto'</span>) <span class="co"># specify 'chunk' kwarg, to see memory sizes of arrays. </span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>samplefile[<span class="st">'analysed_sst'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1528,6 +1529,7 @@ Attributes: (7)</pre><div class="xr-wrap" style="display:none"><div class="xr-he
       dtype='float32', name='lon', length=36000))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c55d8861-84b2-47f6-b2dd-a4968293b207" class="xr-section-summary-in" type="checkbox"><label for="section-c55d8861-84b2-47f6-b2dd-a4968293b207" class="xr-section-summary">Attributes: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>analysed sea surface temperature</dd><dt><span>standard_name :</span></dt><dd>sea_surface_foundation_temperature</dd><dt><span>units :</span></dt><dd>kelvin</dd><dt><span>valid_min :</span></dt><dd>-32767</dd><dt><span>valid_max :</span></dt><dd>32767</dd><dt><span>comment :</span></dt><dd>"Final" version using Multi-Resolution Variational Analysis (MRVA) method for interpolation</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd></dl></div></li></ul></div></div>
 </div>
 </div>
+</div>
 <div id="f5ba62e3-ff8f-483b-bca3-dcc6dae8bb89" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>disksize_gran <span class="op">=</span> <span class="bu">round</span>(granule_info[<span class="dv">0</span>].size())</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"At "</span> <span class="op">+</span> <span class="bu">str</span>(disksize_gran) <span class="op">+</span> <span class="st">" MB per file, one year's worth of data will be "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="dv">365</span><span class="op">*</span>disksize_gran<span class="op">/</span><span class="dv">1000</span>) <span class="op">+</span> <span class="st">" GB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1660,6 +1662,7 @@ Wall time: 30.1 s</code></pre>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sstdata <span class="op">=</span> xr.open_mfdataset(fileobjs[:<span class="dv">10</span>])</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>sstdata[<span class="st">'analysed_sst'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -2104,12 +2107,14 @@ Attributes: (7)</pre><div class="xr-wrap" style="display:none"><div class="xr-he
       dtype='float32', name='lon', length=36000))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-1942f07f-39df-405c-b547-5dbb077aff13" class="xr-section-summary-in" type="checkbox"><label for="section-1942f07f-39df-405c-b547-5dbb077aff13" class="xr-section-summary">Attributes: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>analysed sea surface temperature</dd><dt><span>standard_name :</span></dt><dd>sea_surface_foundation_temperature</dd><dt><span>units :</span></dt><dd>kelvin</dd><dt><span>valid_min :</span></dt><dd>-32767</dd><dt><span>valid_max :</span></dt><dd>32767</dd><dt><span>comment :</span></dt><dd>"Final" version using Multi-Resolution Variational Analysis (MRVA) method for interpolation</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd></dl></div></li></ul></div></div>
 </div>
 </div>
+</div>
 <p>Xarray has also chunked the data arrays, which is important for parallel processing. The concept of chunks is covered in the prerequisite material linked to in the header, but in short they are the subsets of data that processors will work on in parallel.</p>
 <p>However, note that in the above chunking strategy (defaulted to by Xarray) there are 2 hang ups. First, the time dimension has a small chunk size, which is not efficient if we are looking to perform computations primarily along that axis. Second, the chunk sizes are too small - a good rule of thumb is to make chunk sizes ~100 MB. Therefore, we rechunk to something more efficient:</p>
 <div id="5bc06d52-aeec-46db-84f4-dad83b3ec77f" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sstdata <span class="op">=</span> sstdata.chunk(chunks<span class="op">=</span>{<span class="st">'lat'</span>: <span class="dv">1000</span>, <span class="st">'lon'</span>: <span class="dv">3000</span>, <span class="st">'time'</span>: <span class="dv">10</span>})</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>sstdata[<span class="st">'analysed_sst'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -2552,6 +2557,7 @@ Attributes: (7)</pre><div class="xr-wrap" style="display:none"><div class="xr-he
         179.97000122070312,  179.97999572753906,  179.99000549316406,
                      180.0],
       dtype='float32', name='lon', length=36000))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-6137ef40-f79c-4e45-a663-0e7a192a8da6" class="xr-section-summary-in" type="checkbox"><label for="section-6137ef40-f79c-4e45-a663-0e7a192a8da6" class="xr-section-summary">Attributes: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>analysed sea surface temperature</dd><dt><span>standard_name :</span></dt><dd>sea_surface_foundation_temperature</dd><dt><span>units :</span></dt><dd>kelvin</dd><dt><span>valid_min :</span></dt><dd>-32767</dd><dt><span>valid_max :</span></dt><dd>32767</dd><dt><span>comment :</span></dt><dd>"Final" version using Multi-Resolution Variational Analysis (MRVA) method for interpolation</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd></dl></div></li></ul></div></div>
+</div>
 </div>
 </div>
 </section>
@@ -3577,7 +3583,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../notebooks/datasets/enso_MUR_tutorial_final.html" class="pagination-link  aria-label=" use="" case="" demo"="">
+      <a href="../../notebooks/datasets/enso_MUR_tutorial_final.html" class="pagination-link" aria-label="Use Case Demo">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Use Case Demo</span>
       </a>          
   </div>
