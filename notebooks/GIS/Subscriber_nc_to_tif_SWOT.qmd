@@ -5,7 +5,7 @@ title: podaac-data-subscriber NetCDF to Geotiff Conversion
 
 ### Summary 
 
-The following workflow extracts a single variable of interest (water surface elevation (wse)) from the SWOT_L2_HR_Raster_1.1 and writes the original raster netCDF it to a geotiff via the [podaac-data-subscriber tool](https://github.com/podaac/data-subscriber).
+The following workflow extracts a single variable of interest (water surface elevation (wse)) from the SWOT_L2_HR_Raster_2.0 and writes the original raster netCDF it to a geotiff via the [podaac-data-subscriber tool](https://github.com/podaac/data-subscriber).
 
 ### Requirements
 
@@ -37,7 +37,7 @@ gdalmdimtranslate \
 Then, after [installing the podaac-data-subscriber package](https://github.com/podaac/data-subscriber#installation), write the following command in your terminal that uses the podaac-data-subscriber to run the bash script:
 
 ``` bash
-podaac-data-downloader -c SWOT_L2_HR_Raster_1.1 -d ~/test_podaac/ -sd 2023-04-15T15:15:00Z -ed 2023-04-15T15:20:00Z --process "${PWD}/test.sh"
+podaac-data-downloader -c SWOT_L2_HR_Raster_2.0 -d ~/test_podaac/ -sd 2024-02-15T15:15:00Z -ed 2024-02-15T15:16:00Z --process "${PWD}/test.sh"
 ```
 
 If you get a permission denied error for test.sh, Make sure the permissions on the .sh file are set to read, write & executable. If you are unsure what your permissions are, in the command prompt you can execute "chmod 0755 test.sh" and permissions should be updated.
@@ -46,17 +46,21 @@ If you get a permission denied error for test.sh, Make sure the permissions on t
 
 ```
 $ ls
-SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_052F_20230415T151454_20230415T151515_PIB0_01.nc
-SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_052F_20230415T151454_20230415T151515_PIB0_01.wse.tif
-SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_053F_20230415T151514_20230415T151535_PIB0_01.nc
-SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_053F_20230415T151514_20230415T151535_PIB0_01.wse.tif
-SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.nc
-SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.wse.tif
-SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_052F_20230415T151454_20230415T151515_PIB0_01.nc
-SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_052F_20230415T151454_20230415T151515_PIB0_01.wse.tif
-SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_053F_20230415T151514_20230415T151535_PIB0_01.nc
-SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_053F_20230415T151514_20230415T151535_PIB0_01.wse.tif
-SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.nc
-SWOT_L2_HR_Raster_250m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.wse.tif
+SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_030F_20240215T151441_20240215T151502_PIC0_01.nc
+SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_030F_20240215T151441_20240215T151502_PIC0_01.wse.tif
+SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_031F_20240215T151501_20240215T151522_PIC0_01.nc
+SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_031F_20240215T151501_20240215T151522_PIC0_01.wse.tif
+SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_032F_20240215T151521_20240215T151542_PIC0_01.nc
+SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_032F_20240215T151521_20240215T151542_PIC0_01.wse.tif
+SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_033F_20240215T151541_20240215T151602_PIC0_01.nc
+SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_033F_20240215T151541_20240215T151602_PIC0_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM13U_N_x_x_x_011_022_030F_20240215T151441_20240215T151502_PIC0_01.nc
+SWOT_L2_HR_Raster_250m_UTM13U_N_x_x_x_011_022_030F_20240215T151441_20240215T151502_PIC0_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM13U_N_x_x_x_011_022_031F_20240215T151501_20240215T151522_PIC0_01.nc
+SWOT_L2_HR_Raster_250m_UTM13U_N_x_x_x_011_022_031F_20240215T151501_20240215T151522_PIC0_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM13U_N_x_x_x_011_022_032F_20240215T151521_20240215T151542_PIC0_01.nc
+SWOT_L2_HR_Raster_250m_UTM13U_N_x_x_x_011_022_032F_20240215T151521_20240215T151542_PIC0_01.wse.tif
+SWOT_L2_HR_Raster_250m_UTM13U_N_x_x_x_011_022_033F_20240215T151541_20240215T151602_PIC0_01.nc
+SWOT_L2_HR_Raster_250m_UTM13U_N_x_x_x_011_022_033F_20240215T151541_20240215T151602_PIC0_01.wse.tif
 test.sh
 ```
