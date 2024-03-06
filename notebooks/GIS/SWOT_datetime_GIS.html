@@ -1024,7 +1024,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
-<div id="cell-5" class="cell">
+<div id="cell-5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
@@ -1034,58 +1034,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> earthaccess <span class="im">import</span> Auth, DataCollections, DataGranules, Store</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="authentication-with-earthaccess" class="level2">
 <h2 class="anchored" data-anchor-id="authentication-with-earthaccess">Authentication with earthaccess</h2>
 <p>In this notebook, we will be calling the authentication in the below cell.</p>
-<div id="cell-7" class="cell">
+<div id="cell-7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="search-using-earthaccess-for-swot-river-reaches" class="level3">
 <h3 class="anchored" data-anchor-id="search-using-earthaccess-for-swot-river-reaches">Search using <code>earthaccess</code> for SWOT River Reaches</h3>
 <p>Each dataset has it’s own unique collection concept ID. For this dataset it is SWOT_L2_HR_RiverSP_2.0. SWOT files come in “reach” and “node” versions in this same collection, here we want the 10km reaches rather than the nodes. We will also only get files for North America, or ‘NA’.</p>
-<div id="cell-9" class="cell">
+<div id="cell-9" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_RIVERSP_2.0'</span>, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                  temporal <span class="op">=</span> (<span class="st">'2024-02-01 00:00:00'</span>, <span class="st">'2024-02-29 23:59:59'</span>), <span class="co"># can also specify by time</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Reach*_NA_*'</span>) <span class="co"># here we filter by Reach files (not node), continent code=NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Granules found: 192</code></pre>
+</div>
 </div>
 </section>
 <section id="download-the-data-into-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
 <div id="cell-11" class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"../datasets/data_downloads/SWOT_files"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"../datasets/data_downloads/SWOT_files"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="unzip-shapefiles-to-existing-folder" class="level3">
 <h3 class="anchored" data-anchor-id="unzip-shapefiles-to-existing-folder">Unzip shapefiles to existing folder</h3>
 <div id="cell-13" class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"../datasets/data_downloads/SWOT_files"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"../datasets/data_downloads/SWOT_files"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="merging-multiple-reaches-to-a-single-shapefile" class="level3">
 <h3 class="anchored" data-anchor-id="merging-multiple-reaches-to-a-single-shapefile">Merging multiple reaches to a single shapefile</h3>
 <p>Since a time series plot will be created, merging all the shapefiles to one will be the better option.</p>
 <div id="cell-15" class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># State filename extension to look for within folder, in this case .shp which is the shapefile</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>shapefiles <span class="op">=</span> folder.glob(<span class="st">"*.shp"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge/Combine multiple shapefiles in folder into one</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> pd.concat([</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    gpd.read_file(shp)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> shp <span class="kw">in</span> shapefiles</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>]).pipe(gpd.GeoDataFrame)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Export merged geodataframe into shapefile</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>gdf.to_file(folder <span class="op">/</span> <span class="st">'SWOTReaches.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># State filename extension to look for within folder, in this case .shp which is the shapefile</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>shapefiles <span class="op">=</span> folder.glob(<span class="st">"*.shp"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge/Combine multiple shapefiles in folder into one</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> pd.concat([</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    gpd.read_file(shp)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> shp <span class="kw">in</span> shapefiles</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>]).pipe(gpd.GeoDataFrame)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Export merged geodataframe into shapefile</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>gdf.to_file(folder <span class="op">/</span> <span class="st">'SWOTReaches.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1099,7 +1101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="width: 500px;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../images/swot_datetime/arcpro_datetime_1.png" class="img-fluid figure-img"></p>
+<p><img src="../../images/swot_datetime/arcpro_datetime_1.PNG" class="img-fluid figure-img"></p>
 <figcaption>arcpro_datetime_1.png</figcaption>
 </figure>
 </div>
@@ -1111,7 +1113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="width: 250px;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../images/swot_datetime/arcpro_datetime_2.png" class="img-fluid figure-img"></p>
+<p><img src="../../images/swot_datetime/arcpro_datetime_2.PNG" class="img-fluid figure-img"></p>
 <figcaption>arcpro_datetime_2.png</figcaption>
 </figure>
 </div>
@@ -1120,7 +1122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="width: 1100px;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../images/swot_datetime/arcpro_datetime_3.png" class="img-fluid figure-img"></p>
+<p><img src="../../images/swot_datetime/arcpro_datetime_3.PNG" class="img-fluid figure-img"></p>
 <figcaption>arcpro_datetime_3.png</figcaption>
 </figure>
 </div>
@@ -1135,7 +1137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="width: 700px;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../images/swot_datetime/qgis_datetime_1.png" class="img-fluid figure-img"></p>
+<p><img src="../../images/swot_datetime/qgis_datetime_1.PNG" class="img-fluid figure-img"></p>
 <figcaption>qgis_datetime_1.png</figcaption>
 </figure>
 </div>
@@ -1157,7 +1159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="width: 400px;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../images/swot_datetime/qgis_datetime_3.png" class="img-fluid figure-img"></p>
+<p><img src="../../images/swot_datetime/qgis_datetime_3.PNG" class="img-fluid figure-img"></p>
 <figcaption>qgis_datetime_3.png</figcaption>
 </figure>
 </div>
@@ -1179,7 +1181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="width: 600px;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../images/swot_datetime/qgis_datetime_5.png" class="img-fluid figure-img"></p>
+<p><img src="../../images/swot_datetime/qgis_datetime_5.PNG" class="img-fluid figure-img"></p>
 <figcaption>qgis_datetime_5.png</figcaption>
 </figure>
 </div>
@@ -1189,7 +1191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="width: 700px;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../images/swot_datetime/qgis_datetime_6.png" class="img-fluid figure-img"></p>
+<p><img src="../../images/swot_datetime/qgis_datetime_6.PNG" class="img-fluid figure-img"></p>
 <figcaption>qgis_datetime_6.png</figcaption>
 </figure>
 </div>
