@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -919,11 +919,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#calculate-mur25-sea-surface-temperature-global-mean" id="toc-calculate-mur25-sea-surface-temperature-global-mean" class="nav-link active" data-scroll-target="#calculate-mur25-sea-surface-temperature-global-mean">Calculate MUR25 Sea Surface Temperature Global Mean</a>
-  <ul class="collapse">
-  <li><a href="#load-required-libraries-and-prepare-data" id="toc-load-required-libraries-and-prepare-data" class="nav-link" data-scroll-target="#load-required-libraries-and-prepare-data">Load required libraries and prepare data</a></li>
+  <li><a href="#load-required-libraries-and-prepare-data" id="toc-load-required-libraries-and-prepare-data" class="nav-link active" data-scroll-target="#load-required-libraries-and-prepare-data">Load required libraries and prepare data</a></li>
   <li><a href="#calculate-the-area-weighted-global-mean" id="toc-calculate-the-area-weighted-global-mean" class="nav-link" data-scroll-target="#calculate-the-area-weighted-global-mean">Calculate the area-weighted global mean</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -952,21 +949,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="calculate-mur25-sea-surface-temperature-global-mean" class="level1">
-<h1>Calculate MUR25 Sea Surface Temperature Global Mean</h1>
 <p>This notebook demonstrates how we calculate the area-weighted global mean sea surface temperature (SST) from the MUR25 L4 dataset.</p>
 <p>You can run this on a local computer by downloading the data using the following command in your terminal:</p>
 <pre><code>podaac-data-downloader -c MUR25-JPL-L4-GLOB-v04.2 -d ./data/MUR25-JPL-L4-GLOB-v04.2 --start-date 2022-12-01T00:00:00Z --end-date 2022-12-31T23:00:00Z</code></pre>
 <section id="load-required-libraries-and-prepare-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-required-libraries-and-prepare-data">Load required libraries and prepare data</h3>
-<div id="cell-2" class="cell" data-execution_count="1">
+<div id="cell-3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cartopy.crs <span class="im">as</span> ccrs</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.load_dataset(<span class="st">'~/data/MUR25-JPL-L4-GLOB-v04.2/20221201090000-JPL-L4_GHRSST-SSTfnd-MUR25-GLOB-v02.0-fv04.2.nc'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -1388,7 +1383,7 @@ Attributes: (12/54)
         [ 0.,  0.,  0., ...,  0.,  0.,  0.]]], dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-246153db-7095-4cdd-b8d6-376bdf2d7821" class="xr-section-summary-in" type="checkbox"><label for="section-246153db-7095-4cdd-b8d6-376bdf2d7821" class="xr-section-summary">Attributes: <span>(54)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.7, ACDD-1.3</dd><dt><span>title :</span></dt><dd>Daily 0.25-degree MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A low-resolution version of the MUR SST analysis, a merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRRMTB_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Terra, Aqua, GCOM-W, MetOp-B, Buoys/Ships</dd><dt><span>instrument :</span></dt><dd>MODIS, AMSR2, AVHRR, in-situ</dd><dt><span>sensor :</span></dt><dd>MODIS, AMSR2, AVHRR, in-situ</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>product_version :</span></dt><dd>04.2</dd><dt><span>references :</span></dt><dd>Chin et al. (2017) "Remote Sensing of Environment", volulme 200, pages 154-169.  http://dx.doi.org/10.1016/j.rse.2017.07.029</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>creator_institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>project :</span></dt><dd>NASA MEaSUREs and COVERAGE</dd><dt><span>program :</span></dt><dd>NASA Earth Science Data and Information System (ESDIS)</dd><dt><span>southernmost_latitude :</span></dt><dd>-90.0</dd><dt><span>northernmost_latitude :</span></dt><dd>90.0</dd><dt><span>westernmost_longitude :</span></dt><dd>-180.0</dd><dt><span>easternmost_longitude :</span></dt><dd>180.0</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lon_min :</span></dt><dd>-180.0</dd><dt><span>geospatial_lon_max :</span></dt><dd>180.0</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.25</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.25</dd><dt><span>date_created :</span></dt><dd>2022-12-10</dd><dt><span>start_time :</span></dt><dd>20221201T090000Z</dd><dt><span>stop_time :</span></dt><dd>20221201T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20221130T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20221201T210000Z</dd><dt><span>time_coverage_resolution :</span></dt><dd>P1D</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR25-JPL-L4-GLOB-v04.2</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>comment :</span></dt><dd>MUR = "Multi-scale Ultra-high Resolution"</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>04.2</dd><dt><span>spatial_resolution :</span></dt><dd>0.25 degrees</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>https://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>gpc@ghrsst.org</dd><dt><span>file_quality_level :</span></dt><dd>3</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR25-JPL-L4-GLOB-v04.2</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs and COVERAGE programs.</dd></dl></div></li></ul></div></div>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="3">
+<div id="cell-5" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select sst variable</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sst <span class="op">=</span> ds.analysed_sst</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1781,7 +1776,7 @@ Coordinates:
       dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-0cd72877-dd5d-4d28-a259-f8a45a30585c" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-0cd72877-dd5d-4d28-a259-f8a45a30585c" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the data</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> sst.plot(subplot_kws<span class="op">=</span><span class="bu">dict</span>(transform<span class="op">=</span>ccrs.PlateCarree()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1795,7 +1790,7 @@ Coordinates:
 </section>
 <section id="calculate-the-area-weighted-global-mean" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-the-area-weighted-global-mean">Calculate the area-weighted global mean</h3>
-<div id="cell-7" class="cell" data-execution_count="4">
+<div id="cell-8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create the weights</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> np.cos(np.deg2rad(sst.lat))</span>
@@ -2248,7 +2243,7 @@ Attributes:
       dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-206e1efb-ab25-499a-a676-be982ca6084c" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-206e1efb-ab25-499a-a676-be982ca6084c" class="xr-section-summary">Attributes: <span>(8)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>coverage_content_type :</span></dt><dd>coordinate</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_min :</span></dt><dd>-90.0</dd><dt><span>valid_max :</span></dt><dd>90.0</dd><dt><span>comment :</span></dt><dd>geolocations inherited from the input data without correction</dd></dl></div></li></ul></div></div>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="5">
+<div id="cell-9" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lat <span class="kw">in</span> sst.lat:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    l <span class="op">=</span> lat.values</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (l<span class="op">&gt;</span><span class="dv">60</span>) <span class="kw">or</span> (l<span class="op">&lt;-</span><span class="dv">60</span>):</span>
@@ -2256,7 +2251,7 @@ Attributes:
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#weights</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="6">
+<div id="cell-10" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># apply weights to data</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sst_weighted <span class="op">=</span> sst.weighted(weights)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2621,7 +2616,7 @@ dl.xr-attrs {
 array(20.52885965)</pre><div class="xr-wrap" hidden=""><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'analysed_sst'</div></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-df2ffa9a-0200-4c80-8e9c-2b31ede0cc94" class="xr-array-in" type="checkbox" checked=""><label for="section-df2ffa9a-0200-4c80-8e9c-2b31ede0cc94" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>20.53</span></div><div class="xr-array-data"><pre>array(20.52885965)</pre></div></div></li><li class="xr-section-item"><input id="section-ebbadb9f-15b7-4c98-bb69-321b81c62fdb" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-ebbadb9f-15b7-4c98-bb69-321b81c62fdb" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"></ul></div></li><li class="xr-section-item"><input id="section-a0ad358b-d01d-4c71-9ec7-83309621939f" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-a0ad358b-d01d-4c71-9ec7-83309621939f" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="7">
+<div id="cell-11" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sst_out <span class="op">=</span> sst_global_mean.expand_dims(time<span class="op">=</span>ds.time)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sst_out <span class="op">=</span> sst_out.assign_attrs({</span>
@@ -2995,7 +2990,6 @@ Attributes:
 
 
 </section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -3221,6 +3215,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -3255,7 +3267,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

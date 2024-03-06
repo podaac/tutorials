@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -950,8 +950,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#earthdata-webinar" id="toc-earthdata-webinar" class="nav-link active" data-scroll-target="#earthdata-webinar">Earthdata Webinar</a></li>
-  <li><a href="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" id="toc-moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" class="nav-link" data-scroll-target="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud">Moving Code to the Data: Analyzing Sea Level Rise Using Earth Data in the Cloud</a>
+  <li><a href="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" id="toc-moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" class="nav-link active" data-scroll-target="#moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud">Moving Code to the Data: Analyzing Sea Level Rise Using Earth Data in the Cloud</a>
   <ul class="collapse">
   <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
   <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
@@ -1014,9 +1013,7 @@ window.Quarto = {
 </header>
 
 
-<section id="earthdata-webinar" class="level1">
-<h1>Earthdata Webinar</h1>
-<p>imported on: <strong>2024-03-04</strong></p>
+<p>imported on: <strong>2024-03-06</strong></p>
 <p>
 This notebook is from a different repository in NASA’s PO.DAAC, the-coding-club
 </p>
@@ -1026,7 +1023,6 @@ This notebook is from a different repository in NASA’s PO.DAAC, the-coding-clu
 <div class="alert alert-block alert-warning">
 <p>Disclaimer: Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or otherwise, does not constitute or imply its endorsement by the United States Government or the Jet Propulsion Laboratory, California Institute of Technology.</p>
 </div>
-</section>
 <section id="moving-code-to-the-data-analyzing-sea-level-rise-using-earth-data-in-the-cloud" class="level1">
 <h1>Moving Code to the Data: Analyzing Sea Level Rise Using Earth Data in the Cloud</h1>
 <blockquote class="blockquote">
@@ -1042,7 +1038,7 @@ This notebook is from a different repository in NASA’s PO.DAAC, the-coding-clu
 <p>Ackowledgement: <a href="https://github.com/podaac/the-coding-club">PO.DAAC coding club team</a>, <a href="https://www.openscapes.org">Openscapes</a>, <a href="https://www.earthdata.nasa.gov/eosdis">NASA Earthdata EOSDIS</a></p>
 </blockquote>
 <p>This note book was created for the Earthdata webinar. The webinar recording is available on NASA’s Earthdata youtube channel and embeded below.</p>
-<div id="cell-2" class="cell" data-execution_count="27">
+<div id="cell-3" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>html</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>iframe width<span class="op">=</span><span class="st">"560"</span> height<span class="op">=</span><span class="st">"315"</span> src<span class="op">=</span><span class="st">"https://www.youtube.com/embed/4BcoLh8vMG4"</span> title<span class="op">=</span><span class="st">"YouTube video player"</span> frameborder<span class="op">=</span><span class="st">"0"</span> allow<span class="op">=</span><span class="st">"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"</span> allowfullscreen<span class="op">&gt;&lt;/</span>iframe<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1275,7 +1271,7 @@ Detach the screen by pressing CTRL + b -&gt; d.
    - short name: `ECCO_L4_GMSL_TIME_SERIES_MONTHLY_V4R4`
    - [landing page](https://doi.org/10.5067/ECTSM-MSL44)
 
-::: {#cell-10 .cell execution_count=28}
+::: {#cell-11 .cell execution_count=28}
 ``` {.python .cell-code}
 #load python modules
 
@@ -1305,7 +1301,7 @@ short_name='SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812'</code><
 <p>{“accessKeyId”: “xxxx”, “secretAccessKey”: “xxxx”, “sessionToken”: “xxxx”, “expiration”: “2022-07-22 15:56:34+00:00”}</p>
 </blockquote>
 <p>Further reading: https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html</p>
-<div id="cell-12" class="cell" data-tags="[]" data-execution_count="29">
+<div id="cell-13" class="cell" data-tags="[]" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_S3FileSystem():</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">    This routine automatically pull your EDL crediential from .netrc file and use it to obtain an AWS S3 credential through a podaac service accessable at https://archive.podaac.earthdata.nasa.gov/s3credentials</span></span>
@@ -1331,7 +1327,7 @@ short_name='SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812'</code><
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">s3://podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Using the following will get a list netcdf filenames:</p>
 <pre><code>fns=s3sys.glob("s3://podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/*.nc")</code></pre>
-<div id="cell-14" class="cell" data-execution_count="30">
+<div id="cell-15" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>s3sys<span class="op">=</span>init_S3FileSystem()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>s3path<span class="op">=</span><span class="st">"s3://podaac-ops-cumulus-protected/</span><span class="sc">%s</span><span class="st">/"</span><span class="op">%</span>short_name</span>
@@ -1343,14 +1339,14 @@ short_name='SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812'</code><
 <pre><code>podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/ssh_grids_v1812_1992100212.nc</code></pre>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="31">
+<div id="cell-16" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'There are </span><span class="sc">%i</span><span class="st"> files.'</span><span class="op">%</span><span class="bu">len</span>(fns))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 1922 files.</code></pre>
 </div>
 </div>
 <p>Here is an example file.</p>
-<div id="cell-17" class="cell" data-execution_count="32">
+<div id="cell-18" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span>xr.open_dataset(s3sys.<span class="bu">open</span>(fns[<span class="dv">0</span>]))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
@@ -1751,7 +1747,7 @@ Attributes: (12/13)
 </div>
 <section id="plot-an-example" class="level3">
 <h3 class="anchored" data-anchor-id="plot-an-example">Plot an example</h3>
-<div id="cell-19" class="cell" data-execution_count="33">
+<div id="cell-20" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">7</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.contourf(d[<span class="st">'Longitude'</span>],d[<span class="st">'Latitude'</span>],d[<span class="st">'SLA'</span>][<span class="dv">0</span>,...].T,levels<span class="op">=</span>np.arange(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.6</span>,<span class="fl">0.05</span>))</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
@@ -1775,7 +1771,7 @@ Attributes: (12/13)
 <p>The global mean SSH is calculated as follows.</p>
 <p><span class="math inline">\(SSH_{mean} = \sum \eta(\phi,\lambda)*A(\phi)\)</span>, where <span class="math inline">\(\phi\)</span> is latitude, <span class="math inline">\(\lambda\)</span> is longitude, <span class="math inline">\(A\)</span> is the area of the grid at latitude <span class="math inline">\(\phi\)</span>, and <span class="math inline">\(\eta(\phi,\lambda)*A(\phi)\)</span> is the weighted SLA at <span class="math inline">\((\phi,\lambda)\)</span>.</p>
 <p>The following routine <code>area</code> pre-calculates the area as a function of latitude for the 1/6-degree resolution grids.</p>
-<div id="cell-21" class="cell" data-execution_count="34">
+<div id="cell-22" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area(lats):</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculate the area associated with a 1/6 by 1/6 degree box at latitude specified in 'lats'. </span></span>
@@ -1820,12 +1816,12 @@ Attributes: (12/13)
 <span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>        dout<span class="op">=</span>((d<span class="op">*</span>ssh_area).<span class="bu">sum</span>()<span class="op">/</span>(d<span class="op">/</span>d<span class="op">*</span>ssh_area).<span class="bu">sum</span>()).values</span>
 <span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="35">
+<div id="cell-23" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span>xr.open_dataset(s3sys.<span class="bu">open</span>(fns[<span class="dv">0</span>]))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pre-calculate the area for reuse</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ssh_area<span class="op">=</span>area(d.Latitude.data).reshape(<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="36">
+<div id="cell-24" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The global mean sea level from </span><span class="sc">%s</span><span class="st"> is </span><span class="sc">%7.5f</span><span class="st"> meters.'</span><span class="op">%</span>(fns[<span class="dv">0</span>],global_mean(fns[<span class="dv">0</span>],s3sys,ssh_area) ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The global mean sea level from podaac-ops-cumulus-protected/SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL1812/ssh_grids_v1812_1992100212.nc is -0.00632 meters.</code></pre>
@@ -1837,7 +1833,7 @@ Attributes: (12/13)
 <div class="alert alert-block alert-success">
 <p>Benchmark: using a single thread takes about 17 min to calculate all 1922 files. Here the program is sped up by skipping every 360 days (72 steps). The small EC2 can handle the computation because it involves one file per step.</p>
 </div>
-<div id="cell-25" class="cell" data-execution_count="37">
+<div id="cell-26" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Loop 26-year 5-daily SSH fields (1922 files)</span></span>
@@ -1853,7 +1849,7 @@ Attributes: (12/13)
 Wall time: 45 s</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="38">
+<div id="cell-27" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> linregress</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">5</span>))</span>
@@ -1889,7 +1885,7 @@ Wall time: 45 s</code></pre>
 </div>
 <section id="add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl" class="level3">
 <h3 class="anchored" data-anchor-id="add-the-gmsl-from-frederikse-et-al.-httpspodaac.jpl.nasa.govdatasetjpl_recon_gmsl">Add the GMSL from Frederikse et al.&nbsp;https://podaac.jpl.nasa.gov/dataset/JPL_RECON_GMSL</h3>
-<div id="cell-29" class="cell" data-execution_count="39">
+<div id="cell-30" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> linregress</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">5</span>))</span>
@@ -2272,6 +2268,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2306,7 +2320,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

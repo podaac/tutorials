@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -916,15 +916,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#harmony-api-introduction" id="toc-harmony-api-introduction" class="nav-link active" data-scroll-target="#harmony-api-introduction">Harmony API Introduction</a>
-  <ul class="collapse">
-  <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link" data-scroll-target="#before-you-start">Before you start</a></li>
+  <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link active" data-scroll-target="#before-you-start">Before you start</a></li>
   <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import packages</a></li>
   <li><a href="#identify-a-data-collection-of-interest" id="toc-identify-a-data-collection-of-interest" class="nav-link" data-scroll-target="#identify-a-data-collection-of-interest">Identify a data collection of interest</a></li>
   <li><a href="#access-reprojected-data" id="toc-access-reprojected-data" class="nav-link" data-scroll-target="#access-reprojected-data">Access reprojected data</a></li>
   <li><a href="#the-practice-datasets-below-used-for-this-tutorial-are-no-longer-supported-for-details-about-the-harmony-api-see-this-tutorial-from-the-2021-cloud-hackathon-or-this-tutorial-introducing-the-harmony-py-library." id="toc-the-practice-datasets-below-used-for-this-tutorial-are-no-longer-supported-for-details-about-the-harmony-api-see-this-tutorial-from-the-2021-cloud-hackathon-or-this-tutorial-introducing-the-harmony-py-library." class="nav-link" data-scroll-target="#the-practice-datasets-below-used-for-this-tutorial-are-no-longer-supported-for-details-about-the-harmony-api-see-this-tutorial-from-the-2021-cloud-hackathon-or-this-tutorial-introducing-the-harmony-py-library.">The practice datasets below used for this tutorial are no longer supported, for details about the Harmony API see this tutorial from the 2021 Cloud Hackathon or this tutorial introducing the Harmony-py library.</a></li>
   <li><a href="#access-level-2-swath-regridded-data" id="toc-access-level-2-swath-regridded-data" class="nav-link" data-scroll-target="#access-level-2-swath-regridded-data">Access Level 2 swath regridded data</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -953,8 +950,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="harmony-api-introduction" class="level1">
-<h1>Harmony API Introduction</h1>
 <p>This notebook provides an overview of the capabilities offered through the Harmony API and SWOT L2 Reproject tool. While written for SWOT L2 data, it works with most any level 2 data for projecting to a normal grid. In this tutorial we will use MODIS L2 data to show the native file projected to equal-area-cylindracal projection using both Nearest Neighbor and Bi-linear interpolation.</p>
 <p>Standing on the shoulders of previous authors: Amy Steiker, Patrick Quinn</p>
 <section id="before-you-start" class="level2">
@@ -964,7 +959,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-packages" class="level2">
 <h2 class="anchored" data-anchor-id="import-packages">Import packages</h2>
-<div id="cell-2" class="cell" data-execution_count="2">
+<div id="cell-3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request, parse</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> http.cookiejar <span class="im">import</span> CookieJar</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> getpass</span>
@@ -988,7 +983,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="identify-a-data-collection-of-interest" class="level2">
 <h2 class="anchored" data-anchor-id="identify-a-data-collection-of-interest">Identify a data collection of interest</h2>
 <p>A CMR collection ID is needed to request services through Harmony. The collection ID can be determined using the <a href="https://cmr.earthdata.nasa.gov/search/site/docs/search/api.html">CMR API</a>. We will query the corresponding ID of a known collection short name, <code>MODIS_A-JPL-L2P-v2019.0</code>.</p>
-<div id="cell-4" class="cell" data-execution_count="5">
+<div id="cell-5" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'short_name'</span>: <span class="st">'MODIS_A-JPL-L2P-v2019.0'</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'provider_id'</span>: <span class="st">'POCLOUD'</span></span>
@@ -1006,7 +1001,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can also view the <code>MODIS_A-JPL-L2P-v2019.0</code> collection metadata to glean more information about the collection:</p>
-<div id="cell-6" class="cell" data-scrolled="true" data-execution_count="6">
+<div id="cell-7" class="cell" data-scrolled="true" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pprint.pprint(cmr_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'feed': {'entry': [{'archive_center': 'NASA/JPL/PODAAC',
@@ -1185,7 +1180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Next we get a granule ID from this collection, G2525170359-POCLOUD.</p>
-<div id="cell-8" class="cell" data-execution_count="11">
+<div id="cell-9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cmr_url <span class="op">=</span> <span class="st">"https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id="</span><span class="op">+</span>harmony_collection_id<span class="op">+</span><span class="st">"&amp;sort_key=-start_date"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(cmr_url)</span>
@@ -1216,7 +1211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>height=&lt;Float&gt;</code></p>
 <p>An error is returned if both <code>scaleSize</code> and <code>width</code>/<code>height</code> parameters are both provided (only one or the other can be used).</p>
 <p>Request reprojection to <a href="https://epsg.io/102014">Europe Lambert Conformal Conic</a> with a new scale extent and nearest neighbor interpolation:</p>
-<div id="cell-12" class="cell" data-execution_count="13">
+<div id="cell-13" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>harmony_root <span class="op">=</span> <span class="st">'https://harmony.earthdata.nasa.gov'</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># URL encode string using urllib parse package</span></span>
@@ -1247,14 +1242,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This reprojected and regridded output is downloaded to the Harmony outputs directory and we can inspect a variable to check for projection and grid dimension:</p>
-<div id="cell-14" class="cell">
+<div id="cell-15" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>regrid_file_name <span class="op">=</span> <span class="st">'regrid-near.nc'</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>regrid_filepath <span class="op">=</span> <span class="bu">str</span>(regrid_file_name)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>file_ <span class="op">=</span> <span class="bu">open</span>(regrid_filepath, <span class="st">'wb'</span>)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>file_.write(regrid_results)</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>file_.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-15" class="cell">
+<div id="cell-16" class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>harmony_root <span class="op">=</span> <span class="st">'https://harmony.earthdata.nasa.gov'</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># URL encode string using urllib parse package</span></span>
@@ -1280,7 +1275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>regrid_bi_response <span class="op">=</span> request.urlopen(regrid_bi_url)</span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>regrid_bi_results <span class="op">=</span> regrid_bi_response.read()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-16" class="cell">
+<div id="cell-17" class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>regrid_bi_file_name <span class="op">=</span> <span class="st">'regrid-bi.nc'</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>regrid_bi_filepath <span class="op">=</span> <span class="bu">str</span>(regrid_bi_file_name)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>file_ <span class="op">=</span> <span class="bu">open</span>(regrid_bi_filepath, <span class="st">'wb'</span>)</span>
@@ -1288,39 +1283,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>file_.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Print the x and y dimensions to confirm that the output matches the requested scale extent in meters:</p>
-<div id="cell-18" class="cell">
+<div id="cell-19" class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>reproject_ds <span class="op">=</span> xr.open_dataset(regrid_filepath, drop_variables<span class="op">=</span><span class="st">'time'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(reproject_ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell">
+<div id="cell-20" class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>reproject_bi_ds <span class="op">=</span> xr.open_dataset(regrid_bi_filepath, drop_variables<span class="op">=</span><span class="st">'time'</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(reproject_bi_ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-20" class="cell">
+<div id="cell-21" class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>original_ds <span class="op">=</span> xr.open_dataset(<span class="st">'20200131234501-JPL-L2P_GHRSST-SSTskin-MODIS_A-D-v02.0-fv01.0.nc'</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(original_ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-21" class="cell">
+<div id="cell-22" class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> reproject_ds.sea_surface_temperature.plot(robust<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>g.axes.set_title(<span class="st">"Nearest Neighbor Interpolation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-22" class="cell">
+<div id="cell-23" class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>g<span class="op">=</span> reproject_bi_ds.sea_surface_temperature.plot(robust<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>g.axes.set_title(<span class="st">"Bilinear Interpolation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-23" class="cell">
+<div id="cell-24" class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> original_ds.sea_surface_temperature.plot(robust<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>g.axes.set_title(<span class="st">"Native File"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-24" class="cell">
+<div id="cell-25" class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>g<span class="op">=</span> original_ds.sea_surface_temperature.plot(x<span class="op">=</span><span class="st">"lon"</span>, y<span class="op">=</span><span class="st">"lat"</span>, robust<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>g.axes.set_title(<span class="st">"Native, projected to Lat/Lon"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1547,6 +1541,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1581,7 +1593,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

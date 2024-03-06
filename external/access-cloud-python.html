@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -922,13 +922,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-do-i-access-data-stored-in-earthdata-cloud-in-python" id="toc-how-do-i-access-data-stored-in-earthdata-cloud-in-python" class="nav-link active" data-scroll-target="#how-do-i-access-data-stored-in-earthdata-cloud-in-python">How do I access data stored in Earthdata Cloud in Python?</a>
-  <ul class="collapse">
-  <li><a href="#direct-access" id="toc-direct-access" class="nav-link" data-scroll-target="#direct-access">Direct Access</a></li>
+  <li><a href="#direct-access" id="toc-direct-access" class="nav-link active" data-scroll-target="#direct-access">Direct Access</a></li>
   <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
   <li><a href="#end-user-license-agreement-eula" id="toc-end-user-license-agreement-eula" class="nav-link" data-scroll-target="#end-user-license-agreement-eula">End User License Agreement (EULA)</a></li>
   <li><a href="#alternative-access-method-without-earthaccess" id="toc-alternative-access-method-without-earthaccess" class="nav-link" data-scroll-target="#alternative-access-method-without-earthaccess">Alternative Access Method without <code>earthaccess</code></a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -957,8 +954,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="how-do-i-access-data-stored-in-earthdata-cloud-in-python" class="level1">
-<h1>How do I access data stored in Earthdata Cloud in Python?</h1>
 <section id="direct-access" class="level2">
 <h2 class="anchored" data-anchor-id="direct-access">Direct Access</h2>
 <p>When you have found the data you want to use, you have two options. You can download the data to work locally, or access the data directly to work in the cloud. This second way of working is called “<em>Direct Cloud Access</em>” or simply, “<em>Direct Access</em>”. Your compute instance needs to be in Amazon Web Services (AWS) Region <code>us-west-2</code> in order for the code to run successfully. We authenticate using a netrc file and an Earthdata Login, see the <a href="https://nasa-openscapes.github.io/earthdata-cloud-cookbook/appendix/authentication.html">appendix</a> for more information on <a href="https://urs.earthdata.nasa.gov/">Earthdata Login</a> and netrc setup.</p>
@@ -966,16 +961,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="python" class="level2">
 <h2 class="anchored" data-anchor-id="python">Python</h2>
 <p>We can use the <a href="https://nsidc.github.io/earthaccess/"><code>earthaccess</code></a> python library to grab the file URLs and then access them with the <code>xarray</code> library.</p>
-<div id="cell-2" class="cell" data-tags="[]" data-execution_count="2">
+<div id="cell-3" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-tags="[]" data-execution_count="3">
+<div id="cell-4" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Authentication with Earthdata Login</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"netrc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell" data-tags="[]" data-execution_count="4">
+<div id="cell-5" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Access land ice height from ATLAS/ICESat-2 V005 (10.5067/ATLAS/ATL06.005), searching for data over western Greenland coast over two weeks in July 2022. The data are provided as HDF5 granules (files) that span about 1/14th of an orbit.</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"ATL06"</span>,</span>
@@ -987,7 +982,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Granules found: 5</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-tags="[]" data-execution_count="4">
+<div id="cell-6" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Use xarray to load the data as a multifile dataset for a single group in the HDF5 file, in this case land ice segments:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_mfdataset(earthaccess.<span class="bu">open</span>(results), group<span class="op">=</span><span class="st">'/gt1l/land_ice_segments'</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2062,7 +2057,7 @@ meters
                '2022-07-26 00:49:18.832263232'],
               dtype='datetime64[ns]', name='delta_time', length=241711, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-e7c907d9-2aed-4e5f-9321-fc9098ef0e97" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-e7c907d9-2aed-4e5f-9321-fc9098ef0e97" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Description :</span></dt><dd>The land_ice_height group contains the primary set of derived ATL06 products. This includes geolocation, height, and standard error and quality measures for each segment. This group is sparse, meaning that parameters are provided only for pairs of segments for which at least one beam has a valid surface-height measurement.</dd><dt><span>data_rate :</span></dt><dd>Data within this group are sparse.  Data values are provided only for those ICESat-2 20m segments where at least one beam has a valid land ice height measurement.</dd></dl></div></li></div></div>
 </div>
-</section></section></main></div>
+</section></main></div>
 
 
 <section id="end-user-license-agreement-eula" class="level2">
@@ -2075,7 +2070,6 @@ meters
 
 
 </section>
-
 
  <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -2301,6 +2295,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2335,7 +2347,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -916,9 +916,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#this-notebook-is-no-longer-supported-a-newer-version-exists-here." id="toc-this-notebook-is-no-longer-supported-a-newer-version-exists-here." class="nav-link active" data-scroll-target="#this-notebook-is-no-longer-supported-a-newer-version-exists-here.">This Notebook is no longer supported, a newer version exists here.</a>
-  <ul class="collapse">
-  <li><a href="#cloud-level-2-subsetter-l2ss-api" id="toc-cloud-level-2-subsetter-l2ss-api" class="nav-link" data-scroll-target="#cloud-level-2-subsetter-l2ss-api">Cloud Level 2 Subsetter (L2SS) API</a></li>
+  <li><a href="#cloud-level-2-subsetter-l2ss-api" id="toc-cloud-level-2-subsetter-l2ss-api" class="nav-link active" data-scroll-target="#cloud-level-2-subsetter-l2ss-api">Cloud Level 2 Subsetter (L2SS) API</a></li>
   <li><a href="#before-beginning" id="toc-before-beginning" class="nav-link" data-scroll-target="#before-beginning">Before Beginning</a>
   <ul class="collapse">
   <li><a href="#learning-objective" id="toc-learning-objective" class="nav-link" data-scroll-target="#learning-objective">Learning Objective:</a></li>
@@ -926,7 +924,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#subset-of-a-po.daac-granule" id="toc-subset-of-a-po.daac-granule" class="nav-link" data-scroll-target="#subset-of-a-po.daac-granule">Subset of a PO.DAAC Granule</a></li>
   <li><a href="#verify-the-subsetting-worked" id="toc-verify-the-subsetting-worked" class="nav-link" data-scroll-target="#verify-the-subsetting-worked">Verify the subsetting worked</a></li>
   <li><a href="#plot-swath-onto-a-map" id="toc-plot-swath-onto-a-map" class="nav-link" data-scroll-target="#plot-swath-onto-a-map">Plot swath onto a map</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -955,8 +952,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="this-notebook-is-no-longer-supported-a-newer-version-exists-here." class="level1">
-<h1>This Notebook is no longer supported, a newer version exists <a href="https://github.com/podaac/tutorials/blob/master/notebooks/harmony%20subsetting/Harmony%20L2%20Subsetter.ipynb">here</a>.</h1>
 <section id="cloud-level-2-subsetter-l2ss-api" class="level2">
 <h2 class="anchored" data-anchor-id="cloud-level-2-subsetter-l2ss-api">Cloud Level 2 Subsetter (L2SS) API</h2>
 <p>This will demonstrate how to subset swath/L2 data with the data and services hosted on the cloud.</p>
@@ -970,7 +965,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Subset a specific file/granule that has already been found using the podaac L2 subsetter</li>
 </ul>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="cell-4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> harmony <span class="im">import</span> BBox, Client, Collection, Request, Environment, LinkType</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, JSON</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tempfile</span>
@@ -989,11 +984,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We build onto the root URL in order to actually perform a transformation. The first transformation is a subset of a selected granule. <em>At this time, this requires discovering the granule id from CMR</em>. That information can then be appended to the root URL and used to call Harmony with the help of the <code>request</code> library.</p>
 <p><strong>Notes:</strong> The L2 subsetter current streams the data back to the user, and does not stage data in S3 for redirects. This is functionality we will be adding over time.</p>
 <p>Create a Harmony-py client</p>
-<div id="cell-5" class="cell" data-execution_count="2">
+<div id="cell-6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>harmony_client <span class="op">=</span> Client(env<span class="op">=</span>Environment.PROD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With the client created, we can contruct and validate the request. As this is a subsetting + concatenation request, we specify options on the request that define spatial bounds, variables we are interested in, temporal bounds, and indicated the result should be concatenated.</p>
-<div id="cell-7" class="cell" data-execution_count="3">
+<div id="cell-8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> Collection(<span class="bu">id</span><span class="op">=</span><span class="st">'C1940471193-POCLOUD'</span>) <span class="co">#Jason-1 GDR SSHA version E NetCDF</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>request <span class="op">=</span> Request(</span>
@@ -1009,7 +1004,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Now that we have a valid request we simply need to call the <code>submit</code> function using the client we created earlier and pass in the request as a parameter.</p>
 <p><em>Tip:</em> if you want to see the request before submitting it, use the <code>request_as_curl</code> function on the client to get an equivalent curl command for the request that will be submitted.</p>
-<div id="cell-9" class="cell" data-execution_count="4">
+<div id="cell-10" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(harmony_client.request_as_curl(request))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>job_id <span class="op">=</span> harmony_client.submit(request)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Job ID: </span><span class="sc">{</span>job_id<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1018,7 +1013,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Job ID: 8fad49e8-c95f-4a98-8e99-d5b053d86de7</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="5">
+<div id="cell-11" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(harmony_client.status(job_id))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Waiting for the job to finish'</span>)</span>
@@ -1035,24 +1030,24 @@ Waiting for the job to finish</code></pre>
 <pre><code>ConnectionError: ('Connection aborted.', TimeoutError(10060, 'A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond', None, 10060, None))</code></pre>
 </div>
 </div>
-<div id="cell-11" class="cell">
+<div id="cell-12" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>temp_dir <span class="op">=</span> tempfile.mkdtemp()</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>futures <span class="op">=</span> harmony_client.download_all(job_id, directory<span class="op">=</span>temp_dir, overwrite<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>file_names <span class="op">=</span> [f.result() <span class="cf">for</span> f <span class="kw">in</span> futures]</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>file_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-12" class="cell">
+<div id="cell-13" class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(file_names[<span class="dv">0</span>])</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-13" class="cell">
+<div id="cell-14" class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ds.ssha.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="verify-the-subsetting-worked" class="level2">
 <h2 class="anchored" data-anchor-id="verify-the-subsetting-worked">Verify the subsetting worked</h2>
 <p>Bounds are defined earlier</p>
-<div id="cell-15" class="cell" data-scrolled="true">
+<div id="cell-16" class="cell" data-scrolled="true">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lat_max <span class="op">=</span> ds.lat.<span class="bu">max</span>()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lat_min <span class="op">=</span> ds.lat.<span class="bu">min</span>()</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1075,7 +1070,7 @@ Waiting for the job to finish</code></pre>
 </section>
 <section id="plot-swath-onto-a-map" class="level2">
 <h2 class="anchored" data-anchor-id="plot-swath-onto-a-map">Plot swath onto a map</h2>
-<div id="cell-17" class="cell">
+<div id="cell-18" class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ax.coastlines()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1087,7 +1082,6 @@ Waiting for the job to finish</code></pre>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1314,6 +1308,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1348,7 +1360,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -916,14 +916,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-newer-version-of-this-notebook-exists-here." id="toc-a-newer-version-of-this-notebook-exists-here." class="nav-link active" data-scroll-target="#a-newer-version-of-this-notebook-exists-here.">A newer version of this Notebook exists here.</a>
-  <ul class="collapse">
-  <li><a href="#huc-feature-translation-service-fts-examples" id="toc-huc-feature-translation-service-fts-examples" class="nav-link" data-scroll-target="#huc-feature-translation-service-fts-examples">HUC Feature Translation Service (FTS) Examples</a></li>
+  <li><a href="#huc-feature-translation-service-fts-examples" id="toc-huc-feature-translation-service-fts-examples" class="nav-link active" data-scroll-target="#huc-feature-translation-service-fts-examples">HUC Feature Translation Service (FTS) Examples</a></li>
   <li><a href="#search-feature-translation-service-for-partial-region-matches" id="toc-search-feature-translation-service-for-partial-region-matches" class="nav-link" data-scroll-target="#search-feature-translation-service-for-partial-region-matches">Search Feature Translation Service for Partial Region Matches</a></li>
   <li><a href="#search-feature-translation-service-for-exact-huc-matches" id="toc-search-feature-translation-service-for-exact-huc-matches" class="nav-link" data-scroll-target="#search-feature-translation-service-for-exact-huc-matches">Search Feature Translation Service for Exact HUC Matches</a></li>
   <li><a href="#search-feature-translation-service-for-partial-region-matches-1" id="toc-search-feature-translation-service-for-partial-region-matches-1" class="nav-link" data-scroll-target="#search-feature-translation-service-for-partial-region-matches-1">Search Feature Translation Service for Partial Region Matches</a></li>
   <li><a href="#search-feature-translation-service-for-exact-named-region-matches" id="toc-search-feature-translation-service-for-exact-named-region-matches" class="nav-link" data-scroll-target="#search-feature-translation-service-for-exact-named-region-matches">Search Feature Translation Service for Exact Named Region Matches</a></li>
-  </ul></li>
   <li><a href="#visualize-the-response-from-the-huc-feature-translation-service" id="toc-visualize-the-response-from-the-huc-feature-translation-service" class="nav-link" data-scroll-target="#visualize-the-response-from-the-huc-feature-translation-service">Visualize the Response from the HUC Feature Translation Service</a>
   <ul class="collapse">
   <li><a href="#function-for-visualization" id="toc-function-for-visualization" class="nav-link" data-scroll-target="#function-for-visualization">Function for Visualization</a></li>
@@ -959,15 +956,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="a-newer-version-of-this-notebook-exists-here." class="level1">
-<h1>A newer version of this Notebook exists <a href="https://github.com/podaac/tutorials/blob/master/notebooks/HUC%20Feature%20Translation%20Service%20Examples-updated-20210804.ipynb">here</a>.</h1>
 <section id="huc-feature-translation-service-fts-examples" class="level2">
 <h2 class="anchored" data-anchor-id="huc-feature-translation-service-fts-examples">HUC Feature Translation Service (FTS) Examples</h2>
 <p>This Jupyter Notebook contains examples related to querying the <em>HUC Feature Translation Service (FTS)</em>, previewing (viusualizing) the queried region of interest, and using FTS results to query NASA’s Common Metadata Repository (CMR).</p>
 <p><strong>Example Use Case:</strong> Check if data is available over my region of interest using HUCs. In this example we are using FTS to geospatially define our region of interest, namely the Upper Tuolumne River Basin in the San Joaquin River Basin in California’s Sierra Nevada, searching by HUC or region name, and then using those geospatial bounds (coordinates) to query Sentinel-1 data in CMR. 1. use FTS to define geographic region of interest (query by partial or exact HUC or HUC region name) 2. preview query 3. use coordinates returned by FTS to query Sentinel-1 data in CMR, by polygon or bounding box.</p>
 <p><strong>Resources</strong></p>
 <p>USGS Hydrologic unit map to help identifiy region of interest (e.g.&nbsp;HUC value or name) can be found here: https://water.usgs.gov/GIS/regions.html</p>
-<div id="cell-1" class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
@@ -983,7 +978,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="search-feature-translation-service-for-partial-region-matches" class="level2">
 <h2 class="anchored" data-anchor-id="search-feature-translation-service-for-partial-region-matches">Search Feature Translation Service for Partial Region Matches</h2>
 <p>If you are unsure what the corresponding HUC is for your region of interest, you can query the FTS for <em>partial</em> region matches.</p>
-<div id="cell-3" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">###################</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Querying partial matches with region "San Joaquin"</span></span>
@@ -1131,7 +1126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="search-feature-translation-service-for-exact-huc-matches">Search Feature Translation Service for Exact HUC Matches</h2>
 <p>Here we can define a HUC, or hydrologic unit code, and use this to query the HUC FTS. By defining the parameter <em>EXACT = True</em>, we tell the query to not search for partial matches.</p>
 <p>Based on the partial response in the previous step, we can now do an exact search for SJRB, using its HUC (1804).</p>
-<div id="cell-5" class="cell" data-execution_count="3">
+<div id="cell-6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">###################</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Querying exact matches for HUC "1804" = San Joaquin RB</span></span>
@@ -1177,7 +1172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="search-feature-translation-service-for-partial-region-matches-1" class="level2">
 <h2 class="anchored" data-anchor-id="search-feature-translation-service-for-partial-region-matches-1">Search Feature Translation Service for Partial Region Matches</h2>
 <p>But we are specifically interested in Tuolumne RB within the San Joaquin, so let’s do a partial search for “Upper Tuo”, given we may not know the exact region name.</p>
-<div id="cell-7" class="cell" data-execution_count="4">
+<div id="cell-8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">###################</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Querying partial matches with region "Upper Tuo"</span></span>
@@ -1224,7 +1219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="search-feature-translation-service-for-exact-named-region-matches" class="level2">
 <h2 class="anchored" data-anchor-id="search-feature-translation-service-for-exact-named-region-matches">Search Feature Translation Service for Exact Named Region Matches</h2>
 <p>Given the above response, or that we already know an exact region name or HUC in USGS’s Watershed Boundary Dataset (WBD), we can use this instead of a partial search. Below is an example of exact matches by HUC (18040009), and then by region name (“Upper Tuolumne”).</p>
-<div id="cell-9" class="cell" data-execution_count="5">
+<div id="cell-10" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">###################</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Querying exact matches with HUC "18040009" = Upper Tuolumne</span></span>
@@ -1266,7 +1261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="6">
+<div id="cell-11" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">###################</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Querying exact matches with region "Upper Tuolumne"</span></span>
@@ -1310,11 +1305,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-</section>
 <section id="visualize-the-response-from-the-huc-feature-translation-service" class="level1">
 <h1>Visualize the Response from the HUC Feature Translation Service</h1>
 <p>Below are two examples of how to visualize the response from the Feature Translation Service. As of now, without support from the Earthdata search client, there’s no easy way to glean whether your response <em>is</em> indeed correct. So, here I provide code that takes a response from the HUC Feature Translation Service, and graphs the associated bounding boxes, convex hull polygons, and Visvalingam-Whyatt polygons.</p>
-<div id="cell-12" class="cell" data-execution_count="7">
+<div id="cell-13" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
@@ -1335,7 +1329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="function-for-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="function-for-visualization">Function for Visualization</h2>
 <p>Below is a function created specifically to visualize the output of the HUC Feature Translation Service.</p>
-<div id="cell-14" class="cell" data-execution_count="8">
+<div id="cell-15" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize(fts_response):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    regions <span class="op">=</span> []</span>
@@ -1374,7 +1368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="visualization" class="level2">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
 <p>We can take that response and pass it to the <em>visualize()</em> function created above.</p>
-<div id="cell-16" class="cell" data-execution_count="9">
+<div id="cell-17" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#visualize FTS response</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>visualize(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1385,7 +1379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="10">
+<div id="cell-18" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">###################</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Querying exact matches with HUC "18040009" = Upper Tuolumne</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1426,7 +1420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="11">
+<div id="cell-19" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#visualize FTS response</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>visualize(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1441,7 +1435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="query-cmr-by-polygon" class="level2">
 <h2 class="anchored" data-anchor-id="query-cmr-by-polygon">Query CMR by Polygon</h2>
 <p>Here is a more useful example of the Feature Translation Service. We can use results obtained from the FTS to then directly and automatically query CMR. Below I’m extracting the polygon representing Upper Tuolumne River Basin within the San Joaquin River Basin, and using it to search for granules available through the Sentinel-1 mission.</p>
-<div id="cell-21" class="cell">
+<div id="cell-22" class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">###################</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2227,7 +2221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="query-cmr-by-bounding-box">Query CMR by Bounding Box</h2>
 <p>Instead of querying via polygon, we can extract the bounding box of the region and use this to query CMR. Similarly to above, we’re extracting information (this time the bounding box) from the Upper Tuolumne River Basin and using this to search for granules available through the Sentinel-1 mission.</p>
 <p>Here we query by <em>region</em> in these two examples, however it would be equally valid to query by <em>HUC</em>.</p>
-<div id="cell-23" class="cell" data-pycharm="{&quot;is_executing&quot;:false}" data-execution_count="13">
+<div id="cell-24" class="cell" data-pycharm="{&quot;is_executing&quot;:false}" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">###################</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>COLLECTION_ID <span class="op">=</span> <span class="st">"C1522341104-NSIDC_ECS"</span> <span class="co"># SMAP/Sentinel-1 L2 Radiometer/Radar 30-Second Scene 3 km EASE-Grid Soil Moisture V002</span></span>
@@ -3234,6 +3228,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -3268,7 +3280,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

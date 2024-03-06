@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - SMAP</title>
+<title>PO.DAAC Cookbook - SWOT Date/Time Transformation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../notebooks/datasets/smap_imerg_tutorial.html" rel="next">
-<link href="../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -89,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../quarto_text/SMAP.html">SMAP</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">SWOT Date/Time Transformation</li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -103,8 +135,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
@@ -121,19 +153,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cheatsheets &amp; Guides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How To</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -151,13 +183,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">using Earthdata Search</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">using Code</span></a>
   </div>
 </li>
@@ -165,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Authenticate</span></a>
   </div>
 </li>
@@ -180,19 +212,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">in the Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/access-local-python.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/access-local-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Locally</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via OPeNDAP</span></a>
   </div>
 </li>
@@ -200,13 +232,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/read_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/read_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Read Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Download/Subscribe</span></a>
   </div>
 </li>
@@ -214,25 +246,25 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Specific</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ECCO</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -241,19 +273,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-cloud Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local Download Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
@@ -261,7 +293,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GHRSST</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -270,31 +302,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In QGIS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPeNDAP Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-Cloud Access</span></a>
   </div>
 </li>
@@ -302,7 +334,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPERA</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -320,13 +352,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -336,7 +368,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -345,19 +377,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access by Cycle/Pass</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access NRT Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPeNDAP Access</span></a>
   </div>
 </li>
@@ -365,16 +397,16 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SMAP</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 show">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
@@ -382,7 +414,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">S-MODE</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -391,19 +423,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study Airborne Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study Airborne Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study In Situ</span></a>
   </div>
 </li>
@@ -411,7 +443,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SWOT</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -429,31 +461,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via GUI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programmatically</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via Command Line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#swot-spatial-coverage-for-beta-pre-validated-products-v1.1" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#swot-spatial-coverage-for-beta-pre-validated-products-v1.1" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Coverage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#tips-for-swot-hr-spatial-search" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#tips-for-swot-hr-spatial-search" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tips for SWOT HR Spatial Search</span></a>
   </div>
 </li>
@@ -479,13 +511,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOTHR_s3Access_real_data_v11.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOTHR_s3Access_real_data_v11.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOTHR_localmachine_real_data_v11.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOTHR_localmachine_real_data_v11.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -502,13 +534,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/DirectCloud_Access_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/DirectCloud_Access_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -518,7 +550,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/DataStories/SWOTHR_Science_Application.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/DataStories/SWOTHR_Science_Application.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hydrology Data Story</span></a>
   </div>
 </li>
@@ -539,7 +571,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/SWOT_GISshapefiles.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/SWOT_GISshapefiles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Shapefile Exploration</span></a>
   </div>
 </li>
@@ -556,7 +588,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hydrology Time Series</span></a>
   </div>
 </li>
@@ -571,13 +603,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mac/Linux</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Windows</span></a>
   </div>
 </li>
@@ -587,7 +619,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#tools" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#tools" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tools</span></a>
   </div>
 </li>
@@ -597,13 +629,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GIS</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud vs. Local Workflows</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -621,13 +653,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -644,13 +676,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -667,13 +699,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -683,7 +715,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Science Data Stories</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -701,13 +733,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -715,25 +747,25 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Monthly SST EOF Decomposition</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SSS Changes in the Arctic</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mississippi River Heights</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SST Cross Validation</span></a>
   </div>
 </li>
@@ -741,7 +773,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Examples</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -750,19 +782,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr Access for NetCDF4 Files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">zarr-eosdis-store library</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">zarr2netCDF</span></a>
   </div>
 </li>
@@ -772,7 +804,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced Cloud</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -781,7 +813,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-28" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
+            <a href="../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AWS Lambda</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -790,7 +822,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-29" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Notebook</span></a>
   </div>
 </li>
@@ -798,19 +830,19 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kerchunk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask, Kerchunk, &amp; Zarr</span></a>
   </div>
 </li>
@@ -818,19 +850,19 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In Development</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshops</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Webinars</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -839,7 +871,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-30" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">July 2022 Earthdata Webinar Notebook</span></a>
   </div>
 </li>
@@ -847,13 +879,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tech Guides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contribute</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -862,7 +894,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-31" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorial Template</span></a>
   </div>
 </li>
@@ -870,7 +902,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Questions?</span></a>
   </div>
 </li>
@@ -884,9 +916,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
-  <li><a href="#data-resources-tutorials" id="toc-data-resources-tutorials" class="nav-link" data-scroll-target="#data-resources-tutorials">Data Resources &amp; Tutorials</a></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
+  <ul class="collapse">
+  <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
+  <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">2. Earthdata Login</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives:</a></li>
+  <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import libraries</a></li>
+  </ul></li>
+  <li><a href="#authentication-with-earthaccess" id="toc-authentication-with-earthaccess" class="nav-link" data-scroll-target="#authentication-with-earthaccess">Authentication with earthaccess</a>
+  <ul class="collapse">
+  <li><a href="#search-using-earthaccess-for-swot-river-reaches" id="toc-search-using-earthaccess-for-swot-river-reaches" class="nav-link" data-scroll-target="#search-using-earthaccess-for-swot-river-reaches">Search using <code>earthaccess</code> for SWOT River Reaches</a></li>
+  <li><a href="#download-the-data-into-a-folder" id="toc-download-the-data-into-a-folder" class="nav-link" data-scroll-target="#download-the-data-into-a-folder">Download the Data into a folder</a></li>
+  <li><a href="#unzip-shapefiles-to-existing-folder" id="toc-unzip-shapefiles-to-existing-folder" class="nav-link" data-scroll-target="#unzip-shapefiles-to-existing-folder">Unzip shapefiles to existing folder</a></li>
+  <li><a href="#merging-multiple-reaches-to-a-single-shapefile" id="toc-merging-multiple-reaches-to-a-single-shapefile" class="nav-link" data-scroll-target="#merging-multiple-reaches-to-a-single-shapefile">Merging multiple reaches to a single shapefile</a></li>
+  </ul></li>
+  <li><a href="#arcgis-pro" id="toc-arcgis-pro" class="nav-link" data-scroll-target="#arcgis-pro">ArcGIS Pro</a></li>
+  <li><a href="#qgis" id="toc-qgis" class="nav-link" data-scroll-target="#qgis">QGIS</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -896,10 +942,9 @@ ul.task-list li input[type="checkbox"] {
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../quarto_text/SMAP.html">SMAP</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">SMAP</h1>
-<p class="subtitle lead">Data Tutorials</p>
+<h1 class="title">SWOT Date/Time Transformation</h1>
 </div>
 
 
@@ -916,28 +961,231 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>The Soil Moisture Active Passive (SMAP) satellite is designed to principally measure soil moisture and freeze/thaw state from space for all non-liquid water surfaces globally within the top layer of the Earth. The mission additionally provides a value-added Level 4 terrestrial carbon dataset derived from SMAP observations. More information can be found on <a href="https://podaac.jpl.nasa.gov/SMAP">PO.DAAC’s SMAP webpage</a>.</p>
+<p>Authored by Nicholas Tarpinian, <em>PO.DAAC</em></p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>The following workflow lets you create time series plots with various Geographical Information System (GIS) Desktop softwares by transforming SWOT_L2_HR_RiverSP_2.0 Shapefile vector datasets.</p>
+<hr>
 </section>
-<section id="data-resources-tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="data-resources-tutorials">Data Resources &amp; Tutorials</h2>
-<section id="visualizing-ocean-salinity-as-powerful-storms-wreak-havoc-in-california---data-in-action-use-case-notebook-tutorial-with-a-local-machine-workflow" class="level4">
-<h4 class="anchored" data-anchor-id="visualizing-ocean-salinity-as-powerful-storms-wreak-havoc-in-california---data-in-action-use-case-notebook-tutorial-with-a-local-machine-workflow"><a href="../notebooks/datasets/smap_imerg_tutorial.html">Visualizing Ocean Salinity as Powerful Storms Wreak Havoc in California</a> - Data in Action Use Case Notebook Tutorial with a local machine workflow</h4>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<section id="compute-environment" class="level3">
+<h3 class="anchored" data-anchor-id="compute-environment">1. Compute environment</h3>
 <ul>
-<li><a href="https://podaac.jpl.nasa.gov/DataAction-2022-03-01-SMAP-Visualizing-Ocean-Salinity-as-Powerful-Storms-Wreak-Havoc-in-California">The Data in Action Story</a></li>
+<li><strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine.</li>
 </ul>
 </section>
-<section id="monitoring-changes-in-the-arctic-using-smap-satellite-data-and-saildrone---aws-cloud-tutorial-that-compares-salinity-from-the-smap-satellite-and-saildrone-in-situ-measurements" class="level4">
-<h4 class="anchored" data-anchor-id="monitoring-changes-in-the-arctic-using-smap-satellite-data-and-saildrone---aws-cloud-tutorial-that-compares-salinity-from-the-smap-satellite-and-saildrone-in-situ-measurements"><a href="../notebooks/meetings_workshops/arctic_2019.html">Monitoring Changes in the Arctic Using SMAP Satellite data and Saildrone</a> - AWS cloud tutorial that compares salinity from the SMAP satellite and Saildrone in-situ measurements</h4>
+<section id="earthdata-login" class="level3">
+<h3 class="anchored" data-anchor-id="earthdata-login">2. Earthdata Login</h3>
+<p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
+<hr>
+</section>
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning Objectives:</h3>
+<ul>
+<li>Accessing SWOT shapefile hydrology dataset through earthaccess and downloading it locally.</li>
+<li>Utilizing geoprocessing tools with GIS Desktop Softwares; ArcGIS Pro and QGIS.</li>
+<li>Transforming ‘time_str’ attribute/variable to a Date/Time data type.<br>
+</li>
+<li>Utilizing the new data type variable to create a time series plot/chart.</li>
+</ul>
+<hr>
+</section>
+<section id="import-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
+<div id="cell-5" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> earthaccess <span class="im">import</span> Auth, DataCollections, DataGranules, Store</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
-<section id="additional-resources" class="level2">
-<h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
-<p><a href="https://smap.jpl.nasa.gov/">NASA Mission Page</a></p>
+<section id="authentication-with-earthaccess" class="level2">
+<h2 class="anchored" data-anchor-id="authentication-with-earthaccess">Authentication with earthaccess</h2>
+<p>In this notebook, we will be calling the authentication in the below cell.</p>
+<div id="cell-7" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="search-using-earthaccess-for-swot-river-reaches" class="level3">
+<h3 class="anchored" data-anchor-id="search-using-earthaccess-for-swot-river-reaches">Search using <code>earthaccess</code> for SWOT River Reaches</h3>
+<p>Each dataset has it’s own unique collection concept ID. For this dataset it is SWOT_L2_HR_RiverSP_2.0. SWOT files come in “reach” and “node” versions in this same collection, here we want the 10km reaches rather than the nodes. We will also only get files for North America, or ‘NA’.</p>
+<div id="cell-9" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_RIVERSP_2.0'</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                  temporal <span class="op">=</span> (<span class="st">'2024-02-01 00:00:00'</span>, <span class="st">'2024-02-29 23:59:59'</span>), <span class="co"># can also specify by time</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Reach*_NA_*'</span>) <span class="co"># here we filter by Reach files (not node), continent code=NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="download-the-data-into-a-folder" class="level3">
+<h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
+<div id="cell-11" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"../datasets/data_downloads/SWOT_files"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="unzip-shapefiles-to-existing-folder" class="level3">
+<h3 class="anchored" data-anchor-id="unzip-shapefiles-to-existing-folder">Unzip shapefiles to existing folder</h3>
+<div id="cell-13" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"../datasets/data_downloads/SWOT_files"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="merging-multiple-reaches-to-a-single-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="merging-multiple-reaches-to-a-single-shapefile">Merging multiple reaches to a single shapefile</h3>
+<p>Since a time series plot will be created, merging all the shapefiles to one will be the better option.</p>
+<div id="cell-15" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># State filename extension to look for within folder, in this case .shp which is the shapefile</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>shapefiles <span class="op">=</span> folder.glob(<span class="st">"*.shp"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge/Combine multiple shapefiles in folder into one</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> pd.concat([</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    gpd.read_file(shp)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> shp <span class="kw">in</span> shapefiles</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>]).pipe(gpd.GeoDataFrame)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Export merged geodataframe into shapefile</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>gdf.to_file(folder <span class="op">/</span> <span class="st">'SWOTReaches.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="arcgis-pro" class="level2">
+<h2 class="anchored" data-anchor-id="arcgis-pro">ArcGIS Pro</h2>
+<p>Esri’s ArcGIS Pro offers a geoproccesing tool called ‘Convert Time Field’.</p>
+<p>This allows the transformation of date and time values to be created from one field to another.</p>
+<p>In this case the date/time field ‘time_str’ is in a text data type format. It needs to be converted to a date/time data type in order to create a time series plot.</p>
+<p>The ‘no_data’ values do not get converted; it keeps it as ‘NULL’</p>
+<nop>
+<div style="width: 500px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/arcpro_datetime_1.png" class="img-fluid figure-img"></p>
+<figcaption>arcpro_datetime_1.png</figcaption>
+</figure>
+</div>
+</div>
+<p>Once the new field is created, this allows for the creation of a time series plot.</p>
+<p>This is a great way to observe an area with multiple days of measurements.</p>
+<p>In this case, we will configure a line plot in the chart properties of the median of water surface elevation ‘wse’.</p>
+<nop>
+<div style="width: 250px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/arcpro_datetime_2.png" class="img-fluid figure-img"></p>
+<figcaption>arcpro_datetime_2.png</figcaption>
+</figure>
+</div>
+</div>
+<nop>
+<div style="width: 1100px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/arcpro_datetime_3.png" class="img-fluid figure-img"></p>
+<figcaption>arcpro_datetime_3.png</figcaption>
+</figure>
+</div>
+</div>
+</nop></nop></nop></section>
+<section id="qgis" class="level2">
+<h2 class="anchored" data-anchor-id="qgis">QGIS</h2>
+<p>QGIS offers a geoproccesing tool called ‘Refactor Fields’.</p>
+<p>This modifies the date/time values of the current field and creates a new layer.</p>
+<p>In this case the date/time field ‘time_str’ can be changed to a date/time data type.</p>
+<nop>
+<div style="width: 700px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/qgis_datetime_1.png" class="img-fluid figure-img"></p>
+<figcaption>qgis_datetime_1.png</figcaption>
+</figure>
+</div>
+</div>
+<p>In the ‘type’ section, you can select the data type of your choosing but for this case we will select ‘Date &amp; Time’.</p>
+<p>The new layer can be saved to memory as a temporary layer, but its best to save the layer locally.</p>
+<nop>
+<div style="width: 700px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/qgis_datetime_2.png" class="img-fluid figure-img"></p>
+<figcaption>qgis_datetime_2.png</figcaption>
+</figure>
+</div>
+</div>
+<p>The new layer created does not include the ‘no_data’ values.</p>
+<p>As shown in the image below; the black symbology is the original layer and the red symbology is the newly created layer without the ‘no_data’ values.</p>
+<nop>
+<div style="width: 400px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/qgis_datetime_3.png" class="img-fluid figure-img"></p>
+<figcaption>qgis_datetime_3.png</figcaption>
+</figure>
+</div>
+</div>
+<p>Within the processing toolbox, to create a time series select the ‘Plots’ category to show the various ways of plotting data.</p>
+<nop>
+<div style="width: 400px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/qgis_datetime_4.PNG" class="img-fluid figure-img"></p>
+<figcaption>qgis_datetime_4.PNG</figcaption>
+</figure>
+</div>
+</div>
+<p>There also is the option of using the plugin <a href="https://dataplotly-docs.readthedocs.io/en/latest/intro.html">DataPlotly</a>, which utilizes the python library Plotly.</p>
+<p>This offers a variety of ways to plot and customize your charts.</p>
+<p>For this example, we will configure a box plot looking at both time and ‘wse’. Also, querying ‘wse’ to only include values greater than 0, so it does not include any negative values.</p>
+<nop>
+<div style="width: 600px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/qgis_datetime_5.png" class="img-fluid figure-img"></p>
+<figcaption>qgis_datetime_5.png</figcaption>
+</figure>
+</div>
+</div>
+<p>This plot showcases the data without the date/time transformation for a single month.</p>
+<nop>
+<div style="width: 700px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/qgis_datetime_6.png" class="img-fluid figure-img"></p>
+<figcaption>qgis_datetime_6.png</figcaption>
+</figure>
+</div>
+</div>
+<p>This plot is the same single month dataset but with the date/time transformation.</p>
+<nop>
+<div style="width: 700px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/qgis_datetime_7.png" class="img-fluid figure-img"></p>
+<figcaption>qgis_datetime_7.png</figcaption>
+</figure>
+</div>
+</div>
+<p>This plot showcases a single pass river reach as the same transformed image from above.</p>
+<nop>
+<div style="width: 700px;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/swot_datetime/qgis_datetime_8.png" class="img-fluid figure-img"></p>
+<figcaption>qgis_datetime_8.png</figcaption>
+</figure>
+</div>
+</div>
 
 
-</section>
+</nop></nop></nop></nop></nop></nop></nop></nop></section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1493,18 +1741,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="pagination-link" aria-label="OPeNDAP Access">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">OPeNDAP Access</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../notebooks/datasets/smap_imerg_tutorial.html" class="pagination-link" aria-label="Use Case Demo">
-        <span class="nav-page-text">Use Case Demo</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

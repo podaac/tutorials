@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -918,8 +918,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#access-to-ecco-v4r4-datasets-on-a-local-machine" id="toc-access-to-ecco-v4r4-datasets-on-a-local-machine" class="nav-link active" data-scroll-target="#access-to-ecco-v4r4-datasets-on-a-local-machine">Access to ECCO V4r4 Datasets on a Local Machine</a></li>
-  <li><a href="#download-ecco-data-to-local-disk-access-from-python-3" id="toc-download-ecco-data-to-local-disk-access-from-python-3" class="nav-link" data-scroll-target="#download-ecco-data-to-local-disk-access-from-python-3">Download ECCO data to local disk &amp; access from Python 3</a>
+  <li><a href="#download-ecco-data-to-local-disk-access-from-python-3" id="toc-download-ecco-data-to-local-disk-access-from-python-3" class="nav-link active" data-scroll-target="#download-ecco-data-to-local-disk-access-from-python-3">Download ECCO data to local disk &amp; access from Python 3</a>
   <ul class="collapse">
   <li><a href="#quick-start" id="toc-quick-start" class="nav-link" data-scroll-target="#quick-start">Quick Start</a>
   <ul class="collapse">
@@ -958,9 +957,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="access-to-ecco-v4r4-datasets-on-a-local-machine" class="level1">
-<h1>Access to ECCO V4r4 Datasets on a Local Machine</h1>
-<p>imported on: <strong>2024-03-04</strong></p>
+<p>imported on: <strong>2024-03-06</strong></p>
 <p>
 This notebook is from a different repository in NASA’s PO.DAAC, ECCO.
 </p>
@@ -968,7 +965,6 @@ This notebook is from a different repository in NASA’s PO.DAAC, ECCO.
 <p>The original source for this document is <a href="https://github.com/podaac/ECCO/blob/main/Data_Access/local_bulk_download_and_open_in_py3.ipynb">https://github.com/podaac/ECCO/blob/main/Data_Access/local_bulk_download_and_open_in_py3.ipynb</a></p>
 </blockquote>
 <p><em>Duped+slightly modified version of the s3 access ipynb. Tested on JPL-issued macbook and my linux box. It starts by setting up a most trusted strategy for batch downloads behind URS ussing curl/wget. Will attempt to add line(s) to your netrc file if needed btw; then it writes your urs cookies to a local file that should effectively “pre-authenticate” future download sessions for those sub domains.</em></p>
-</section>
 <section id="download-ecco-data-to-local-disk-access-from-python-3" class="level1">
 <h1>Download ECCO data to local disk &amp; access from Python 3</h1>
 <p>This notebook is aimed at users who prefer to download the ECCO V4r4 data and analyze their content using local resources, as opposed to in the cloud.</p>
@@ -1499,6 +1495,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1533,7 +1547,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

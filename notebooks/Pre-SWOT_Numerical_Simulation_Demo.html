@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -916,11 +916,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-swot-numerical-simulation-version-1-user-guide-demo" id="toc-pre-swot-numerical-simulation-version-1-user-guide-demo" class="nav-link active" data-scroll-target="#pre-swot-numerical-simulation-version-1-user-guide-demo">PRE-SWOT NUMERICAL SIMULATION VERSION 1 User Guide Demo</a>
-  <ul class="collapse">
-  <li><a href="#plot-eight-2d-fields." id="toc-plot-eight-2d-fields." class="nav-link" data-scroll-target="#plot-eight-2d-fields.">Plot eight 2D fields.</a></li>
+  <li><a href="#plot-eight-2d-fields." id="toc-plot-eight-2d-fields." class="nav-link active" data-scroll-target="#plot-eight-2d-fields.">Plot eight 2D fields.</a></li>
   <li><a href="#plot-a-3d-field-based-temperature" id="toc-plot-a-3d-field-based-temperature" class="nav-link" data-scroll-target="#plot-a-3d-field-based-temperature">Plot a 3D field based (temperature)</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -949,11 +946,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="pre-swot-numerical-simulation-version-1-user-guide-demo" class="level1">
-<h1>PRE-SWOT NUMERICAL SIMULATION VERSION 1 User Guide Demo</h1>
 <p>Author: Jinbo Wang <a href="mailto:Jinbo.Wang@jpl.nasa.gov" class="email">Jinbo.Wang@jpl.nasa.gov</a>, Jack McNelis <a href="mailto:jack.mcnelis@jpl.nasa.gov" class="email">jack.mcnelis@jpl.nasa.gov</a></p>
 <p>This is a demonstration of accessing the ECCO-BASED PRE-SWOT NUMERICAL SIMULATION. The dataset can be found following https://search.earthdata.nasa.gov/search?q=pocloud%20pre-swot.</p>
-<div id="cell-1" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:05:12.067386Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:05:12.063970Z&quot;}" data-execution_count="8">
+<div id="cell-2" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:05:12.067386Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:05:12.063970Z&quot;}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
@@ -975,7 +970,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Note this next cell first tries to establish in-region acccess to the netCDF file in S3. (It assumes that you are running the notebook inside AWS EC2 in the <code>aws-west-2</code> region.) Upon failure, it assumes that you are running from your local machine, and so it tries to download and open the file the normal way.</em></p>
 </blockquote>
 <p>Run the next cell to authenticate. (You might be prompted for your Earthdata Login username and password.)</p>
-<div id="cell-3" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:05:15.394294Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:05:15.386751Z&quot;}" data-execution_count="9">
+<div id="cell-4" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:05:15.394294Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:05:15.386751Z&quot;}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> setup_earthdata_login_auth(endpoint: <span class="bu">str</span><span class="op">=</span><span class="st">'urs.earthdata.nasa.gov'</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    netrc_name <span class="op">=</span> <span class="st">"_netrc"</span> <span class="cf">if</span> system()<span class="op">==</span><span class="st">"Windows"</span> <span class="cf">else</span> <span class="st">".netrc"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
@@ -1004,7 +999,7 @@ Password:  ·············</code></pre>
 </div>
 </div>
 <p>You should now be able to download the file at the following link:</p>
-<div id="cell-5" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:04:22.369397Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:04:22.366570Z&quot;}" data-execution_count="10">
+<div id="cell-6" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:04:22.369397Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:04:22.366570Z&quot;}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>https_access <span class="op">=</span> <span class="ss">f"https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/</span><span class="sc">{</span>ShortName<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>target_file<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(https_access)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1014,7 +1009,7 @@ Password:  ·············</code></pre>
 </div>
 <p><strong>Open the dataset</strong></p>
 <p>Run the next cell to access/open the netCDF file with <em>xarray</em>:</p>
-<div id="cell-7" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:13:16.768337Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:10:07.226411Z&quot;}" data-execution_count="4">
+<div id="cell-8" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:13:16.768337Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:10:07.226411Z&quot;}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> begin_s3_direct_access():</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Returns s3fs object for accessing datasets stored in S3."""</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(<span class="st">"https://archive.podaac.earthdata.nasa.gov/s3credentials"</span>).json()</span>
@@ -1147,7 +1142,7 @@ Attributes:
 </div>
 <section id="plot-eight-2d-fields." class="level2">
 <h2 class="anchored" data-anchor-id="plot-eight-2d-fields.">Plot eight 2D fields.</h2>
-<div id="cell-9" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:14:50.423644Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:14:47.940424Z&quot;}" data-execution_count="6">
+<div id="cell-10" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:14:50.423644Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:14:47.940424Z&quot;}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig,ax<span class="op">=</span>plt.subplots(<span class="dv">3</span>,<span class="dv">3</span>,figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">16</span>))</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>varn<span class="op">=</span>[<span class="st">'Eta'</span>,<span class="st">'KPPhbl'</span>,<span class="st">'PhiBot'</span>,<span class="st">'oceFWflx'</span>,<span class="st">'oceQnet'</span>,<span class="st">'oceQsw'</span>,<span class="st">'oceSflux'</span>,<span class="st">'oceTAUY'</span>,<span class="st">'oceTAUX'</span>]</span>
@@ -1168,7 +1163,7 @@ Attributes:
 </section>
 <section id="plot-a-3d-field-based-temperature" class="level2">
 <h2 class="anchored" data-anchor-id="plot-a-3d-field-based-temperature">Plot a 3D field based (temperature)</h2>
-<div id="cell-11" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:14:55.117714Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:14:54.151224Z&quot;}" data-execution_count="7">
+<div id="cell-12" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2021-04-14T21:14:55.117714Z&quot;,&quot;start_time&quot;:&quot;2021-04-14T21:14:54.151224Z&quot;}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig,ax<span class="op">=</span>plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>theta<span class="op">=</span>dd[<span class="st">'Theta'</span>][:]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>theta.coords[<span class="st">'k'</span>]<span class="op">=</span>dd[<span class="st">'Z'</span>].data</span>
@@ -1186,7 +1181,6 @@ Attributes:
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1413,6 +1407,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1447,7 +1459,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

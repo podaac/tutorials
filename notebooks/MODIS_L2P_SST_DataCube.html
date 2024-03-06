@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -916,8 +916,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-following-notebook-is-no-longer-supported-see-this-related-notebook-highlighting-zarr-data-cubes" id="toc-the-following-notebook-is-no-longer-supported-see-this-related-notebook-highlighting-zarr-data-cubes" class="nav-link active" data-scroll-target="#the-following-notebook-is-no-longer-supported-see-this-related-notebook-highlighting-zarr-data-cubes">The following notebook is no longer supported, see this related notebook highlighting Zarr Data Cubes</a></li>
-  <li><a href="#analysis-ready-data-ard-workflow-for-modis-aqua-l2p-sst-collection" id="toc-analysis-ready-data-ard-workflow-for-modis-aqua-l2p-sst-collection" class="nav-link" data-scroll-target="#analysis-ready-data-ard-workflow-for-modis-aqua-l2p-sst-collection">Analysis Ready Data (ARD) workflow for MODIS Aqua L2P SST collection</a>
+  <li><a href="#analysis-ready-data-ard-workflow-for-modis-aqua-l2p-sst-collection" id="toc-analysis-ready-data-ard-workflow-for-modis-aqua-l2p-sst-collection" class="nav-link active" data-scroll-target="#analysis-ready-data-ard-workflow-for-modis-aqua-l2p-sst-collection">Analysis Ready Data (ARD) workflow for MODIS Aqua L2P SST collection</a>
   <ul class="collapse">
   <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link" data-scroll-target="#before-you-start">Before you start</a></li>
   </ul></li>
@@ -953,8 +952,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="the-following-notebook-is-no-longer-supported-see-this-related-notebook-highlighting-zarr-data-cubes" class="level1">
-<h1>The following notebook is no longer supported, see <a href="https://github.com/podaac/tutorials/blob/master/notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.ipynb">this related notebook</a> highlighting Zarr Data Cubes</h1>
 <h1>
 Table of Contents<span class="tocSkip"></span>
 </h1>
@@ -970,7 +967,6 @@ Table of Contents<span class="tocSkip"></span>
 </li>
 </ul>
 </div>
-</section>
 <section id="analysis-ready-data-ard-workflow-for-modis-aqua-l2p-sst-collection" class="level1">
 <h1>Analysis Ready Data (ARD) workflow for MODIS Aqua L2P SST collection</h1>
 <p>This notebook demonstrates how to created a gridded “Data Cube”, essentialy an ARD, from native Level 2P sea surface temperature (SST) data from the MODIS Aqua (https://doi.org/10.5067/GHMDA-2PJ19) collection or dataset. It can also be applied to Terra L2P SST and other similar L2 satellite collections.</p>
@@ -978,7 +974,7 @@ Table of Contents<span class="tocSkip"></span>
 <h2 class="anchored" data-anchor-id="before-you-start">Before you start</h2>
 <p>Before you beginning this tutorial, make sure you have an account in the Earthdata Login, which is required to access data from the NASA Earthdata system. Please visit https://urs.earthdata.nasa.gov to register for an Earthdata Login account. It is free to create and only takes a moment to set up.</p>
 <p>You will also need a netrc file containing your NASA Earthdata Login credentials in order to execute this notebook. A netrc file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-via-netrc-file">Authentication for NASA Earthdata</a>.</p>
-<div id="cell-2" class="cell" data-scrolled="true" data-execution_count="1">
+<div id="cell-3" class="cell" data-scrolled="true" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request, parse</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> http.cookiejar <span class="im">import</span> CookieJar</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> getpass</span>
@@ -1005,7 +1001,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-scrolled="true" data-execution_count="2">
+<div id="cell-4" class="cell" data-scrolled="true" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Constants</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the local download directory</span></span>
@@ -1032,7 +1028,7 @@ Table of Contents<span class="tocSkip"></span>
 </ol>
 <p>This is done using a combination NASA Earthdata Search and Harmony services, and the python modules for the GDAL image transformation software, and the NCO toolkit.</p>
 <p>The first code block sets the input datasets, and time and space bounds</p>
-<div id="cell-5" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-08-11T17:34:08.712987Z&quot;,&quot;start_time&quot;:&quot;2020-08-11T17:34:08.710091Z&quot;}" data-scrolled="true" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
+<div id="cell-6" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-08-11T17:34:08.712987Z&quot;,&quot;start_time&quot;:&quot;2020-08-11T17:34:08.710091Z&quot;}" data-scrolled="true" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GHRSST MODIS Aqua L2P SST v2019.0 collection concept-id (CMR)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ccid <span class="op">=</span> <span class="st">"C1940473819-POCLOUD"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1062,7 +1058,7 @@ Table of Contents<span class="tocSkip"></span>
 <section id="perform-the-subsetting-operation-using-the-earthdata-harmony-service" class="level2">
 <h2 class="anchored" data-anchor-id="perform-the-subsetting-operation-using-the-earthdata-harmony-service">Perform the subsetting operation using the Earthdata Harmony service</h2>
 <p>Harmony allows us to use a CMR style query to find and subset all matching granules for a <strong>collection, datetime, and spatial bounding box</strong>.</p>
-<div id="cell-7" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-08-11T17:34:21.088917Z&quot;,&quot;start_time&quot;:&quot;2020-08-11T17:34:21.085442Z&quot;}">
+<div id="cell-8" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-08-11T17:34:21.088917Z&quot;,&quot;start_time&quot;:&quot;2020-08-11T17:34:21.085442Z&quot;}">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:  </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    harmonyConfig <span class="op">=</span> {</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'collection_id'</span>: ccid,     </span>
@@ -1093,7 +1089,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Monitor the Harmony job</p>
-<div id="cell-9" class="cell">
+<div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>jobConfig <span class="op">=</span> {</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'jobID'</span>: async_json[<span class="st">'jobID'</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -1101,7 +1097,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>job_url <span class="op">=</span> harmony_root<span class="op">+</span><span class="st">'/jobs/</span><span class="sc">{jobID}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="op">**</span>jobConfig)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Job URL'</span>, job_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-10" class="cell" data-scrolled="true">
+<div id="cell-11" class="cell" data-scrolled="true">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>job_response <span class="op">=</span> request.urlopen(job_url)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>job_results <span class="op">=</span> job_response.read()</span>
@@ -1120,7 +1116,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>Download subsets to local computer</code></pre>
-<div id="cell-12" class="cell" data-scrolled="true">
+<div id="cell-13" class="cell" data-scrolled="true">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>file_urls <span class="op">=</span> []</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1146,7 +1142,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Perform resampling/reprojection on subsets using the GDAL module and gdal.Warp().</strong> GDAL will only work on one variable (“layer”) at a time and also strip out important CF metadata and coordinate variables. Therefore we will use <strong>NCO tricks</strong> to correct these artifacts here and in the next steps. Use the ‘pynco’ module for NCO python bindings.</p>
-<div id="cell-14" class="cell" data-scrolled="true">
+<div id="cell-15" class="cell" data-scrolled="true">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nco <span class="op">=</span> Nco()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Keyword args for gdal.Warp():</span></span>
@@ -1206,7 +1202,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Add variable level CF metadata information that GDAL stripped out using NCO commands.</strong> Use the ‘pynco’ module for NCO python bindings.</p>
-<div id="cell-16" class="cell" data-scrolled="true">
+<div id="cell-17" class="cell" data-scrolled="true">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nco <span class="op">=</span> Nco()</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sstConfig <span class="op">=</span> {</span>
@@ -1266,7 +1262,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( <span class="st">"-Done-</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Create the MODIS SST Data Cube.</strong> Copy variable(s) to SST target files and catenate all of them into a final output netCDF file using NCO.</p>
-<div id="cell-18" class="cell" data-scrolled="true">
+<div id="cell-19" class="cell" data-scrolled="true">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nco <span class="op">=</span> Nco()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>os.chdir(download_dir)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1287,7 +1283,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Read the data with xarray and perform some plotting</p>
-<div id="cell-20" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-08-11T17:34:22.362167Z&quot;,&quot;start_time&quot;:&quot;2020-08-11T17:34:22.359386Z&quot;}">
+<div id="cell-21" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2020-08-11T17:34:22.362167Z&quot;,&quot;start_time&quot;:&quot;2020-08-11T17:34:22.359386Z&quot;}">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dataCube <span class="op">=</span> download_dir <span class="op">+</span> <span class="st">'MODIS_SST.data-cube.nc'</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>xds <span class="op">=</span> xr.open_dataset(dataCube)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1543,6 +1539,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1577,7 +1591,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

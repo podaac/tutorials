@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -918,8 +918,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#s-mode-workshop-science-case-study-airborne-part-2" id="toc-s-mode-workshop-science-case-study-airborne-part-2" class="nav-link active" data-scroll-target="#s-mode-workshop-science-case-study-airborne-part-2">S-MODE Workshop: Science Case Study Airborne Part 2</a></li>
-  <li><a href="#load-sample-dopplerscatt-data" id="toc-load-sample-dopplerscatt-data" class="nav-link" data-scroll-target="#load-sample-dopplerscatt-data">Load Sample DopplerScatt Data</a></li>
+  <li><a href="#load-sample-dopplerscatt-data" id="toc-load-sample-dopplerscatt-data" class="nav-link active" data-scroll-target="#load-sample-dopplerscatt-data">Load Sample DopplerScatt Data</a></li>
   <li><a href="#the-data-are-in-universal-transverse-mercator-projection" id="toc-the-data-are-in-universal-transverse-mercator-projection" class="nav-link" data-scroll-target="#the-data-are-in-universal-transverse-mercator-projection">The data are in Universal Transverse Mercator projection</a></li>
   <li><a href="#estimates-using-all-of-the-observations" id="toc-estimates-using-all-of-the-observations" class="nav-link" data-scroll-target="#estimates-using-all-of-the-observations">Estimates using all of the observations</a>
   <ul class="collapse">
@@ -955,9 +954,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="s-mode-workshop-science-case-study-airborne-part-2" class="level1">
-<h1>S-MODE Workshop: Science Case Study Airborne Part 2</h1>
-<p>imported on: <strong>2024-03-04</strong></p>
+<p>imported on: <strong>2024-03-06</strong></p>
 <p>
 This notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Open-Data-Workshop
 </p>
@@ -989,7 +986,6 @@ This notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Ope
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 <section id="load-sample-dopplerscatt-data" class="level1">
 <h1>Load Sample DopplerScatt Data</h1>
 <div id="e0ed272f-b307-4f87-a1c8-0f88fb9ec893" class="cell" data-execution_count="7">
@@ -1510,6 +1506,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1544,7 +1558,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

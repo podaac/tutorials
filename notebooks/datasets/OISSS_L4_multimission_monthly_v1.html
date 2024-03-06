@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -919,9 +919,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#direct-s3-data-access-tutorial-multi-mission-optimally-interpolated-sea-surface-salinity-global-monthly-dataset-v1" id="toc-direct-s3-data-access-tutorial-multi-mission-optimally-interpolated-sea-surface-salinity-global-monthly-dataset-v1" class="nav-link active" data-scroll-target="#direct-s3-data-access-tutorial-multi-mission-optimally-interpolated-sea-surface-salinity-global-monthly-dataset-v1">Direct S3 Data Access tutorial (Multi-Mission Optimally Interpolated Sea Surface Salinity Global Monthly Dataset V1)</a>
-  <ul class="collapse">
-  <li><a href="#content" id="toc-content" class="nav-link" data-scroll-target="#content">Content</a>
+  <li><a href="#content" id="toc-content" class="nav-link active" data-scroll-target="#content">Content</a>
   <ul class="collapse">
   <li><a href="#specify-parameters" id="toc-specify-parameters" class="nav-link" data-scroll-target="#specify-parameters">Specify parameters</a></li>
   </ul></li>
@@ -932,7 +930,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#load-all-files-to-plot-a-time-series" id="toc-load-all-files-to-plot-a-time-series" class="nav-link" data-scroll-target="#load-all-files-to-plot-a-time-series">Load all files to plot a time series</a></li>
   </ul></li>
   <li><a href="#plot-a-time-series-at-a-point-in-the-california-current." id="toc-plot-a-time-series-at-a-point-in-the-california-current." class="nav-link" data-scroll-target="#plot-a-time-series-at-a-point-in-the-california-current.">Plot a time series at a point in the california current.</a></li>
-  </ul></li>
   <li><a href="#demonstrate-opendap" id="toc-demonstrate-opendap" class="nav-link" data-scroll-target="#demonstrate-opendap">Demonstrate opendap</a></li>
   <li><a href="#direct-download-using-data-downloader" id="toc-direct-download-using-data-downloader" class="nav-link" data-scroll-target="#direct-download-using-data-downloader">Direct download using data-downloader</a></li>
   </ul>
@@ -963,10 +960,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="direct-s3-data-access-tutorial-multi-mission-optimally-interpolated-sea-surface-salinity-global-monthly-dataset-v1" class="level1">
-<h1>Direct S3 Data Access tutorial (Multi-Mission Optimally Interpolated Sea Surface Salinity Global Monthly Dataset V1)</h1>
 <p>This tutorial only works in a jupyterhub hosted at AWS US-WEST-2.</p>
-<p><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/cell-0-2-419d3300-7fdc-404c-afae-9e97155fb347.png" class="img-fluid" alt="image.png"><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/cell-0-1-2438e8b8-d128-41b5-b06d-53fb2efee43a.png" class="img-fluid" alt="image.png"></p>
+<p><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/cell-1-2-419d3300-7fdc-404c-afae-9e97155fb347.png" class="img-fluid" alt="image.png"><img src="OISSS_L4_multimission_monthly_v1_files/figure-html/cell-1-1-2438e8b8-d128-41b5-b06d-53fb2efee43a.png" class="img-fluid" alt="image.png"></p>
 <ul>
 <li><strong>User guide</strong>: http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB/OISSS_Product_Notes.pdf</li>
 <li><strong>DOI</strong> <a href="https://podaac.jpl.nasa.gov/dataset/OISSS_L4_multimission_monthly_v1?ids=&amp;values=&amp;search=oisss&amp;provider=POCLOUD">10.5067/SMP10-4UMCS</a></li>
@@ -1005,7 +1000,7 @@ Version 1.0</code></pre>
 <section id="specify-parameters" class="level3">
 <h3 class="anchored" data-anchor-id="specify-parameters">Specify parameters</h3>
 <p>The following parameters are used for this particular dataset.</p>
-<div id="cell-1" class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Short_name is used to identify a specific dataset in NASA Earthdata. </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>short_name<span class="op">=</span><span class="st">'OISSS_L4_multimission_monthly_v1'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1017,7 +1012,7 @@ Version 1.0</code></pre>
 <p>Create an EDL following this <a href="https://earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/earthdata-login">link</a>.</p>
 <p>Create a .netrc file in the home folder following <a href="https://urs.earthdata.nasa.gov/documentation/for_users/data_access/curl_and_wget">these instructions</a>.</p>
 <p><strong>.netrc</strong> is essential to enable the following blocks.</p>
-<div id="cell-4" class="cell" data-tags="[]" data-execution_count="2">
+<div id="cell-5" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_S3FileSystem():</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> requests,s3fs</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    s3_cred_endpoint <span class="op">=</span> {</span>
@@ -1036,7 +1031,7 @@ Version 1.0</code></pre>
 </section>
 <section id="explore-the-file-system." class="level2">
 <h2 class="anchored" data-anchor-id="explore-the-file-system.">Explore the file system.</h2>
-<div id="cell-6" class="cell" data-tags="[]" data-execution_count="3">
+<div id="cell-7" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pprint</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#s3://podaac-ops-cumulus-protected is the PODAAC S3 bucket. </span></span>
@@ -1075,7 +1070,7 @@ Year 2020: total files (granules) 12.
 Year 2021: total files (granules) 8.</code></pre>
 </div>
 </div>
-<div id="cell-7" class="cell" data-tags="[]" data-execution_count="4">
+<div id="cell-8" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fns<span class="op">=</span> s3sys.glob(<span class="st">"s3://podaac-ops-cumulus-protected/</span><span class="sc">%s</span><span class="st">/*/*nc"</span><span class="op">%</span>short_name)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Open all </span><span class="sc">%i</span><span class="st"> files."</span><span class="op">%</span><span class="bu">len</span>(fns))</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#pprint.pprint(fns)</span></span>
@@ -1471,7 +1466,7 @@ Attributes: (12/42)
 </section>
 <section id="plot-an-example" class="level2">
 <h2 class="anchored" data-anchor-id="plot-an-example">Plot an example</h2>
-<div id="cell-9" class="cell" data-execution_count="24">
+<div id="cell-10" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">5</span>))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'sss'</span>][:,:,<span class="dv">0</span>].plot(cmap<span class="op">=</span>plt.cm.jet,vmin<span class="op">=</span><span class="dv">30</span>,vmax<span class="op">=</span><span class="dv">37</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1482,7 +1477,7 @@ Attributes: (12/42)
 </div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-tags="[]" data-execution_count="22">
+<div id="cell-11" class="cell" data-tags="[]" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pylab <span class="im">as</span> plt</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fig,ax<span class="op">=</span>plt.subplots(<span class="dv">2</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>))</span>
@@ -1508,7 +1503,7 @@ Attributes: (12/42)
 </div>
 <section id="load-all-files-to-plot-a-time-series" class="level3">
 <h3 class="anchored" data-anchor-id="load-all-files-to-plot-a-time-series">Load all files to plot a time series</h3>
-<div id="cell-12" class="cell" data-tags="[]" data-execution_count="14">
+<div id="cell-13" class="cell" data-tags="[]" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>fileset <span class="op">=</span> [s3sys.<span class="bu">open</span>(<span class="bu">file</span>) <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> fns]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> xr.open_mfdataset(fileset ,concat_dim<span class="op">=</span><span class="st">'time'</span>,combine<span class="op">=</span><span class="st">'nested'</span>,engine<span class="op">=</span><span class="st">'h5netcdf'</span>)</span>
@@ -2305,13 +2300,13 @@ qualityInformation
 </li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-389ff53b-c903-4514-98ef-08aba606df2c" class="xr-section-summary-in" type="checkbox"><label for="section-389ff53b-c903-4514-98ef-08aba606df2c" class="xr-section-summary">Attributes: <span>(42)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.8, ACDD-1.3</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v27</dd><dt><span>Title :</span></dt><dd>Multi-Mission Optimally Interpolated Sea Surface Salinity Global Dataset V1.0 Monthly</dd><dt><span>Short_Name :</span></dt><dd>OISSS_L4_multimission_v1_monthly</dd><dt><span>Version :</span></dt><dd>V1.0</dd><dt><span>Processing_Level :</span></dt><dd>Level 4</dd><dt><span>source :</span></dt><dd>Aquarius V5.0 Level 2 SSS; SMAP RSS V4.0 Level 2 SSS_40km; SMOS Level 2 SSS L2OS version 662</dd><dt><span>sourse_of_input_Aquarius_SSS :</span></dt><dd>Aquarius Official Release Level 2 Sea Surface Salinity &amp; Wind Speed Cal Data V5.0. Distributed by PO.DAAC at https://podaac.jpl.nasa.gov/dataset/AQUARIUS_L2_SSS_CAL_V5</dd><dt><span>sourse_of_input_SMAP_SSS :</span></dt><dd>Meissner, T., F. Wentz, A. Manaster, R. Lindsley, 2019. Remote Sensing Systems SMAP L2C Sea Surface Salinity, Version 4.0 Validated Release, Remote Sensing Systems, Santa Rosa, CA, USA, Available online at www.remss.com/missions/smap.</dd><dt><span>sourse_of_input_SMOS_SSS :</span></dt><dd>ESA SMOS online dissemination service at https://smos-diss.eo.esa.int/oads/access</dd><dt><span>platform :</span></dt><dd>Aquarius/SAC-D, SMAP, SMOS</dd><dt><span>instrument :</span></dt><dd>Aquarius radiometer, SMAP radiometer, SMOS MIRAS</dd><dt><span>Creation_Date :</span></dt><dd>2022-02-15T02:49:51Z</dd><dt><span>Creator_Name :</span></dt><dd>Oleg Melnichenko</dd><dt><span>Creator_Email :</span></dt><dd>oleg@hawaii.edu</dd><dt><span>Creator_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Project :</span></dt><dd>NASA Ocean Salinity</dd><dt><span>Keywords :</span></dt><dd>Sea Surface Salinity, SSS, Aquarius, SMAP, Optimum Interpolation, OISSS</dd><dt><span>Keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>Institution :</span></dt><dd>IPRC/SOEST, University of Hawaii, Honolulu, HI; Remote Sensing Systems (RSS), Santa Rosa, CA</dd><dt><span>Publisher_Name :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Publisher_Email :</span></dt><dd>oleg@hawaii.edu</dd><dt><span>Publisher_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Dataset_Citation_Authors :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Dataset_Citation_Year :</span></dt><dd>2021</dd><dt><span>Dataset_Citation_Product :</span></dt><dd>Aquarius/SMAP Sea Surface Salinity Optimum Interpolation Analysis</dd><dt><span>Technical_Notes :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB/OISSS_Product_Notes.pdf</dd><dt><span>year_of_observation :</span></dt><dd>2011</dd><dt><span>month_of_observation :</span></dt><dd>9</dd><dt><span>center_day_of_observation :</span></dt><dd>16</dd><dt><span>time_coverage_start :</span></dt><dd>2011-09-01T12:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2011-09-30T12:00:00Z</dd><dt><span>time_coverage_resolution :</span></dt><dd>P1M</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>geospatial_lat_min :</span></dt><dd>[-90.]</dd><dt><span>geospatial_lat_max :</span></dt><dd>[90.]</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>[0.25]</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_min :</span></dt><dd>[-180.]</dd><dt><span>geospatial_lon_max :</span></dt><dd>[180.]</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>[0.25]</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd></dl></div></li></div></div>
 </div>
 </div>
-</section></section></section></main></div>
+</section></section></main></div>
 
 
 <section id="plot-a-time-series-at-a-point-in-the-california-current." class="level2">
 <h2 data-anchor-id="plot-a-time-series-at-a-point-in-the-california-current.">Plot a time series at a point in the california current.</h2>
 <p>Plot the time series of the SSS at (124W, 35N).</p>
-<div id="cell-14" class="cell" data-execution_count="19">
+<div id="cell-15" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">4</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'sss'</span>].interp(latitude<span class="op">=</span><span class="dv">35</span>,longitude<span class="op">=-</span><span class="dv">124</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -2323,7 +2318,6 @@ qualityInformation
 </div>
 </div>
 </section>
-
 <section id="demonstrate-opendap" class="level1">
 <h1>Demonstrate opendap</h1>
 </section>
@@ -2557,6 +2551,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2591,7 +2603,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

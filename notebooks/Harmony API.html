@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -916,9 +916,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-practice-dataset-used-for-this-tutorial-is-no-longer-supported-for-details-about-the-harmony-api-see-this-tutorial-from-the-2021-cloud-hackathon-or-this-tutorial-introducing-the-harmony-py-library." id="toc-the-practice-dataset-used-for-this-tutorial-is-no-longer-supported-for-details-about-the-harmony-api-see-this-tutorial-from-the-2021-cloud-hackathon-or-this-tutorial-introducing-the-harmony-py-library." class="nav-link active" data-scroll-target="#the-practice-dataset-used-for-this-tutorial-is-no-longer-supported-for-details-about-the-harmony-api-see-this-tutorial-from-the-2021-cloud-hackathon-or-this-tutorial-introducing-the-harmony-py-library.">The practice dataset used for this tutorial is no longer supported, for details about the Harmony API see this tutorial from the 2021 Cloud Hackathon or this tutorial introducing the Harmony-py library.</a>
-  <ul class="collapse">
-  <li><a href="#harmony-eoss-api-tutorial" id="toc-harmony-eoss-api-tutorial" class="nav-link" data-scroll-target="#harmony-eoss-api-tutorial">Harmony EOSS API Tutorial</a></li>
+  <li><a href="#harmony-eoss-api-tutorial" id="toc-harmony-eoss-api-tutorial" class="nav-link active" data-scroll-target="#harmony-eoss-api-tutorial">Harmony EOSS API Tutorial</a></li>
   <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link" data-scroll-target="#before-you-start">Before you start</a></li>
   <li><a href="#build-the-eoss-root-url" id="toc-build-the-eoss-root-url" class="nav-link" data-scroll-target="#build-the-eoss-root-url">Build the EOSS Root URL</a></li>
   <li><a href="#variable-subset-of-a-granule" id="toc-variable-subset-of-a-granule" class="nav-link" data-scroll-target="#variable-subset-of-a-granule">Variable Subset of a Granule</a></li>
@@ -926,7 +924,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#reprojection" id="toc-reprojection" class="nav-link" data-scroll-target="#reprojection">Reprojection</a></li>
   <li><a href="#reformatting" id="toc-reformatting" class="nav-link" data-scroll-target="#reformatting">Reformatting</a></li>
   <li><a href="#continue-exploring" id="toc-continue-exploring" class="nav-link" data-scroll-target="#continue-exploring">Continue Exploring</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -955,8 +952,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="the-practice-dataset-used-for-this-tutorial-is-no-longer-supported-for-details-about-the-harmony-api-see-this-tutorial-from-the-2021-cloud-hackathon-or-this-tutorial-introducing-the-harmony-py-library." class="level1">
-<h1>The practice dataset used for this tutorial is no longer supported, for details about the Harmony API see <a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/07_Harmony_Subsetting.html#data-subsetting-and-transformation-services-in-the-cloud">this tutorial</a> from the 2021 Cloud Hackathon or <a href="https://github.com/nasa/harmony-py/blob/main/examples/intro_tutorial.ipynb">this tutorial</a> introducing the Harmony-py library.</h1>
 <section id="harmony-eoss-api-tutorial" class="level2">
 <h2 class="anchored" data-anchor-id="harmony-eoss-api-tutorial">Harmony EOSS API Tutorial</h2>
 </section>
@@ -969,7 +964,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="build-the-eoss-root-url">Build the EOSS Root URL</h2>
 <p>Next we will build a URL for the EOSS service for a given granule. To get data using the service, you need a <a href="https://cmr.earthdata.nasa.gov">CMR</a> collection ID for a supported collection and the ID of a granule within that collection.</p>
 <p>By convention, all Harmony services are accessed through <code>&lt;harmony_root&gt;/&lt;collection_id&gt;/&lt;service_name&gt;</code></p>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="cell-4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>harmony_root <span class="op">=</span> <span class="st">'https://harmony.earthdata.nasa.gov'</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> {</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'collection_id'</span>: <span class="st">'C1233800302-EEDTEST'</span>,</span>
@@ -986,7 +981,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="variable-subset-of-a-granule">Variable Subset of a Granule</h2>
 <p>We can now build onto the root URL in order to actually perform a transformation. The first transformation is a variable subset of a selected granule. <em>At this time, this requires discovering the granule id and variable id from CMR</em>. That information can then be appended to the root URL and used to call Harmony with the help of the <code>request</code> library.</p>
 <p>Harmony stages transformed data in S3 to make it easy to do additional processing in the cloud. The response that Harmony returns is actually a redirect to the S3 location where your data is staged. Should you call Harmony in a tool that follows redirects, like your web browser, your file will be seamlessly downloaded locally for you. However, should you desire to do additional processing in AWS, you have that option as well by simply looking at the redirected URL. The code snippet below uses “geturl()” to show the URL of your staged data.</p>
-<div id="cell-5" class="cell">
+<div id="cell-6" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>varSubsetConfig <span class="op">=</span> {</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'granule_id'</span> : <span class="st">'G2524192900-POCLOUD'</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'variable_id'</span> : <span class="st">'red_var'</span></span>
@@ -1002,7 +997,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="add-on-a-spatial-subset" class="level2">
 <h2 class="anchored" data-anchor-id="add-on-a-spatial-subset">Add on a spatial subset</h2>
 <p>The second transformation is a spatial subset of a selected granule. This can be combined with the request we already built above by simply specifying a bounding box.</p>
-<div id="cell-7" class="cell">
+<div id="cell-8" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spatialSubsetConfig <span class="op">=</span> {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'west'</span> : <span class="st">'-128'</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'south'</span> : <span class="st">'23'</span>,</span>
@@ -1020,7 +1015,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="reprojection" class="level2">
 <h2 class="anchored" data-anchor-id="reprojection">Reprojection</h2>
 <p>The third transformation is a reprojection of the data. This can be combined with the requests we already built above by simply specifying a coordinate reference system. Coordinate reference systems are identified by a common name, EPSG code, or URI. Today, this is based on reference systems supported by gdal. Examples include: ‘CRS:84’, ‘EPSG:32611’.</p>
-<div id="cell-9" class="cell">
+<div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reprojectionConfig <span class="op">=</span> {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'crs'</span> : <span class="st">'EPSG:32611'</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -1035,7 +1030,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="reformatting" class="level2">
 <h2 class="anchored" data-anchor-id="reformatting">Reformatting</h2>
 <p>Next is a reformatting of the output file of the data. This can be combined with the requests we already built above by simply specifying a format. Examples include: image/tiff’, ‘image/png’</p>
-<div id="cell-11" class="cell">
+<div id="cell-12" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>reformattingConfig <span class="op">=</span> {</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'format'</span> : <span class="st">'image/png'</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -1052,7 +1047,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Harmony’s specification is available online. Feel free to read more and continue exploring how to use Harmony. https://harmony.uat.earthdata.nasa.gov/docs/eoss/0.1.0/spec</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1279,6 +1273,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1313,7 +1325,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

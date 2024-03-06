@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -921,8 +921,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#s-mode-workshop-science-case-study-in-situ" id="toc-s-mode-workshop-science-case-study-in-situ" class="nav-link active" data-scroll-target="#s-mode-workshop-science-case-study-in-situ">S-MODE Workshop: Science Case Study In Situ</a></li>
-  <li><a href="#s-mode-data-workshop-in-situ-data-demo" id="toc-s-mode-data-workshop-in-situ-data-demo" class="nav-link" data-scroll-target="#s-mode-data-workshop-in-situ-data-demo">S-MODE Data Workshop: in-situ data demo</a>
+  <li><a href="#s-mode-data-workshop-in-situ-data-demo" id="toc-s-mode-data-workshop-in-situ-data-demo" class="nav-link active" data-scroll-target="#s-mode-data-workshop-in-situ-data-demo">S-MODE Data Workshop: in-situ data demo</a>
   <ul class="collapse">
   <li><a href="#road-map" id="toc-road-map" class="nav-link" data-scroll-target="#road-map">Road map</a></li>
   <li><a href="#first-download-the-saildrone-data" id="toc-first-download-the-saildrone-data" class="nav-link" data-scroll-target="#first-download-the-saildrone-data">First, download the saildrone data</a></li>
@@ -959,9 +958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="s-mode-workshop-science-case-study-in-situ" class="level1">
-<h1>S-MODE Workshop: Science Case Study In Situ</h1>
-<p>imported on: <strong>2024-03-04</strong></p>
+<p>imported on: <strong>2024-03-06</strong></p>
 <p>
 This notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Open-Data-Workshop
 </p>
@@ -977,7 +974,6 @@ This notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Ope
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gsw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 <section id="s-mode-data-workshop-in-situ-data-demo" class="level1">
 <h1>S-MODE Data Workshop: in-situ data demo</h1>
 <p>This is a simple demo of a workflow for downloading and working with S-MODE in-situ data. We will work with underway data collected by saildrones and R/V Oceanus during the S-MODE Pilot Campaign.</p>
@@ -2092,6 +2088,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2126,7 +2140,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

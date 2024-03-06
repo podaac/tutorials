@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -922,9 +922,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#swot-north-american-continent-hydrology-dataset" id="toc-swot-north-american-continent-hydrology-dataset" class="nav-link active" data-scroll-target="#swot-north-american-continent-hydrology-dataset">SWOT North American Continent Hydrology Dataset</a>
-  <ul class="collapse">
-  <li><a href="#finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset" id="toc-finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset" class="nav-link" data-scroll-target="#finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset">Finding ways to visualize SWOT Hydrology River Shapefile Dataset</a></li>
+  <li><a href="#finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset" id="toc-finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset" class="nav-link active" data-scroll-target="#finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset">Finding ways to visualize SWOT Hydrology River Shapefile Dataset</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
   <ul class="collapse">
@@ -945,7 +943,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." id="toc-you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." class="nav-link" data-scroll-target="#you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters.">You can specify river reaches that have a water surface elevation greater than 35 meters.</a></li>
   </ul></li>
   <li><a href="#merging-multiple-reaches-to-a-single-shapefile" id="toc-merging-multiple-reaches-to-a-single-shapefile" class="nav-link" data-scroll-target="#merging-multiple-reaches-to-a-single-shapefile">Merging multiple reaches to a single shapefile</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -974,8 +971,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="swot-north-american-continent-hydrology-dataset" class="level1">
-<h1>SWOT North American Continent Hydrology Dataset</h1>
 <section id="finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="finding-ways-to-visualize-swot-hydrology-river-shapefile-dataset">Finding ways to visualize SWOT Hydrology River Shapefile Dataset</h2>
 <p>Authored by Nicholas Tarpinian, <em>PO.DAAC</em></p>
@@ -1011,7 +1006,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
-<div id="cell-4" class="cell" data-execution_count="1">
+<div id="cell-5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
@@ -1029,190 +1024,257 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="authentication-with-earthaccess" class="level2">
 <h2 class="anchored" data-anchor-id="authentication-with-earthaccess">Authentication with earthaccess</h2>
 <p>In this notebook, we will be calling the authentication in the below cell.</p>
-<div id="cell-6" class="cell" data-execution_count="2">
+<div id="cell-7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>EARTHDATA_USERNAME and EARTHDATA_PASSWORD are not set in the current environment, try setting them or use a different strategy (netrc, interactive)
-You're now authenticated with NASA Earthdata Login
-Using token with expiration date: 12/22/2023
-Using .netrc file for EDL</code></pre>
-</div>
 </div>
 <section id="search-using-earthaccess-for-swot-river-reaches" class="level3">
 <h3 class="anchored" data-anchor-id="search-using-earthaccess-for-swot-river-reaches">Search using <code>earthaccess</code> for SWOT River Reaches</h3>
-<p>Each dataset has it’s own unique collection concept ID. For this dataset it is SWOT_L2_HR_RiverSP_1.1. We don’t need 1000+ files, we just want the river reach files over North America. SWOT files come in “reach” and “node” versions in the same collection, here we want the 10km reaches rather than the nodes. We will also only get files for North America, or ‘NA’ via wildcard search.</p>
-<div id="cell-8" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_RIVERSP_1.1'</span>, </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                                  temporal <span class="op">=</span> (<span class="st">'2023-04-08 00:00:00'</span>, <span class="st">'2023-04-25 23:59:59'</span>),</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Reach*_NA_*'</span>) <span class="co"># here we filter by Reach files (not node), pass #13 and continent code=NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each dataset has it’s own unique collection concept ID. For this dataset it is SWOT_L2_HR_RiverSP_2.0. We don’t need 1000+ files, we just want the river reach files over North America. SWOT files come in “reach” and “node” versions in the same collection, here we want the 10km reaches rather than the nodes. We will also only get files for North America, or ‘NA’ via wildcard search.</p>
+<div id="cell-9" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_RIVERSP_2.0'</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                  temporal <span class="op">=</span> (<span class="st">'2024-02-01 00:00:00'</span>, <span class="st">'2024-02-29 23:59:59'</span>), <span class="co"># can also specify by time</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Reach*_NA_*'</span>) <span class="co"># here we filter by Reach files (not node), continent code=NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Granules found: 119</code></pre>
+<pre><code>Granules found: 192</code></pre>
 </div>
 </div>
 </section>
 <section id="download-the-data-into-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
-<div id="cell-10" class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"../datasets/data_downloads/SWOT_River_Apr2023"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-11" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"../datasets/data_downloads/SWOT_River_Feb2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> Getting 119 granules, approx download size: 0.42 GB</code></pre>
+<pre><code> Getting 192 granules, approx download size: 0.72 GB</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"ff1210c43b8a4646a55a866789491bac","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"40e1b1d1ce754adbbb73f2488cd5ca06","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"10e20cbc7b09444ab0330489774d6698","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"cb9a77781c14421e938d91402192f56f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"a301be2278b5453a8ce9ecafe0a46462","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"e1c7466f3811466eb147f9e01a70d955","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>['SWOT_L2_HR_RiverSP_Reach_484_009_NA_20230408T035428_20230408T035439_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_484_011_NA_20230408T053314_20230408T053322_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_484_011_NA_20230408T053314_20230408T053322_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_484_013_NA_20230408T071821_20230408T071832_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_484_022_NA_20230408T143144_20230408T143150_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_484_024_NA_20230408T161231_20230408T161242_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_484_026_NA_20230408T175410_20230408T175414_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_485_009_NA_20230409T034506_20230409T034517_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_485_011_NA_20230409T052352_20230409T052400_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_485_013_NA_20230409T070859_20230409T070910_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_485_022_NA_20230409T142222_20230409T142228_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_485_024_NA_20230409T160309_20230409T160320_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_485_026_NA_20230409T174448_20230409T174452_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_486_009_NA_20230410T033544_20230410T033555_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_486_011_NA_20230410T051430_20230410T051438_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_486_011_NA_20230410T051430_20230410T051438_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_486_013_NA_20230410T065937_20230410T065948_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_486_022_NA_20230410T141300_20230410T141305_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_486_024_NA_20230410T155347_20230410T155358_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_486_026_NA_20230410T173527_20230410T173530_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_487_009_NA_20230411T032622_20230411T032633_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_487_011_NA_20230411T050509_20230411T050516_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_487_011_NA_20230411T050509_20230411T050516_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_487_013_NA_20230411T065015_20230411T065026_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_487_022_NA_20230411T140338_20230411T140345_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_487_024_NA_20230411T154425_20230411T154436_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_487_026_NA_20230411T172605_20230411T172608_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_488_009_NA_20230412T031700_20230412T031711_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_488_011_NA_20230412T045547_20230412T045554_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_488_011_NA_20230412T045547_20230412T045554_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_488_013_NA_20230412T064053_20230412T064104_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_488_022_NA_20230412T135416_20230412T135423_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_488_024_NA_20230412T153503_20230412T153514_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_488_026_NA_20230412T171643_20230412T171646_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_489_009_NA_20230413T030738_20230413T030749_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_489_011_NA_20230413T044625_20230413T044632_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_489_013_NA_20230413T063131_20230413T063142_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_489_022_NA_20230413T134454_20230413T134501_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_489_024_NA_20230413T152541_20230413T152553_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_489_026_NA_20230413T170721_20230413T170724_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_490_009_NA_20230414T025816_20230414T025827_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_490_011_NA_20230414T043703_20230414T043710_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_490_011_NA_20230414T043703_20230414T043710_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_490_013_NA_20230414T062209_20230414T062220_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_490_022_NA_20230414T133532_20230414T133539_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_490_024_NA_20230414T151619_20230414T151630_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_490_026_NA_20230414T165759_20230414T165802_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_491_009_NA_20230415T024854_20230415T024905_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_491_011_NA_20230415T042741_20230415T042748_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_491_011_NA_20230415T042741_20230415T042748_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_491_022_NA_20230415T132610_20230415T132617_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_491_024_NA_20230415T150657_20230415T150708_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_491_026_NA_20230415T164837_20230415T164840_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_492_009_NA_20230416T023932_20230416T023943_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_492_011_NA_20230416T041819_20230416T041826_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_492_011_NA_20230416T041819_20230416T041826_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_492_013_NA_20230416T060325_20230416T060336_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_492_022_NA_20230416T131648_20230416T131655_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_492_024_NA_20230416T145735_20230416T145746_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_492_026_NA_20230416T163915_20230416T163918_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_493_009_NA_20230417T023010_20230417T023021_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_493_011_NA_20230417T040856_20230417T040904_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_493_011_NA_20230417T040856_20230417T040904_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_493_013_NA_20230417T055403_20230417T055414_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_493_022_NA_20230417T130726_20230417T130733_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_493_024_NA_20230417T144813_20230417T144824_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_493_026_NA_20230417T162952_20230417T162956_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_494_009_NA_20230418T022048_20230418T022059_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_494_011_NA_20230418T035934_20230418T035942_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_494_013_NA_20230418T054441_20230418T054452_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_494_022_NA_20230418T125804_20230418T125810_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_494_024_NA_20230418T143851_20230418T143902_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_494_026_NA_20230418T162030_20230418T162034_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_495_009_NA_20230419T021126_20230419T021137_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_495_011_NA_20230419T035012_20230419T035020_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_495_013_NA_20230419T053519_20230419T053530_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_495_022_NA_20230419T124842_20230419T124848_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_495_024_NA_20230419T142929_20230419T142940_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_495_026_NA_20230419T161108_20230419T161111_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_496_009_NA_20230420T020203_20230420T020214_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_496_011_NA_20230420T034050_20230420T034057_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_496_011_NA_20230420T034050_20230420T034057_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_496_013_NA_20230420T052556_20230420T052607_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_496_022_NA_20230420T123919_20230420T123926_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_496_024_NA_20230420T142007_20230420T142018_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_496_026_NA_20230420T160146_20230420T160149_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_497_009_NA_20230421T015241_20230421T015252_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_497_011_NA_20230421T033128_20230421T033135_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_497_011_NA_20230421T033128_20230421T033135_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_497_013_NA_20230421T051634_20230421T051645_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_497_022_NA_20230421T122957_20230421T123004_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_497_024_NA_20230421T141044_20230421T141055_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_497_026_NA_20230421T155224_20230421T155227_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_498_009_NA_20230422T014319_20230422T014330_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_498_011_NA_20230422T032206_20230422T032213_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_498_011_NA_20230422T032206_20230422T032213_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_498_013_NA_20230422T050712_20230422T050723_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_498_022_NA_20230422T122035_20230422T122042_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_498_024_NA_20230422T140122_20230422T140133_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_498_026_NA_20230422T154302_20230422T154305_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_499_009_NA_20230423T013357_20230423T013408_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_499_011_NA_20230423T031244_20230423T031251_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_499_013_NA_20230423T045750_20230423T045801_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_499_022_NA_20230423T121113_20230423T121120_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_499_024_NA_20230423T135200_20230423T135211_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_499_026_NA_20230423T153340_20230423T153343_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_500_009_NA_20230424T012435_20230424T012446_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_500_011_NA_20230424T030321_20230424T030329_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_500_013_NA_20230424T044828_20230424T044839_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_500_022_NA_20230424T120151_20230424T120158_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_500_024_NA_20230424T134238_20230424T134249_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_500_026_NA_20230424T152418_20230424T152421_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_501_009_NA_20230425T011513_20230425T011524_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_501_011_NA_20230425T025359_20230425T025407_PIB0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_501_011_NA_20230425T025359_20230425T025407_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_501_013_NA_20230425T043906_20230425T043917_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_501_022_NA_20230425T115229_20230425T115235_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_501_024_NA_20230425T133316_20230425T133327_PIB0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_501_026_NA_20230425T151455_20230425T151459_PIB0_01.zip']</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>['..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_201_NA_20240201T041955_20240201T042002_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_203_NA_20240201T060154_20240201T060156_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_205_NA_20240201T074909_20240201T074919_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_207_NA_20240201T093914_20240201T093922_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_214_NA_20240201T150449_20240201T150457_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_216_NA_20240201T164840_20240201T164851_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_218_NA_20240201T183254_20240201T183305_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_229_NA_20240202T042033_20240202T042033_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_231_NA_20240202T060249_20240202T060257_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_233_NA_20240202T075030_20240202T075030_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_235_NA_20240202T094027_20240202T094034_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_242_NA_20240202T150553_20240202T150556_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_244_NA_20240202T164911_20240202T164922_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_246_NA_20240202T183215_20240202T183226_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_257_NA_20240203T042106_20240203T042114_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_259_NA_20240203T060315_20240203T060318_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_261_NA_20240203T075133_20240203T075141_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_263_NA_20240203T094121_20240203T094125_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_270_NA_20240203T150757_20240203T150759_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_272_NA_20240203T165002_20240203T165013_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_274_NA_20240203T183225_20240203T183237_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_285_NA_20240204T042133_20240204T042135_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_287_NA_20240204T060400_20240204T060409_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_289_NA_20240204T075233_20240204T075242_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_291_NA_20240204T094215_20240204T094216_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_298_NA_20240204T150846_20240204T150850_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_300_NA_20240204T165043_20240204T165054_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_302_NA_20240204T183257_20240204T183308_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_313_NA_20240205T042233_20240205T042236_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_315_NA_20240205T060452_20240205T060500_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_317_NA_20240205T075334_20240205T075343_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_328_NA_20240205T165124_20240205T165135_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_330_NA_20240205T183328_20240205T183339_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_341_NA_20240206T041926_20240206T041927_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_343_NA_20240206T060541_20240206T060551_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_345_NA_20240206T075535_20240206T075544_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_352_NA_20240206T132700_20240206T132704_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_354_NA_20240206T150945_20240206T150952_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_356_NA_20240206T165205_20240206T165216_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_358_NA_20240206T183419_20240206T183421_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_369_NA_20240207T042011_20240207T042018_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_371_NA_20240207T060719_20240207T060722_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_373_NA_20240207T075749_20240207T075755_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_380_NA_20240207T132630_20240207T132640_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_382_NA_20240207T151003_20240207T151013_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_384_NA_20240207T165306_20240207T165317_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_397_NA_20240208T042110_20240208T042119_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_399_NA_20240208T060832_20240208T060843_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_401_NA_20240208T075840_20240208T075846_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_408_NA_20240208T132636_20240208T132641_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_410_NA_20240208T151012_20240208T151014_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_412_NA_20240208T165347_20240208T165358_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_425_NA_20240209T042222_20240209T042230_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_427_NA_20240209T060839_20240209T060844_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_429_NA_20240209T075948_20240209T075957_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_436_NA_20240209T132634_20240209T132639_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_438_NA_20240209T150934_20240209T150945_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_440_NA_20240209T165438_20240209T165445_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_451_NA_20240210T025019_20240210T025027_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_453_NA_20240210T042314_20240210T042321_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_455_NA_20240210T060954_20240210T061005_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_457_NA_20240210T080048_20240210T080048_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_464_NA_20240210T132638_20240210T132642_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_466_NA_20240210T151005_20240210T151016_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_468_NA_20240210T165459_20240210T165510_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_479_NA_20240211T024207_20240211T024218_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_481_NA_20240211T042356_20240211T042402_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_483_NA_20240211T061049_20240211T061053_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_485_NA_20240211T080116_20240211T080120_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_492_NA_20240211T132710_20240211T132714_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_494_NA_20240211T151046_20240211T151057_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_496_NA_20240211T165520_20240211T165531_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_507_NA_20240212T025052_20240212T025059_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_509_NA_20240212T042458_20240212T042503_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_511_NA_20240212T061236_20240212T061247_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_513_NA_20240212T080234_20240212T080241_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_520_NA_20240212T132745_20240212T132755_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_522_NA_20240212T151117_20240212T151129_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_524_NA_20240212T165431_20240212T165442_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_535_NA_20240213T024323_20240213T024331_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_537_NA_20240213T042529_20240213T042535_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_539_NA_20240213T061339_20240213T061348_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_541_NA_20240213T080325_20240213T080332_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_548_NA_20240213T132912_20240213T132916_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_550_NA_20240213T151159_20240213T151210_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_552_NA_20240213T165452_20240213T165503_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_563_NA_20240214T024349_20240214T024352_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_565_NA_20240214T042609_20240214T042616_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_567_NA_20240214T061428_20240214T061429_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_569_NA_20240214T080421_20240214T080423_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_576_NA_20240214T133056_20240214T133057_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_578_NA_20240214T151300_20240214T151311_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_010_580_NA_20240214T165524_20240214T165535_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_007_NA_20240215T024453_20240215T024458_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_009_NA_20240215T042656_20240215T042707_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_011_NA_20240215T061537_20240215T061541_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_013_NA_20240215T080513_20240215T080514_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_020_NA_20240215T133146_20240215T133148_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_022_NA_20240215T151341_20240215T151352_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_024_NA_20240215T165545_20240215T165556_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_035_NA_20240216T024213_20240216T024220_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_037_NA_20240216T042745_20240216T042748_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_039_NA_20240216T061647_20240216T061652_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_046_NA_20240216T115108_20240216T115116_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_048_NA_20240216T133203_20240216T133210_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_050_NA_20240216T151422_20240216T151433_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_052_NA_20240216T165616_20240216T165627_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_063_NA_20240217T024218_20240217T024226_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_065_NA_20240217T042843_20240217T042849_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_067_NA_20240217T061937_20240217T061943_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_074_NA_20240217T114939_20240217T114947_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_076_NA_20240217T133231_20240217T133241_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_078_NA_20240217T151503_20240217T151515_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_091_NA_20240218T024304_20240218T024307_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_093_NA_20240218T043028_20240218T043030_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_095_NA_20240218T062048_20240218T062054_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_102_NA_20240218T114839_20240218T114848_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_104_NA_20240218T133238_20240218T133242_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_106_NA_20240218T151605_20240218T151616_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_119_NA_20240219T024405_20240219T024408_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_121_NA_20240219T043044_20240219T043052_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_123_NA_20240219T062139_20240219T062145_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_130_NA_20240219T114935_20240219T114939_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_132_NA_20240219T133256_20240219T133303_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_134_NA_20240219T151646_20240219T151657_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_145_NA_20240220T011230_20240220T011235_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_147_NA_20240220T024529_20240220T024539_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_149_NA_20240220T043141_20240220T043143_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_151_NA_20240220T062252_20240220T062256_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_158_NA_20240220T114920_20240220T114930_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_160_NA_20240220T133223_20240220T133234_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_160_NA_20240220T133223_20240220T133234_PIC0_02.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_162_NA_20240220T151737_20240220T151748_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_173_NA_20240221T011311_20240221T011316_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_175_NA_20240221T024610_20240221T024620_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_177_NA_20240221T043254_20240221T043304_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_179_NA_20240221T062321_20240221T062325_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_186_NA_20240221T114930_20240221T114931_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_188_NA_20240221T133254_20240221T133305_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_190_NA_20240221T151738_20240221T151749_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_201_NA_20240222T010500_20240222T010507_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_203_NA_20240222T024659_20240222T024701_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_205_NA_20240222T043414_20240222T043425_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_207_NA_20240222T062419_20240222T062427_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_214_NA_20240222T114954_20240222T115002_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_216_NA_20240222T133345_20240222T133356_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_218_NA_20240222T151759_20240222T151810_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_229_NA_20240223T010538_20240223T010546_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_231_NA_20240223T024754_20240223T024802_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_233_NA_20240223T043535_20240223T043546_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_235_NA_20240223T062532_20240223T062540_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_242_NA_20240223T115059_20240223T115101_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_244_NA_20240223T133416_20240223T133427_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_246_NA_20240223T151720_20240223T151731_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_257_NA_20240224T010611_20240224T010619_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_259_NA_20240224T024820_20240224T024823_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_261_NA_20240224T043639_20240224T043647_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_263_NA_20240224T062626_20240224T062631_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_270_NA_20240224T115302_20240224T115305_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_272_NA_20240224T133507_20240224T133518_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_274_NA_20240224T151731_20240224T151742_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_285_NA_20240225T010639_20240225T010644_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_287_NA_20240225T024905_20240225T024914_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_289_NA_20240225T043739_20240225T043748_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_291_NA_20240225T062720_20240225T062722_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_298_NA_20240225T115352_20240225T115356_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_300_NA_20240225T133548_20240225T133559_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_302_NA_20240225T151802_20240225T151813_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_313_NA_20240226T010739_20240226T010741_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_315_NA_20240226T024958_20240226T025005_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_317_NA_20240226T043839_20240226T043849_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_326_NA_20240226T115525_20240226T115527_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_328_NA_20240226T133629_20240226T133640_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_330_NA_20240226T151833_20240226T151844_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_341_NA_20240227T010431_20240227T010433_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_343_NA_20240227T025047_20240227T025056_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_345_NA_20240227T044040_20240227T044050_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_352_NA_20240227T101206_20240227T101210_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_354_NA_20240227T115450_20240227T115458_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_356_NA_20240227T133710_20240227T133721_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_358_NA_20240227T151924_20240227T151926_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_369_NA_20240228T010517_20240228T010524_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_371_NA_20240228T025225_20240228T025227_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_373_NA_20240228T044254_20240228T044301_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_380_NA_20240228T101135_20240228T101145_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_384_NA_20240228T133941_20240228T133953_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_397_NA_20240229T010615_20240229T010625_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_399_NA_20240229T025332_20240229T025338_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_401_NA_20240229T044346_20240229T044352_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_408_NA_20240229T101141_20240229T101146_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_410_NA_20240229T115518_20240229T115520_PIC0_01.zip',
+ '..\\datasets\\data_downloads\\SWOT_River_Feb2024\\SWOT_L2_HR_RiverSP_Reach_011_412_NA_20240229T133852_20240229T133903_PIC0_01.zip']</code></pre>
 </div>
 </div>
 </section>
 <section id="unzip-shapefiles-to-existing-folder" class="level3">
 <h3 class="anchored" data-anchor-id="unzip-shapefiles-to-existing-folder">Unzip shapefiles to existing folder</h3>
-<div id="cell-12" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"../datasets/data_downloads/SWOT_River_Apr2023"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-13" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"../datasets/data_downloads/SWOT_River_Feb2024"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="opening-a-single-shapefile" class="level3">
 <h3 class="anchored" data-anchor-id="opening-a-single-shapefile">Opening a Single Shapefile</h3>
 <p>Using Geopandas to open &amp; read a single shapefile. (Select desired single pass from list with path to downloaded shapefile)</p>
-<div id="cell-14" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>River <span class="op">=</span> gpd.read_file(folder <span class="op">/</span> <span class="st">'SWOT_L2_HR_RiverSP_Reach_484_009_NA_20230408T035428_20230408T035439_PIB0_01.shp'</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>River</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="cell-15" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>River <span class="op">=</span> gpd.read_file(folder <span class="op">/</span> <span class="st">'SWOT_L2_HR_RiverSP_Reach_010_380_NA_20240207T132630_20240207T132640_PIC0_01.shp'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>River</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 <div>
 
@@ -1247,123 +1309,123 @@ Using .netrc file for EDL</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>72280200251</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>no_data</td>
-<td>58.099444</td>
-<td>-64.477985</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>72302000011</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:01Z</td>
+<td>48.945799</td>
+<td>-57.862132</td>
+<td>Humber River</td>
+<td>4.236410e+01</td>
+<td>8.633000e-01</td>
+<td>8.585900e-01</td>
 <td>...</td>
-<td>3476.514</td>
-<td>43</td>
-<td>145938.051</td>
-<td>8656.631250</td>
+<td>675.648</td>
+<td>10</td>
+<td>2135.645</td>
+<td>1984.456750</td>
 <td>-1.000000e+12</td>
 <td>0</td>
-<td>3</td>
+<td>1</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-64.53530 58.08282, -64.53491 58.0...</td>
+<td>LINESTRING (-57.87428 48.95038, -57.87387 48.9...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>72280200261</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>no_data</td>
-<td>58.153381</td>
-<td>-64.467326</td>
-<td>no_data</td>
+<td>72302000021</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:01Z</td>
+<td>48.947712</td>
+<td>-57.846809</td>
+<td>Humber River</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>...</td>
-<td>1244.502</td>
-<td>43</td>
-<td>154604.372</td>
-<td>8666.321621</td>
+<td>217.623</td>
+<td>4</td>
+<td>3008.992</td>
+<td>873.346819</td>
 <td>-1.000000e+12</td>
 <td>0</td>
-<td>2</td>
+<td>1</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-64.44973 58.12074, -64.44964 58.1...</td>
+<td>LINESTRING (-57.85082 48.94446, -57.85058 48.9...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>72280200273</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>no_data</td>
-<td>58.189493</td>
-<td>-64.480360</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>72302000043</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:01Z</td>
+<td>48.973874</td>
+<td>-57.788332</td>
+<td>Humber River</td>
+<td>5.920900e+00</td>
+<td>1.440190e+00</td>
+<td>1.437370e+00</td>
 <td>...</td>
-<td>11463.153</td>
-<td>9</td>
-<td>156433.397</td>
-<td>1829.024940</td>
+<td>7900.098</td>
+<td>46</td>
+<td>12109.956</td>
+<td>9100.964613</td>
 <td>-1.000000e+12</td>
 <td>0</td>
 <td>2</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-64.48798 58.18298, -64.48748 58.1...</td>
+<td>LINESTRING (-57.83865 48.95172, -57.83824 48.9...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>72280200281</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>no_data</td>
-<td>58.202248</td>
-<td>-64.486463</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>72302000051</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:01Z</td>
+<td>48.995478</td>
+<td>-57.730291</td>
+<td>Humber River</td>
+<td>3.668880e+01</td>
+<td>9.367000e-02</td>
+<td>2.596000e-02</td>
 <td>...</td>
-<td>7354.472</td>
-<td>14</td>
-<td>159328.921</td>
-<td>2895.523382</td>
+<td>397.512</td>
+<td>7</td>
+<td>13444.660</td>
+<td>1334.703115</td>
 <td>-1.000000e+12</td>
 <td>0</td>
 <td>1</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-64.47272 58.19647, -64.47243 58.1...</td>
+<td>LINESTRING (-57.73845 48.99230, -57.73804 48.9...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>72280200293</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>no_data</td>
-<td>58.216592</td>
-<td>-64.503730</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>72302000063</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:01Z</td>
+<td>48.997805</td>
+<td>-57.715888</td>
+<td>Humber River</td>
+<td>2.784380e+01</td>
+<td>9.033000e-02</td>
+<td>7.670000e-03</td>
 <td>...</td>
-<td>542.971</td>
-<td>7</td>
-<td>160741.966</td>
-<td>1413.044983</td>
+<td>1089.674</td>
+<td>6</td>
+<td>14714.137</td>
+<td>1269.477822</td>
 <td>-1.000000e+12</td>
 <td>0</td>
 <td>1</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-64.50117 58.21015, -64.50128 58.2...</td>
+<td>LINESTRING (-57.72209 48.99569, -57.72168 48.9...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -1390,129 +1452,129 @@ Using .netrc file for EDL</code></pre>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">611</td>
-<td>73130000021</td>
-<td>7.342413e+08</td>
-<td>7.342413e+08</td>
-<td>2023-04-08T03:54:30Z</td>
-<td>41.279229</td>
-<td>-73.084713</td>
-<td>Housatonic River</td>
-<td>1.775000e-01</td>
-<td>1.160600e-01</td>
-<td>7.327000e-02</td>
-<td>...</td>
-<td>8895.093</td>
-<td>67</td>
-<td>21002.661</td>
-<td>13389.150868</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-73.10890 41.22987, -73.10875 41.2...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">612</td>
-<td>73130000034</td>
-<td>7.342413e+08</td>
-<td>7.342413e+08</td>
-<td>2023-04-08T03:54:30Z</td>
-<td>41.325029</td>
-<td>-73.103215</td>
-<td>Housatonic River</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>...</td>
-<td>2538.331</td>
-<td>2</td>
-<td>21362.818</td>
-<td>360.156442</td>
-<td>-1.000000e+12</td>
-<td>28357</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-73.10110 41.32378, -73.10145 41.3...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">613</td>
-<td>73130000041</td>
-<td>7.342413e+08</td>
-<td>7.342413e+08</td>
-<td>2023-04-08T03:54:30Z</td>
-<td>41.356524</td>
-<td>-73.138070</td>
-<td>Housatonic River</td>
-<td>7.048900e+00</td>
-<td>7.562870e+00</td>
-<td>7.562340e+00</td>
-<td>...</td>
-<td>4857.857</td>
-<td>46</td>
-<td>30467.980</td>
-<td>9105.162038</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-73.10533 41.32612, -73.10569 41.3...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">614</td>
-<td>73130000054</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">210</td>
+<td>72350800071</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:11Z</td>
+<td>51.791094</td>
+<td>-58.985455</td>
 <td>no_data</td>
-<td>41.382209</td>
-<td>-73.172231</td>
-<td>Housatonic River</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>9.711690e+01</td>
+<td>3.278100e+00</td>
+<td>3.276860e+00</td>
 <td>...</td>
-<td>10522.698</td>
-<td>2</td>
-<td>30857.397</td>
-<td>389.417460</td>
-<td>-1.000000e+12</td>
-<td>19700</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-73.16973 41.38169, -73.17009 41.3...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">615</td>
-<td>73130000061</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>no_data</td>
-<td>41.424945</td>
-<td>-73.230960</td>
-<td>Housatonic River</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>...</td>
-<td>10469.706</td>
+<td>821.862</td>
 <td>82</td>
-<td>47161.191</td>
-<td>16303.793847</td>
+<td>119786.053</td>
+<td>16448.306136</td>
 <td>-1.000000e+12</td>
 <td>0</td>
 <td>2</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-73.17436 41.38295, -73.17465 41.3...</td>
+<td>LINESTRING (-58.89330 51.77895, -58.89374 51.7...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">211</td>
+<td>72350800081</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:10Z</td>
+<td>51.886956</td>
+<td>-59.172704</td>
+<td>no_data</td>
+<td>1.168453e+02</td>
+<td>7.567680e+00</td>
+<td>7.567140e+00</td>
+<td>...</td>
+<td>2599.684</td>
+<td>99</td>
+<td>139644.759</td>
+<td>19858.706858</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-59.07129 51.82866, -59.07148 51.8...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">212</td>
+<td>72350800091</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:01Z</td>
+<td>51.966072</td>
+<td>-59.344178</td>
+<td>no_data</td>
+<td>9.837220e+01</td>
+<td>1.775170e+00</td>
+<td>1.772890e+00</td>
+<td>...</td>
+<td>2313.937</td>
+<td>64</td>
+<td>152412.397</td>
+<td>12767.637572</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-59.37449 52.01016, -59.37465 52.0...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">213</td>
+<td>72350800101</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:01Z</td>
+<td>52.045314</td>
+<td>-59.409170</td>
+<td>Saint-Augustin River</td>
+<td>1.425316e+02</td>
+<td>7.325890e+00</td>
+<td>7.325330e+00</td>
+<td>...</td>
+<td>590.479</td>
+<td>68</td>
+<td>166028.213</td>
+<td>13615.816320</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-59.37465 52.00988, -59.37449 52.0...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">214</td>
+<td>72350800111</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:11Z</td>
+<td>51.696292</td>
+<td>-58.702223</td>
+<td>no_data</td>
+<td>1.045083e+02</td>
+<td>1.271013e+01</td>
+<td>1.270981e+01</td>
+<td>...</td>
+<td>1257.012</td>
+<td>97</td>
+<td>79887.666</td>
+<td>19340.975021</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-58.72011 51.63638, -58.72011 51.6...</td>
 </tr>
 </tbody>
 </table>
 
-<p>616 rows × 127 columns</p>
+<p>215 rows × 127 columns</p>
 </div>
 </div>
 </div>
@@ -1523,10 +1585,10 @@ Using .netrc file for EDL</code></pre>
 <p>Using Matplotlib to plot the shapefile, then adding a basemap for context using the library Contextily.</p>
 <p>Contextily offers a list of basemap providers that can be easily visualized.</p>
 <p>https://contextily.readthedocs.io/en/latest/intro_guide.html</p>
-<div id="cell-16" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>River.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.OpenTopoMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-17" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>River.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.OpenTopoMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1543,13 +1605,13 @@ Using .netrc file for EDL</code></pre>
 <p>You can also plot a shapefile based on a specific variable.</p>
 <p>Within Matplotlib you can specifiy the column parameter based on the column within the datasets attributes.</p>
 <p>For the example below, we will look at the column ‘wse’ which stands for water surface elevation.</p>
-<div id="cell-18" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First, we set all -999999999999 values to nan so that the color variation shows in the values.</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>River[<span class="st">"wse"</span>] <span class="op">=</span> River.wse.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="cf">if</span> x <span class="op">&gt;</span> <span class="op">-</span><span class="dv">10</span> <span class="cf">else</span> np.nan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-19" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First, we set all -999999999999 values to nan so that the color variation shows in the values.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>River[<span class="st">"wse"</span>] <span class="op">=</span> River.wse.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="cf">if</span> x <span class="op">&gt;</span> <span class="op">-</span><span class="dv">10</span> <span class="cf">else</span> np.nan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">15</span>))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>River.plot(column<span class="op">=</span><span class="st">'wse'</span>, ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-20" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">15</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>River.plot(column<span class="op">=</span><span class="st">'wse'</span>, ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1563,10 +1625,10 @@ Using .netrc file for EDL</code></pre>
 <h3 class="anchored" data-anchor-id="querying-a-shapefile">Querying a Shapefile</h3>
 <p>If you want to search for a specific reach id or a specific length of river reach that is possible through a spatial query using Geopandas.</p>
 <p>Utilizing comparison operators (&gt;, &lt;, ==, &gt;=, &lt;=).</p>
-<div id="cell-21" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Query <span class="op">=</span> River.query(<span class="st">"reach_id == '73130000021'"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Query</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div id="cell-22" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Query <span class="op">=</span> River.query(<span class="st">"reach_id == '72350800091'"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Query</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 <div>
 
@@ -1600,28 +1662,28 @@ Using .netrc file for EDL</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">611</td>
-<td>73130000021</td>
-<td>7.342413e+08</td>
-<td>7.342413e+08</td>
-<td>2023-04-08T03:54:30Z</td>
-<td>41.279229</td>
-<td>-73.084713</td>
-<td>Housatonic River</td>
-<td>0.1775</td>
-<td>0.11606</td>
-<td>0.07327</td>
+<td data-quarto-table-cell-role="th">212</td>
+<td>72350800091</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:01Z</td>
+<td>51.966072</td>
+<td>-59.344178</td>
+<td>no_data</td>
+<td>98.3722</td>
+<td>1.77517</td>
+<td>1.77289</td>
 <td>...</td>
-<td>8895.093</td>
-<td>67</td>
-<td>21002.661</td>
-<td>13389.150868</td>
+<td>2313.937</td>
+<td>64</td>
+<td>152412.397</td>
+<td>12767.637572</td>
 <td>-1.000000e+12</td>
 <td>0</td>
-<td>3</td>
+<td>2</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-73.10890 41.22987, -73.10875 41.2...</td>
+<td>LINESTRING (-59.37449 52.01016, -59.37465 52.0...</td>
 </tr>
 </tbody>
 </table>
@@ -1631,10 +1693,10 @@ Using .netrc file for EDL</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Query.plot(ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.Esri.NatGeoWorldMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-23" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Query.plot(ax<span class="op">=</span>ax, legend<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.Esri.NatGeoWorldMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1646,10 +1708,10 @@ Using .netrc file for EDL</code></pre>
 </section>
 <section id="you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters." class="level3">
 <h3 class="anchored" data-anchor-id="you-can-specify-river-reaches-that-have-a-water-surface-elevation-greater-than-35-meters.">You can specify river reaches that have a water surface elevation greater than 35 meters.</h3>
-<div id="cell-24" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>WSE <span class="op">=</span> River.query(<span class="st">'wse &gt; 35'</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>WSE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div id="cell-25" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>WSE <span class="op">=</span> River.query(<span class="st">'wse &gt; 35'</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>WSE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 <div>
 
@@ -1683,124 +1745,124 @@ Using .netrc file for EDL</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>72302000011</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:01Z</td>
+<td>48.945799</td>
+<td>-57.862132</td>
+<td>Humber River</td>
+<td>42.3641</td>
+<td>0.86330</td>
+<td>0.85859</td>
+<td>...</td>
+<td>675.648</td>
+<td>10</td>
+<td>2135.645</td>
+<td>1984.456750</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-57.87428 48.95038, -57.87387 48.9...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>72302000051</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:01Z</td>
+<td>48.995478</td>
+<td>-57.730291</td>
+<td>Humber River</td>
+<td>36.6888</td>
+<td>0.09367</td>
+<td>0.02596</td>
+<td>...</td>
+<td>397.512</td>
+<td>7</td>
+<td>13444.660</td>
+<td>1334.703115</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-57.73845 48.99230, -57.73804 48.9...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9</td>
+<td>72302000111</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:00Z</td>
+<td>49.170904</td>
+<td>-57.404776</td>
+<td>no_data</td>
+<td>118.9760</td>
+<td>0.83515</td>
+<td>0.83029</td>
+<td>...</td>
+<td>105.642</td>
+<td>28</td>
+<td>50331.655</td>
+<td>5596.729779</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-57.43636 49.16979, -57.43570 49.1...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">10</td>
+<td>72302000123</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:00Z</td>
+<td>49.177845</td>
+<td>-57.348725</td>
+<td>no_data</td>
+<td>116.7355</td>
+<td>0.09589</td>
+<td>0.03309</td>
+<td>...</td>
+<td>35547.561</td>
+<td>20</td>
+<td>54269.288</td>
+<td>3937.633107</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-57.37279 49.17719, -57.37255 49.1...</td>
+</tr>
+<tr class="odd">
 <td data-quarto-table-cell-role="th">11</td>
-<td>72290000071</td>
-<td>7.342416e+08</td>
-<td>7.342416e+08</td>
-<td>2023-04-08T03:59:39Z</td>
-<td>58.643028</td>
-<td>-64.766113</td>
+<td>72302000131</td>
+<td>7.606277e+08</td>
+<td>7.606278e+08</td>
+<td>2024-02-07T13:29:01Z</td>
+<td>49.171135</td>
+<td>-57.263679</td>
 <td>no_data</td>
-<td>189.7760</td>
-<td>21.11379</td>
-<td>21.11359</td>
+<td>92.1803</td>
+<td>1.43050</td>
+<td>1.42767</td>
 <td>...</td>
-<td>1146.569</td>
-<td>48</td>
-<td>90419.400</td>
-<td>9535.571996</td>
+<td>500301.988</td>
+<td>61</td>
+<td>66530.524</td>
+<td>12261.235771</td>
 <td>-1.000000e+12</td>
 <td>0</td>
-<td>2</td>
+<td>4</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-64.77144 58.60798, -64.77197 58.6...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">12</td>
-<td>72290000081</td>
-<td>7.342416e+08</td>
-<td>7.342416e+08</td>
-<td>2023-04-08T03:59:39Z</td>
-<td>58.714369</td>
-<td>-64.738308</td>
-<td>no_data</td>
-<td>294.3835</td>
-<td>0.25529</td>
-<td>0.23890</td>
-<td>...</td>
-<td>964.470</td>
-<td>48</td>
-<td>99934.603</td>
-<td>9515.202203</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-64.74790 58.67648, -64.74812 58.6...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">13</td>
-<td>72290000091</td>
-<td>7.342416e+08</td>
-<td>7.342416e+08</td>
-<td>2023-04-08T03:59:47Z</td>
-<td>58.779820</td>
-<td>-64.695449</td>
-<td>no_data</td>
-<td>311.2570</td>
-<td>0.32269</td>
-<td>0.30988</td>
-<td>...</td>
-<td>1322.264</td>
-<td>48</td>
-<td>109456.472</td>
-<td>9521.869544</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-64.73733 58.75101, -64.73744 58.7...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">14</td>
-<td>72290000101</td>
-<td>7.342416e+08</td>
-<td>7.342416e+08</td>
-<td>2023-04-08T03:59:48Z</td>
-<td>58.845117</td>
-<td>-64.561029</td>
-<td>no_data</td>
-<td>365.2844</td>
-<td>1.21278</td>
-<td>1.20943</td>
-<td>...</td>
-<td>1967.645</td>
-<td>91</td>
-<td>127615.429</td>
-<td>18158.956537</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-64.65936 58.81024, -64.65906 58.8...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">16</td>
-<td>72290000121</td>
-<td>7.342416e+08</td>
-<td>7.342416e+08</td>
-<td>2023-04-08T03:59:38Z</td>
-<td>58.609514</td>
-<td>-64.561682</td>
-<td>no_data</td>
-<td>116.8113</td>
-<td>3.96043</td>
-<td>3.95941</td>
-<td>...</td>
-<td>4144.533</td>
-<td>44</td>
-<td>89650.564</td>
-<td>8766.735629</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-64.62896 58.60922, -64.62844 58.6...</td>
+<td>LINESTRING (-57.32502 49.17382, -57.32461 49.1...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -1827,137 +1889,137 @@ Using .netrc file for EDL</code></pre>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">601</td>
-<td>73120000881</td>
-<td>7.342413e+08</td>
-<td>7.342414e+08</td>
-<td>2023-04-08T03:55:20Z</td>
-<td>44.351102</td>
-<td>-72.039760</td>
-<td>Passumsic River</td>
-<td>174.9508</td>
-<td>4.47919</td>
-<td>4.47829</td>
+<td data-quarto-table-cell-role="th">210</td>
+<td>72350800071</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:11Z</td>
+<td>51.791094</td>
+<td>-58.985455</td>
+<td>no_data</td>
+<td>97.1169</td>
+<td>3.27810</td>
+<td>3.27686</td>
 <td>...</td>
-<td>131.791</td>
-<td>33</td>
-<td>497855.958</td>
-<td>6601.016442</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-72.03762 44.32713, -72.03799 44.3...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">603</td>
-<td>73120000901</td>
-<td>7.342413e+08</td>
-<td>7.342414e+08</td>
-<td>2023-04-08T03:55:20Z</td>
-<td>44.386181</td>
-<td>-72.021869</td>
-<td>Passumsic River</td>
-<td>173.7937</td>
-<td>0.55437</td>
-<td>0.54701</td>
-<td>...</td>
-<td>309.045</td>
-<td>14</td>
-<td>501124.567</td>
-<td>2797.247947</td>
+<td>821.862</td>
+<td>82</td>
+<td>119786.053</td>
+<td>16448.306136</td>
 <td>-1.000000e+12</td>
 <td>0</td>
 <td>2</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-72.02436 44.37642, -72.02420 44.3...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">605</td>
-<td>73120000921</td>
-<td>7.342413e+08</td>
-<td>7.342414e+08</td>
-<td>2023-04-08T03:55:20Z</td>
-<td>44.411236</td>
-<td>-72.014336</td>
-<td>Passumsic River</td>
-<td>166.5888</td>
-<td>0.10145</td>
-<td>0.04683</td>
-<td>...</td>
-<td>311.007</td>
-<td>16</td>
-<td>504771.255</td>
-<td>3198.652675</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-72.02228 44.39954, -72.02190 44.3...</td>
+<td>LINESTRING (-58.89330 51.77895, -58.89374 51.7...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">607</td>
-<td>73120000941</td>
-<td>7.342413e+08</td>
-<td>7.342414e+08</td>
-<td>2023-04-08T03:55:29Z</td>
-<td>44.452938</td>
-<td>-72.015137</td>
-<td>Passumsic River</td>
-<td>183.2997</td>
-<td>2.06531</td>
-<td>2.06334</td>
+<td data-quarto-table-cell-role="th">211</td>
+<td>72350800081</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:10Z</td>
+<td>51.886956</td>
+<td>-59.172704</td>
+<td>no_data</td>
+<td>116.8453</td>
+<td>7.56768</td>
+<td>7.56714</td>
 <td>...</td>
-<td>309.865</td>
-<td>31</td>
-<td>511419.028</td>
-<td>6166.254368</td>
+<td>2599.684</td>
+<td>99</td>
+<td>139644.759</td>
+<td>19858.706858</td>
 <td>-1.000000e+12</td>
 <td>0</td>
 <td>2</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-72.01456 44.42694, -72.01485 44.4...</td>
+<td>LINESTRING (-59.07129 51.82866, -59.07148 51.8...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">608</td>
-<td>73120000951</td>
-<td>7.342413e+08</td>
-<td>7.342413e+08</td>
-<td>2023-04-08T03:54:59Z</td>
-<td>42.902949</td>
-<td>-72.594959</td>
-<td>Connecticut River</td>
-<td>74.8295</td>
-<td>11.74827</td>
-<td>11.74793</td>
+<td data-quarto-table-cell-role="th">212</td>
+<td>72350800091</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:01Z</td>
+<td>51.966072</td>
+<td>-59.344178</td>
+<td>no_data</td>
+<td>98.3722</td>
+<td>1.77517</td>
+<td>1.77289</td>
 <td>...</td>
-<td>4382.769</td>
-<td>60</td>
-<td>284718.454</td>
-<td>11949.727883</td>
+<td>2313.937</td>
+<td>64</td>
+<td>152412.397</td>
+<td>12767.637572</td>
 <td>-1.000000e+12</td>
 <td>0</td>
-<td>3</td>
+<td>2</td>
 <td>1</td>
 <td>0</td>
-<td>LINESTRING (-72.55433 42.86586, -72.55470 42.8...</td>
+<td>LINESTRING (-59.37449 52.01016, -59.37465 52.0...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">213</td>
+<td>72350800101</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:01Z</td>
+<td>52.045314</td>
+<td>-59.409170</td>
+<td>Saint-Augustin River</td>
+<td>142.5316</td>
+<td>7.32589</td>
+<td>7.32533</td>
+<td>...</td>
+<td>590.479</td>
+<td>68</td>
+<td>166028.213</td>
+<td>13615.816320</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-59.37465 52.00988, -59.37449 52.0...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">214</td>
+<td>72350800111</td>
+<td>7.606277e+08</td>
+<td>7.606277e+08</td>
+<td>2024-02-07T13:28:11Z</td>
+<td>51.696292</td>
+<td>-58.702223</td>
+<td>no_data</td>
+<td>104.5083</td>
+<td>12.71013</td>
+<td>12.70981</td>
+<td>...</td>
+<td>1257.012</td>
+<td>97</td>
+<td>79887.666</td>
+<td>19340.975021</td>
+<td>-1.000000e+12</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>LINESTRING (-58.72011 51.63638, -58.72011 51.6...</td>
 </tr>
 </tbody>
 </table>
 
-<p>351 rows × 127 columns</p>
+<p>116 rows × 127 columns</p>
 </div>
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>WSE.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.Esri.NatGeoWorldMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-26" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>WSE.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>River.crs, source<span class="op">=</span>cx.providers.Esri.NatGeoWorldMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1974,23 +2036,23 @@ Using .netrc file for EDL</code></pre>
 <li>If you have multiple River Reaches or Nodes in a folder, it is possible to visualize all on a single map.</li>
 <li>Utilizing both Glob and Pathlib libraries to read the folder, then using Pandas concat to merge the reaches to its own variable.</li>
 </ul>
-<div id="cell-27" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># State filename extension to look for within folder, in this case .shp which is the shapefile</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>shapefiles <span class="op">=</span> folder.glob(<span class="st">"*.shp"</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge/Combine multiple shapefiles in folder into one</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> pd.concat([</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    gpd.read_file(shp)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> shp <span class="kw">in</span> shapefiles</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>]).pipe(gpd.GeoDataFrame)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Export merged geodataframe into shapefile</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>gdf.to_file(folder <span class="op">/</span> <span class="st">'SWOTReaches_April.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-28" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># State filename extension to look for within folder, in this case .shp which is the shapefile</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>shapefiles <span class="op">=</span> folder.glob(<span class="st">"*.shp"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge/Combine multiple shapefiles in folder into one</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> pd.concat([</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    gpd.read_file(shp)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> shp <span class="kw">in</span> shapefiles</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>]).pipe(gpd.GeoDataFrame)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Export merged geodataframe into shapefile</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>gdf.to_file(folder <span class="op">/</span> <span class="st">'SWOTReaches_Feb.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>gdf.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>gdf.crs, source<span class="op">=</span>cx.providers.OpenTopoMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-29" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">15</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>gdf.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, crs<span class="op">=</span>gdf.crs, source<span class="op">=</span>cx.providers.OpenTopoMap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1999,10 +2061,8 @@ Using .netrc file for EDL</code></pre>
 </div>
 </div>
 </div>
-<p>The above plot shows the passes for the calibration phase of the SWOT orbit. The nominal orbit has much more coverage.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -2229,6 +2289,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2263,7 +2341,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

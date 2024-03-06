@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -916,12 +916,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-newer-version-of-this-notebook-exists-here." id="toc-a-newer-version-of-this-notebook-exists-here." class="nav-link active" data-scroll-target="#a-newer-version-of-this-notebook-exists-here.">A newer version of this Notebook exists here.</a>
-  <ul class="collapse">
-  <li><a href="#feature-translation-service---sword-river-demo" id="toc-feature-translation-service---sword-river-demo" class="nav-link" data-scroll-target="#feature-translation-service---sword-river-demo">Feature Translation Service - SWORD River Demo</a>
+  <li><a href="#feature-translation-service---sword-river-demo" id="toc-feature-translation-service---sword-river-demo" class="nav-link active" data-scroll-target="#feature-translation-service---sword-river-demo">Feature Translation Service - SWORD River Demo</a>
   <ul class="collapse">
   <li><a href="#required-dependencies" id="toc-required-dependencies" class="nav-link" data-scroll-target="#required-dependencies">Required Dependencies</a></li>
-  </ul></li>
   </ul></li>
   <li><a href="#plot-a-single-river-reach" id="toc-plot-a-single-river-reach" class="nav-link" data-scroll-target="#plot-a-single-river-reach">Plot a Single River Reach</a></li>
   <li><a href="#plot-multiple-river-reaches" id="toc-plot-multiple-river-reaches" class="nav-link" data-scroll-target="#plot-multiple-river-reaches">Plot Multiple River Reaches</a></li>
@@ -957,8 +954,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="a-newer-version-of-this-notebook-exists-here." class="level1">
-<h1>A newer version of this Notebook exists <a href="https://github.com/podaac/tutorials/blob/master/notebooks/SWORD_River_Demo.ipynb">here</a>.</h1>
 <section id="feature-translation-service---sword-river-demo" class="level2">
 <h2 class="anchored" data-anchor-id="feature-translation-service---sword-river-demo">Feature Translation Service - SWORD River Demo</h2>
 <p>This Jupyter Notebook contains examples related to querying river reaches (segments) using the SWOT River Database (SWORD) Feature Translation Service (FTS), previewing (visualizing) the queried features, and using FTS results to query NASA’s Common Metadata Repository (CMR) data.</p>
@@ -973,7 +968,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>geojson (https://pypi.org/project/geojson/)</li>
 </ul>
 <p>The next cell installs them when the cell is run.</p>
-<div id="cell-1" class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install plotly geojson kaleido</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Requirement already satisfied: plotly in /Users/catoaida/opt/anaconda3/envs/mygdal2/lib/python3.7/site-packages (5.1.0)
@@ -984,7 +979,7 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </div>
 <p>First, we define a function to query the FTS service for a single reach, multiple reaches, or river nodes. This function returns the properties of river reaches including name, length, coordinates as well as individual node properties.</p>
-<div id="cell-3" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geojson</span>
@@ -1016,7 +1011,7 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We define another function to calculate the center coordinates of features. This function returns the center of a single reach or multiple reaches.</p>
-<div id="cell-5" class="cell" data-execution_count="3">
+<div id="cell-6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> estimate_center_of_FeatureCollection(featureCollection):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    This function does a very simplistic estimation of the center of all features in the given FeatureCollection.</span></span>
@@ -1039,11 +1034,10 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </section>
 </section>
-</section>
 <section id="plot-a-single-river-reach" class="level1">
 <h1>Plot a Single River Reach</h1>
 <p>In this section, we query the FTS SWORD service using a single Reach ID (from SWORD). In this example, we use the river Reach ID <code>13227000061</code>. This ID represents a specific reach along the Kasai River, a tributary of the Congo River in Africa.</p>
-<div id="cell-8" class="cell" data-execution_count="4">
+<div id="cell-9" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/reach/13227000061"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>featureCollection <span class="op">=</span> response_to_FeatureCollection(response)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1060,7 +1054,7 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </div>
 <p>Now we can plot this reach and calculate the center of the reach.</p>
-<div id="cell-10" class="cell" data-execution_count="5">
+<div id="cell-11" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> go.Figure(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    go.Scattermapbox(),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    layout <span class="op">=</span> {</span>
@@ -1103,14 +1097,14 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </div>
 <p>The below cell plots the river reach using an interactive map. You can zoom out to see where the reach is located.</p>
-<div id="cell-12" class="cell">
+<div id="cell-13" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-multiple-river-reaches" class="level1">
 <h1>Plot Multiple River Reaches</h1>
 <p>In this section, we query the FTS SWORD service over multiple river reaches. In this example, we use ID <code>132270000</code>. This ID represents multiple reaches along the Kasai River, a tributary of the Congo River in Africa. Note that this reach includes the reach ID of <code>13227000061</code> we plotted earlier. The response includes 9 individual reaches.</p>
-<div id="cell-15" class="cell" data-execution_count="6">
+<div id="cell-16" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/reach/132270000"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>featureCollection <span class="op">=</span> response_to_FeatureCollection(response)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1135,7 +1129,7 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </div>
 <p>Now we can plot these multiple reaches and calculate the center of the features.</p>
-<div id="cell-17" class="cell" data-execution_count="7">
+<div id="cell-18" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> go.Figure(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    go.Scattermapbox(),</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    layout <span class="op">=</span> {</span>
@@ -1178,14 +1172,14 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </div>
 <p>The below cell plots the river reaches using an interactive map. You can zoom out to see where these reaches are located.</p>
-<div id="cell-19" class="cell">
+<div id="cell-20" class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-river-nodes" class="level1">
 <h1>Plot River Nodes</h1>
 <p>In this section, we query the FTS SWORD service for river nodes. In this example, we use the ID of <code>13227000060</code>. Note that this ID corresponds to the same reach ID <code>13227000061</code> we used earlier. The only difference is that the last digit of <code>0</code> corresponds to all the individual <em>nodes</em> along the reach. If the last digit is <code>1</code> in the reach ID, it corresponds to the overall properties of the <em>reach</em> itself. The response returns 52 nodes along the reach.</p>
-<div id="cell-22" class="cell" data-execution_count="8">
+<div id="cell-23" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/node/13227000060"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>featureCollection <span class="op">=</span> response_to_FeatureCollection(response)</span>
@@ -1254,7 +1248,7 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </div>
 <p>Now we can plot the river nodes and calculate the center of the nodes.</p>
-<div id="cell-24" class="cell" data-execution_count="9">
+<div id="cell-25" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> go.Figure(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    go.Scattermapbox(),</span>
@@ -1302,14 +1296,14 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell">
+<div id="cell-26" class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="query-cmr-by-coordinates" class="level2">
 <h2 class="anchored" data-anchor-id="query-cmr-by-coordinates">Query CMR by Coordinates</h2>
 <p>Here is a another useful example of the Feature Translation Service. We can use results obtained from the FTS to then directly and automatically query data using CMR. We will use the coordinate information of a single reach to search for granules available through the <a href="https://podaac.jpl.nasa.gov/dataset/PRESWOT_HYDRO_GRRATS_L2_DAILY_VIRTUAL_STATION_HEIGHTS_V2">Pre SWOT Hydrology GRRATS Daily River Heights</a> and Storage Version 2 data.</p>
 <p>We query CMR using the previously used reach ID of <code>13227000061</code> over Kasai River, a tributary of the Congo River in Africa.</p>
-<div id="cell-28" class="cell" data-execution_count="10">
+<div id="cell-29" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://fts.podaac.earthdata.nasa.gov/rivers/reach/13227000061"</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>featureCollection <span class="op">=</span> response_to_FeatureCollection(response)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1326,7 +1320,7 @@ Requirement already satisfied: six in /Users/catoaida/opt/anaconda3/envs/mygdal2
 </div>
 </div>
 <p>The next cell queries CMR using the coordinates of the reach. Note that coordinates should be listed in the format lon1, lat1, lon2, lat2, lon3, lat3, and so on. The CMR json response proivides a link to the data file (granule) from the Pre SWOT Hydroology GRRATS Daily River Heights data collection that overlaps the geospatial search from FTS-SWORD for the river reaches of interest, e.g.&nbsp;<code>"href": "https://podaac-tools.jpl.nasa.gov/drive/files/allData/preswot_hydrology/L2/rivers/daily//Africa_Congo1kmdaily.nc"</code></p>
-<div id="cell-30" class="cell" data-execution_count="11">
+<div id="cell-31" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>COLLECTION_ID <span class="op">=</span> <span class="st">"C1674168562-PODAAC"</span> <span class="co">#  Pre SWOT Hydrology GRRATS Daily River Heights and Storage Version 2</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># this function returns the unique set of lon,lat coordinates. When quering CMR, we need to delete repeated points with the same lon,lat</span></span>
@@ -1692,6 +1686,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1726,7 +1738,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

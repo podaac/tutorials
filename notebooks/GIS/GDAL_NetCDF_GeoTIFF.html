@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -918,15 +918,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#gdal-netcdf-to-geotiff-conversion" id="toc-gdal-netcdf-to-geotiff-conversion" class="nav-link active" data-scroll-target="#gdal-netcdf-to-geotiff-conversion">GDAL NetCDF to Geotiff Conversion</a>
-  <ul class="collapse">
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a>
   <ul class="collapse">
   <li><a href="#calling-the-data-subscriber" id="toc-calling-the-data-subscriber" class="nav-link" data-scroll-target="#calling-the-data-subscriber">Calling the Data Subscriber</a></li>
   <li><a href="#gdal-transformation" id="toc-gdal-transformation" class="nav-link" data-scroll-target="#gdal-transformation">GDAL Transformation</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -956,8 +953,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="gdal-netcdf-to-geotiff-conversion" class="level1">
-<h1>GDAL NetCDF to Geotiff Conversion</h1>
 <p>Authored by Nicholas Tarpinian, <em>PO.DAAC</em></p>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
@@ -989,7 +984,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="calling-the-data-subscriber">Calling the Data Subscriber</h3>
 <p>After installing the podaac-data-subscriber, the following command can be used in the Windows CLI Command Prompt interface to download the latest SWOT data.</p>
 <p>For more info on the <a href="https://github.com/podaac/data-subscriber/blob/main/Downloader.md">PODAAC Data Downloader</a>.</p>
-<div id="cell-4" class="cell">
+<div id="cell-5" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>podaac<span class="op">-</span>data<span class="op">-</span>downloader <span class="op">-</span>c SWOT_L2_HR_Raster_1<span class="fl">.1</span> <span class="op">-</span>d Output Directory <span class="op">-</span>sd <span class="dv">2023</span><span class="op">-</span><span class="dv">0</span><span class="er">4</span><span class="op">-</span><span class="dv">15</span><span class="er">T15</span>:<span class="dv">15</span>:<span class="dv">00</span><span class="er">Z</span> <span class="op">-</span>ed <span class="dv">2023</span><span class="op">-</span><span class="dv">0</span><span class="er">4</span><span class="op">-</span><span class="dv">15</span><span class="er">T15</span>:<span class="dv">20</span>:<span class="dv">00</span><span class="er">Z</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -999,18 +994,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="https://gdal.org/programs/gdalmdimtranslate.html">GDALMDIMTRANSLATE</a> converts multidimenstional data between different formats.</p>
 <p>E.g. gdalmdimtranslate -of (output format) -co (creation option) -array (variable name) Input_FileName.nc Output_FileName.tif</p>
 <p>Using gdalmdimtranslate to convert a single NetCDF file to GeoTIFF. We are choosing the water surface elevation (wse) variable to transform.</p>
-<div id="cell-7" class="cell">
+<div id="cell-8" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gdalmdimtranslate <span class="op">-</span>of GTiff <span class="op">-</span>co COMPRESS<span class="op">=</span>LZW <span class="op">-</span>array wse <span class="st">'input_SWOT_NetCDF_file/SWOT_Raster_NetCDF/SWOT_L2_HR_Raster_100m_UTM14R_N_x_x_x_491_024_054F_20230415T151534_20230415T151555_PIB0_01.nc'</span> <span class="st">'output_path/wse_swot.tif'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To convert multiple NetCDF files within a folder, you can run a batch process of gdalmdimtranslate with a For Loop within the GDAL CLI. ’*.nc’ searching for all files containing a NetCDF extension within the folder.</p>
-<div id="cell-9" class="cell">
+<div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">%</span>f <span class="kw">in</span> (<span class="st">'input_SWOT_Folder\SWOT_Raster_NetCDF\*.nc'</span>) do (</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gdalmdimtranslate <span class="op">-</span>of GTiff <span class="op">-</span>co COMPRESS<span class="op">=</span>LZW <span class="op">-</span>array wse NETCDF:<span class="st">"</span><span class="sc">%f</span><span class="st">"</span> <span class="st">"path_to_output_folder\SWOT_GeoTIFF\%~nf.tif"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-</section>
 </section>
 </section>
 
@@ -1238,6 +1232,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1272,7 +1284,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

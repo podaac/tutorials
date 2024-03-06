@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -916,12 +916,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#this-notebook-is-no-longer-up-to-date-a-newer-version-exists-here" id="toc-this-notebook-is-no-longer-up-to-date-a-newer-version-exists-here" class="nav-link active" data-scroll-target="#this-notebook-is-no-longer-up-to-date-a-newer-version-exists-here">This Notebook is no longer up to date, a newer version exists here</a>
-  <ul class="collapse">
-  <li><a href="#shapefile-search-in-the-common-metadata-repository-cmr" id="toc-shapefile-search-in-the-common-metadata-repository-cmr" class="nav-link" data-scroll-target="#shapefile-search-in-the-common-metadata-repository-cmr">Shapefile Search in the Common Metadata Repository (CMR)</a></li>
+  <li><a href="#shapefile-search-in-the-common-metadata-repository-cmr" id="toc-shapefile-search-in-the-common-metadata-repository-cmr" class="nav-link active" data-scroll-target="#shapefile-search-in-the-common-metadata-repository-cmr">Shapefile Search in the Common Metadata Repository (CMR)</a></li>
   <li><a href="#python-tutorial-shapefile-search" id="toc-python-tutorial-shapefile-search" class="nav-link" data-scroll-target="#python-tutorial-shapefile-search">Python tutorial shapefile search</a></li>
   <li><a href="#curl-command-line-syntax" id="toc-curl-command-line-syntax" class="nav-link" data-scroll-target="#curl-command-line-syntax">Curl command line syntax</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -950,8 +947,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="this-notebook-is-no-longer-up-to-date-a-newer-version-exists-here" class="level1">
-<h1>This Notebook is no longer up to date, a newer version exists <a href="https://github.com/podaac/tutorials/blob/master/notebooks/PODAAC_CMR_Shapefile_Search_MODIS_UAT.ipynb">here</a></h1>
 <section id="shapefile-search-in-the-common-metadata-repository-cmr" class="level2">
 <h2 class="anchored" data-anchor-id="shapefile-search-in-the-common-metadata-repository-cmr">Shapefile Search in the Common Metadata Repository (CMR)</h2>
 <p>CMR allows the upload of ESRI Shapefiles via command line for granule and collection level search. To use this functionality from the command line, we can use curl or python to do our search. This example will run through the curl command line program and a python request for doing shapefile search.</p>
@@ -970,7 +965,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="python-tutorial-shapefile-search" class="level2">
 <h2 class="anchored" data-anchor-id="python-tutorial-shapefile-search">Python tutorial shapefile search</h2>
 <p>The following snippet will use the ‘requests’ library along with the shapefile available at github to perform a shapefile search on the CMR. It will return values that overlap or intersect the shapefile provided.</p>
-<div id="cell-2" class="cell" data-scrolled="true" data-execution_count="1">
+<div id="cell-3" class="cell" data-scrolled="true" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pprint</span>
@@ -2138,7 +2133,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -2364,6 +2358,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2398,7 +2410,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
