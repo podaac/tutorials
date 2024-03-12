@@ -958,7 +958,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#opendap-access" id="toc-opendap-access" class="nav-link active" data-scroll-target="#opendap-access">OPeNDAP Access</a>
   <ul class="collapse">
-  <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link" data-scroll-target="#before-you-start">Before you start</a></li>
+  <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">Earthdata Login</a></li>
+  <li><a href="#request-link-for-opendap" id="toc-request-link-for-opendap" class="nav-link" data-scroll-target="#request-link-for-opendap">Request link for OPeNDAP</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -984,88 +985,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Obtain OPeNDAP links from CMR search</li>
 <li>Download data from OPeNDAP links and open via xarray to visualize data</li>
 </ul>
-<div id="cell-1" class="cell" data-execution_count="1">
+<div id="cell-1" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#https://ghrc.nsstc.nasa.gov/opendap/globalir/data/2020/0525/globir.20146.0000</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> netCDF4 <span class="im">import</span> Dataset</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Allows us to visualize the dask progress for parallel operations</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.diagnostics <span class="im">import</span> ProgressBar</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ProgressBar().register()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Allows us to visualize the dask progress for parallel operations</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.diagnostics <span class="im">import</span> ProgressBar</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ProgressBar().register()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="before-you-start" class="level2">
-<h2 class="anchored" data-anchor-id="before-you-start">Before you start</h2>
-<p>Before you beginning this tutorial, make sure you have an account in the Earthdata Login, which is required to access data from the NASA Earthdata system. Please visit https://urs.earthdata.nasa.gov to register for an Earthdata Login account. It is free to create and only takes a moment to set up.</p>
-<p>You will also need a netrc file containing your NASA Earthdata Login credentials in order to execute this notebook. A netrc file can be created manually within text editor and saved to your home directory. For additional information see: <a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-via-netrc-file">Authentication for NASA Earthdata</a></p>
-<p>In this notebook, we will be calling the authentication in the below cell, a work around if you do not yet have a netrc file.</p>
-<div id="cell-3" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib <span class="im">import</span> request, parse</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> http.cookiejar <span class="im">import</span> CookieJar</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> getpass</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> netrc</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> setup_earthdata_login_auth(endpoint):</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Set up the request library so that it authenticates against the given Earthdata Login</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    endpoint and is able to track cookies between requests.  This looks in the .netrc file</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">    first and if no credentials are found, it prompts for them.</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Valid endpoints include:</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">        urs.earthdata.nasa.gov - Earthdata Login production</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        username, _, password <span class="op">=</span> netrc.netrc().authenticators(endpoint)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> (<span class="pp">FileNotFoundError</span>, <span class="pp">TypeError</span>):</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># FileNotFound = There's no .netrc file</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># TypeError = The endpoint isn't in the netrc file, causing the above to try unpacking None</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Please provide your Earthdata Login credentials to allow data access'</span>)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Your credentials will only be passed to </span><span class="sc">%s</span><span class="st"> and will not be exposed in Jupyter'</span> <span class="op">%</span> (endpoint))</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        username <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Username:'</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        password <span class="op">=</span> getpass.getpass()</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    manager <span class="op">=</span> request.HTTPPasswordMgrWithDefaultRealm()</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    manager.add_password(<span class="va">None</span>, endpoint, username, password)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    auth <span class="op">=</span> request.HTTPBasicAuthHandler(manager)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    jar <span class="op">=</span> CookieJar()</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    processor <span class="op">=</span> request.HTTPCookieProcessor(jar)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    opener <span class="op">=</span> request.build_opener(auth, processor)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    request.install_opener(opener)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>edl<span class="op">=</span><span class="st">"urs.earthdata.nasa.gov"</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>setup_earthdata_login_auth(edl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Please provide your Earthdata Login credentials to allow data access
-Your credentials will only be passed to urs.earthdata.nasa.gov and will not be exposed in Jupyter</code></pre>
+<section id="earthdata-login" class="level3">
+<h3 class="anchored" data-anchor-id="earthdata-login">Earthdata Login</h3>
+<p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. If you don’t already have one, please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up. We use <code>earthaccess</code> to authenticate your login credentials below.</p>
+<div id="cell-3" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stdin">
-<pre><code>Username: nickles
- ···········</code></pre>
+</section>
+<section id="request-link-for-opendap" class="level3">
+<h3 class="anchored" data-anchor-id="request-link-for-opendap">Request link for OPeNDAP</h3>
+<div id="cell-5" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#CMR Link to use</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C1625128926-GHRC_CLOUD&amp;temporal=2019-01-01T10:00:00Z,2019-12-31T23:59:59Z</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(<span class="st">'https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C1996881146-POCLOUD&amp;temporal=2019-01-01T10:00:00Z,2019-02-01T00:00:00Z&amp;pageSize=365'</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>response_body <span class="op">=</span> r.json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div id="cell-4" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#CMR Link to use</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C1625128926-GHRC_CLOUD&amp;temporal=2019-01-01T10:00:00Z,2019-12-31T23:59:59Z</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(<span class="st">'https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C1996881146-POCLOUD&amp;temporal=2019-01-01T10:00:00Z,2019-02-01T00:00:00Z&amp;pageSize=365'</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>response_body <span class="op">=</span> r.json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-5" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>od_files <span class="op">=</span> []</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> itm <span class="kw">in</span> response_body[<span class="st">'items'</span>]:</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> urls <span class="kw">in</span> itm[<span class="st">'umm'</span>][<span class="st">'RelatedUrls'</span>]:</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'OPeNDAP'</span> <span class="kw">in</span> urls[<span class="st">'Description'</span>]:</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            od_files.append(urls[<span class="st">'URL'</span>])</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>od_files</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div id="cell-6" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>od_files <span class="op">=</span> []</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> itm <span class="kw">in</span> response_body[<span class="st">'items'</span>]:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> urls <span class="kw">in</span> itm[<span class="st">'umm'</span>][<span class="st">'RelatedUrls'</span>]:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'OPeNDAP'</span> <span class="kw">in</span> urls[<span class="st">'Description'</span>]:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            od_files.append(urls[<span class="st">'URL'</span>])</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>od_files</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>['https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1',
  'https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190102090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1',
  'https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190103090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1',
@@ -1100,41 +1058,41 @@ Your credentials will only be passed to urs.earthdata.nasa.gov and will not be e
  'https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190201090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1']</code></pre>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(od_files)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div id="cell-7" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(od_files)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>32</code></pre>
 </div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> od_files:</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> (<span class="st">" opening "</span> <span class="op">+</span> f)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    data_url <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">.dap.nc4'</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The notation below is [start index, step, end index]</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lat[ /lat= 0..17998] start index. = -90</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lon[ /lon= 0..35999] start index. = -180</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># time[ /time= 0..0] </span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    required_variables <span class="op">=</span> {<span class="st">'analysed_sst[0:1:0][000:1:9000][000:1:9000]'</span>,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'analysis_error[0:1:0][000:1:9000][000:1:9000]'</span>,</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'lat[000:1:9000]'</span>,</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'lon[000:1:9000]'</span>,</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'time[0:1:0]'</span>}</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#upper latitude, left longitude, lower latitude, right longitude</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    basename <span class="op">=</span> os.path.basename(data_url)</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    request_params <span class="op">=</span> {<span class="st">'dap4.ce'</span>: <span class="st">';'</span>.join(required_variables)}</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#identity encoding to work around an issue with server side response compression (??)</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(data_url, params<span class="op">=</span>request_params,  headers<span class="op">=</span>{<span class="st">'Accept-Encoding'</span>: <span class="st">'identity'</span>})</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> response.ok:</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(basename, <span class="st">'wb'</span>) <span class="im">as</span> file_handler:</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>            file_handler.write(response.content)</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Request failed: </span><span class="sc">{</span>response<span class="sc">.</span>text<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-8" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> od_files:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> (<span class="st">" opening "</span> <span class="op">+</span> f)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    data_url <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">.dap.nc4'</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The notation below is [start index, step, end index]</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lat[ /lat= 0..17998] start index. = -90</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lon[ /lon= 0..35999] start index. = -180</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># time[ /time= 0..0] </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    required_variables <span class="op">=</span> {<span class="st">'analysed_sst[0:1:0][000:1:9000][000:1:9000]'</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'analysis_error[0:1:0][000:1:9000][000:1:9000]'</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'lat[000:1:9000]'</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'lon[000:1:9000]'</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'time[0:1:0]'</span>}</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#upper latitude, left longitude, lower latitude, right longitude</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    basename <span class="op">=</span> os.path.basename(data_url)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    request_params <span class="op">=</span> {<span class="st">'dap4.ce'</span>: <span class="st">';'</span>.join(required_variables)}</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#identity encoding to work around an issue with server side response compression (??)</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(data_url, params<span class="op">=</span>request_params,  headers<span class="op">=</span>{<span class="st">'Accept-Encoding'</span>: <span class="st">'identity'</span>})</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> response.ok:</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(basename, <span class="st">'wb'</span>) <span class="im">as</span> file_handler:</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>            file_handler.write(response.content)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Request failed: </span><span class="sc">{</span>response<span class="sc">.</span>text<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> opening https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1
  opening https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190102090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1
@@ -1170,13 +1128,13 @@ Your credentials will only be passed to urs.earthdata.nasa.gov and will not be e
  opening https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190201090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cloud_data <span class="op">=</span> xr.open_mfdataset(<span class="st">'*.dap.nc4'</span>, engine<span class="op">=</span><span class="st">'h5netcdf'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-9" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cloud_data <span class="op">=</span> xr.open_mfdataset(<span class="st">'*.dap.nc4'</span>, engine<span class="op">=</span><span class="st">'h5netcdf'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cloud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div id="cell-10" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cloud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1209,6 +1167,7 @@ Your credentials will only be passed to urs.earthdata.nasa.gov and will not be e
 }
 
 html[theme=dark],
+body[data-theme=dark],
 body.vscode-dark {
   --xr-font-color0: rgba(255, 255, 255, 1);
   --xr-font-color2: rgba(255, 255, 255, 0.54);
@@ -1221,7 +1180,7 @@ body.vscode-dark {
 }
 
 .xr-wrap {
-  display: block;
+  display: block !important;
   min-width: 300px;
   max-width: 700px;
 }
@@ -1438,6 +1397,11 @@ body.vscode-dark {
   grid-column: 4;
 }
 
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
 .xr-var-name,
 .xr-var-dims,
 .xr-var-dtype,
@@ -1459,14 +1423,16 @@ body.vscode-dark {
 }
 
 .xr-var-attrs,
-.xr-var-data {
+.xr-var-data,
+.xr-index-data {
   display: none;
   background-color: var(--xr-background-color) !important;
   padding-bottom: 5px !important;
 }
 
 .xr-var-attrs-in:checked ~ .xr-var-attrs,
-.xr-var-data-in:checked ~ .xr-var-data {
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
   display: block;
 }
 
@@ -1476,13 +1442,16 @@ body.vscode-dark {
 
 .xr-var-name span,
 .xr-var-data,
+.xr-index-name div,
+.xr-index-data,
 .xr-attrs {
   padding-left: 25px !important;
 }
 
 .xr-attrs,
 .xr-var-attrs,
-.xr-var-data {
+.xr-var-data,
+.xr-index-data {
   grid-column: 1 / -1;
 }
 
@@ -1520,7 +1489,8 @@ dl.xr-attrs {
 }
 
 .xr-icon-database,
-.xr-icon-file-text2 {
+.xr-icon-file-text2,
+.xr-no-icon {
   display: inline-block;
   vertical-align: middle;
   width: 1em;
@@ -1536,8 +1506,8 @@ Coordinates:
   * lon             (lon) float32 -180.0 -180.0 -180.0 ... -90.01 -90.0 -89.99
   * time            (time) datetime64[ns] 2019-01-01T09:00:00 ... 2019-02-01T...
 Data variables:
-    analysed_sst    (time, lat, lon) float32 dask.array&lt;chunksize=(1, 9001, 9001), meta=np.ndarray&gt;
-    analysis_error  (time, lat, lon) float32 dask.array&lt;chunksize=(1, 9001, 9001), meta=np.ndarray&gt;
+    analysed_sst    (time, lat, lon) float32 dask.array&lt;chunksize=(1, 1024, 1024), meta=np.ndarray&gt;
+    analysis_error  (time, lat, lon) float32 dask.array&lt;chunksize=(1, 1024, 1024), meta=np.ndarray&gt;
 Attributes: (12/48)
     Conventions:                CF-1.5
     title:                      Daily MUR SST, Final product
@@ -1551,9 +1521,9 @@ Attributes: (12/48)
     publisher_email:            ghrsst-po@nceo.ac.uk
     processing_level:           L4
     cdm_data_type:              grid
-    history_json:               [{"$schema":"https:\/\/harmony.earthdata.nasa...</pre><div class="xr-wrap" hidden=""><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-96eb8ff2-b464-4f03-9e78-eebe7b87ac2e" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-96eb8ff2-b464-4f03-9e78-eebe7b87ac2e" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 32</li><li><span class="xr-has-index">lat</span>: 9001</li><li><span class="xr-has-index">lon</span>: 9001</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-3f7473e6-b519-4bad-b982-7509262a275a" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-3f7473e6-b519-4bad-b982-7509262a275a" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-89.99 -89.98 -89.97 ... 0.0 0.01</div><input id="attrs-8b9e531a-25c9-44da-9186-c2240f30e87d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8b9e531a-25c9-44da-9186-c2240f30e87d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-dbbb421e-1e5f-4b89-9341-afdd7e59601b" class="xr-var-data-in" type="checkbox"><label for="data-dbbb421e-1e5f-4b89-9341-afdd7e59601b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_min :</span></dt><dd>[-90.]</dd><dt><span>valid_max :</span></dt><dd>[90.]</dd><dt><span>comment :</span></dt><dd>none</dd><dt><span>origname :</span></dt><dd>lat</dd><dt><span>fullnamepath :</span></dt><dd>/lat</dd></dl></div><div class="xr-var-data"><pre>array([-8.999e+01, -8.998e+01, -8.997e+01, ..., -1.000e-02,  0.000e+00,
-        1.000e-02], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-180.0 -180.0 ... -90.0 -89.99</div><input id="attrs-2d74b371-3683-43e6-a811-ea5dcee770bb" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2d74b371-3683-43e6-a811-ea5dcee770bb" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ed876da1-31a9-4932-b172-5c7ce65d7d35" class="xr-var-data-in" type="checkbox"><label for="data-ed876da1-31a9-4932-b172-5c7ce65d7d35" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_min :</span></dt><dd>[-180.]</dd><dt><span>valid_max :</span></dt><dd>[180.]</dd><dt><span>comment :</span></dt><dd>none</dd><dt><span>origname :</span></dt><dd>lon</dd><dt><span>fullnamepath :</span></dt><dd>/lon</dd></dl></div><div class="xr-var-data"><pre>array([-179.99, -179.98, -179.97, ...,  -90.01,  -90.  ,  -89.99],
-      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2019-01-01T09:00:00 ... 2019-02-...</div><input id="attrs-4e4cb3a2-349c-4d05-851e-79430a2a23c2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4e4cb3a2-349c-4d05-851e-79430a2a23c2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9989ab7a-e1b5-4b27-a7ff-675d8302b1fc" class="xr-var-data-in" type="checkbox"><label for="data-9989ab7a-e1b5-4b27-a7ff-675d8302b1fc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>reference time of sst field</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>axis :</span></dt><dd>T</dd><dt><span>comment :</span></dt><dd>Nominal time of analyzed fields</dd><dt><span>origname :</span></dt><dd>time</dd><dt><span>fullnamepath :</span></dt><dd>/time</dd></dl></div><div class="xr-var-data"><pre>array(['2019-01-01T09:00:00.000000000', '2019-01-02T09:00:00.000000000',
+    history_json:               [{"$schema":"https:\/\/harmony.earthdata.nasa...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-556ebfeb-b255-4565-a8da-200aca422c68" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-556ebfeb-b255-4565-a8da-200aca422c68" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 32</li><li><span class="xr-has-index">lat</span>: 9001</li><li><span class="xr-has-index">lon</span>: 9001</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-6b4d8d23-aa7c-42be-aa4a-b86a73314be4" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-6b4d8d23-aa7c-42be-aa4a-b86a73314be4" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-89.99 -89.98 -89.97 ... 0.0 0.01</div><input id="attrs-b1003622-932c-41c2-a3f9-c0095ed81011" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b1003622-932c-41c2-a3f9-c0095ed81011" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0c23a677-76c8-4e14-bf25-d4361e755123" class="xr-var-data-in" type="checkbox"><label for="data-0c23a677-76c8-4e14-bf25-d4361e755123" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_min :</span></dt><dd>-90.0</dd><dt><span>valid_max :</span></dt><dd>90.0</dd><dt><span>comment :</span></dt><dd>none</dd><dt><span>origname :</span></dt><dd>lat</dd><dt><span>fullnamepath :</span></dt><dd>/lat</dd></dl></div><div class="xr-var-data"><pre>array([-8.999e+01, -8.998e+01, -8.997e+01, ..., -1.000e-02,  0.000e+00,
+        1.000e-02], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-180.0 -180.0 ... -90.0 -89.99</div><input id="attrs-f848885d-8e46-4698-b3f6-bac6bd469bc9" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f848885d-8e46-4698-b3f6-bac6bd469bc9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9cb46a8a-4345-488e-a6be-35306760c2fb" class="xr-var-data-in" type="checkbox"><label for="data-9cb46a8a-4345-488e-a6be-35306760c2fb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_min :</span></dt><dd>-180.0</dd><dt><span>valid_max :</span></dt><dd>180.0</dd><dt><span>comment :</span></dt><dd>none</dd><dt><span>origname :</span></dt><dd>lon</dd><dt><span>fullnamepath :</span></dt><dd>/lon</dd></dl></div><div class="xr-var-data"><pre>array([-179.99, -179.98, -179.97, ...,  -90.01,  -90.  ,  -89.99],
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2019-01-01T09:00:00 ... 2019-02-...</div><input id="attrs-b32b8c3a-7944-42c2-a8fa-f24485de4e8b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b32b8c3a-7944-42c2-a8fa-f24485de4e8b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4d476526-da87-4179-a717-9f3e91c8861f" class="xr-var-data-in" type="checkbox"><label for="data-4d476526-da87-4179-a717-9f3e91c8861f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>reference time of sst field</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>axis :</span></dt><dd>T</dd><dt><span>comment :</span></dt><dd>Nominal time of analyzed fields</dd><dt><span>origname :</span></dt><dd>time</dd><dt><span>fullnamepath :</span></dt><dd>/time</dd></dl></div><div class="xr-var-data"><pre>array(['2019-01-01T09:00:00.000000000', '2019-01-02T09:00:00.000000000',
        '2019-01-03T09:00:00.000000000', '2019-01-04T09:00:00.000000000',
        '2019-01-05T09:00:00.000000000', '2019-01-06T09:00:00.000000000',
        '2019-01-07T09:00:00.000000000', '2019-01-08T09:00:00.000000000',
@@ -1569,7 +1539,7 @@ Attributes: (12/48)
        '2019-01-27T09:00:00.000000000', '2019-01-28T09:00:00.000000000',
        '2019-01-29T09:00:00.000000000', '2019-01-30T09:00:00.000000000',
        '2019-01-31T09:00:00.000000000', '2019-02-01T09:00:00.000000000'],
-      dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c2745d77-4dda-48e7-beb0-6bae2d06956c" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-c2745d77-4dda-48e7-beb0-6bae2d06956c" class="xr-section-summary">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>analysed_sst</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 9001, 9001), meta=np.ndarray&gt;</div><input id="attrs-9836bf13-00cc-416e-a93b-24be93b08e9f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-9836bf13-00cc-416e-a93b-24be93b08e9f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7b1c2be4-fc60-40a4-842a-53e5b07a4197" class="xr-var-data-in" type="checkbox"><label for="data-7b1c2be4-fc60-40a4-842a-53e5b07a4197" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>analysed sea surface temperature</dd><dt><span>standard_name :</span></dt><dd>sea_surface_foundation_temperature</dd><dt><span>units :</span></dt><dd>kelvin</dd><dt><span>valid_min :</span></dt><dd>[-32767]</dd><dt><span>valid_max :</span></dt><dd>[32767]</dd><dt><span>comment :</span></dt><dd>\"Final\" version using Multi-Resolution Variational Analysis (MRVA) method for interpolation</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>origname :</span></dt><dd>analysed_sst</dd><dt><span>fullnamepath :</span></dt><dd>/analysed_sst</dd></dl></div><div class="xr-var-data">
+      dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-b22c10e2-6757-4074-bad4-582dfcbd496d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-b22c10e2-6757-4074-bad4-582dfcbd496d" class="xr-section-summary">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>analysed_sst</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 1024, 1024), meta=np.ndarray&gt;</div><input id="attrs-42305b28-cd6a-4f40-819d-62c7ef864172" class="xr-var-attrs-in" type="checkbox"><label for="attrs-42305b28-cd6a-4f40-819d-62c7ef864172" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d3ab1511-2a85-4b62-a58d-0224160416c7" class="xr-var-data-in" type="checkbox"><label for="data-d3ab1511-2a85-4b62-a58d-0224160416c7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>analysed sea surface temperature</dd><dt><span>standard_name :</span></dt><dd>sea_surface_foundation_temperature</dd><dt><span>units :</span></dt><dd>kelvin</dd><dt><span>valid_min :</span></dt><dd>-32767</dd><dt><span>valid_max :</span></dt><dd>32767</dd><dt><span>comment :</span></dt><dd>\"Final\" version using Multi-Resolution Variational Analysis (MRVA) method for interpolation</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>origname :</span></dt><dd>analysed_sst</dd><dt><span>fullnamepath :</span></dt><dd>/analysed_sst</dd></dl></div><div class="xr-var-data">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1588,28 +1558,26 @@ Attributes: (12/48)
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Bytes</td>
-<td>10.37 GB</td>
-<td>324.07 MB</td>
+<td>9.66 GiB</td>
+<td>4.00 MiB</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Shape</td>
 <td>(32, 9001, 9001)</td>
-<td>(1, 9001, 9001)</td>
+<td>(1, 1024, 1024)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Count</td>
-<td>96 Tasks</td>
-<td>32 Chunks</td>
+<td data-quarto-table-cell-role="th">Dask graph</td>
+<td colspan="2">2592 chunks in 65 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Type</td>
-<td>float32</td>
-<td>numpy.ndarray</td>
+<td data-quarto-table-cell-role="th">Data type</td>
+<td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
 </table></td>
 <td><svg width="194" height="184" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="120" x2="24" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="120"></line> <line x1="11" y1="1" x2="11" y2="121"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="13" y1="3" x2="13" y2="123"></line> <line x1="14" y1="4" x2="14" y2="124"></line> <line x1="15" y1="5" x2="15" y2="125"></line> <line x1="16" y1="6" x2="16" y2="126"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="18" y1="8" x2="18" y2="128"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="20" y1="10" x2="20" y2="130"></line> <line x1="21" y1="11" x2="21" y2="131"></line> <line x1="22" y1="12" x2="22" y2="132"></line> <line x1="23" y1="13" x2="23" y2="133"></line> <line x1="24" y1="14" x2="24" y2="134"></line> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,134.9485979497544 10.0,120.0" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="134" x2="144" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,134.9485979497544 24.9485979497544,134.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="154.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">9001</text> <text x="164.948598" y="74.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,74.948598)">9001</text> <text x="7.474299" y="147.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,147.474299)">32</text>
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="13" x2="24" y2="28"></line> <line x1="10" y1="27" x2="24" y2="42"></line> <line x1="10" y1="40" x2="24" y2="55"></line> <line x1="10" y1="54" x2="24" y2="69"></line> <line x1="10" y1="68" x2="24" y2="83"></line> <line x1="10" y1="81" x2="24" y2="96"></line> <line x1="10" y1="95" x2="24" y2="110"></line> <line x1="10" y1="109" x2="24" y2="124"></line> <line x1="10" y1="120" x2="24" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="120"></line> <line x1="11" y1="1" x2="11" y2="121"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="13" y1="3" x2="13" y2="123"></line> <line x1="14" y1="4" x2="14" y2="124"></line> <line x1="15" y1="5" x2="15" y2="125"></line> <line x1="16" y1="6" x2="16" y2="126"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="18" y1="8" x2="18" y2="128"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="20" y1="10" x2="20" y2="130"></line> <line x1="21" y1="11" x2="21" y2="131"></line> <line x1="22" y1="12" x2="22" y2="132"></line> <line x1="23" y1="13" x2="23" y2="133"></line> <line x1="24" y1="14" x2="24" y2="134"></line> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,134.9485979497544 10.0,120.0" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="23" y1="0" x2="38" y2="14"></line> <line x1="37" y1="0" x2="52" y2="14"></line> <line x1="50" y1="0" x2="65" y2="14"></line> <line x1="64" y1="0" x2="79" y2="14"></line> <line x1="78" y1="0" x2="93" y2="14"></line> <line x1="91" y1="0" x2="106" y2="14"></line> <line x1="105" y1="0" x2="120" y2="14"></line> <line x1="119" y1="0" x2="134" y2="14"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="28" x2="144" y2="28"></line> <line x1="24" y1="42" x2="144" y2="42"></line> <line x1="24" y1="55" x2="144" y2="55"></line> <line x1="24" y1="69" x2="144" y2="69"></line> <line x1="24" y1="83" x2="144" y2="83"></line> <line x1="24" y1="96" x2="144" y2="96"></line> <line x1="24" y1="110" x2="144" y2="110"></line> <line x1="24" y1="124" x2="144" y2="124"></line> <line x1="24" y1="134" x2="144" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <line x1="38" y1="14" x2="38" y2="134"></line> <line x1="52" y1="14" x2="52" y2="134"></line> <line x1="65" y1="14" x2="65" y2="134"></line> <line x1="79" y1="14" x2="79" y2="134"></line> <line x1="93" y1="14" x2="93" y2="134"></line> <line x1="106" y1="14" x2="106" y2="134"></line> <line x1="120" y1="14" x2="120" y2="134"></line> <line x1="134" y1="14" x2="134" y2="134"></line> <line x1="144" y1="14" x2="144" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,134.9485979497544 24.9485979497544,134.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="154.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">9001</text> <text x="164.948598" y="74.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,74.948598)">9001</text> <text x="7.474299" y="147.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,147.474299)">32</text>
 </svg></td>
 </tr>
 </tbody>
@@ -1627,16 +1595,16 @@ Attributes: (12/48)
 float32
 </div>
 <div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(1, 9001, 9001), meta=np.ndarray&gt;
+dask.array&lt;chunksize=(1, 1024, 1024), meta=np.ndarray&gt;
 </div>
-<input id="attrs-f41d112b-de80-4550-a537-46e61a9952b1" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-f41d112b-de80-4550-a537-46e61a9952b1" title="Show/Hide attributes">
+<input id="attrs-e7ab651f-a908-43ba-a860-b45ffcc14e06" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-e7ab651f-a908-43ba-a860-b45ffcc14e06" title="Show/Hide attributes">
 <svg class="icon xr-icon-file-text2">
 <use href="#icon-file-text2"></use>
 </svg>
 </label>
-<input id="data-1ce45776-4cde-44db-859c-b9fc8f51dd50" class="xr-var-data-in" type="checkbox">
-<label for="data-1ce45776-4cde-44db-859c-b9fc8f51dd50" title="Show/Hide data repr">
+<input id="data-6094b18e-ba35-4adc-82d6-2ca39b30db8e" class="xr-var-data-in" type="checkbox">
+<label for="data-6094b18e-ba35-4adc-82d6-2ca39b30db8e" title="Show/Hide data repr">
 <svg class="icon xr-icon-database">
 <use href="#icon-database"></use>
 </svg>
@@ -1653,11 +1621,11 @@ kelvin
 </dd>
 <dt><span>valid_min :</span></dt>
 <dd>
-[0]
+0
 </dd>
 <dt><span>valid_max :</span></dt>
 <dd>
-[32767]
+32767
 </dd>
 <dt><span>comment :</span></dt>
 <dd>
@@ -1692,89 +1660,84 @@ analysis_error
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Bytes</td>
-<td>10.37 GB</td>
-<td>324.07 MB</td>
+<td>9.66 GiB</td>
+<td>4.00 MiB</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Shape</td>
 <td>(32, 9001, 9001)</td>
-<td>(1, 9001, 9001)</td>
+<td>(1, 1024, 1024)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Count</td>
-<td>96 Tasks</td>
-<td>32 Chunks</td>
+<td data-quarto-table-cell-role="th">Dask graph</td>
+<td colspan="2">2592 chunks in 65 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Type</td>
-<td>float32</td>
-<td>numpy.ndarray</td>
+<td data-quarto-table-cell-role="th">Data type</td>
+<td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
 </table></td>
 <td><svg width="194" height="184" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="120" x2="24" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="120"></line> <line x1="11" y1="1" x2="11" y2="121"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="13" y1="3" x2="13" y2="123"></line> <line x1="14" y1="4" x2="14" y2="124"></line> <line x1="15" y1="5" x2="15" y2="125"></line> <line x1="16" y1="6" x2="16" y2="126"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="18" y1="8" x2="18" y2="128"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="20" y1="10" x2="20" y2="130"></line> <line x1="21" y1="11" x2="21" y2="131"></line> <line x1="22" y1="12" x2="22" y2="132"></line> <line x1="23" y1="13" x2="23" y2="133"></line> <line x1="24" y1="14" x2="24" y2="134"></line> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,134.9485979497544 10.0,120.0" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="134" x2="144" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <line x1="144" y1="14" x2="144" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,134.9485979497544 24.9485979497544,134.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="154.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">9001</text> <text x="164.948598" y="74.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,74.948598)">9001</text> <text x="7.474299" y="147.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,147.474299)">32</text>
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="10" y1="13" x2="24" y2="28"></line> <line x1="10" y1="27" x2="24" y2="42"></line> <line x1="10" y1="40" x2="24" y2="55"></line> <line x1="10" y1="54" x2="24" y2="69"></line> <line x1="10" y1="68" x2="24" y2="83"></line> <line x1="10" y1="81" x2="24" y2="96"></line> <line x1="10" y1="95" x2="24" y2="110"></line> <line x1="10" y1="109" x2="24" y2="124"></line> <line x1="10" y1="120" x2="24" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line> <line x1="10" y1="0" x2="10" y2="120"></line> <line x1="11" y1="1" x2="11" y2="121"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="13" y1="3" x2="13" y2="123"></line> <line x1="14" y1="4" x2="14" y2="124"></line> <line x1="15" y1="5" x2="15" y2="125"></line> <line x1="16" y1="6" x2="16" y2="126"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="18" y1="8" x2="18" y2="128"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="19" y1="9" x2="19" y2="129"></line> <line x1="20" y1="10" x2="20" y2="130"></line> <line x1="21" y1="11" x2="21" y2="131"></line> <line x1="22" y1="12" x2="22" y2="132"></line> <line x1="23" y1="13" x2="23" y2="133"></line> <line x1="24" y1="14" x2="24" y2="134"></line> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 24.9485979497544,14.948597949754403 24.9485979497544,134.9485979497544 10.0,120.0" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="130" y2="0" style="stroke-width:2"></line> <line x1="10" y1="0" x2="130" y2="0"></line> <line x1="11" y1="1" x2="131" y2="1"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="12" y1="2" x2="132" y2="2"></line> <line x1="13" y1="3" x2="133" y2="3"></line> <line x1="14" y1="4" x2="134" y2="4"></line> <line x1="15" y1="5" x2="135" y2="5"></line> <line x1="16" y1="6" x2="136" y2="6"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="17" y1="7" x2="137" y2="7"></line> <line x1="18" y1="8" x2="138" y2="8"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="19" y1="9" x2="139" y2="9"></line> <line x1="20" y1="10" x2="140" y2="10"></line> <line x1="21" y1="11" x2="141" y2="11"></line> <line x1="22" y1="12" x2="142" y2="12"></line> <line x1="23" y1="13" x2="143" y2="13"></line> <line x1="24" y1="14" x2="144" y2="14"></line> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="24" y2="14" style="stroke-width:2"></line> <line x1="23" y1="0" x2="38" y2="14"></line> <line x1="37" y1="0" x2="52" y2="14"></line> <line x1="50" y1="0" x2="65" y2="14"></line> <line x1="64" y1="0" x2="79" y2="14"></line> <line x1="78" y1="0" x2="93" y2="14"></line> <line x1="91" y1="0" x2="106" y2="14"></line> <line x1="105" y1="0" x2="120" y2="14"></line> <line x1="119" y1="0" x2="134" y2="14"></line> <line x1="130" y1="0" x2="144" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 130.0,0.0 144.9485979497544,14.948597949754403 24.9485979497544,14.948597949754403" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="24" y1="14" x2="144" y2="14" style="stroke-width:2"></line> <line x1="24" y1="28" x2="144" y2="28"></line> <line x1="24" y1="42" x2="144" y2="42"></line> <line x1="24" y1="55" x2="144" y2="55"></line> <line x1="24" y1="69" x2="144" y2="69"></line> <line x1="24" y1="83" x2="144" y2="83"></line> <line x1="24" y1="96" x2="144" y2="96"></line> <line x1="24" y1="110" x2="144" y2="110"></line> <line x1="24" y1="124" x2="144" y2="124"></line> <line x1="24" y1="134" x2="144" y2="134" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="24" y1="14" x2="24" y2="134" style="stroke-width:2"></line> <line x1="38" y1="14" x2="38" y2="134"></line> <line x1="52" y1="14" x2="52" y2="134"></line> <line x1="65" y1="14" x2="65" y2="134"></line> <line x1="79" y1="14" x2="79" y2="134"></line> <line x1="93" y1="14" x2="93" y2="134"></line> <line x1="106" y1="14" x2="106" y2="134"></line> <line x1="120" y1="14" x2="120" y2="134"></line> <line x1="134" y1="14" x2="134" y2="134"></line> <line x1="144" y1="14" x2="144" y2="134" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="24.9485979497544,14.948597949754403 144.9485979497544,14.948597949754403 144.9485979497544,134.9485979497544 24.9485979497544,134.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="84.948598" y="154.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">9001</text> <text x="164.948598" y="74.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,164.948598,74.948598)">9001</text> <text x="7.474299" y="147.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,7.474299,147.474299)">32</text>
 </svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-5ec32455-3d6e-45e4-92d9-fe318cf5ff3f" class="xr-section-summary-in" type="checkbox"><label for="section-5ec32455-3d6e-45e4-92d9-fe318cf5ff3f" class="xr-section-summary">Attributes: <span>(48)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.5</dd><dt><span>title :</span></dt><dd>Daily MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>references :</span></dt><dd>http://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.
-2022-11-07 18:15:24 GMT hyrax-1.16.8-94 https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.dap.nc4?dap4.ce=lat%5B000%3A1%3A9000%5D%3Banalysed_sst%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Banalysis_error%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Btime%5B0%3A1%3A0%5D%3Blon%5B000%3A1%3A9000%5D
-</dd><dt><span>comment :</span></dt><dd>MUR = \"Multi-scale Ultra-high Reolution\"</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR-JPL-L4-GLOB-v04.1</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>product_version :</span></dt><dd>04.1</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>4.1</dd><dt><span>date_created :</span></dt><dd>20190110T004403Z</dd><dt><span>start_time :</span></dt><dd>20190101T090000Z</dd><dt><span>stop_time :</span></dt><dd>20190101T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20181231T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20190101T210000Z</dd><dt><span>file_quality_level :</span></dt><dd>3</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Terra, Aqua, GCOM-W, NOAA-19, MetOp-A, Buoys/Ships</dd><dt><span>sensor :</span></dt><dd>MODIS, AMSR2, AVHRR, in-situ</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Observation Dataset v1.0</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR-JPL-L4-GLOB-v04.1</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>southernmost_latitude :</span></dt><dd>[-90.]</dd><dt><span>northernmost_latitude :</span></dt><dd>[90.]</dd><dt><span>westernmost_longitude :</span></dt><dd>[-180.]</dd><dt><span>easternmost_longitude :</span></dt><dd>[180.]</dd><dt><span>spatial_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs program.</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>project :</span></dt><dd>NASA Making Earth Science Data Records for Use in Research Environments (MEaSUREs) Program</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>http://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>ghrsst-po@nceo.ac.uk</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>history_json :</span></dt><dd>[{"$schema":"https:\/\/harmony.earthdata.nasa.gov\/schemas\/history\/0.1.0\/history-0.1.0.json","date_time":"2022-11-07T18:15:24.699+0000","program":"hyrax","version":"1.16.8-94","parameters":[{"request_url":"https:\/\/opendap.earthdata.nasa.gov\/providers\/POCLOUD\/collections\/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)\/granules\/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.dap.nc4?dap4.ce=lat%5B000%3A1%3A9000%5D%3Banalysed_sst%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Banalysis_error%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Btime%5B0%3A1%3A0%5D%3Blon%5B000%3A1%3A9000%5D"},{"decoded_constraint":"dap4.ce=lat[000:1:9000];analysed_sst[0:1:0][000:1:9000][000:1:9000];analysis_error[0:1:0][000:1:9000][000:1:9000];time[0:1:0];lon[000:1:9000]"}]}]</dd></dl></div></li></div></div>
+</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-285c753a-5e65-48da-827f-2546649ee157" class="xr-section-summary-in" type="checkbox"><label for="section-285c753a-5e65-48da-827f-2546649ee157" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-128a98c4-246c-44de-a56f-f56c4ccd290e" class="xr-index-data-in" type="checkbox"><label for="index-128a98c4-246c-44de-a56f-f56c4ccd290e" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([   -89.98999786376953,     -89.9800033569336,
+                 -89.97000122070312,    -89.95999908447266,
+                 -89.94999694824219,    -89.94000244140625,
+                 -89.93000030517578,    -89.91999816894531,
+                 -89.91000366210938,     -89.9000015258789,
+              ...
+               -0.07999999821186066,  -0.07000000029802322,
+               -0.05999999865889549,  -0.05000000074505806,
+               -0.03999999910593033, -0.029999999329447746,
+              -0.019999999552965164, -0.009999999776482582,
+                                0.0,  0.009999999776482582],
+             dtype='float64', name='lat', length=9001))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-853470cf-d783-48f3-8479-422d1df58d98" class="xr-index-data-in" type="checkbox"><label for="index-853470cf-d783-48f3-8479-422d1df58d98" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([-179.99000549316406, -179.97999572753906, -179.97000122070312,
+               -179.9600067138672,  -179.9499969482422, -179.94000244140625,
+              -179.92999267578125,  -179.9199981689453, -179.91000366210938,
+              -179.89999389648438,
+              ...
+               -90.08000183105469,  -90.06999969482422,  -90.05999755859375,
+               -90.05000305175781,  -90.04000091552734,  -90.02999877929688,
+                -90.0199966430664,  -90.01000213623047,               -90.0,
+               -89.98999786376953],
+             dtype='float64', name='lon', length=9001))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-53aaf3bc-3f3d-4b2f-9048-a0272091b997" class="xr-index-data-in" type="checkbox"><label for="index-53aaf3bc-3f3d-4b2f-9048-a0272091b997" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2019-01-01 09:00:00', '2019-01-02 09:00:00',
+               '2019-01-03 09:00:00', '2019-01-04 09:00:00',
+               '2019-01-05 09:00:00', '2019-01-06 09:00:00',
+               '2019-01-07 09:00:00', '2019-01-08 09:00:00',
+               '2019-01-09 09:00:00', '2019-01-10 09:00:00',
+               '2019-01-11 09:00:00', '2019-01-12 09:00:00',
+               '2019-01-13 09:00:00', '2019-01-14 09:00:00',
+               '2019-01-15 09:00:00', '2019-01-16 09:00:00',
+               '2019-01-17 09:00:00', '2019-01-18 09:00:00',
+               '2019-01-19 09:00:00', '2019-01-20 09:00:00',
+               '2019-01-21 09:00:00', '2019-01-22 09:00:00',
+               '2019-01-23 09:00:00', '2019-01-24 09:00:00',
+               '2019-01-25 09:00:00', '2019-01-26 09:00:00',
+               '2019-01-27 09:00:00', '2019-01-28 09:00:00',
+               '2019-01-29 09:00:00', '2019-01-30 09:00:00',
+               '2019-01-31 09:00:00', '2019-02-01 09:00:00'],
+              dtype='datetime64[ns]', name='time', freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-dd5aced9-ea04-4180-a30e-7b49e26be3fa" class="xr-section-summary-in" type="checkbox"><label for="section-dd5aced9-ea04-4180-a30e-7b49e26be3fa" class="xr-section-summary">Attributes: <span>(48)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.5</dd><dt><span>title :</span></dt><dd>Daily MUR SST, Final product</dd><dt><span>summary :</span></dt><dd>A merged, multi-sensor L4 Foundation SST analysis product from JPL.</dd><dt><span>references :</span></dt><dd>http://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST</dd><dt><span>institution :</span></dt><dd>Jet Propulsion Laboratory</dd><dt><span>history :</span></dt><dd>created at nominal 4-day latency; replaced nrt (1-day latency) version.
+2024-03-12 23:18:44 GMT hyrax-1.17.0-3 https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.dap.nc4?dap4.ce=analysed_sst%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Blon%5B000%3A1%3A9000%5D%3Btime%5B0%3A1%3A0%5D%3Banalysis_error%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Blat%5B000%3A1%3A9000%5D
+</dd><dt><span>comment :</span></dt><dd>MUR = \"Multi-scale Ultra-high Reolution\"</dd><dt><span>license :</span></dt><dd>These data are available free of charge under data policy of JPL PO.DAAC.</dd><dt><span>id :</span></dt><dd>MUR-JPL-L4-GLOB-v04.1</dd><dt><span>naming_authority :</span></dt><dd>org.ghrsst</dd><dt><span>product_version :</span></dt><dd>04.1</dd><dt><span>uuid :</span></dt><dd>27665bc0-d5fc-11e1-9b23-0800200c9a66</dd><dt><span>gds_version_id :</span></dt><dd>2.0</dd><dt><span>netcdf_version_id :</span></dt><dd>4.1</dd><dt><span>date_created :</span></dt><dd>20190110T004403Z</dd><dt><span>start_time :</span></dt><dd>20190101T090000Z</dd><dt><span>stop_time :</span></dt><dd>20190101T090000Z</dd><dt><span>time_coverage_start :</span></dt><dd>20181231T210000Z</dd><dt><span>time_coverage_end :</span></dt><dd>20190101T210000Z</dd><dt><span>file_quality_level :</span></dt><dd>3</dd><dt><span>source :</span></dt><dd>MODIS_T-JPL, MODIS_A-JPL, AMSR2-REMSS, AVHRR19_G-NAVO, AVHRRMTA_G-NAVO, iQUAM-NOAA/NESDIS, Ice_Conc-OSISAF</dd><dt><span>platform :</span></dt><dd>Terra, Aqua, GCOM-W, NOAA-19, MetOp-A, Buoys/Ships</dd><dt><span>sensor :</span></dt><dd>MODIS, AMSR2, AVHRR, in-situ</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Observation Dataset v1.0</dd><dt><span>metadata_link :</span></dt><dd>http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=MUR-JPL-L4-GLOB-v04.1</dd><dt><span>keywords :</span></dt><dd>Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention</dd><dt><span>southernmost_latitude :</span></dt><dd>-90.0</dd><dt><span>northernmost_latitude :</span></dt><dd>90.0</dd><dt><span>westernmost_longitude :</span></dt><dd>-180.0</dd><dt><span>easternmost_longitude :</span></dt><dd>180.0</dd><dt><span>spatial_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.01 degrees</dd><dt><span>acknowledgment :</span></dt><dd>Please acknowledge the use of these data with the following statement:  These data were provided by JPL under support by NASA MEaSUREs program.</dd><dt><span>creator_name :</span></dt><dd>JPL MUR SST project</dd><dt><span>creator_email :</span></dt><dd>ghrsst@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>http://mur.jpl.nasa.gov</dd><dt><span>project :</span></dt><dd>NASA Making Earth Science Data Records for Use in Research Environments (MEaSUREs) Program</dd><dt><span>publisher_name :</span></dt><dd>GHRSST Project Office</dd><dt><span>publisher_url :</span></dt><dd>http://www.ghrsst.org</dd><dt><span>publisher_email :</span></dt><dd>ghrsst-po@nceo.ac.uk</dd><dt><span>processing_level :</span></dt><dd>L4</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>history_json :</span></dt><dd>[{"$schema":"https:\/\/harmony.earthdata.nasa.gov\/schemas\/history\/0.1.0\/history-0.1.0.json","date_time":"2024-03-12T23:18:44.042+0000","program":"hyrax","version":"1.17.0-3","parameters":[{"request_url":"https:\/\/opendap.earthdata.nasa.gov\/providers\/POCLOUD\/collections\/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)\/granules\/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.dap.nc4?dap4.ce=analysed_sst%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Blon%5B000%3A1%3A9000%5D%3Btime%5B0%3A1%3A0%5D%3Banalysis_error%5B0%3A1%3A0%5D%5B000%3A1%3A9000%5D%5B000%3A1%3A9000%5D%3Blat%5B000%3A1%3A9000%5D"},{"decoded_constraint":"dap4.ce=analysed_sst[0:1:0][000:1:9000][000:1:9000];lon[000:1:9000];time[0:1:0];analysis_error[0:1:0][000:1:9000][000:1:9000];lat[000:1:9000]"}]}]</dd></dl></div></li></div></div>
 </div>
 </div>
 </section></section></main></div>
-<div id="cell-10" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Histogram</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[########################################] | 100% Completed | 29.9s</code></pre>
+<div id="cell-11" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Histogram</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>(array([3.66360932e+08, 1.41839843e+08, 1.33124088e+08, 1.42820817e+08,
-        1.34985851e+08, 1.21022644e+08, 1.70274605e+08, 3.11394382e+08,
-        4.32103972e+08, 2.16985858e+08]),
- array([271.35   , 274.6785 , 278.007  , 281.3355 , 284.664  , 287.9925 ,
-        291.32098, 294.64948, 297.978  , 301.3065 , 304.63498],
-       dtype=float32),
- &lt;BarContainer object of 10 artists&gt;)</code></pre>
+<div id="cell-12" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose one time segment, plot the data</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].isel(time<span class="op">=</span><span class="dv">4</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="MUR-OPeNDAP_files/figure-html/cell-10-output-3.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-11" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose one time segment, plot the data</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].isel(time<span class="op">=</span><span class="dv">4</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[########################################] | 100% Completed |  1.8s</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="MUR-OPeNDAP_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-12" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot a single point over time</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].isel(lat<span class="op">=</span><span class="dv">7000</span>, lon<span class="op">=</span><span class="dv">7000</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[########################################] | 100% Completed |  0.3s</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="MUR-OPeNDAP_files/figure-html/cell-12-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
+<div id="cell-13" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot a single point over time</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>cloud_data[<span class="st">'analysed_sst'</span>].isel(lat<span class="op">=</span><span class="dv">7000</span>, lon<span class="op">=</span><span class="dv">7000</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
