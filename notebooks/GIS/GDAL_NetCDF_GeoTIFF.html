@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - GDAL NetCDF to Geotiff Conversion</title>
+<title>PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -959,12 +959,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#gdal-netcdf-to-geotiff-conversion" id="toc-gdal-netcdf-to-geotiff-conversion" class="nav-link active" data-scroll-target="#gdal-netcdf-to-geotiff-conversion">GDAL NetCDF to Geotiff Conversion</a>
+  <ul class="collapse">
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a>
   <ul class="collapse">
   <li><a href="#calling-the-data-subscriber" id="toc-calling-the-data-subscriber" class="nav-link" data-scroll-target="#calling-the-data-subscriber">Calling the Data Subscriber</a></li>
   <li><a href="#gdal-transformation" id="toc-gdal-transformation" class="nav-link" data-scroll-target="#gdal-transformation">GDAL Transformation</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -975,25 +978,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/SWOT.html">SWOT</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/SWOTshp_CSVconversion.html">Transform Data</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html">NetCDF to Geotiff</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html">Windows</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">GDAL NetCDF to Geotiff Conversion</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<p><img src="https://img.shields.io/badge/PO.DAAC-Contribution-%20?color=grey&amp;labelColor=blue" class="img-fluid"></p>
+<blockquote class="blockquote">
+<p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/GIS/GDAL_NetCDF_GeoTIFF.ipynb">this link</a>.</p>
+</blockquote>
+<section id="gdal-netcdf-to-geotiff-conversion" class="level1">
+<h1>GDAL NetCDF to Geotiff Conversion</h1>
 <p>Authored by Nicholas Tarpinian, <em>PO.DAAC</em></p>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
@@ -1025,7 +1018,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="calling-the-data-subscriber">Calling the Data Subscriber</h3>
 <p>After installing the podaac-data-subscriber, the following command can be used in the Windows CLI Command Prompt interface to download the latest SWOT data.</p>
 <p>For more info on the <a href="https://github.com/podaac/data-subscriber/blob/main/Downloader.md">PODAAC Data Downloader</a>.</p>
-<div id="cell-5" class="cell">
+<div id="cell-4" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>podaac<span class="op">-</span>data<span class="op">-</span>downloader <span class="op">-</span>c SWOT_L2_HR_Raster_2<span class="fl">.0</span> <span class="op">-</span>d Output Directory <span class="op">-</span>sd <span class="dv">2024</span><span class="op">-</span><span class="dv">0</span><span class="er">2</span><span class="op">-</span><span class="dv">15</span><span class="er">T15</span>:<span class="dv">15</span>:<span class="dv">00</span><span class="er">Z</span> <span class="op">-</span>ed <span class="dv">2024</span><span class="op">-</span><span class="dv">0</span><span class="er">2</span><span class="op">-</span><span class="dv">15</span><span class="er">T15</span>:<span class="dv">16</span>:<span class="dv">00</span><span class="er">Z</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -1035,17 +1028,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="https://gdal.org/programs/gdalmdimtranslate.html">GDALMDIMTRANSLATE</a> converts multidimenstional data between different formats.</p>
 <p>E.g. gdalmdimtranslate -of (output format) -co (creation option) -array (variable name) Input_FileName.nc Output_FileName.tif</p>
 <p>Using gdalmdimtranslate to convert a single NetCDF file to GeoTIFF. We are choosing the water surface elevation (wse) variable to transform.</p>
-<div id="cell-8" class="cell">
+<div id="cell-7" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gdalmdimtranslate <span class="op">-</span>of GTiff <span class="op">-</span>co COMPRESS<span class="op">=</span>LZW <span class="op">-</span>array wse <span class="st">'input_SWOT_NetCDF_file/SWOT_Raster_NetCDF/SWOT_L2_HR_Raster_100m_UTM13U_N_x_x_x_011_022_033F_20240215T151541_20240215T151602_PIC0_01.nc'</span> <span class="st">'output_path/wse_swot.tif'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To convert multiple NetCDF files within a folder, you can run a batch process of gdalmdimtranslate with a For Loop within the GDAL CLI. ’*.nc’ searching for all files containing a NetCDF extension within the folder.</p>
-<div id="cell-10" class="cell">
+<div id="cell-9" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">%</span>f <span class="kw">in</span> (<span class="st">'input_SWOT_Folder\SWOT_Raster_NetCDF\*.nc'</span>) do (</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gdalmdimtranslate <span class="op">-</span>of GTiff <span class="op">-</span>co COMPRESS<span class="op">=</span>LZW <span class="op">-</span>array wse NETCDF:<span class="st">"</span><span class="sc">%f</span><span class="st">"</span> <span class="st">"path_to_output_folder\SWOT_GeoTIFF\%~nf.tif"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
+</section>
 </section>
 </section>
 
