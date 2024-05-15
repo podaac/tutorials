@@ -383,6 +383,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/S6_Cloud_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access in Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access by Cycle/Pass</span></a>
   </div>
@@ -558,6 +564,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hydrocron Time Series</span></a>
+  </div>
+</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false">
@@ -4998,7 +5010,7 @@ anomaly reference to the day-of-year average between 2003 and 2014
 </div>
 </div>
 <p>Let’s zoom in on Lake Chelan in central Washington to look at the difference between the averages of the two summers.</p>
-<div id="fdf60efc-74b0-4d73-9bd6-c687e96434a5" class="cell" data-tags="[]" data-execution_count="15">
+<div id="fdf60efc-74b0-4d73-9bd6-c687e96434a5" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset the data for Lake Chelan in 2012</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ds_subset_3 <span class="op">=</span> ds.sel(time<span class="op">=</span><span class="bu">slice</span>(<span class="st">'2012-05-21T09:00:00'</span>, <span class="st">'2012-08-20T09:00:00'</span>))</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>lat_range_2 <span class="op">=</span> <span class="bu">slice</span>(<span class="fl">47.7926</span>, <span class="fl">48.44274</span>)</span>
@@ -5007,18 +5019,18 @@ anomaly reference to the day-of-year average between 2003 and 2014
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>mean_data_3 <span class="op">=</span> ds_subset_3.mean(dim<span class="op">=</span><span class="st">'time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fa9f97d0-b7c8-49a8-a7d1-fa262e5eeda5" class="cell" data-tags="[]" data-execution_count="16">
+<div id="fa9f97d0-b7c8-49a8-a7d1-fa262e5eeda5" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset the data for Lake Chelan in 2022</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ds_subset_4 <span class="op">=</span> ds_2.sel(time<span class="op">=</span><span class="bu">slice</span>(<span class="st">'2022-05-21T09:00:00'</span>, <span class="st">'2022-08-20T09:00:00'</span>))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ds_subset_4 <span class="op">=</span> ds_subset_4.sel(lat<span class="op">=</span>lat_range_2, lon<span class="op">=</span>lon_range_2)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>mean_data_4 <span class="op">=</span> ds_subset_4.mean(dim<span class="op">=</span><span class="st">'time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b9b71445-d08a-4702-9fdc-d3534b5a095c" class="cell" data-execution_count="17">
+<div id="b9b71445-d08a-4702-9fdc-d3534b5a095c" class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the difference between the two mean datasets</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data_diff_2 <span class="op">=</span> mean_data_4 <span class="op">-</span> mean_data_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="da2260ba-bb46-4ebb-89b0-8c4ed1e83101" class="cell" data-tags="[]" data-execution_count="18">
+<div id="da2260ba-bb46-4ebb-89b0-8c4ed1e83101" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -5035,13 +5047,6 @@ anomaly reference to the day-of-year average between 2003 and 2014
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>ax.gridlines()</span>
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="MUR_SST_Washington_Comparison_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
 </div>
 <p>Please note that the GHRSST dataset is optimized for ocean sea surface temperature, so caution should be exercised when visualizing inland water bodies.</p>
 
