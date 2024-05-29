@@ -32,7 +32,7 @@ This only downloads 1 hours worth of data for the globe:
 podaac-data-downloader -c SWOT_L2_HR_Raster_2.0 -d ./SWOT_L2_HR_Raster_2.0/ --start-date 2024-02-01T00:00:00Z --end-date 2024-02-29T00:59:59Z
 ```
 
-Oceanography: *These examples will download modeled sea surface heights for the whole SSH collection and then the anomalies using the subscriber then downloader:*
+Oceanography: *These examples will download modeled sea surface heights for the whole SSH collection and then the anomalies using the subscriber then downloader and finally, subset the data by bounding box:*
     
 ``` bash
 podaac-data-subscriber -c SWOT_L2_LR_SSH_2.0 -d ./SWOT_L2_LR_SSH_2.0/ --start-date 2023-03-29T00:00:00Z 
@@ -44,6 +44,10 @@ podaac-data-subscriber -c SWOT_L2_NALT_OGDR_SSHA_2.0 -d ./data/SWOT_L2_NALT_OGDR
 
 ``` bash
 podaac-data-downloader -c SWOT_L2_NALT_OGDR_SSHA_2.0 -d ./data/SWOT_L2_NALT_OGDR_SSHA_2.0 --start-date 2023-06-23T00:00:00Z --end-date 2023-06-23T06:00:00Z
+```
+
+``` bash
+podaac-data-downloader -c SWOT_L2_LR_SSH_Basic_2.0 -d ./data -sd 2023-11-25T00:00:00Z -ed 2023-12-15T00:00:00Z -b="-22.0,-27,6.5,0" --subset
 ```
 
 > See [how to Download/Subscribe](DataSubscriberDownloader.qmd) for more information on how to use the PO.DAAC subscriber/downloader including with spatial queries.
