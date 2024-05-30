@@ -127,7 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/SWOT.html">SWOT</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/SWOTshp_CSVconversion.html">Transform Data</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/SWOTshp_CSVconversion.html">Hydrology Time Series</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../../quarto_text/SWOT.html">SWOT</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html">Transform Data</a></li><li class="breadcrumb-item"><a href="../../notebooks/GIS/SWOTshp_CSVconversion.html">Lake Time Series</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -647,8 +647,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth4 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">River Time Series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Hydrology Time Series</span></a>
+ <span class="menu-text">Lake Time Series</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -994,7 +1000,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <ul>
   <li><a href="#swot-shapefile-data-conversion-to-csv" id="toc-swot-shapefile-data-conversion-to-csv" class="nav-link active" data-scroll-target="#swot-shapefile-data-conversion-to-csv">SWOT Shapefile Data Conversion to CSV</a>
   <ul class="collapse">
-  <li><a href="#notebook-showcasing-how-to-mergeconcatenate-multiple-shapefiles-into-a-single-file." id="toc-notebook-showcasing-how-to-mergeconcatenate-multiple-shapefiles-into-a-single-file." class="nav-link" data-scroll-target="#notebook-showcasing-how-to-mergeconcatenate-multiple-shapefiles-into-a-single-file.">Notebook showcasing how to merge/concatenate multiple shapefiles into a single file.</a></li>
+  <li><a href="#notebook-showcasing-how-to-mergeconcatenate-multiple-lake-shapefiles-into-a-single-file." id="toc-notebook-showcasing-how-to-mergeconcatenate-multiple-lake-shapefiles-into-a-single-file." class="nav-link" data-scroll-target="#notebook-showcasing-how-to-mergeconcatenate-multiple-lake-shapefiles-into-a-single-file.">Notebook showcasing how to merge/concatenate multiple lake shapefiles into a single file.</a></li>
   <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import libraries</a></li>
   <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link" data-scroll-target="#before-you-start">Before you start</a>
   <ul class="collapse">
@@ -1024,17 +1030,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </blockquote>
 <section id="swot-shapefile-data-conversion-to-csv" class="level1">
 <h1>SWOT Shapefile Data Conversion to CSV</h1>
-<section id="notebook-showcasing-how-to-mergeconcatenate-multiple-shapefiles-into-a-single-file." class="level3">
-<h3 class="anchored" data-anchor-id="notebook-showcasing-how-to-mergeconcatenate-multiple-shapefiles-into-a-single-file.">Notebook showcasing how to merge/concatenate multiple shapefiles into a single file.</h3>
+<section id="notebook-showcasing-how-to-mergeconcatenate-multiple-lake-shapefiles-into-a-single-file." class="level3">
+<h3 class="anchored" data-anchor-id="notebook-showcasing-how-to-mergeconcatenate-multiple-lake-shapefiles-into-a-single-file.">Notebook showcasing how to merge/concatenate multiple lake shapefiles into a single file.</h3>
 <ul>
 <li>Utilizing the merged shapefile and converting it to a csv file.</li>
-<li>Option to query the new dataset based on users choice; either ‘reach_id’ or water surface elevation (‘wse’), etc.</li>
+<li>Option to query the new dataset based on users choice; either ‘lake_id’ or water surface elevation (‘wse’), etc.</li>
 <li>Using the queried variable to export it as a csv or shapefile.</li>
 </ul>
+<p><strong>Note, PO.DAAC will be expanding the <a href="https://podaac.github.io/hydrocron/intro.html">Hydrocron API</a> we built for rivers to include lakes, but as of this moment, here is a work around to produce lake time series from shapefiles!</strong></p>
+<p><em>Authors: Nicholas Tarpinian, Cassie Nickles, NASA PO.DAAC</em></p>
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
-<div id="cell-2" class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
@@ -1047,51 +1055,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section id="before-you-start" class="level2">
 <h2 class="anchored" data-anchor-id="before-you-start">Before you start</h2>
 <p>Before you beginning this tutorial, make sure you have an account in the Earthdata Login, which is required to access data from the NASA Earthdata system. Please visit https://urs.earthdata.nasa.gov to register for an Earthdata Login account. It is free to create and only takes a moment to set up.</p>
-<div id="cell-4" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="search-for-swot-data" class="level3">
 <h3 class="anchored" data-anchor-id="search-for-swot-data">Search for SWOT data</h3>
 <p>Let’s start our search for River Vector Shapefiles in North America. SWOT files come in “reach” and “node” versions in the same collection, here we want the 10km reaches rather than the nodes. We will also only get files for North America, or ‘NA’ and can call out a specific pass number that we want. Each dataset has it’s own shortname associate with it, for the SWOT River shapefiles, it is SWOT_L2_HR_RiverSP_2.0.</p>
-<div id="cell-6" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_RIVERSP_2.0'</span>, </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="co">#temporal = ('2024-02-01 00:00:00', '2024-02-29 23:59:59'), # can also specify by time</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Reach*_009_NA*'</span>) <span class="co"># here we filter by Reach files (not node), pass=009, continent code=NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-6" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_LAKESP_2.0'</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                  temporal <span class="op">=</span> (<span class="st">'2024-01-01 00:00:00'</span>, <span class="st">'2024-05-30 23:59:59'</span>), <span class="co"># can also specify by time</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Prior*_009_NA*'</span>) <span class="co"># here we filter by Prior files (not observed or Unassigned), pass=009, continent code=NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Granules found: 5</code></pre>
+<pre><code>Granules found: 4</code></pre>
 </div>
 </div>
-<p>During the science orbit, a pass will be repeated once every 21 days. A particular location may have different passes observe it within the 21 days, however. See the <a href="https://swot.jpl.nasa.gov/mission/swath-visualizer/">SWOT swath visualizer</a> for your location!</p>
+<p>During the science orbit, a pass will be repeated once every 21 days. A particular location may have different passes observe it within the 21 days, however.</p>
 </section>
 <section id="download-the-data-into-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
-<div id="cell-9" class="cell" data-execution_count="52">
+<div id="cell-9" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"../datasets/data_downloads/SWOT_files/"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"../datasets/data_downloads/SWOT_files"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> Getting 5 granules, approx download size: 0.03 GB
-File SWOT_L2_HR_RiverSP_Reach_008_009_NA_20231214T141139_20231214T141150_PIC0_01.zip already downloaded</code></pre>
+<pre><code> Getting 4 granules, approx download size: 0.27 GB</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"c387cbcf604e4c5b9ccbc322e88d5fd4","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"479dc2d7916c4cd688fbb1404e40cde6","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"2643e27f282f49a5b9636d84833c98a5","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"a3719d0a38874bac9665287074564c28","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"ee7e7279082d47df8630d56868a3134e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"fd0d6964571844639598a987207dc1c8","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
 </section>
 <section id="unzip-shapefiles-in-existing-folder" class="level3">
 <h3 class="anchored" data-anchor-id="unzip-shapefiles-in-existing-folder">Unzip shapefiles in existing folder</h3>
-<div id="cell-11" class="cell" data-execution_count="53">
+<div id="cell-11" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
@@ -1102,7 +1109,7 @@ File SWOT_L2_HR_RiverSP_Reach_008_009_NA_20231214T141139_20231214T141150_PIC0_01
 <section id="opening-multiple-shapefiles-from-within-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="opening-multiple-shapefiles-from-within-a-folder">Opening multiple shapefiles from within a folder</h3>
 <p>Lets open all the shapefiles we’ve downloaded together into one database. This approach is ideal for a small number of granules, but if you’re looking to create large timeseries, consider using the PO.DAAC Hydrocron tool.</p>
-<div id="cell-13" class="cell" data-execution_count="54">
+<div id="cell-13" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize list of shapefiles containing all dates</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>SWOT_HR_shps <span class="op">=</span> []</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1114,15 +1121,15 @@ File SWOT_L2_HR_RiverSP_Reach_008_009_NA_20231214T141139_20231214T141150_PIC0_01
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    filename_shp_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">\</span><span class="sc">{</span>filename_shp<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    SWOT_HR_shps.append(gpd.read_file(filename_shp_path)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="55">
+<div id="cell-14" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine granules from all acquisition dates into one dataframe</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>SWOT_HR_df <span class="op">=</span> gpd.GeoDataFrame(pd.concat(SWOT_HR_shps, ignore_index<span class="op">=</span><span class="va">True</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort dataframe by reach_id and time</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>SWOT_HR_df <span class="op">=</span> SWOT_HR_df.sort_values([<span class="st">'reach_id'</span>, <span class="st">'time'</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort dataframe by lake_id and time</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>SWOT_HR_df <span class="op">=</span> SWOT_HR_df.sort_values([<span class="st">'lake_id'</span>, <span class="st">'time'</span>])</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>SWOT_HR_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="55">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 <div>
 
@@ -1131,149 +1138,149 @@ File SWOT_L2_HR_RiverSP_Reach_008_009_NA_20231214T141139_20231214T141150_PIC0_01
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">lake_id</th>
 <th data-quarto-table-cell-role="th">reach_id</th>
+<th data-quarto-table-cell-role="th">obs_id</th>
+<th data-quarto-table-cell-role="th">overlap</th>
+<th data-quarto-table-cell-role="th">n_overlap</th>
 <th data-quarto-table-cell-role="th">time</th>
 <th data-quarto-table-cell-role="th">time_tai</th>
 <th data-quarto-table-cell-role="th">time_str</th>
-<th data-quarto-table-cell-role="th">p_lat</th>
-<th data-quarto-table-cell-role="th">p_lon</th>
-<th data-quarto-table-cell-role="th">river_name</th>
 <th data-quarto-table-cell-role="th">wse</th>
 <th data-quarto-table-cell-role="th">wse_u</th>
-<th data-quarto-table-cell-role="th">wse_r_u</th>
 <th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">p_wid_var</th>
-<th data-quarto-table-cell-role="th">p_n_nodes</th>
-<th data-quarto-table-cell-role="th">p_dist_out</th>
-<th data-quarto-table-cell-role="th">p_length</th>
-<th data-quarto-table-cell-role="th">p_maf</th>
-<th data-quarto-table-cell-role="th">p_dam_id</th>
-<th data-quarto-table-cell-role="th">p_n_ch_max</th>
-<th data-quarto-table-cell-role="th">p_n_ch_mod</th>
-<th data-quarto-table-cell-role="th">p_low_slp</th>
+<th data-quarto-table-cell-role="th">lake_name</th>
+<th data-quarto-table-cell-role="th">p_res_id</th>
+<th data-quarto-table-cell-role="th">p_lon</th>
+<th data-quarto-table-cell-role="th">p_lat</th>
+<th data-quarto-table-cell-role="th">p_ref_wse</th>
+<th data-quarto-table-cell-role="th">p_ref_area</th>
+<th data-quarto-table-cell-role="th">p_date_t0</th>
+<th data-quarto-table-cell-role="th">p_ds_t0</th>
+<th data-quarto-table-cell-role="th">p_storage</th>
 <th data-quarto-table-cell-role="th">geometry</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>71224500951</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">42426</td>
+<td>7120818372</td>
 <td>no_data</td>
-<td>48.517717</td>
-<td>-93.692086</td>
-<td>Rainy River</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>712239L000048</td>
+<td>100</td>
+<td>1</td>
+<td>7.576815e+08</td>
+<td>7.576816e+08</td>
+<td>2024-01-04T11:05:46Z</td>
+<td>4.374300e+02</td>
+<td>6.300000e-02</td>
 <td>...</td>
-<td>1480.031</td>
-<td>53</td>
-<td>244919.492</td>
-<td>10586.381484</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-93.412112</td>
+<td>47.756423</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-93.76076 48.51651, -93.76035 48.5...</td>
+<td>0.0207</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.41107 47.75727, -93.41081 47.757...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">931</td>
-<td>71224500951</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">97969</td>
+<td>7120818372</td>
 <td>no_data</td>
-<td>48.517717</td>
-<td>-93.692086</td>
-<td>Rainy River</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>712239L000028</td>
+<td>100</td>
+<td>1</td>
+<td>7.612870e+08</td>
+<td>7.612870e+08</td>
+<td>2024-02-15T04:35:57Z</td>
+<td>4.373460e+02</td>
+<td>7.900000e-02</td>
 <td>...</td>
-<td>1480.031</td>
-<td>53</td>
-<td>244919.492</td>
-<td>10586.381484</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-93.412112</td>
+<td>47.756423</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-93.76076 48.51651, -93.76035 48.5...</td>
+<td>0.0207</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.41115 47.75730, -93.41090 47.757...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1854</td>
-<td>71224500951</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">156135</td>
+<td>7120818372</td>
 <td>no_data</td>
-<td>48.517717</td>
-<td>-93.692086</td>
-<td>Rainy River</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>712239L000025</td>
+<td>100</td>
+<td>1</td>
+<td>7.648924e+08</td>
+<td>7.648924e+08</td>
+<td>2024-03-27T22:06:05Z</td>
+<td>4.377310e+02</td>
+<td>5.600000e-02</td>
 <td>...</td>
-<td>1480.031</td>
-<td>53</td>
-<td>244919.492</td>
-<td>10586.381484</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-93.412112</td>
+<td>47.756423</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-93.76076 48.51651, -93.76035 48.5...</td>
+<td>0.0207</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.41200 47.75739, -93.41174 47.757...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2789</td>
-<td>71224500951</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">215861</td>
+<td>7120818372</td>
 <td>no_data</td>
-<td>48.517717</td>
-<td>-93.692086</td>
-<td>Rainy River</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>712239L000027</td>
+<td>92</td>
+<td>1</td>
+<td>7.666951e+08</td>
+<td>7.666951e+08</td>
+<td>2024-04-17T18:51:11Z</td>
+<td>4.376710e+02</td>
+<td>2.300000e-02</td>
 <td>...</td>
-<td>1480.031</td>
-<td>53</td>
-<td>244919.492</td>
-<td>10586.381484</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-93.412112</td>
+<td>47.756423</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-93.76076 48.51651, -93.76035 48.5...</td>
+<td>0.0207</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.41199 47.75734, -93.41174 47.757...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">3728</td>
-<td>71224500951</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">42460</td>
+<td>7120818382</td>
 <td>no_data</td>
-<td>48.517717</td>
-<td>-93.692086</td>
-<td>Rainy River</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>712239L000049</td>
+<td>99</td>
+<td>1</td>
+<td>7.576815e+08</td>
+<td>7.576816e+08</td>
+<td>2024-01-04T11:05:46Z</td>
+<td>4.257550e+02</td>
+<td>2.100000e-02</td>
 <td>...</td>
-<td>1480.031</td>
-<td>53</td>
-<td>244919.492</td>
-<td>10586.381484</td>
+<td>RAT LAKE</td>
+<td>-99999999</td>
+<td>-93.357210</td>
+<td>47.749259</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-93.76076 48.51651, -93.76035 48.5...</td>
+<td>0.1989</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.35303 47.75061, -93.35273 47.750...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -1300,129 +1307,129 @@ File SWOT_L2_HR_RiverSP_Reach_008_009_NA_20231214T141139_20231214T141150_PIC0_01
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">930</td>
-<td>77125000273</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">206470</td>
+<td>7710076862</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
+<td>771190R000017</td>
+<td>86</td>
 <td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>7.666946e+08</td>
+<td>7.666946e+08</td>
+<td>2024-04-17T18:43:01Z</td>
+<td>2.810479e+03</td>
+<td>3.900000e-02</td>
+<td>...</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-99.916944</td>
+<td>19.984955</td>
+<td>-1.000000e+12</td>
+<td>0.0459</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>MULTIPOLYGON (((-99.91661 19.98636, -99.91650 ...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1853</td>
-<td>77125000273</td>
+<td data-quarto-table-cell-role="th">36628</td>
+<td>7710076872</td>
+<td>no_data</td>
+<td>no_data</td>
+<td>no_data</td>
+<td>no_data</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-100.263287</td>
+<td>20.393474</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>0.0513</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>None</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2788</td>
-<td>77125000273</td>
+<td data-quarto-table-cell-role="th">73000</td>
+<td>7710076872</td>
+<td>no_data</td>
+<td>no_data</td>
+<td>no_data</td>
+<td>no_data</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-100.263287</td>
+<td>20.393474</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>0.0513</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>None</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3727</td>
-<td>77125000273</td>
+<td data-quarto-table-cell-role="th">130255</td>
+<td>7710076872</td>
+<td>no_data</td>
+<td>no_data</td>
+<td>no_data</td>
+<td>no_data</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-100.263287</td>
+<td>20.393474</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>0.0513</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>None</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4666</td>
-<td>77125000273</td>
+<td data-quarto-table-cell-role="th">188022</td>
+<td>7710076872</td>
+<td>no_data</td>
+<td>no_data</td>
+<td>no_data</td>
+<td>no_data</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>-1.000000e+12</td>
 <td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-100.263287</td>
+<td>20.393474</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>0.0513</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>None</td>
 </tr>
 </tbody>
 </table>
 
-<p>4667 rows × 127 columns</p>
+<p>225984 rows × 51 columns</p>
 </div>
 </div>
 </div>
@@ -1430,11 +1437,11 @@ File SWOT_L2_HR_RiverSP_Reach_008_009_NA_20231214T141139_20231214T141150_PIC0_01
 </section>
 <section id="querying-a-shapefile" class="level3">
 <h3 class="anchored" data-anchor-id="querying-a-shapefile">Querying a Shapefile</h3>
-<p>Let’s get the attributes from a particular reach of the merged shapefile. If you want to search for a specific reach id or a specific length of river reach that is possible through a spatial query using Geopandas. Here, we’ll look at a river reach on Cook Slough in Oregon, ID: 78310700041. River IDs can be identified in the <a href="https://www.swordexplorer.com/">SWORD Database</a>.</p>
-<div id="cell-16" class="cell" data-execution_count="57">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>reach <span class="op">=</span> SWOT_HR_df.query(<span class="st">"reach_id == '77125000273'"</span>)</span>
+<p>Let’s get the attributes from a particular reach of the merged shapefile. If you want to search for a specific lake_id, Lake IDs can be identified in the <a href="https://hydroweb.next.theia-land.fr/">Prior Lake Database (PLD)</a> - Add in the PLD layer into Hydroweb.next to see the lakes SWOT products are based upon.</p>
+<div id="cell-16" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>reach <span class="op">=</span> SWOT_HR_df.query(<span class="st">"lake_id == '7120818372'"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>reach</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="57">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 <div>
 
@@ -1443,154 +1450,130 @@ File SWOT_L2_HR_RiverSP_Reach_008_009_NA_20231214T141139_20231214T141150_PIC0_01
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">lake_id</th>
 <th data-quarto-table-cell-role="th">reach_id</th>
+<th data-quarto-table-cell-role="th">obs_id</th>
+<th data-quarto-table-cell-role="th">overlap</th>
+<th data-quarto-table-cell-role="th">n_overlap</th>
 <th data-quarto-table-cell-role="th">time</th>
 <th data-quarto-table-cell-role="th">time_tai</th>
 <th data-quarto-table-cell-role="th">time_str</th>
-<th data-quarto-table-cell-role="th">p_lat</th>
-<th data-quarto-table-cell-role="th">p_lon</th>
-<th data-quarto-table-cell-role="th">river_name</th>
 <th data-quarto-table-cell-role="th">wse</th>
 <th data-quarto-table-cell-role="th">wse_u</th>
-<th data-quarto-table-cell-role="th">wse_r_u</th>
 <th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">p_wid_var</th>
-<th data-quarto-table-cell-role="th">p_n_nodes</th>
-<th data-quarto-table-cell-role="th">p_dist_out</th>
-<th data-quarto-table-cell-role="th">p_length</th>
-<th data-quarto-table-cell-role="th">p_maf</th>
-<th data-quarto-table-cell-role="th">p_dam_id</th>
-<th data-quarto-table-cell-role="th">p_n_ch_max</th>
-<th data-quarto-table-cell-role="th">p_n_ch_mod</th>
-<th data-quarto-table-cell-role="th">p_low_slp</th>
+<th data-quarto-table-cell-role="th">lake_name</th>
+<th data-quarto-table-cell-role="th">p_res_id</th>
+<th data-quarto-table-cell-role="th">p_lon</th>
+<th data-quarto-table-cell-role="th">p_lat</th>
+<th data-quarto-table-cell-role="th">p_ref_wse</th>
+<th data-quarto-table-cell-role="th">p_ref_area</th>
+<th data-quarto-table-cell-role="th">p_date_t0</th>
+<th data-quarto-table-cell-role="th">p_ds_t0</th>
+<th data-quarto-table-cell-role="th">p_storage</th>
 <th data-quarto-table-cell-role="th">geometry</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">930</td>
-<td>77125000273</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">42426</td>
+<td>7120818372</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
+<td>712239L000048</td>
+<td>100</td>
 <td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>7.576815e+08</td>
+<td>7.576816e+08</td>
+<td>2024-01-04T11:05:46Z</td>
+<td>437.430</td>
+<td>0.063</td>
+<td>...</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-93.412112</td>
+<td>47.756423</td>
+<td>-1.000000e+12</td>
+<td>0.0207</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.41107 47.75727, -93.41081 47.757...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1853</td>
-<td>77125000273</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">97969</td>
+<td>7120818372</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
+<td>712239L000028</td>
+<td>100</td>
 <td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>7.612870e+08</td>
+<td>7.612870e+08</td>
+<td>2024-02-15T04:35:57Z</td>
+<td>437.346</td>
+<td>0.079</td>
+<td>...</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-93.412112</td>
+<td>47.756423</td>
+<td>-1.000000e+12</td>
+<td>0.0207</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.41115 47.75730, -93.41090 47.757...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2788</td>
-<td>77125000273</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">156135</td>
+<td>7120818372</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
+<td>712239L000025</td>
+<td>100</td>
 <td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>7.648924e+08</td>
+<td>7.648924e+08</td>
+<td>2024-03-27T22:06:05Z</td>
+<td>437.731</td>
+<td>0.056</td>
+<td>...</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-93.412112</td>
+<td>47.756423</td>
+<td>-1.000000e+12</td>
+<td>0.0207</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.41200 47.75739, -93.41174 47.757...</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3727</td>
-<td>77125000273</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td data-quarto-table-cell-role="th">215861</td>
+<td>7120818372</td>
 <td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
-<td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
+<td>712239L000027</td>
+<td>92</td>
 <td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4666</td>
-<td>77125000273</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>no_data</td>
-<td>17.952683</td>
-<td>-99.906755</td>
-<td>no_data</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
-<td>-1.000000e+12</td>
+<td>7.666951e+08</td>
+<td>7.666951e+08</td>
+<td>2024-04-17T18:51:11Z</td>
+<td>437.671</td>
+<td>0.023</td>
 <td>...</td>
-<td>283915.163</td>
-<td>49</td>
-<td>484179.822</td>
-<td>9729.640027</td>
+<td>no_data</td>
+<td>-99999999</td>
+<td>-93.412112</td>
+<td>47.756423</td>
 <td>-1.000000e+12</td>
-<td>0</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>LINESTRING (-99.93256 17.94746, -99.93273 17.9...</td>
+<td>0.0207</td>
+<td>no_data</td>
+<td>-1.000000e+12</td>
+<td>-1.000000e+12</td>
+<td>POLYGON ((-93.41199 47.75734, -93.41174 47.757...</td>
 </tr>
 </tbody>
 </table>
 
-<p>5 rows × 127 columns</p>
+<p>4 rows × 51 columns</p>
 </div>
 </div>
 </div>
@@ -1599,7 +1582,7 @@ File SWOT_L2_HR_RiverSP_Reach_008_009_NA_20231214T141139_20231214T141150_PIC0_01
 <section id="converting-to-csv" class="level3">
 <h3 class="anchored" data-anchor-id="converting-to-csv">Converting to CSV</h3>
 <p>We can convert the merged timeseries geodataframe for this reach into a csv file.</p>
-<div id="cell-18" class="cell" data-execution_count="58">
+<div id="cell-18" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gdf.to_csv(folder <span class="op">/</span> <span class="st">'csv_77125000273.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
