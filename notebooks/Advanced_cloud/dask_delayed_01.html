@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook</title>
+<title>PO.DAAC Cookbook - Parallel Computing with Earthdata and Dask: An Example of Replicating a Function Over Many Files</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,8 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../external/SWOT_to_kerchunk.html" rel="next">
-<link href="../../quarto_text/Dask.html" rel="prev">
+<link href="../../notebooks/Advanced_cloud/coiled_function_01.html" rel="next">
+<link href="../../quarto_text/Dask_Coiled.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -127,7 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../quarto_text/Dask.html">Dask</a></li><li class="breadcrumb-item"><a href="../../notebooks/Advanced_cloud/dask_delayed_01.html">Function Replication Example</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../quarto_text/Dask_Coiled.html">Dask and Coiled</a></li><li class="breadcrumb-item"><a href="../../notebooks/Advanced_cloud/dask_delayed_01.html">Dask Function Replication Example</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -930,8 +930,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../quarto_text/Dask.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dask</span></a>
+            <a href="../../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dask and Coiled</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -946,7 +946,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/Advanced_cloud/dask_delayed_01.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Function Replication Example</span></a>
+ <span class="menu-text">Dask Function Replication Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/coiled_function_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Coiled Function Replication Example</span></a>
   </div>
 </li>
       </ul>
@@ -1033,9 +1039,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#parallel-computing-with-earthdata-and-dask-an-example-of-replicating-a-function-over-many-files" id="toc-parallel-computing-with-earthdata-and-dask-an-example-of-replicating-a-function-over-many-files" class="nav-link active" data-scroll-target="#parallel-computing-with-earthdata-and-dask-an-example-of-replicating-a-function-over-many-files">Parallel Computing with Earthdata and Dask: An Example of Replicating a Function Over Many Files</a>
-  <ul class="collapse">
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#requirements-prerequisite-knowledge-learning-outcomes" id="toc-requirements-prerequisite-knowledge-learning-outcomes" class="nav-link" data-scroll-target="#requirements-prerequisite-knowledge-learning-outcomes">Requirements, prerequisite knowledge, learning outcomes</a></li>
   <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import packages</a></li>
   <li><a href="#define-functions" id="toc-define-functions" class="nav-link" data-scroll-target="#define-functions">1. Define functions</a></li>
@@ -1053,7 +1057,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <ul class="collapse">
   <li><a href="#test-plots-1" id="toc-test-plots-1" class="nav-link" data-scroll-target="#test-plots-1">Test plots</a></li>
   </ul></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -1063,12 +1066,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../quarto_text/Dask_Coiled.html">Dask and Coiled</a></li><li class="breadcrumb-item"><a href="../../notebooks/Advanced_cloud/dask_delayed_01.html">Dask Function Replication Example</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Parallel Computing with Earthdata and Dask: An Example of Replicating a Function Over Many Files</h1>
+</div>
 
 
 
-<p><img src="https://img.shields.io/badge/PO.DAAC-Contribution-%20?color=grey&amp;labelColor=blue" class="img-fluid"></p>
-<section id="parallel-computing-with-earthdata-and-dask-an-example-of-replicating-a-function-over-many-files" class="level1">
-<h1>Parallel Computing with Earthdata and Dask: An Example of Replicating a Function Over Many Files</h1>
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <section id="authors-dean-henze-and-jinbo-wang-nasa-jpl-po.daac" class="level4">
 <h4 class="anchored" data-anchor-id="authors-dean-henze-and-jinbo-wang-nasa-jpl-po.daac"><em>Authors: Dean Henze and Jinbo Wang, NASA JPL PO.DAAC</em></h4>
 </section>
@@ -1076,7 +1092,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>A previous notebook covered basic use of Dask for parallel computing with Earthdata. This included the case where we have a function we wish to replicate over many files, represented by the schematic below.</p>
 <p><img src="../../images/basicdask_schematic1.png" alt="sch1" width="500"></p>
-<p>In a previous notebook, a toy example was used to demonstrate this basic functionality using a local cluster and <code>dask.delayed()</code>. In this notebook, we expand that workflow to a more complex analysis, representing something closer to a real-world use-case.</p>
+<p>In the previous notebook, a toy example was used to demonstrate this basic functionality using a local cluster and <code>dask.delayed()</code>. In this notebook, we expand that workflow to a more complex analysis, representing something closer to a real-world use-case.</p>
 <p>The analysis will generate global maps of spatial correlation between sea surface temperature (SST) and sea surface height (SSH). The analysis uses PO.DAAC hosted, gridded SSH and SST data sets: * MEaSUREs gridded SSH Version 2205: 0.17° x 0.17° resolution, global map, one file per 5-days, https://doi.org/10.5067/SLREF-CDRV3 * GHRSST Level 4 MW_OI Global Foundation SST, V5.0: 0.25° x 0.25° resolution, global map, daily files, https://doi.org/10.5067/GHMWO-4FR05</p>
 <p>The time period of overlap between these data sets is 1998 – 2020, with 1808 days in total overlapping. For each pair of SST, SSH files on these days, compute a map of spatial correlation between them, where the following method is used at each gridpoint:</p>
 <p><img src="../../images/schematic_sst-ssh_corr.png" alt="sch_sst-ssh-corr" width="1000"></p>
@@ -1305,7 +1321,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="get-all-matching-pairs-of-ssh-sst-files-for-2018" class="level2">
 <h2 class="anchored" data-anchor-id="get-all-matching-pairs-of-ssh-sst-files-for-2018">2. Get all matching pairs of SSH, SST files for 2018</h2>
-<p>The <code>spatial_corrmap()</code> function takes as one of its arguments a 2-tuple of <code>earthaccess.store.EarthAccessFile</code> objects, one each for SSH and SST (recall that <code>earthaccess.store.EarthAccessFile</code> objects are returned from a call to <code>earthaccess.open()</code>, and are passed to <code>Xarray</code>). This section will retrieve pairs of these objects for all SSH, SST data in 2018 on days where the data sets overlap.</p>
+<p>The <code>spatial_corrmap()</code> function takes as one of its arguments a 2-tuple of <code>earthaccess.results.DataGranule</code> objects, one each for SSH and SST (recall that these are the objects returned from a call to <code>earthaccess.search_data()</code>). This section will retrieve pairs of these objects for all SSH, SST data in 2018 on days where the data sets overlap.</p>
 <div id="c2069fe9-96cf-41df-97d1-c9e87f10caa6" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -2583,7 +2599,6 @@ Dimensions without coordinates: dummy_time</pre><div class="xr-wrap" style="disp
 
 </section>
 </section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -3141,13 +3156,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../quarto_text/Dask.html" class="pagination-link" aria-label="Dask">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Dask</span>
+      <a href="../../quarto_text/Dask_Coiled.html" class="pagination-link" aria-label="Dask and Coiled">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Dask and Coiled</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../external/SWOT_to_kerchunk.html" class="pagination-link" aria-label="Kerchunk">
-        <span class="nav-page-text">Kerchunk</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../notebooks/Advanced_cloud/coiled_function_01.html" class="pagination-link" aria-label="Coiled Function Replication Example">
+        <span class="nav-page-text">Coiled Function Replication Example</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
