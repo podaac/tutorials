@@ -4,7 +4,7 @@
     "href": "external/ECCO_download_data.html",
     "title": "Access to ECCO V4r4 Datasets on a Local Machine",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, ECCO.\nDuped+slightly modified version of the s3 access ipynb. Tested on JPL-issued macbook and my linux box. It starts by setting up a most trusted strategy for batch downloads behind URS ussing curl/wget. Will attempt to add line(s) to your netrc file if needed btw; then it writes your urs cookies to a local file that should effectively “pre-authenticate” future download sessions for those sub domains.",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, ECCO.\nDuped+slightly modified version of the s3 access ipynb. Tested on JPL-issued macbook and my linux box. It starts by setting up a most trusted strategy for batch downloads behind URS ussing curl/wget. Will attempt to add line(s) to your netrc file if needed btw; then it writes your urs cookies to a local file that should effectively “pre-authenticate” future download sessions for those sub domains.",
     "crumbs": [
       "Tutorials",
       "Dataset Specific",
@@ -90,7 +90,7 @@
     "href": "external/insitu_dataviz_demo.html",
     "title": "S-MODE Workshop: Science Case Study In Situ",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Open-Data-Workshop\nimport glob\nfrom netCDF4 import Dataset\nimport xarray as xr\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nimport gsw",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Open-Data-Workshop\nimport glob\nfrom netCDF4 import Dataset\nimport xarray as xr\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nimport gsw",
     "crumbs": [
       "Tutorials",
       "Dataset Specific",
@@ -140,7 +140,7 @@
     "href": "external/SWOT_SSH_dashboard.html",
     "title": "Integrating Dask, Kerchunk, Zarr and Xarray",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, the-coding-club.",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, the-coding-club.",
     "crumbs": [
       "Advanced Cloud",
       "Dask, Kerchunk, & Zarr"
@@ -458,7 +458,7 @@
     "href": "external/cof-zarr-reformat.html",
     "title": "COF Zarr Access via Reformat",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, ECCO.",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, ECCO.",
     "crumbs": [
       "Tutorials",
       "Cloud Optimized Examples",
@@ -510,7 +510,7 @@
     "href": "external/zarr_access.html",
     "title": "Zarr Access for NetCDF4 files",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from NASA Openscapes 2021 Cloud Hackathon Repository",
+    "text": "imported on: 2024-06-12\nThis notebook is from NASA Openscapes 2021 Cloud Hackathon Repository",
     "crumbs": [
       "Tutorials",
       "Cloud Optimized Examples",
@@ -2094,12 +2094,12 @@
     "href": "notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.html#summary",
     "title": "Visualizing discharge in the SWORD of Science (SoS)",
     "section": "Summary",
-    "text": "Summary\n\nVisualizing Discharge\nThe following notebook shows how to visualize discharge time series data on a map. The notebook takes the mean of the timeseries for a river reach’s discharge estimates and visualizes this mean discharge.\n\n\nGranule structure (background)\nThe SWORD of Science (SoS) is a community-driven dataset produced for and from the execution of the Confluence workflow in the cloud which enables quick data access and compute on SWOT data. Data granules contain two files, priors and results. The priors file contains prior information, such as in-situ gage data and model output that is used to generate the discharge products. The results file contains the resulting river discharge data products.\nThe cloud-based workflow (“Confluence”) that produces the SoS will produce discharge parameter estimates which the SWOT mission will use to produce discharge. This discharge will be stored in the SWOT shapefiles as the official SWOT discharge. However, the Confluence workflow produces discharge time series alongside the discharge parameter estimates in order to preview what will eventually stored in the SWOT shapefiles. Users can reference the SoS for the latest discharge time series recognizing that the official SWOT discharge data product lives in the SWOT shapefiles.\nThe SoS is organized by continent following SWOT River Database (SWORD) structure and naming conventions. It is indexed on the same reach and node identifier dimensions found in SWORD. Time series data is stored by cycle and pass on an observation dimension.\nMore information is available in the SWOT-Confluence Github repository: * Documentation for priors * Documentation for results\nResults are organized into groups corresponding to modules in the SWOT-Confluence processing software. Modules are described in the Confluence Module Documentation.\nYou can explore the SoS further in this notebook: Link TBD.\n\n\nTable of Modules (Algorithms) and Discharge variables\nThe following lists the algorithms alongside their discharge variables and location in the SoS results file assuming that the SoS is an open file represented by the results variable.\n\n\n\n\n\n\n\n\nModule (Algorithm)\nDischarge Variable\nLocation in the SoS\n\n\n\n\nHiVDI\nQ\nresults[“hivdi”][“Q”]\n\n\nMetroMan\nallq\nresults[“metroman”][“allq”]\n\n\nMOMMA\nQ\nresults[“momma”][“Q”]\n\n\nneoBAM\nq1, q2, or q3\nresults[“neobam”][“q”][“q1”]\n\n\nSAD\nQa\nresults[“sad”][“Qa”]\n\n\nSIC4DVar\nQ_mm\nresults[“sic4dvar”][“Q_mm”]\n\n\nMOI HiVDI\nq\nresults[“moi”][“hivdi”][“q”]\n\n\nMOI MetroMan\nq\nresults[“moi”][“metroman”][“q”]\n\n\nMOI MOMMA\nq\nresults[“moi”][“momma”][“q”]\n\n\nMOI neoBAM\nq\nresults[“moi”][“qeobam”][“q”]\n\n\nMOI SAD\nq\nresults[“moi”][“sad”][“q”]\n\n\nMOI SIC4DVar\nq\nresults[“moi”][“sic4dvar”][“q”]",
+    "text": "Summary\n\nVisualizing Discharge\nThe following notebook shows how to visualize discharge time series data on a map. The notebook takes the mean of the timeseries for a river reach’s discharge estimates and visualizes this mean discharge.\n\n\nGranule structure (background)\nThe SWORD of Science (SoS) is a community-driven dataset produced for and from the execution of the Confluence workflow in the cloud which enables quick data access and compute on SWOT data. Data granules contain two files, priors and results. The priors file contains prior information, such as in-situ gage data and model output that is used to generate the discharge products. The results file contains the resulting river discharge data products.\nThe cloud-based workflow (“Confluence”) that produces the SoS will produce discharge parameter estimates which the SWOT mission will use to produce discharge. This discharge will be stored in the SWOT shapefiles as the official SWOT discharge. However, the Confluence workflow produces discharge time series alongside the discharge parameter estimates in order to preview what will eventually stored in the SWOT shapefiles. Users can reference the SoS for the latest discharge time series recognizing that the official SWOT discharge data product lives in the SWOT shapefiles.\nThe SoS is organized by continent following SWOT River Database (SWORD) structure and naming conventions. It is indexed on the same reach and node identifier dimensions found in SWORD. Time series data is stored by cycle and pass on an observation dimension.\nMore information is available in the SWOT-Confluence Github repository: * Documentation for priors * Documentation for results\nResults are organized into groups corresponding to modules in the SWOT-Confluence processing software. Modules are described in the Confluence Module Documentation.\nYou can explore the SoS further in this notebook: https://podaac.github.io/tutorials/notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.html\n\n\nTable of Modules (Algorithms) and Discharge variables\nThe following lists the algorithms alongside their discharge variables and location in the SoS results file assuming that the SoS is an open file represented by the results variable.\n\n\n\n\n\n\n\n\nModule (Algorithm)\nDischarge Variable\nLocation in the SoS\n\n\n\n\nHiVDI\nQ\nresults[“hivdi”][“Q”]\n\n\nMetroMan\nallq\nresults[“metroman”][“allq”]\n\n\nMOMMA\nQ\nresults[“momma”][“Q”]\n\n\nneoBAM\nq1, q2, or q3\nresults[“neobam”][“q”][“q1”]\n\n\nSAD\nQa\nresults[“sad”][“Qa”]\n\n\nSIC4DVar\nQ_mm\nresults[“sic4dvar”][“Q_mm”]\n\n\nMOI HiVDI\nq\nresults[“moi”][“hivdi”][“q”]\n\n\nMOI MetroMan\nq\nresults[“moi”][“metroman”][“q”]\n\n\nMOI MOMMA\nq\nresults[“moi”][“momma”][“q”]\n\n\nMOI neoBAM\nq\nresults[“moi”][“qeobam”][“q”]\n\n\nMOI SAD\nq\nresults[“moi”][“sad”][“q”]\n\n\nMOI SIC4DVar\nq\nresults[“moi”][“sic4dvar”][“q”]",
     "crumbs": [
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2113,7 +2113,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2127,7 +2127,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2141,7 +2141,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2155,7 +2155,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2169,7 +2169,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2183,7 +2183,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2197,7 +2197,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2211,7 +2211,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Visualizing river discharge"
     ]
   },
@@ -2395,12 +2395,12 @@
     "href": "notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.html#summary",
     "title": "Exploring gauges and river discharge in the SWORD of Science (SoS) dataset",
     "section": "Summary",
-    "text": "Summary\n\nLooking at discharge in the SoS\nIt can be helpful to plot the flow law parameter estimation (FLPE) algorithm discharge alongside the integrator (MOI) discharge produced for that algorithm PLUS overlapping in situ gauge data. Note that not all rivers have gauge data associated with them. In this notebook we will look at the steps to plot SoS discharge values produced from running the Confluence workflow alongside in situ gauge data gathered and stored in the priors.\n\n\nGranule structure (background)\nThe SWORD of Science (SoS) is a community-driven dataset produced for and from the execution of the Confluence workflow in the cloud which enables quick data access and compute on SWOT data. Data granules contain two files, priors and results. The priors file contains prior information, such as in-situ gage data and model output that is used to generate the discharge products. The results file contains the resulting river discharge data products.\nThe cloud-based workflow (“Confluence”) that produces the SoS will produce discharge parameter estimates which the SWOT mission will use to produce discharge. This discharge will be stored in the SWOT shapefiles as the official SWOT discharge. However, the Confluence workflow produces discharge time series alongside the discharge parameter estimates in order to preview what will eventually stored in the SWOT shapefiles. Users can reference the SoS for the latest discharge time series recognizing that the official SWOT discharge data product lives in the SWOT shapefiles.\nThe SoS is organized by continent following SWOT River Database (SWORD) structure and naming conventions. It is indexed on the same reach and node identifier dimensions found in SWORD. Time series data is stored by cycle and pass on an observation dimension.\nMore information is available in the SWOT-Confluence Github repository: * Documentation for priors * Documentation for results\nResults are organized into groups corresponding to modules in the SWOT-Confluence processing software. Modules are described in the Confluence Module Documentation.\nYou can explore the SoS further in this notebook: Link TBD.\n\n\nLocate data for a river that has gauges\nWe will select the Ohio River as we know it has gauge data associated with it from the USGS but feel free to modify the constants below for your river of choice!\n\n\nTable of Gauge Agencies by Continent\nThe following list the continent with associated gauge agency and group name of the gauge agency as it is stored in the SoS.\n\n\n\n\n\n\n\n\nContinent\nGroup Name\nGauge Agency\n\n\n\n\nAfrica\nGRDC\nGlobal Runoff Data Centre\n\n\nAsia\nGRDC\nGlobal Runoff Data Centre\n\n\nAsia\nMLIT\nMinistry of Land, Infrastructure, Transport, Tourism\n\n\nEurope\nGRDC\nGlobal Runoff Data Centre\n\n\nEurope\nDEFRA\nDepartment of Environment Food & Rural Affairs\n\n\nEurope\nEAU\nHub’Eau France\n\n\nNorth America\nGRDC\nGlobal Runoff Data Centre\n\n\nNorth America\nUSGS\nUnited State Geological Survey\n\n\nNorth America\nWSC\nWater Survey Canada\n\n\nOceania\nGRDC\nGlobal Runoff Data Centre\n\n\nOceania\nABOM\nAustralian Government Bureau of Meteorology\n\n\nSouth America\nGRDC\nGlobal Runoff Data Centre\n\n\nSouth America\nDGA\nDireccion General de Aguas\n\n\nSouth America\nHidroweb\nHidroweb",
+    "text": "Summary\n\nLooking at discharge in the SoS\nIt can be helpful to plot the flow law parameter estimation (FLPE) algorithm discharge alongside the integrator (MOI) discharge produced for that algorithm PLUS overlapping in situ gauge data. Note that not all rivers have gauge data associated with them. In this notebook we will look at the steps to plot SoS discharge values produced from running the Confluence workflow alongside in situ gauge data gathered and stored in the priors.\n\n\nGranule structure (background)\nThe SWORD of Science (SoS) is a community-driven dataset produced for and from the execution of the Confluence workflow in the cloud which enables quick data access and compute on SWOT data. Data granules contain two files, priors and results. The priors file contains prior information, such as in-situ gage data and model output that is used to generate the discharge products. The results file contains the resulting river discharge data products.\nThe cloud-based workflow (“Confluence”) that produces the SoS will produce discharge parameter estimates which the SWOT mission will use to produce discharge. This discharge will be stored in the SWOT shapefiles as the official SWOT discharge. However, the Confluence workflow produces discharge time series alongside the discharge parameter estimates in order to preview what will eventually stored in the SWOT shapefiles. Users can reference the SoS for the latest discharge time series recognizing that the official SWOT discharge data product lives in the SWOT shapefiles.\nThe SoS is organized by continent following SWOT River Database (SWORD) structure and naming conventions. It is indexed on the same reach and node identifier dimensions found in SWORD. Time series data is stored by cycle and pass on an observation dimension.\nMore information is available in the SWOT-Confluence Github repository: * Documentation for priors * Documentation for results\nResults are organized into groups corresponding to modules in the SWOT-Confluence processing software. Modules are described in the Confluence Module Documentation.\nYou can explore the SoS further in this notebook: https://podaac.github.io/tutorials/notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.html\n\n\nLocate data for a river that has gauges\nWe will select the Ohio River as we know it has gauge data associated with it from the USGS but feel free to modify the constants below for your river of choice!\n\n\nTable of Gauge Agencies by Continent\nThe following list the continent with associated gauge agency and group name of the gauge agency as it is stored in the SoS.\n\n\n\n\n\n\n\n\nContinent\nGroup Name\nGauge Agency\n\n\n\n\nAfrica\nGRDC\nGlobal Runoff Data Centre\n\n\nAsia\nGRDC\nGlobal Runoff Data Centre\n\n\nAsia\nMLIT\nMinistry of Land, Infrastructure, Transport, Tourism\n\n\nEurope\nGRDC\nGlobal Runoff Data Centre\n\n\nEurope\nDEFRA\nDepartment of Environment Food & Rural Affairs\n\n\nEurope\nEAU\nHub’Eau France\n\n\nNorth America\nGRDC\nGlobal Runoff Data Centre\n\n\nNorth America\nUSGS\nUnited State Geological Survey\n\n\nNorth America\nWSC\nWater Survey Canada\n\n\nOceania\nGRDC\nGlobal Runoff Data Centre\n\n\nOceania\nABOM\nAustralian Government Bureau of Meteorology\n\n\nSouth America\nGRDC\nGlobal Runoff Data Centre\n\n\nSouth America\nDGA\nDireccion General de Aguas\n\n\nSouth America\nHidroweb\nHidroweb",
     "crumbs": [
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2414,7 +2414,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2428,7 +2428,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2442,7 +2442,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2456,7 +2456,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2470,7 +2470,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2484,7 +2484,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2498,7 +2498,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2512,7 +2512,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2526,7 +2526,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2540,7 +2540,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2554,7 +2554,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2568,7 +2568,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge and gauge data"
     ]
   },
@@ -2686,7 +2686,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2695,12 +2695,12 @@
     "href": "notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.html#summary",
     "title": "Exploring gauges and river discharge in the SWORD of Science (SoS) dataset",
     "section": "Summary",
-    "text": "Summary\n\nLooking at discharge in the SoS\nIt can be helpful to plot the flow law parameter estimation (FLPE) algorithm discharge alongside the integrator (MOI) discharge produced for that algorithm PLUS overlapping in situ gauge data. Note that not all rivers have gauge data associated with them. In this notebook we will look at the steps to plot SoS discharge values produced from running the Confluence workflow alongside in situ gauge data gathered and stored in the priors.\n\n\nGranule structure (background)\nThe SWORD of Science (SoS) is a community-driven dataset produced for and from the execution of the Confluence workflow in the cloud which enables quick data access and compute on SWOT data. Data granules contain two files, priors and results. The priors file contains prior information, such as in-situ gage data and model output that is used to generate the discharge products. The results file contains the resulting river discharge data products.\nThe cloud-based workflow (“Confluence”) that produces the SoS will produce discharge parameter estimates which the SWOT mission will use to produce discharge. This discharge will be stored in the SWOT shapefiles as the official SWOT discharge. However, the Confluence workflow produces discharge time series alongside the discharge parameter estimates in order to preview what will eventually stored in the SWOT shapefiles. Users can reference the SoS for the latest discharge time series recognizing that the official SWOT discharge data product lives in the SWOT shapefiles.\nThe SoS is organized by continent following SWOT River Database (SWORD) structure and naming conventions. It is indexed on the same reach and node identifier dimensions found in SWORD. Time series data is stored by cycle and pass on an observation dimension.\nMore information is available in the SWOT-Confluence Github repository: * Documentation for priors * Documentation for results\nResults are organized into groups corresponding to modules in the SWOT-Confluence processing software. Modules are described in the Confluence Module Documentation.\nYou can explore the SoS further in this notebook: Link TBD.\n\n\nLocate data for a river that has gauges\nWe will select the Ohio River as we know it has gauge data associated with it from the USGS but feel free to modify the constants below for your river of choice!\n\n\nTable of Gauge Agencies by Continent\nThe following list the continent with associated gauge agency and group name of the gauge agency as it is stored in the SoS.\n\n\n\n\n\n\n\n\nContinent\nGroup Name\nGauge Agency\n\n\n\n\nAfrica\nGRDC\nGlobal Runoff Data Centre\n\n\nAsia\nGRDC\nGlobal Runoff Data Centre\n\n\nAsia\nMLIT\nMinistry of Land, Infrastructure, Transport, Tourism\n\n\nEurope\nGRDC\nGlobal Runoff Data Centre\n\n\nEurope\nDEFRA\nDepartment of Environment Food & Rural Affairs\n\n\nEurope\nEAU\nHub’Eau France\n\n\nNorth America\nGRDC\nGlobal Runoff Data Centre\n\n\nNorth America\nUSGS\nUnited State Geological Survey\n\n\nNorth America\nWSC\nWater Survey Canada\n\n\nOceania\nGRDC\nGlobal Runoff Data Centre\n\n\nOceania\nABOM\nAustralian Government Bureau of Meteorology\n\n\nSouth America\nGRDC\nGlobal Runoff Data Centre\n\n\nSouth America\nDGA\nDireccion General de Aguas\n\n\nSouth America\nHidroweb\nHidroweb",
+    "text": "Summary\n\nLooking at discharge in the SoS\nIt can be helpful to plot the flow law parameter estimation (FLPE) algorithm discharge alongside the integrator (MOI) discharge produced for that algorithm PLUS overlapping in situ gauge data. Note that not all rivers have gauge data associated with them. In this notebook we will look at the steps to plot SoS discharge values produced from running the Confluence workflow alongside in situ gauge data gathered and stored in the priors.\n\n\nGranule structure (background)\nThe SWORD of Science (SoS) is a community-driven dataset produced for and from the execution of the Confluence workflow in the cloud which enables quick data access and compute on SWOT data. Data granules contain two files, priors and results. The priors file contains prior information, such as in-situ gage data and model output that is used to generate the discharge products. The results file contains the resulting river discharge data products.\nThe cloud-based workflow (“Confluence”) that produces the SoS will produce discharge parameter estimates which the SWOT mission will use to produce discharge. This discharge will be stored in the SWOT shapefiles as the official SWOT discharge. However, the Confluence workflow produces discharge time series alongside the discharge parameter estimates in order to preview what will eventually stored in the SWOT shapefiles. Users can reference the SoS for the latest discharge time series recognizing that the official SWOT discharge data product lives in the SWOT shapefiles.\nThe SoS is organized by continent following SWOT River Database (SWORD) structure and naming conventions. It is indexed on the same reach and node identifier dimensions found in SWORD. Time series data is stored by cycle and pass on an observation dimension.\nMore information is available in the SWOT-Confluence Github repository: * Documentation for priors * Documentation for results\nResults are organized into groups corresponding to modules in the SWOT-Confluence processing software. Modules are described in the Confluence Module Documentation.\nYou can explore the SoS further in this notebook: https://podaac.github.io/tutorials/notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.html\n\n\nLocate data for a river that has gauges\nWe will select the Ohio River as we know it has gauge data associated with it from the USGS but feel free to modify the constants below for your river of choice!\n\n\nTable of Gauge Agencies by Continent\nThe following list the continent with associated gauge agency and group name of the gauge agency as it is stored in the SoS.\n\n\n\n\n\n\n\n\nContinent\nGroup Name\nGauge Agency\n\n\n\n\nAfrica\nGRDC\nGlobal Runoff Data Centre\n\n\nAsia\nGRDC\nGlobal Runoff Data Centre\n\n\nAsia\nMLIT\nMinistry of Land, Infrastructure, Transport, Tourism\n\n\nEurope\nGRDC\nGlobal Runoff Data Centre\n\n\nEurope\nDEFRA\nDepartment of Environment Food & Rural Affairs\n\n\nEurope\nEAU\nHub’Eau France\n\n\nNorth America\nGRDC\nGlobal Runoff Data Centre\n\n\nNorth America\nUSGS\nUnited State Geological Survey\n\n\nNorth America\nWSC\nWater Survey Canada\n\n\nOceania\nGRDC\nGlobal Runoff Data Centre\n\n\nOceania\nABOM\nAustralian Government Bureau of Meteorology\n\n\nSouth America\nGRDC\nGlobal Runoff Data Centre\n\n\nSouth America\nDGA\nDireccion General de Aguas\n\n\nSouth America\nHidroweb\nHidroweb",
     "crumbs": [
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2714,7 +2714,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2728,7 +2728,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2742,7 +2742,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2756,7 +2756,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2770,7 +2770,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2784,7 +2784,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2798,7 +2798,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2812,7 +2812,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2826,7 +2826,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2840,7 +2840,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2854,7 +2854,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2868,7 +2868,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -2882,7 +2882,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Plotting ALL river discharge algorithms"
     ]
   },
@@ -3108,7 +3108,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3122,7 +3122,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3136,7 +3136,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3150,7 +3150,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3164,7 +3164,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3178,7 +3178,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3192,7 +3192,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3206,7 +3206,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3220,7 +3220,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3234,7 +3234,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -3248,7 +3248,7 @@
       "Tutorials",
       "Dataset Specific",
       "SWOT",
-      "SWORD of Science (SoS)",
+      "SWORD of Science (SoS) Discharge",
       "Exploring river discharge"
     ]
   },
@@ -5395,7 +5395,7 @@
     "href": "external/DownloadDopplerScattData.html",
     "title": "S-MODE Workshop: Science Case Study Airborne Part 1",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Open-Data-Workshop",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Open-Data-Workshop",
     "crumbs": [
       "Tutorials",
       "Dataset Specific",
@@ -5460,7 +5460,7 @@
     "href": "external/July_2022_Earthdata_Webinar.html",
     "title": "Earthdata Webinar",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, the-coding-club",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, the-coding-club",
     "crumbs": [
       "Webinars",
       "July 2022 Earthdata Webinar Notebook"
@@ -5625,7 +5625,7 @@
     "href": "external/SWOT_to_kerchunk.html",
     "title": "Kerchunk JSON Generation",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, the-coding-club.",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, the-coding-club.",
     "crumbs": [
       "Advanced Cloud",
       "Kerchunk"
@@ -5812,7 +5812,7 @@
     "href": "external/Introduction_to_xarray.html",
     "title": "Xarray",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from NASA Openscapes 2021 Cloud Hackathon Repository"
+    "text": "imported on: 2024-06-12\nThis notebook is from NASA Openscapes 2021 Cloud Hackathon Repository"
   },
   {
     "objectID": "external/Introduction_to_xarray.html#why-do-we-need-xarray",
@@ -5947,7 +5947,7 @@
     "href": "external/ECCO_cloud_direct_access_s3.html",
     "title": "Direct Access to ECCO V4r4 Datasets in the Cloud",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, ECCO.",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, ECCO.",
     "crumbs": [
       "Tutorials",
       "Dataset Specific",
@@ -5986,7 +5986,7 @@
     "href": "external/zarr-eosdis-store.html",
     "title": "Zarr Example",
     "section": "",
-    "text": "imported on: 2024-06-11\n\nThis notebook is from NASA’s Zarr EOSDIS store notebook\n\n\nThe original source for this document is https://github.com/nasa/zarr-eosdis-store/blob/main/presentation/example.ipynb\n\n\nzarr-eosdis-store example\nInstall dependencies\n\nimport sys\n\n# zarr and zarr-eosdis-store, the main libraries being demoed\n!{sys.executable} -m pip install zarr zarr-eosdis-store\n\n# Notebook-specific libraries\n!{sys.executable} -m pip install matplotlib\n\nImportant: To run this, you must first create an Earthdata Login account (https://urs.earthdata.nasa.gov) and place your credentials in ~/.netrc e.g.:\n   machine urs.earthdata.nasa.gov login YOUR_USER password YOUR_PASSWORD\nNever share or commit your password / .netrc file!\nBasic usage. After these lines, we work with ds as though it were a normal Zarr dataset\n\nimport zarr\nfrom eosdis_store import EosdisStore\n\nurl = 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/MUR-JPL-L4-GLOB-v4.1/20210715090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.nc'\n\nds = zarr.open(EosdisStore(url))\n\nView the file’s variable structure\n\nprint(ds.tree())\n\n/\n ├── analysed_sst (1, 17999, 36000) int16\n ├── analysis_error (1, 17999, 36000) int16\n ├── dt_1km_data (1, 17999, 36000) int16\n ├── lat (17999,) float32\n ├── lon (36000,) float32\n ├── mask (1, 17999, 36000) int16\n ├── sea_ice_fraction (1, 17999, 36000) int16\n ├── sst_anomaly (1, 17999, 36000) int16\n └── time (1,) int32\n\n\nFetch the latitude and longitude arrays and determine start and end indices for our area of interest. In this case, we’re looking at the Great Lakes, which have a nice, recognizeable shape. Latitudes 41 to 49, longitudes -93 to 76.\n\nlats = ds['lat'][:]\nlons = ds['lon'][:]\nlat_range = slice(lats.searchsorted(41), lats.searchsorted(49))\nlon_range = slice(lons.searchsorted(-93), lons.searchsorted(-76))\n\nGet the analysed sea surface temperature variable over our area of interest and apply scale factor and offset from the file metadata. In a future release, scale factor and add offset will be automatically applied.\n\nvar = ds['analysed_sst']\nanalysed_sst = var[0, lat_range, lon_range] * var.attrs['scale_factor'] + var.attrs['add_offset']\n\nDraw a pretty picture\n\nfrom matplotlib import pyplot as plt\n\nplt.rcParams[\"figure.figsize\"] = [16, 8]\nplt.imshow(analysed_sst[::-1, :])\nNone\n\n\n\n\n\n\n\n\nIn a dozen lines of code and a few seconds, we have managed to fetch and visualize the 3.2 megabyte we needed from a 732 megabyte file using the original archive URL and no processing services",
+    "text": "imported on: 2024-06-12\n\nThis notebook is from NASA’s Zarr EOSDIS store notebook\n\n\nThe original source for this document is https://github.com/nasa/zarr-eosdis-store/blob/main/presentation/example.ipynb\n\n\nzarr-eosdis-store example\nInstall dependencies\n\nimport sys\n\n# zarr and zarr-eosdis-store, the main libraries being demoed\n!{sys.executable} -m pip install zarr zarr-eosdis-store\n\n# Notebook-specific libraries\n!{sys.executable} -m pip install matplotlib\n\nImportant: To run this, you must first create an Earthdata Login account (https://urs.earthdata.nasa.gov) and place your credentials in ~/.netrc e.g.:\n   machine urs.earthdata.nasa.gov login YOUR_USER password YOUR_PASSWORD\nNever share or commit your password / .netrc file!\nBasic usage. After these lines, we work with ds as though it were a normal Zarr dataset\n\nimport zarr\nfrom eosdis_store import EosdisStore\n\nurl = 'https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/MUR-JPL-L4-GLOB-v4.1/20210715090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.nc'\n\nds = zarr.open(EosdisStore(url))\n\nView the file’s variable structure\n\nprint(ds.tree())\n\n/\n ├── analysed_sst (1, 17999, 36000) int16\n ├── analysis_error (1, 17999, 36000) int16\n ├── dt_1km_data (1, 17999, 36000) int16\n ├── lat (17999,) float32\n ├── lon (36000,) float32\n ├── mask (1, 17999, 36000) int16\n ├── sea_ice_fraction (1, 17999, 36000) int16\n ├── sst_anomaly (1, 17999, 36000) int16\n └── time (1,) int32\n\n\nFetch the latitude and longitude arrays and determine start and end indices for our area of interest. In this case, we’re looking at the Great Lakes, which have a nice, recognizeable shape. Latitudes 41 to 49, longitudes -93 to 76.\n\nlats = ds['lat'][:]\nlons = ds['lon'][:]\nlat_range = slice(lats.searchsorted(41), lats.searchsorted(49))\nlon_range = slice(lons.searchsorted(-93), lons.searchsorted(-76))\n\nGet the analysed sea surface temperature variable over our area of interest and apply scale factor and offset from the file metadata. In a future release, scale factor and add offset will be automatically applied.\n\nvar = ds['analysed_sst']\nanalysed_sst = var[0, lat_range, lon_range] * var.attrs['scale_factor'] + var.attrs['add_offset']\n\nDraw a pretty picture\n\nfrom matplotlib import pyplot as plt\n\nplt.rcParams[\"figure.figsize\"] = [16, 8]\nplt.imshow(analysed_sst[::-1, :])\nNone\n\n\n\n\n\n\n\n\nIn a dozen lines of code and a few seconds, we have managed to fetch and visualize the 3.2 megabyte we needed from a 732 megabyte file using the original archive URL and no processing services",
     "crumbs": [
       "Tutorials",
       "Cloud Optimized Examples",
@@ -5998,7 +5998,7 @@
     "href": "external/VisualizeDopplerScattData.html",
     "title": "S-MODE Workshop: Science Case Study Airborne Part 2",
     "section": "",
-    "text": "imported on: 2024-06-11\nThis notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Open-Data-Workshop\n%load_ext autoreload\n%autoreload 2\nimport sys\nsys.path.append('../src')\nfrom matplotlib import pyplot as plt\n%matplotlib inline\nfrom pathlib import Path\nimport numpy as np\nimport rioxarray\nimport xarray as xr\nfrom plot_dopplerscatt_data import make_streamplot_image\nimport warnings\nwarnings.simplefilter('ignore')",
+    "text": "imported on: 2024-06-12\nThis notebook is from a different repository in NASA’s PO.DAAC, 2022-SMODE-Open-Data-Workshop\n%load_ext autoreload\n%autoreload 2\nimport sys\nsys.path.append('../src')\nfrom matplotlib import pyplot as plt\n%matplotlib inline\nfrom pathlib import Path\nimport numpy as np\nimport rioxarray\nimport xarray as xr\nfrom plot_dopplerscatt_data import make_streamplot_image\nimport warnings\nwarnings.simplefilter('ignore')",
     "crumbs": [
       "Tutorials",
       "Dataset Specific",
