@@ -1055,11 +1055,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="#cross-over-calibration-correction" id="toc-cross-over-calibration-correction" class="nav-link" data-scroll-target="#cross-over-calibration-correction">Cross Over Calibration Correction</a></li>
   <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot">Plot</a></li>
   </ul></li>
-  <li><a href="#swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-1.0" id="toc-swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-1.0" class="nav-link" data-scroll-target="#swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-1.0">2. <strong>SWOT Level 2 Nadir Altimeter Interim Geophysical Data Record with Waveforms - SSHA Version 1.0</strong></a>
+  <li><a href="#swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-2.0" id="toc-swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-2.0" class="nav-link" data-scroll-target="#swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-2.0">2. <strong>SWOT Level 2 Nadir Altimeter Interim Geophysical Data Record with Waveforms - SSHA Version 2.0</strong></a>
   <ul class="collapse">
   <li><a href="#access-files-without-any-downloads-to-your-running-instance-1" id="toc-access-files-without-any-downloads-to-your-running-instance-1" class="nav-link" data-scroll-target="#access-files-without-any-downloads-to-your-running-instance-1">Access Files without any Downloads to your running instance</a></li>
   <li><a href="#plot-1" id="toc-plot-1" class="nav-link" data-scroll-target="#plot-1">Plot</a></li>
   </ul></li>
+  <li><a href="#swot-level-2-radiometer-datasets" id="toc-swot-level-2-radiometer-datasets" class="nav-link" data-scroll-target="#swot-level-2-radiometer-datasets">3. <strong>SWOT Level 2 Radiometer Datasets</strong></a></li>
   <li><a href="#a-final-word" id="toc-a-final-word" class="nav-link" data-scroll-target="#a-final-word">A final word…</a></li>
   </ul></li>
   </ul>
@@ -1089,6 +1090,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <ul>
 <li>This is a subcollection of the parent collection: <code>SWOT_L2_NALT_IGDR_2.0</code></li>
 </ul></li>
+<li><strong>SWOT Level 2 Radiometer Data Products</strong> - overview of all</li>
 </ol>
 <p>We will access the data from inside the AWS cloud (us-west-2 region, specifically) and load a time series made of multiple netCDF files into a single xarray dataset.</p>
 <section id="requirement" class="level3">
@@ -1127,14 +1129,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="swot-level-2-karin-low-rate-sea-surface-height-data-product" class="level2">
 <h2 class="anchored" data-anchor-id="swot-level-2-karin-low-rate-sea-surface-height-data-product">1. <strong>SWOT Level 2 KaRIn Low Rate Sea Surface Height Data Product</strong></h2>
+<p>Outlined below is a map of the different KaRIn Data Products we host at PO.DAAC and their sub collections, and why you may choose one over the other. For more information, see the <a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/D-109532_SWOT_UserHandbook_20240502.pdf">SWOT Data User Handbook</a>.</p>
+<p><img src="../../images/SWOT_LR_explanations/SWOT_LR_KaRIn.png" class="img-fluid"></p>
+<p>Once you’ve picked the dataset you want to look at, you can enter its shortname or subcollection below in the search query.</p>
 <section id="access-files-without-any-downloads-to-your-running-instance" class="level3">
 <h3 class="anchored" data-anchor-id="access-files-without-any-downloads-to-your-running-instance">Access Files without any Downloads to your running instance</h3>
 <p>Here, we use the <code>earthaccess</code> Python library to search for and then load the data directly into xarray without downloading any files. This dataset is currently restricted to a select few people, and can only be accessed using the version of <code>earthaccess</code> reinstalled above. If zero granules are returned, make sure the correct version ‘0.5.4’ is installed.</p>
-<div id="cell-6" class="cell" data-tags="[]" data-execution_count="6">
+<div id="cell-6" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#retrieves granule from the day we want</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>karin_results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_LR_SSH_2.0'</span>, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                        temporal <span class="op">=</span> (<span class="st">"2024-02-01 12:00:00"</span>, <span class="st">"2024-02-01 19:43:00"</span>), </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                        granule_name <span class="op">=</span> <span class="st">'*Expert*'</span>) <span class="co"># filter by files with "Expert" in file name. This collection has subcollections of 'Basic', 'Windwave', 'Unsmoothed' and 'Expert' granules.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>karin_results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_LR_SSH_EXPERT_2.0'</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                        temporal <span class="op">=</span> (<span class="st">"2024-02-01 12:00:00"</span>, <span class="st">"2024-02-01 19:43:00"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Granules found: 10</code></pre>
 </div>
@@ -12639,8 +12643,11 @@ Longitude (degrees east of Grenwich meridian) of the satellite nadir point.
 </div>
 </section>
 
-<section id="swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-1.0" class="level2">
-<h2 data-anchor-id="swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-1.0">2. <strong>SWOT Level 2 Nadir Altimeter Interim Geophysical Data Record with Waveforms - SSHA Version 1.0</strong></h2>
+<section id="swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-2.0" class="level2">
+<h2 data-anchor-id="swot-level-2-nadir-altimeter-interim-geophysical-data-record-with-waveforms---ssha-version-2.0">2. <strong>SWOT Level 2 Nadir Altimeter Interim Geophysical Data Record with Waveforms - SSHA Version 2.0</strong></h2>
+<p>Outlined below is a map of the different Nadir Data Products we host at PO.DAAC and their sub collections, and why you may choose one over the other. For more information, see the <a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/D-109532_SWOT_UserHandbook_20240502.pdf">SWOT Data User Handbook</a>.</p>
+<p><img src="../../images/SWOT_LR_explanations/SWOT_LR_Nadir.png" class="img-fluid"></p>
+<p>Once you’ve picked the dataset you want to look at, you can enter its shortname or subcollection below in the search query.</p>
 <section id="access-files-without-any-downloads-to-your-running-instance-1" class="level3">
 <h3 data-anchor-id="access-files-without-any-downloads-to-your-running-instance-1">Access Files without any Downloads to your running instance</h3>
 <p>Here, we use the <code>earthaccess</code> Python library to search for and then load the data directly into xarray without downloading any files.</p>
@@ -16101,6 +16108,12 @@ Should not be used over land
 </div>
 </div>
 </section>
+</section>
+<section id="swot-level-2-radiometer-datasets" class="level2">
+<h2 data-anchor-id="swot-level-2-radiometer-datasets">3. <strong>SWOT Level 2 Radiometer Datasets</strong></h2>
+<p>Outlined below is a map of the different Radiometer Data Products we host at PO.DAAC, and why you may choose one over the other. For more information, see the <a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/D-109532_SWOT_UserHandbook_20240502.pdf">SWOT Data User Handbook</a>.</p>
+<p><img src="../../images/SWOT_LR_explanations/SWOT_LR_Radiometer.png" class="img-fluid"></p>
+<p>Once you’ve picked the dataset you want to look at, you can search and visualize this dataset similar to the above datasets.</p>
 </section>
 <section id="a-final-word" class="level2">
 <h2 data-anchor-id="a-final-word">A final word…</h2>
