@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.53">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - Parallel Computing with Earthdata and Dask: An Example of Replicating a Function Over Many Files</title>
+<title>Parallel Computing with Earthdata and Dask: An Example of Replicating a Function Over Many Files – PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -124,13 +124,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../quarto_text/Dask_Coiled.html">Dask and Coiled</a></li><li class="breadcrumb-item"><a href="../../notebooks/Advanced_cloud/dask_delayed_01.html">Dask Function Replication Example</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -173,16 +173,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How To</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Find Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -209,9 +209,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Access Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -254,7 +254,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -263,7 +263,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Specific</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -272,7 +272,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ECCO</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -301,7 +301,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GHRSST</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -342,16 +342,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPERA</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">Visualization and Mosaicking</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -376,7 +376,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -411,7 +411,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SMAP</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -428,7 +428,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">S-MODE</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -457,16 +457,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SWOT</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
  <span class="menu-text">Search</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -511,18 +511,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
  <span class="menu-text">Access &amp; Visualization</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
  <span class="menu-text">SWOT Hydrology</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -543,9 +543,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false">
  <span class="menu-text">SWOT Oceanography</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -572,9 +572,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false">
  <span class="menu-text">Raster Multifile</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -609,9 +609,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false">
  <span class="menu-text">GIS Workflows</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -638,9 +638,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false">
  <span class="menu-text">Transform Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -659,9 +659,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false">
  <span class="menu-text">NetCDF to Geotiff</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -690,9 +690,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false">
  <span class="menu-text">SWORD of Science (SoS) Discharge</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -737,16 +737,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud vs. Local Workflows</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="false">
  <span class="menu-text">Estuary Example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -767,9 +767,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false">
  <span class="menu-text">Reservoir Example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -790,9 +790,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false">
  <span class="menu-text">Lake Extent Example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -817,16 +817,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Science Data Stories</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false">
  <span class="menu-text">Amazon Estuary Exploration</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -875,7 +875,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Examples</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -906,7 +906,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced Cloud</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -915,7 +915,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AWS Lambda</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -932,7 +932,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask and Coiled</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -993,7 +993,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Webinars</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -1016,7 +1016,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contribute</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -1390,10 +1390,7 @@ MW_OI-REMSS-L4-GLOB-v5.0 : 73 granules
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total computation time = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime) <span class="op">+</span> <span class="st">" seconds."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Opening 1 granules, approx size: 0.01 GB
-using endpoint: https://archive.podaac.earthdata.nasa.gov/s3credentials
-Opening 1 granules, approx size: 0.0 GB
-using endpoint: https://archive.podaac.earthdata.nasa.gov/s3credentials
-Total computation time = 21.34 seconds.</code></pre>
+using endpoint: https://archive.podaac.earthdata.nasa.gov/s3credentials</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
@@ -1410,6 +1407,10 @@ Total computation time = 21.34 seconds.</code></pre>
 {"model_id":"b9d3fc7863224ec3a9bc6559f47af508","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Opening 1 granules, approx size: 0.0 GB
+using endpoint: https://archive.podaac.earthdata.nasa.gov/s3credentials</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"11b43bfb71ef40ca81e8ca3ba42e3f0a","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -1425,12 +1426,15 @@ Total computation time = 21.34 seconds.</code></pre>
 {"model_id":"169de0b421894ed9974c8eb144f9544f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total computation time = 21.34 seconds.</code></pre>
+</div>
 </div>
 <div id="edeedc7b-446f-475c-9e74-3d968ccecbe0" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot the results:</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">3</span>))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.contourf(lons, lats, coef, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot the results:</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">3</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.contourf(lons, lats, coef, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1443,26 +1447,26 @@ Total computation time = 21.34 seconds.</code></pre>
 <h3 class="anchored" data-anchor-id="estimation-of-computation-time-for-higher-resolution-output-and-more-files">Estimation of computation time for higher resolution output and more files</h3>
 <p>The computation for one file computed on a 2 x 2 degree grid takes:</p>
 <div id="aaa50edd-81f7-4965-b3c3-b59aacfe8b30" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(comptime) <span class="op">+</span> <span class="st">" seconds."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(comptime) <span class="op">+</span> <span class="st">" seconds."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>18.88 seconds.</code></pre>
 </div>
 </div>
 <p>then assuming linear scaling with number of gridpoints (reasonable since our top level function is a big for-loop), processing one file at 0.5 x 0.5 degree resolution would take:</p>
 <div id="e1b8e45b-d352-4c16-9647-6796cddc1f47" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>eta_fullres_seconds <span class="op">=</span> comptime<span class="op">*</span>(<span class="dv">2</span><span class="op">/</span><span class="fl">0.5</span>)<span class="op">*</span>(<span class="dv">2</span><span class="op">/</span><span class="fl">0.5</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>eta_fullres_minutes <span class="op">=</span> <span class="bu">round</span>(eta_fullres_seconds<span class="op">/</span><span class="dv">60</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(eta_fullres_minutes) <span class="op">+</span> <span class="st">" minutes."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>eta_fullres_seconds <span class="op">=</span> comptime<span class="op">*</span>(<span class="dv">2</span><span class="op">/</span><span class="fl">0.5</span>)<span class="op">*</span>(<span class="dv">2</span><span class="op">/</span><span class="fl">0.5</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>eta_fullres_minutes <span class="op">=</span> <span class="bu">round</span>(eta_fullres_seconds<span class="op">/</span><span class="dv">60</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(eta_fullres_minutes) <span class="op">+</span> <span class="st">" minutes."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>5 minutes.</code></pre>
 </div>
 </div>
 <p>and for the record over all of 2018 would take:</p>
 <div id="339cce06-7228-45ce-b254-8f2c611b5581" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>eta_allfiles_hrs <span class="op">=</span> <span class="bu">round</span>( (<span class="bu">len</span>(grans_ssh)<span class="op">*</span>eta_fullres_minutes)<span class="op">/</span><span class="dv">60</span>, <span class="dv">1</span> )</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>eta_allfiles_days <span class="op">=</span> <span class="bu">round</span>(eta_allfiles_hrs<span class="op">/</span><span class="dv">24</span>, <span class="dv">2</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(<span class="bu">len</span>(grans_ssh)) <span class="op">+</span> <span class="st">" granules for 2018."</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(eta_allfiles_hrs) <span class="op">+</span> <span class="st">" hours = "</span> <span class="op">+</span> <span class="bu">str</span>(eta_allfiles_days) <span class="op">+</span> <span class="st">" days."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>eta_allfiles_hrs <span class="op">=</span> <span class="bu">round</span>( (<span class="bu">len</span>(grans_ssh)<span class="op">*</span>eta_fullres_minutes)<span class="op">/</span><span class="dv">60</span>, <span class="dv">1</span> )</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>eta_allfiles_days <span class="op">=</span> <span class="bu">round</span>(eta_allfiles_hrs<span class="op">/</span><span class="dv">24</span>, <span class="dv">2</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(<span class="bu">len</span>(grans_ssh)) <span class="op">+</span> <span class="st">" granules for 2018."</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">str</span>(eta_allfiles_hrs) <span class="op">+</span> <span class="st">" hours = "</span> <span class="op">+</span> <span class="bu">str</span>(eta_allfiles_days) <span class="op">+</span> <span class="st">" days."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>73 granules for 2018.
 6.1 hours = 0.25 days.</code></pre>
@@ -1476,59 +1480,59 @@ Total computation time = 21.34 seconds.</code></pre>
 <p>The previous section showed that analyzing a year’s worth of data at 0.5 x 0.5 degree output resolution would take hours. In this section, we use <code>dask.delayed()</code> and a local cluster to complete this task in 7 - 20 minutes, depending on the VM type used.</p>
 <p>First, define a wrapper function which calls <code>spatial_corrmap()</code> for a pair of SSH, SST files and saves the output to a netCDF file. We will parallelize this function rather than <code>spatial_corrmap()</code>:</p>
 <div id="98e203e7-4abb-4047-9c24-21474dc8751d" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrmap_tofile(grans, dir_results<span class="op">=</span><span class="st">"./"</span>, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, lats<span class="op">=</span><span class="va">None</span>, lons<span class="op">=</span><span class="va">None</span>, f_notnull<span class="op">=</span><span class="fl">0.5</span>):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calls spatial_corrmap() for a pair of SSH, SST granules and saves the results to a netCDF file.</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    coef, lats, lons <span class="op">=</span> spatial_corrmap(grans, lat_halfwin, lon_halfwin, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> grans[<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="co"># get date from SSH UR.</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    corrmap_da <span class="op">=</span> xr.DataArray(data<span class="op">=</span>coef, dims<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>], coords<span class="op">=</span><span class="bu">dict</span>(lon<span class="op">=</span>lons, lat<span class="op">=</span>lats), name<span class="op">=</span><span class="st">'corr_ssh_sst'</span>)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    corrmap_da.to_netcdf(dir_results<span class="op">+</span><span class="st">"spatial-corr-map_ssh-sst_"</span> <span class="op">+</span> date <span class="op">+</span> <span class="st">".nc"</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrmap_tofile(grans, dir_results<span class="op">=</span><span class="st">"./"</span>, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, lats<span class="op">=</span><span class="va">None</span>, lons<span class="op">=</span><span class="va">None</span>, f_notnull<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calls spatial_corrmap() for a pair of SSH, SST granules and saves the results to a netCDF file.</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    coef, lats, lons <span class="op">=</span> spatial_corrmap(grans, lat_halfwin, lon_halfwin, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> grans[<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="co"># get date from SSH UR.</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    corrmap_da <span class="op">=</span> xr.DataArray(data<span class="op">=</span>coef, dims<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>], coords<span class="op">=</span><span class="bu">dict</span>(lon<span class="op">=</span>lons, lat<span class="op">=</span>lats), name<span class="op">=</span><span class="st">'corr_ssh_sst'</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    corrmap_da.to_netcdf(dir_results<span class="op">+</span><span class="st">"spatial-corr-map_ssh-sst_"</span> <span class="op">+</span> date <span class="op">+</span> <span class="st">".nc"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, some prep work:</p>
 <div id="5ae1310c-fc47-4902-889a-ad8788e4f2e4" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All output will be saved to this local directory:</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>dir_results <span class="op">=</span> <span class="st">"results/"</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>os.makedirs(dir_results, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Latitudes, longitudes of output grid at 0.5 degree resolution:</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>lats <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">80</span>, <span class="dv">80</span>, <span class="fl">0.5</span>)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>lons <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">359</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All output will be saved to this local directory:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dir_results <span class="op">=</span> <span class="st">"results/"</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>os.makedirs(dir_results, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Latitudes, longitudes of output grid at 0.5 degree resolution:</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>lats <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">80</span>, <span class="dv">80</span>, <span class="fl">0.5</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>lons <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">359</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Start up the cluster. We used a c7i.24xlarge EC2 instance type, which has 96 vCPU’s, and therefore we are able to start up 73 workers. If you use a smaller instance type in the C7i series, change the <code>n_workers</code> arg as needed.</p>
 <div id="bf462967-48d4-4298-883f-e653ae465822" class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client(n_workers<span class="op">=</span><span class="dv">73</span>, threads_per_worker<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client.cluster)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client.dashboard_link)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client(n_workers<span class="op">=</span><span class="dv">73</span>, threads_per_worker<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client.cluster)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client.dashboard_link)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This block of code will give each worker our EDL credentials (even though we logged in with <code>earthaccess()</code> this is necessary to get creds to each worker):</p>
 <div id="c9f6acf9-6660-4659-bcba-b3781279cb8f" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> auth_env(auth): <span class="co"># this gets executed on each worker</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"EARTHDATA_USERNAME"</span>] <span class="op">=</span> auth[<span class="st">"EARTHDATA_USERNAME"</span>]</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"EARTHDATA_PASSWORD"</span>] <span class="op">=</span> auth[<span class="st">"EARTHDATA_PASSWORD"</span>]</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> client.run(auth_env, auth<span class="op">=</span>earthaccess.auth_environ())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> auth_env(auth): <span class="co"># this gets executed on each worker</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"EARTHDATA_USERNAME"</span>] <span class="op">=</span> auth[<span class="st">"EARTHDATA_USERNAME"</span>]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"EARTHDATA_PASSWORD"</span>] <span class="op">=</span> auth[<span class="st">"EARTHDATA_PASSWORD"</span>]</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> client.run(auth_env, auth<span class="op">=</span>earthaccess.auth_environ())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>then setup the parallel computations and run! (At the time this notebook was written, <code>earthaccess</code> produces a lot of output each time a file is opened, and so the output from this cell is long):</p>
 <div id="f48eb3ce-d024-4ef4-8f98-b9c5607b232a" class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> time.time()</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Process granules in parallel using Dask:</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>grans_2tuples <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(grans_ssh_analyze, grans_sst_analyze))</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>corrmap_tofile_parallel <span class="op">=</span> delayed(corrmap_tofile)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>tasks <span class="op">=</span> [</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    corrmap_tofile_parallel(g2, dir_results<span class="op">=</span><span class="st">"results/"</span>, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>) </span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> g2 <span class="kw">in</span> grans_2tuples[:]</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    ]                     <span class="co"># Sets up the computations (relatively quick)</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> da.compute(<span class="op">*</span>tasks)    <span class="co"># Performs the computations (takes most of the time)</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> time.time()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> time.time()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Process granules in parallel using Dask:</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>grans_2tuples <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(grans_ssh_analyze, grans_sst_analyze))</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>corrmap_tofile_parallel <span class="op">=</span> delayed(corrmap_tofile)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>tasks <span class="op">=</span> [</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    corrmap_tofile_parallel(g2, dir_results<span class="op">=</span><span class="st">"results/"</span>, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>) </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> g2 <span class="kw">in</span> grans_2tuples[:]</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    ]                     <span class="co"># Sets up the computations (relatively quick)</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> da.compute(<span class="op">*</span>tasks)    <span class="co"># Performs the computations (takes most of the time)</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> time.time()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="ba29771b-12f4-48aa-9a4b-10631d174955" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">## What was the total computation time?</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>comptime <span class="op">=</span> <span class="bu">round</span>(t2<span class="op">-</span>t1, <span class="dv">2</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total computation time = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime) <span class="op">+</span> <span class="st">" seconds = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime<span class="op">/</span><span class="dv">60</span>) <span class="op">+</span> <span class="st">" minutes."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">## What was the total computation time?</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>comptime <span class="op">=</span> <span class="bu">round</span>(t2<span class="op">-</span>t1, <span class="dv">2</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total computation time = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime) <span class="op">+</span> <span class="st">" seconds = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime<span class="op">/</span><span class="dv">60</span>) <span class="op">+</span> <span class="st">" minutes."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Total computation time = 451.97 seconds = 7.5328333333333335 minutes.</code></pre>
 </div>
@@ -1537,11 +1541,11 @@ Total computation time = 21.34 seconds.</code></pre>
 <h3 class="anchored" data-anchor-id="test-plots">Test plots</h3>
 <p><strong>Colormaps of first three files</strong></p>
 <div id="afecf856-86da-45fd-b0a9-4835a5695268" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fns_results <span class="op">=</span> [dir_results <span class="op">+</span> f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(dir_results) <span class="cf">if</span> f.endswith(<span class="st">"nc"</span>)]</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn <span class="kw">in</span> fns_results[:<span class="dv">3</span>]:</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    testfile <span class="op">=</span> xr.open_dataset(fn)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    testfile[<span class="st">"corr_ssh_sst"</span>].plot(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">2</span>), vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    testfile.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fns_results <span class="op">=</span> [dir_results <span class="op">+</span> f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(dir_results) <span class="cf">if</span> f.endswith(<span class="st">"nc"</span>)]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn <span class="kw">in</span> fns_results[:<span class="dv">3</span>]:</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    testfile <span class="op">=</span> xr.open_dataset(fn)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    testfile[<span class="st">"corr_ssh_sst"</span>].plot(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">2</span>), vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    testfile.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1566,8 +1570,8 @@ Total computation time = 21.34 seconds.</code></pre>
 </div>
 <p><strong>Colormap of mean correlation map for all files</strong></p>
 <div id="059bea98-7730-4f6a-a23d-8f65b6aeeb69" class="cell" data-scrolled="true" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>test_allfiles <span class="op">=</span> xr.open_mfdataset(fns_results, combine<span class="op">=</span><span class="st">'nested'</span>, concat_dim<span class="op">=</span><span class="st">'dummy_time'</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>test_allfiles[<span class="st">"corr_ssh_sst"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>test_allfiles <span class="op">=</span> xr.open_mfdataset(fns_results, combine<span class="op">=</span><span class="st">'nested'</span>, concat_dim<span class="op">=</span><span class="st">'dummy_time'</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>test_allfiles[<span class="st">"corr_ssh_sst"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1990,8 +1994,8 @@ Dimensions without coordinates: dummy_time</pre><div class="xr-wrap" style="disp
 </div>
 </div>
 <div id="6acd40ea-b554-4e87-b918-380e283ef0c9" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>test_allfiles[<span class="st">"corr_ssh_sst"</span>].mean(dim<span class="op">=</span><span class="st">'dummy_time'</span>).plot(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">3</span>), vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>test_allfiles.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>test_allfiles[<span class="st">"corr_ssh_sst"</span>].mean(dim<span class="op">=</span><span class="st">'dummy_time'</span>).plot(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">3</span>), vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>test_allfiles.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2020,23 +2024,23 @@ Dimensions without coordinates: dummy_time</pre><div class="xr-wrap" style="disp
 </div>
 <p>First, we duplicate most of the code in Section 2, this time getting granule info objects for the entire record:</p>
 <div id="2c48c196-605c-491d-91c4-04a0564ed9fe" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>earthaccess.login()</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Granule info for all files in both collections:</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>grans_ssh <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL2205"</span>)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>grans_sst <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"MW_OI-REMSS-L4-GLOB-v5.0"</span>)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">## File coverage dates extracted from filenames:</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>dates_ssh <span class="op">=</span> [g[<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">'_'</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="cf">for</span> g <span class="kw">in</span> grans_ssh]</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>dates_sst <span class="op">=</span> [g[<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>][:<span class="dv">8</span>] <span class="cf">for</span> g <span class="kw">in</span> grans_sst]</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co">## Separate granule info for dates where there are both SSH and SST files:</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>grans_ssh_analyze <span class="op">=</span> []</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>grans_sst_analyze <span class="op">=</span> []</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(dates_ssh)):</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dates_ssh[j] <span class="kw">in</span> dates_sst:</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>        grans_ssh_analyze.append(grans_ssh[j])</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>        grans_sst_analyze.append(grans_sst[dates_sst.index(dates_ssh[j])])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>earthaccess.login()</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Granule info for all files in both collections:</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>grans_ssh <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL2205"</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>grans_sst <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"MW_OI-REMSS-L4-GLOB-v5.0"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co">## File coverage dates extracted from filenames:</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>dates_ssh <span class="op">=</span> [g[<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">'_'</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="cf">for</span> g <span class="kw">in</span> grans_ssh]</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>dates_sst <span class="op">=</span> [g[<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>][:<span class="dv">8</span>] <span class="cf">for</span> g <span class="kw">in</span> grans_sst]</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="co">## Separate granule info for dates where there are both SSH and SST files:</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>grans_ssh_analyze <span class="op">=</span> []</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>grans_sst_analyze <span class="op">=</span> []</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(dates_ssh)):</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dates_ssh[j] <span class="kw">in</span> dates_sst:</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>        grans_ssh_analyze.append(grans_ssh[j])</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>        grans_sst_analyze.append(grans_sst[dates_sst.index(dates_ssh[j])])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Granules found: 2207
 Granules found: 9039</code></pre>
@@ -2044,33 +2048,33 @@ Granules found: 9039</code></pre>
 </div>
 <p>Same wrapper function as in section 4:</p>
 <div id="09f809ad-e15c-4e7a-8195-2a09d8d7aff1" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrmap_tofile(grans, dir_results<span class="op">=</span><span class="st">"./"</span>, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, lats<span class="op">=</span><span class="va">None</span>, lons<span class="op">=</span><span class="va">None</span>, f_notnull<span class="op">=</span><span class="fl">0.5</span>):</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calls spatial_corrmap() for a pair of SSH, SST granules and saves the results to a netCDF file.</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    coef, lats, lons <span class="op">=</span> spatial_corrmap(grans, lat_halfwin, lon_halfwin, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> grans[<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="co"># get date from SSH UR.</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    corrmap_da <span class="op">=</span> xr.DataArray(data<span class="op">=</span>coef, dims<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>], coords<span class="op">=</span><span class="bu">dict</span>(lon<span class="op">=</span>lons, lat<span class="op">=</span>lats), name<span class="op">=</span><span class="st">'corr_ssh_sst'</span>)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    corrmap_da.to_netcdf(dir_results<span class="op">+</span><span class="st">"spatial-corr-map_ssh-sst_"</span> <span class="op">+</span> date <span class="op">+</span> <span class="st">".nc"</span>)</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrmap_tofile(grans, dir_results<span class="op">=</span><span class="st">"./"</span>, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, lats<span class="op">=</span><span class="va">None</span>, lons<span class="op">=</span><span class="va">None</span>, f_notnull<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calls spatial_corrmap() for a pair of SSH, SST granules and saves the results to a netCDF file.</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    coef, lats, lons <span class="op">=</span> spatial_corrmap(grans, lat_halfwin, lon_halfwin, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> grans[<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="co"># get date from SSH UR.</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    corrmap_da <span class="op">=</span> xr.DataArray(data<span class="op">=</span>coef, dims<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>], coords<span class="op">=</span><span class="bu">dict</span>(lon<span class="op">=</span>lons, lat<span class="op">=</span>lats), name<span class="op">=</span><span class="st">'corr_ssh_sst'</span>)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    corrmap_da.to_netcdf(dir_results<span class="op">+</span><span class="st">"spatial-corr-map_ssh-sst_"</span> <span class="op">+</span> date <span class="op">+</span> <span class="st">".nc"</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Some prep work:</p>
 <div id="0b4e009f-2fad-4362-bea7-a58ab1d4c53d" class="cell" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-create the local directory to store results in:</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>dir_results <span class="op">=</span> <span class="st">"results/"</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> os.path.exists(dir_results) <span class="kw">and</span> os.path.isdir(dir_results):</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    shutil.rmtree(dir_results)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>os.makedirs(dir_results)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Latitudes, longitudes of output grid at 0.5 degree resolution:</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>lats <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">80</span>, <span class="fl">80.1</span>, <span class="fl">0.25</span>)</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>lons <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">360</span>, <span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-create the local directory to store results in:</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>dir_results <span class="op">=</span> <span class="st">"results/"</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> os.path.exists(dir_results) <span class="kw">and</span> os.path.isdir(dir_results):</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    shutil.rmtree(dir_results)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>os.makedirs(dir_results)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Latitudes, longitudes of output grid at 0.5 degree resolution:</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>lats <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">80</span>, <span class="fl">80.1</span>, <span class="fl">0.25</span>)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>lons <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">360</span>, <span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define function that will pass each worker our EDL credentials:</p>
 <div id="76081630-a89b-4839-9ed9-62e71112395f" class="cell" data-execution_count="59">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> auth_env(auth): <span class="co"># this gets executed on each worker</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"EARTHDATA_USERNAME"</span>] <span class="op">=</span> auth[<span class="st">"EARTHDATA_USERNAME"</span>]</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"EARTHDATA_PASSWORD"</span>] <span class="op">=</span> auth[<span class="st">"EARTHDATA_PASSWORD"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> auth_env(auth): <span class="co"># this gets executed on each worker</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"EARTHDATA_USERNAME"</span>] <span class="op">=</span> auth[<span class="st">"EARTHDATA_USERNAME"</span>]</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"EARTHDATA_PASSWORD"</span>] <span class="op">=</span> auth[<span class="st">"EARTHDATA_PASSWORD"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="slightly-altered-method-of-setting-up-the-parallel-computations" class="level4">
 <h4 class="anchored" data-anchor-id="slightly-altered-method-of-setting-up-the-parallel-computations"><strong>Slightly altered method of setting up the parallel computations</strong></h4>
@@ -2079,51 +2083,51 @@ Granules found: 9039</code></pre>
 <p>To get around this, we use the follwing workflow: 1. Split the list of file-pairs into “batches” 2. <em>In a for-loop:</em> &gt;* Start a new cluster &gt;* Map a file-pairs for one of the batches to the cluster workers &gt;* Close the cluster</p>
 <p>While less elegant, we find that is does keep the computation times more consistent throughout the 1808 file-pairs.</p>
 <div id="350eed40-37c4-4bff-8a42-8de67b89748e" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Nice to check how many CPU's are on this machine before setting worker number:</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(multiprocessing.cpu_count())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Nice to check how many CPU's are on this machine before setting worker number:</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(multiprocessing.cpu_count())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>96</code></pre>
 </div>
 </div>
 <div id="2c180073-6b0b-487a-92c4-8796d02e2bd9" class="cell" data-execution_count="60">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Create list of integers which will be start/end indexes for each file batch:</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>n_workers<span class="op">=</span><span class="dv">96</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>n_batches <span class="op">=</span> <span class="bu">int</span>(np.ceil(<span class="bu">len</span>(grans_ssh_analyze)<span class="op">/</span>n_workers))</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>i_batches <span class="op">=</span> [n_workers<span class="op">*</span>i <span class="cf">for</span> i <span class="kw">in</span> (<span class="bu">range</span>(n_batches<span class="op">+</span><span class="dv">1</span>))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Create list of integers which will be start/end indexes for each file batch:</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>n_workers<span class="op">=</span><span class="dv">96</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>n_batches <span class="op">=</span> <span class="bu">int</span>(np.ceil(<span class="bu">len</span>(grans_ssh_analyze)<span class="op">/</span>n_workers))</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>i_batches <span class="op">=</span> [n_workers<span class="op">*</span>i <span class="cf">for</span> i <span class="kw">in</span> (<span class="bu">range</span>(n_batches<span class="op">+</span><span class="dv">1</span>))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup parallel computations and run (At the time this notebook was written, <code>earthaccess</code> produces a lot of output each time a file is opened, and so the output from this cell is long):</p>
 <div id="097e351b-93fd-4669-a0b1-557b694943e0" class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> time.time()</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>grans_2tuples <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(grans_ssh_analyze, grans_sst_analyze))</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>dask.config.<span class="bu">set</span>({<span class="st">"distributed.admin.system-monitor.gil.enabled"</span>: <span class="va">False</span>}) <span class="co"># Adjust settings to suppress noisy output when closing cluster</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(i_batches)<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Start new cluster and pass Earthdata Login creds to each worker:</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    client <span class="op">=</span> Client(n_workers<span class="op">=</span>n_workers, threads_per_worker<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(client.cluster, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, client.dashboard_link)</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> client.run(auth_env, auth<span class="op">=</span>earthaccess.auth_environ()) </span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Process granules in parallel using Dask:</span></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    corrmap_tofile_parallel <span class="op">=</span> delayed(corrmap_tofile)</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    tasks <span class="op">=</span> [</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>        corrmap_tofile_parallel(g2, dir_results<span class="op">=</span><span class="st">"results/"</span>, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>) </span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> g2 <span class="kw">in</span> grans_2tuples[i_batches[i]:i_batches[i<span class="op">+</span><span class="dv">1</span>]]</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>        ]                     <span class="co"># Sets up the computations (relatively quick)</span></span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> da.compute(<span class="op">*</span>tasks)    <span class="co"># Performs the computations (takes most of the time)</span></span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Close cluster:</span></span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    client.cluster.close()</span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>    client.close()</span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Time elapsed ="</span>, <span class="bu">str</span>(<span class="bu">round</span>(time.time() <span class="op">-</span> t1)<span class="op">/</span><span class="dv">60</span>), <span class="st">"minutes."</span>)</span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> time.time()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> time.time()</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>grans_2tuples <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(grans_ssh_analyze, grans_sst_analyze))</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>dask.config.<span class="bu">set</span>({<span class="st">"distributed.admin.system-monitor.gil.enabled"</span>: <span class="va">False</span>}) <span class="co"># Adjust settings to suppress noisy output when closing cluster</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(i_batches)<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Start new cluster and pass Earthdata Login creds to each worker:</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    client <span class="op">=</span> Client(n_workers<span class="op">=</span>n_workers, threads_per_worker<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(client.cluster, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, client.dashboard_link)</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> client.run(auth_env, auth<span class="op">=</span>earthaccess.auth_environ()) </span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Process granules in parallel using Dask:</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>    corrmap_tofile_parallel <span class="op">=</span> delayed(corrmap_tofile)</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>    tasks <span class="op">=</span> [</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>        corrmap_tofile_parallel(g2, dir_results<span class="op">=</span><span class="st">"results/"</span>, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>) </span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> g2 <span class="kw">in</span> grans_2tuples[i_batches[i]:i_batches[i<span class="op">+</span><span class="dv">1</span>]]</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>        ]                     <span class="co"># Sets up the computations (relatively quick)</span></span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> da.compute(<span class="op">*</span>tasks)    <span class="co"># Performs the computations (takes most of the time)</span></span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Close cluster:</span></span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>    client.cluster.close()</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>    client.close()</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Time elapsed ="</span>, <span class="bu">str</span>(<span class="bu">round</span>(time.time() <span class="op">-</span> t1)<span class="op">/</span><span class="dv">60</span>), <span class="st">"minutes."</span>)</span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> time.time()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="e5265151-5e68-4f0e-957c-267d36cd873a" class="cell" data-execution_count="63">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">## What was the total computation time?</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>comptime <span class="op">=</span> <span class="bu">round</span>(t2<span class="op">-</span>t1, <span class="dv">2</span>)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total computation time = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime) <span class="op">+</span> <span class="st">" seconds = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime<span class="op">/</span><span class="dv">60</span>) <span class="op">+</span> <span class="st">" minutes."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">## What was the total computation time?</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>comptime <span class="op">=</span> <span class="bu">round</span>(t2<span class="op">-</span>t1, <span class="dv">2</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total computation time = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime) <span class="op">+</span> <span class="st">" seconds = "</span> <span class="op">+</span> <span class="bu">str</span>(comptime<span class="op">/</span><span class="dv">60</span>) <span class="op">+</span> <span class="st">" minutes."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Total computation time = 37563.47 seconds = 626.0578333333334 minutes.</code></pre>
 </div>
@@ -2133,11 +2137,11 @@ Granules found: 9039</code></pre>
 <h3 class="anchored" data-anchor-id="test-plots-1">Test plots</h3>
 <p><strong>Colormaps of first three files</strong></p>
 <div id="8360f65b-4643-498a-bfd7-6a2925a3de68" class="cell" data-execution_count="64">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fns_results <span class="op">=</span> [dir_results <span class="op">+</span> f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(dir_results) <span class="cf">if</span> f.endswith(<span class="st">"nc"</span>)]</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn <span class="kw">in</span> fns_results[:<span class="dv">3</span>]:</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    testfile <span class="op">=</span> xr.open_dataset(fn)</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    testfile[<span class="st">"corr_ssh_sst"</span>].plot(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">2</span>), vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    testfile.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>fns_results <span class="op">=</span> [dir_results <span class="op">+</span> f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(dir_results) <span class="cf">if</span> f.endswith(<span class="st">"nc"</span>)]</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn <span class="kw">in</span> fns_results[:<span class="dv">3</span>]:</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    testfile <span class="op">=</span> xr.open_dataset(fn)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    testfile[<span class="st">"corr_ssh_sst"</span>].plot(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">2</span>), vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    testfile.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2162,8 +2166,8 @@ Granules found: 9039</code></pre>
 </div>
 <p><strong>Colormap of mean correlation map for all files</strong></p>
 <div id="981915bf-903d-40da-8ed9-8a8e039147bb" class="cell" data-scrolled="true" data-execution_count="65">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>test_allfiles <span class="op">=</span> xr.open_mfdataset(fns_results, combine<span class="op">=</span><span class="st">'nested'</span>, concat_dim<span class="op">=</span><span class="st">'dummy_time'</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>test_allfiles[<span class="st">"corr_ssh_sst"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>test_allfiles <span class="op">=</span> xr.open_mfdataset(fns_results, combine<span class="op">=</span><span class="st">'nested'</span>, concat_dim<span class="op">=</span><span class="st">'dummy_time'</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>test_allfiles[<span class="st">"corr_ssh_sst"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="65">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -2591,8 +2595,8 @@ Dimensions without coordinates: dummy_time</pre><div class="xr-wrap" style="disp
 </div>
 </div>
 <div id="fa2629c9-d2a7-4b09-84d5-a7308d6d2ebc" class="cell" data-execution_count="66">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>test_allfiles[<span class="st">"corr_ssh_sst"</span>].mean(dim<span class="op">=</span><span class="st">'dummy_time'</span>).plot(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">3</span>), vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>test_allfiles.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>test_allfiles[<span class="st">"corr_ssh_sst"</span>].mean(dim<span class="op">=</span><span class="st">'dummy_time'</span>).plot(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">3</span>), vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>test_allfiles.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2786,18 +2790,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2829,7 +2822,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
@@ -2837,7 +2852,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

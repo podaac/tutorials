@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.53">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook - How do I access Cloud Data from my Local Machine in Python?</title>
+<title>How do I access Cloud Data from my Local Machine in Python? – PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -124,13 +124,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/HowTo.html">How To</a></li><li class="breadcrumb-item"><a href="../external/access-cloud-python.html">Access Data</a></li><li class="breadcrumb-item"><a href="../external/access-local-python.html">Locally</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -173,16 +173,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How To</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Find Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -209,9 +209,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Access Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -254,7 +254,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -263,7 +263,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Specific</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -272,7 +272,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ECCO</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -301,7 +301,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GHRSST</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -342,16 +342,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPERA</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">Visualization and Mosaicking</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -376,7 +376,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -411,7 +411,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SMAP</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -428,7 +428,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">S-MODE</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -457,16 +457,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SWOT</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
  <span class="menu-text">Search</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -511,18 +511,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
  <span class="menu-text">Access &amp; Visualization</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
  <span class="menu-text">SWOT Hydrology</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -543,9 +543,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false">
  <span class="menu-text">SWOT Oceanography</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -572,9 +572,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false">
  <span class="menu-text">Raster Multifile</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -609,9 +609,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false">
  <span class="menu-text">GIS Workflows</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -638,9 +638,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false">
  <span class="menu-text">Transform Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -659,9 +659,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false">
  <span class="menu-text">NetCDF to Geotiff</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -690,9 +690,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false">
  <span class="menu-text">SWORD of Science (SoS) Discharge</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -737,16 +737,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud vs. Local Workflows</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="false">
  <span class="menu-text">Estuary Example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -767,9 +767,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false">
  <span class="menu-text">Reservoir Example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -790,9 +790,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false">
  <span class="menu-text">Lake Extent Example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -817,16 +817,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Science Data Stories</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false">
  <span class="menu-text">Amazon Estuary Exploration</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -875,7 +875,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Examples</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -906,7 +906,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced Cloud</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -915,7 +915,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AWS Lambda</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -932,7 +932,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask and Coiled</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -993,7 +993,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Webinars</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -1016,7 +1016,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contribute</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -1117,17 +1117,19 @@ Using .netrc file for EDL</code></pre>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">file</span> <span class="op">=</span> <span class="st">"local_folder/"</span><span class="op">+</span> f</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    downloaded_files.append(<span class="bu">file</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> Getting 5 granules, approx download size: 0.0 GB
-File ATL06_20220718010029_03991603_005_01.h5 already downloaded
-File ATL06_20220718134522_04071605_005_01.h5 already downloaded
-File ATL06_20220722005209_04601603_005_01.h5 already downloaded
-File ATL06_20220726004352_05211603_005_01.h5 already downloaded
-File ATL06_20220722133704_04681605_005_01.h5 already downloaded</code></pre>
+<pre><code> Getting 5 granules, approx download size: 0.0 GB</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"29a000b5c5454312a61d32efaac26b47","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>File ATL06_20220718010029_03991603_005_01.h5 already downloaded
+File ATL06_20220718134522_04071605_005_01.h5 already downloaded
+File ATL06_20220722005209_04601603_005_01.h5 already downloaded
+File ATL06_20220726004352_05211603_005_01.h5 already downloaded
+File ATL06_20220722133704_04681605_005_01.h5 already downloaded</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
@@ -1148,9 +1150,9 @@ File ATL06_20220722133704_04681605_005_01.h5 already downloaded</code></pre>
 </div>
 </div>
 <div id="cell-7" class="cell" data-tags="[]" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Use xarray to load the data as a multifile dataset for a single group in the HDF5 file, in this case land ice segments:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_mfdataset(downloaded_files, group<span class="op">=</span><span class="st">'/gt1l/land_ice_segments'</span>, engine<span class="op">=</span><span class="st">'h5netcdf'</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Use xarray to load the data as a multifile dataset for a single group in the HDF5 file, in this case land ice segments:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_mfdataset(downloaded_files, group<span class="op">=</span><span class="st">'/gt1l/land_ice_segments'</span>, engine<span class="op">=</span><span class="st">'h5netcdf'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1575,70 +1577,7 @@ Attributes:
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>longitude</span>
-</div>
-<div class="xr-var-dims">
-(delta_time)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-</div>
-<input id="attrs-8eefcd5c-4248-4cfe-ab63-a58b39943581" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-8eefcd5c-4248-4cfe-ab63-a58b39943581" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-772df00f-0afb-45b0-8d63-f163e46cd34c" class="xr-var-data-in" type="checkbox">
-<label for="data-772df00f-0afb-45b0-8d63-f163e46cd34c" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>contentType :</span></dt>
-<dd>
-physicalMeasurement
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-Longitude of segment center, , WGS84, East=+
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Longitude
-</dd>
-<dt><span>source :</span></dt>
-<dd>
-section 3.10
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-longitude
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-degrees_east
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-180.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
--180.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-8eefcd5c-4248-4cfe-ab63-a58b39943581" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8eefcd5c-4248-4cfe-ab63-a58b39943581" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-772df00f-0afb-45b0-8d63-f163e46cd34c" class="xr-var-data-in" type="checkbox"><label for="data-772df00f-0afb-45b0-8d63-f163e46cd34c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>physicalMeasurement</dd><dt><span>description :</span></dt><dd>Longitude of segment center, , WGS84, East=+</dd><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>source :</span></dt><dd>section 3.10</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180.0</dd><dt><span>valid_min :</span></dt><dd>-180.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1681,85 +1620,7 @@ degrees_east
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li class="xr-section-item">
-<input id="section-307e9671-af65-4562-ad6b-9b542559c8c6" class="xr-section-summary-in" type="checkbox" checked="">
-<label for="section-307e9671-af65-4562-ad6b-9b542559c8c6" class="xr-section-summary">Data variables: <span>(5)</span></label>
-<div class="xr-section-inline-details">
-
-</div>
-<div class="xr-section-details">
-<ul class="xr-var-list">
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>atl06_quality_summary</span>
-</div>
-<div class="xr-var-dims">
-(delta_time)
-</div>
-<div class="xr-var-dtype">
-int8
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-</div>
-<input id="attrs-46d77a3d-3216-4306-894e-05588a47011a" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-46d77a3d-3216-4306-894e-05588a47011a" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-756210ca-db44-46da-8d48-29db778da9cf" class="xr-var-data-in" type="checkbox">
-<label for="data-756210ca-db44-46da-8d48-29db778da9cf" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>contentType :</span></dt>
-<dd>
-qualityInformation
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-The ATL06_quality_summary parameter indicates the best-quality subset of all ATL06 data. A zero in this parameter implies that no data-quality tests have found a problem with the segment, a one implies that some potential problem has been found. Users who select only segments with zero values for this flag can be relatively certain of obtaining high-quality data, but will likely miss a significant fraction of usable data, particularly in cloudy, rough, or low-surface-reflectance conditions.
-</dd>
-<dt><span>flag_meanings :</span></dt>
-<dd>
-best_quality potential_problem
-</dd>
-<dt><span>flag_values :</span></dt>
-<dd>
-[0 1]
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-ATL06_Quality_Summary
-</dd>
-<dt><span>source :</span></dt>
-<dd>
-section 4.3
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-1
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-307e9671-af65-4562-ad6b-9b542559c8c6" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-307e9671-af65-4562-ad6b-9b542559c8c6" class="xr-section-summary">Data variables: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>atl06_quality_summary</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">int8</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-46d77a3d-3216-4306-894e-05588a47011a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-46d77a3d-3216-4306-894e-05588a47011a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-756210ca-db44-46da-8d48-29db778da9cf" class="xr-var-data-in" type="checkbox"><label for="data-756210ca-db44-46da-8d48-29db778da9cf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>The ATL06_quality_summary parameter indicates the best-quality subset of all ATL06 data. A zero in this parameter implies that no data-quality tests have found a problem with the segment, a one implies that some potential problem has been found. Users who select only segments with zero values for this flag can be relatively certain of obtaining high-quality data, but will likely miss a significant fraction of usable data, particularly in cloudy, rough, or low-surface-reflectance conditions.</dd><dt><span>flag_meanings :</span></dt><dd>best_quality potential_problem</dd><dt><span>flag_values :</span></dt><dd>[0 1]</dd><dt><span>long_name :</span></dt><dd>ATL06_Quality_Summary</dd><dt><span>source :</span></dt><dd>section 4.3</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_max :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1802,58 +1663,7 @@ section 4.3
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>h_li</span>
-</div>
-<div class="xr-var-dims">
-(delta_time)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-</div>
-<input id="attrs-c2b3ffab-5524-4df0-8b0b-40ff7ca4f2e5" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-c2b3ffab-5524-4df0-8b0b-40ff7ca4f2e5" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-5d4cb468-cc54-4a54-95f4-c1d1abfa5155" class="xr-var-data-in" type="checkbox">
-<label for="data-5d4cb468-cc54-4a54-95f4-c1d1abfa5155" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>contentType :</span></dt>
-<dd>
-physicalMeasurement
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-Standard land-ice segment height determined by land ice algorithm, corrected for first-photon bias, representing the median- based height of the selected PEs
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Land Ice height
-</dd>
-<dt><span>source :</span></dt>
-<dd>
-section 4.4
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-meters
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>h_li</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-c2b3ffab-5524-4df0-8b0b-40ff7ca4f2e5" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c2b3ffab-5524-4df0-8b0b-40ff7ca4f2e5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5d4cb468-cc54-4a54-95f4-c1d1abfa5155" class="xr-var-data-in" type="checkbox"><label for="data-5d4cb468-cc54-4a54-95f4-c1d1abfa5155" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>physicalMeasurement</dd><dt><span>description :</span></dt><dd>Standard land-ice segment height determined by land ice algorithm, corrected for first-photon bias, representing the median- based height of the selected PEs</dd><dt><span>long_name :</span></dt><dd>Land Ice height</dd><dt><span>source :</span></dt><dd>section 4.4</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1896,58 +1706,7 @@ meters
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>h_li_sigma</span>
-</div>
-<div class="xr-var-dims">
-(delta_time)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-</div>
-<input id="attrs-eb10ec8c-2f67-44c4-a345-2ded0b4a362a" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-eb10ec8c-2f67-44c4-a345-2ded0b4a362a" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-c4d121ff-3c70-456c-87e9-41f114a6334b" class="xr-var-data-in" type="checkbox">
-<label for="data-c4d121ff-3c70-456c-87e9-41f114a6334b" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>contentType :</span></dt>
-<dd>
-qualityInformation
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-Propagated error due to sampling error and FPB correction from the land ice algorithm
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Expected RMS segment misfit
-</dd>
-<dt><span>source :</span></dt>
-<dd>
-section 4.4
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-meters
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>h_li_sigma</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-eb10ec8c-2f67-44c4-a345-2ded0b4a362a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-eb10ec8c-2f67-44c4-a345-2ded0b4a362a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c4d121ff-3c70-456c-87e9-41f114a6334b" class="xr-var-data-in" type="checkbox"><label for="data-c4d121ff-3c70-456c-87e9-41f114a6334b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>Propagated error due to sampling error and FPB correction from the land ice algorithm</dd><dt><span>long_name :</span></dt><dd>Expected RMS segment misfit</dd><dt><span>source :</span></dt><dd>section 4.4</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1990,58 +1749,7 @@ meters
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>segment_id</span>
-</div>
-<div class="xr-var-dims">
-(delta_time)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-</div>
-<input id="attrs-f571f50b-5295-404a-b540-14a2ee3562a7" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-f571f50b-5295-404a-b540-14a2ee3562a7" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-06cef1f9-c893-4fc4-956d-5c82f29e3ca7" class="xr-var-data-in" type="checkbox">
-<label for="data-06cef1f9-c893-4fc4-956d-5c82f29e3ca7" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>contentType :</span></dt>
-<dd>
-referenceInformation
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-Segment number, counting from the equator. Equal to the segment_id for the second of the two 20m ATL03 segments included in the 40m ATL06 segment
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Reference Point, m
-</dd>
-<dt><span>source :</span></dt>
-<dd>
-section 3.1.2.1
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-1
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>segment_id</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-f571f50b-5295-404a-b540-14a2ee3562a7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f571f50b-5295-404a-b540-14a2ee3562a7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-06cef1f9-c893-4fc4-956d-5c82f29e3ca7" class="xr-var-data-in" type="checkbox"><label for="data-06cef1f9-c893-4fc4-956d-5c82f29e3ca7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>referenceInformation</dd><dt><span>description :</span></dt><dd>Segment number, counting from the equator. Equal to the segment_id for the second of the two 20m ATL03 segments included in the 40m ATL06 segment</dd><dt><span>long_name :</span></dt><dd>Reference Point, m</dd><dt><span>source :</span></dt><dd>section 3.1.2.1</dd><dt><span>units :</span></dt><dd>1</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2084,58 +1792,7 @@ section 3.1.2.1
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>sigma_geo_h</span>
-</div>
-<div class="xr-var-dims">
-(delta_time)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-</div>
-<input id="attrs-04b3f3f3-6421-4c9f-8c0c-c8c2f311572c" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-04b3f3f3-6421-4c9f-8c0c-c8c2f311572c" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-e2e9e5de-3297-41aa-acab-56dc9ea6eb9c" class="xr-var-data-in" type="checkbox">
-<label for="data-e2e9e5de-3297-41aa-acab-56dc9ea6eb9c" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>contentType :</span></dt>
-<dd>
-qualityInformation
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-Total vertical geolocation error due to PPD and POD, including the effects of horizontal geolocation error on the segment vertical error.
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Vertical Geolocation Error
-</dd>
-<dt><span>source :</span></dt>
-<dd>
-ATBD Section 3.10
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-meters
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>sigma_geo_h</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-04b3f3f3-6421-4c9f-8c0c-c8c2f311572c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-04b3f3f3-6421-4c9f-8c0c-c8c2f311572c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e2e9e5de-3297-41aa-acab-56dc9ea6eb9c" class="xr-var-data-in" type="checkbox"><label for="data-e2e9e5de-3297-41aa-acab-56dc9ea6eb9c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>Total vertical geolocation error due to PPD and POD, including the effects of horizontal geolocation error on the segment vertical error.</dd><dt><span>long_name :</span></dt><dd>Vertical Geolocation Error</dd><dt><span>source :</span></dt><dd>ATBD Section 3.10</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2178,9 +1835,7 @@ meters
 </tr>
 </tbody>
 </table>
-</div>
-</li></ul></div>
-</li></ul></div></div><li class="xr-section-item"><input id="section-b6fc795f-7af7-4392-a05d-fa97baec91c0" class="xr-section-summary-in" type="checkbox"><label for="section-b6fc795f-7af7-4392-a05d-fa97baec91c0" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>delta_time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-2e964178-aa51-4377-854e-3c8b47ee98ce" class="xr-index-data-in" type="checkbox"><label for="index-2e964178-aa51-4377-854e-3c8b47ee98ce" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-07-18 01:00:46.678760592',
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-b6fc795f-7af7-4392-a05d-fa97baec91c0" class="xr-section-summary-in" type="checkbox"><label for="section-b6fc795f-7af7-4392-a05d-fa97baec91c0" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>delta_time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-2e964178-aa51-4377-854e-3c8b47ee98ce" class="xr-index-data-in" type="checkbox"><label for="index-2e964178-aa51-4377-854e-3c8b47ee98ce" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-07-18 01:00:46.678760592',
                '2022-07-18 01:00:46.681322640',
                '2022-07-18 01:00:46.684008720',
                '2022-07-18 01:00:46.686753504',
@@ -2201,14 +1856,14 @@ meters
                '2022-07-26 00:49:18.826637808',
                '2022-07-26 00:49:18.829449568',
                '2022-07-26 00:49:18.832263232'],
-              dtype='datetime64[ns]', name='delta_time', length=241711, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-5ce877b7-149d-4d8f-a7b5-451e212c7882" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-5ce877b7-149d-4d8f-a7b5-451e212c7882" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Description :</span></dt><dd>The land_ice_height group contains the primary set of derived ATL06 products. This includes geolocation, height, and standard error and quality measures for each segment. This group is sparse, meaning that parameters are provided only for pairs of segments for which at least one beam has a valid surface-height measurement.</dd><dt><span>data_rate :</span></dt><dd>Data within this group are sparse.  Data values are provided only for those ICESat-2 20m segments where at least one beam has a valid land ice height measurement.</dd></dl></div></li></div></div>
-</section></main></div>
+              dtype='datetime64[ns]', name='delta_time', length=241711, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-5ce877b7-149d-4d8f-a7b5-451e212c7882" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-5ce877b7-149d-4d8f-a7b5-451e212c7882" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Description :</span></dt><dd>The land_ice_height group contains the primary set of derived ATL06 products. This includes geolocation, height, and standard error and quality measures for each segment. This group is sparse, meaning that parameters are provided only for pairs of segments for which at least one beam has a valid surface-height measurement.</dd><dt><span>data_rate :</span></dt><dd>Data within this group are sparse.  Data values are provided only for those ICESat-2 20m segments where at least one beam has a valid land ice height measurement.</dd></dl></div></li></ul></div></div>
+</div>
+</div>
 
 
+</section>
 
-
-
- <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2388,18 +2043,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2431,7 +2075,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
@@ -2439,7 +2105,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -2774,7 +2440,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
- <!-- /content -->
+</div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">

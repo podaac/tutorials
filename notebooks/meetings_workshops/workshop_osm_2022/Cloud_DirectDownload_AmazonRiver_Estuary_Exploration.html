@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.53">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PO.DAAC Cookbook</title>
+<title>cloud_directdownload_amazonriver_estuary_exploration – PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -124,13 +124,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../quarto_text/CloudvsLocalWorkflows.html">Cloud vs.&nbsp;Local Workflows</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html">Estuary Example</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html">Local</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -173,16 +173,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How To</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Find Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -209,9 +209,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Access Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -254,7 +254,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -263,7 +263,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Specific</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -272,7 +272,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ECCO</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -301,7 +301,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GHRSST</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -342,16 +342,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPERA</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">Visualization and Mosaicking</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -376,7 +376,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -411,7 +411,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SMAP</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -428,7 +428,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">S-MODE</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -457,16 +457,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SWOT</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
  <span class="menu-text">Search</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -511,18 +511,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
  <span class="menu-text">Access &amp; Visualization</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
  <span class="menu-text">SWOT Hydrology</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -543,9 +543,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false">
  <span class="menu-text">SWOT Oceanography</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -572,9 +572,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false">
  <span class="menu-text">Raster Multifile</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -609,9 +609,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false">
  <span class="menu-text">GIS Workflows</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -638,9 +638,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false">
  <span class="menu-text">Transform Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -659,9 +659,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false">
  <span class="menu-text">NetCDF to Geotiff</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -690,9 +690,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false">
  <span class="menu-text">SWORD of Science (SoS) Discharge</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -737,16 +737,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud vs. Local Workflows</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="true">
  <span class="menu-text">Estuary Example</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -767,9 +767,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false">
  <span class="menu-text">Reservoir Example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -790,9 +790,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false">
  <span class="menu-text">Lake Extent Example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -817,16 +817,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Science Data Stories</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false">
  <span class="menu-text">Amazon Estuary Exploration</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -875,7 +875,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Examples</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -906,7 +906,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced Cloud</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -915,7 +915,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AWS Lambda</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -932,7 +932,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask and Coiled</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -993,7 +993,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Webinars</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -1016,7 +1016,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sidebar-item-container"> 
             <a href="../../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contribute</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -3552,66 +3552,7 @@ Attributes: (12/53)
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>uncertainty</span>
-</div>
-<div class="xr-var-dims">
-(time, lat, lon)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(219, 360, 720), meta=np.ndarray&gt;
-</div>
-<input id="attrs-5130a259-6ed0-4bed-a340-4037aedbc194" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-5130a259-6ed0-4bed-a340-4037aedbc194" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-8ac90538-b530-4f4c-8bf6-a22d3f480d31" class="xr-var-data-in" type="checkbox">
-<label for="data-8ac90538-b530-4f4c-8bf6-a22d3f480d31" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>units :</span></dt>
-<dd>
-cm
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-uncertainty
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-uncertainty
-</dd>
-<dt><span>grid_mapping :</span></dt>
-<dd>
-WGS84
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.15854006805783352
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-53.34469598560085
-</dd>
-<dt><span>comment :</span></dt>
-<dd>
-1-sigma uncertainty: not for each 0.5 degree grid cell, but for each 3-degree mascon estimate
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>uncertainty</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(219, 360, 720), meta=np.ndarray&gt;</div><input id="attrs-5130a259-6ed0-4bed-a340-4037aedbc194" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5130a259-6ed0-4bed-a340-4037aedbc194" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8ac90538-b530-4f4c-8bf6-a22d3f480d31" class="xr-var-data-in" type="checkbox"><label for="data-8ac90538-b530-4f4c-8bf6-a22d3f480d31" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>cm</dd><dt><span>long_name :</span></dt><dd>uncertainty</dd><dt><span>standard_name :</span></dt><dd>uncertainty</dd><dt><span>grid_mapping :</span></dt><dd>WGS84</dd><dt><span>valid_min :</span></dt><dd>0.15854006805783352</dd><dt><span>valid_max :</span></dt><dd>53.34469598560085</dd><dt><span>comment :</span></dt><dd>1-sigma uncertainty: not for each 0.5 degree grid cell, but for each 3-degree mascon estimate</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3656,50 +3597,7 @@ WGS84
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>lat_bounds</span>
-</div>
-<div class="xr-var-dims">
-(lat, bounds)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(360, 2), meta=np.ndarray&gt;
-</div>
-<input id="attrs-006898ae-49c9-44ce-b1cf-7d39aa05a1d4" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-006898ae-49c9-44ce-b1cf-7d39aa05a1d4" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-16633691-8c83-4ddd-aa22-333be93a73f6" class="xr-var-data-in" type="checkbox">
-<label for="data-16633691-8c83-4ddd-aa22-333be93a73f6" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-latitude boundaries
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-degrees_north
-</dd>
-<dt><span>comment :</span></dt>
-<dd>
-latitude values at the north and south bounds of each pixel
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>lat_bounds</span></div><div class="xr-var-dims">(lat, bounds)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(360, 2), meta=np.ndarray&gt;</div><input id="attrs-006898ae-49c9-44ce-b1cf-7d39aa05a1d4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-006898ae-49c9-44ce-b1cf-7d39aa05a1d4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-16633691-8c83-4ddd-aa22-333be93a73f6" class="xr-var-data-in" type="checkbox"><label for="data-16633691-8c83-4ddd-aa22-333be93a73f6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>latitude boundaries</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>comment :</span></dt><dd>latitude values at the north and south bounds of each pixel</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3744,50 +3642,7 @@ latitude values at the north and south bounds of each pixel
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>lon_bounds</span>
-</div>
-<div class="xr-var-dims">
-(lon, bounds)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(720, 2), meta=np.ndarray&gt;
-</div>
-<input id="attrs-829b6fd3-a024-4a5b-9098-c3a554887cfe" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-829b6fd3-a024-4a5b-9098-c3a554887cfe" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-4fb709ad-f982-40dd-85a4-efe643d7b3fb" class="xr-var-data-in" type="checkbox">
-<label for="data-4fb709ad-f982-40dd-85a4-efe643d7b3fb" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-longitude boundaries
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-degrees_east
-</dd>
-<dt><span>comment :</span></dt>
-<dd>
-longitude values at the west and east bounds of each pixel
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>lon_bounds</span></div><div class="xr-var-dims">(lon, bounds)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(720, 2), meta=np.ndarray&gt;</div><input id="attrs-829b6fd3-a024-4a5b-9098-c3a554887cfe" class="xr-var-attrs-in" type="checkbox"><label for="attrs-829b6fd3-a024-4a5b-9098-c3a554887cfe" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4fb709ad-f982-40dd-85a4-efe643d7b3fb" class="xr-var-data-in" type="checkbox"><label for="data-4fb709ad-f982-40dd-85a4-efe643d7b3fb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>longitude boundaries</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>comment :</span></dt><dd>longitude values at the west and east bounds of each pixel</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3832,46 +3687,7 @@ longitude values at the west and east bounds of each pixel
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>time_bounds</span>
-</div>
-<div class="xr-var-dims">
-(time, bounds)
-</div>
-<div class="xr-var-dtype">
-datetime64[ns]
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(219, 2), meta=np.ndarray&gt;
-</div>
-<input id="attrs-25fe6aa1-e867-4e80-b2d6-414827dc6570" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-25fe6aa1-e867-4e80-b2d6-414827dc6570" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-fd6af3a1-631d-49e6-ad4c-b9aa458e5d71" class="xr-var-data-in" type="checkbox">
-<label for="data-fd6af3a1-631d-49e6-ad4c-b9aa458e5d71" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-time boundaries
-</dd>
-<dt><span>comment :</span></dt>
-<dd>
-time bounds for each time value, i.e. the first day and last day included in the monthly solution
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>time_bounds</span></div><div class="xr-var-dims">(time, bounds)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(219, 2), meta=np.ndarray&gt;</div><input id="attrs-25fe6aa1-e867-4e80-b2d6-414827dc6570" class="xr-var-attrs-in" type="checkbox"><label for="attrs-25fe6aa1-e867-4e80-b2d6-414827dc6570" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fd6af3a1-631d-49e6-ad4c-b9aa458e5d71" class="xr-var-data-in" type="checkbox"><label for="data-fd6af3a1-631d-49e6-ad4c-b9aa458e5d71" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>time boundaries</dd><dt><span>comment :</span></dt><dd>time bounds for each time value, i.e. the first day and last day included in the monthly solution</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3916,54 +3732,7 @@ time bounds for each time value, i.e. the first day and last day included in the
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>land_mask</span>
-</div>
-<div class="xr-var-dims">
-(lat, lon)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(360, 720), meta=np.ndarray&gt;
-</div>
-<input id="attrs-daaf955b-66d6-4602-a10c-5a3ff55859d3" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-daaf955b-66d6-4602-a10c-5a3ff55859d3" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-975f8e5a-fe4c-4e3f-8d12-eb363802ea36" class="xr-var-data-in" type="checkbox">
-<label for="data-975f8e5a-fe4c-4e3f-8d12-eb363802ea36" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>units :</span></dt>
-<dd>
-binary
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Land_Mask
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-Land_Mask
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-Land Mask that was used with the CRI filter
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>land_mask</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(360, 720), meta=np.ndarray&gt;</div><input id="attrs-daaf955b-66d6-4602-a10c-5a3ff55859d3" class="xr-var-attrs-in" type="checkbox"><label for="attrs-daaf955b-66d6-4602-a10c-5a3ff55859d3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-975f8e5a-fe4c-4e3f-8d12-eb363802ea36" class="xr-var-data-in" type="checkbox"><label for="data-975f8e5a-fe4c-4e3f-8d12-eb363802ea36" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>binary</dd><dt><span>long_name :</span></dt><dd>Land_Mask</dd><dt><span>standard_name :</span></dt><dd>Land_Mask</dd><dt><span>description :</span></dt><dd>Land Mask that was used with the CRI filter</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -4008,62 +3777,7 @@ Land Mask that was used with the CRI filter
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>scale_factor</span>
-</div>
-<div class="xr-var-dims">
-(lat, lon)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(360, 720), meta=np.ndarray&gt;
-</div>
-<input id="attrs-b5171c88-d08d-49b7-bced-338b49bfd9ed" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-b5171c88-d08d-49b7-bced-338b49bfd9ed" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-23c29f8d-1219-48d0-a5bb-eed5980c76a1" class="xr-var-data-in" type="checkbox">
-<label for="data-23c29f8d-1219-48d0-a5bb-eed5980c76a1" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>units :</span></dt>
-<dd>
-dimensionless
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Scale_Factor_CRI
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-Scale_Factor_CRI
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
--99999.0
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-24.133988467789724
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-Gridded scale factors to be used with mascon solution that has the CRI filter applied; based on CLM data from 2002-2009
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>scale_factor</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(360, 720), meta=np.ndarray&gt;</div><input id="attrs-b5171c88-d08d-49b7-bced-338b49bfd9ed" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b5171c88-d08d-49b7-bced-338b49bfd9ed" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-23c29f8d-1219-48d0-a5bb-eed5980c76a1" class="xr-var-data-in" type="checkbox"><label for="data-23c29f8d-1219-48d0-a5bb-eed5980c76a1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>dimensionless</dd><dt><span>long_name :</span></dt><dd>Scale_Factor_CRI</dd><dt><span>standard_name :</span></dt><dd>Scale_Factor_CRI</dd><dt><span>valid_min :</span></dt><dd>-99999.0</dd><dt><span>valid_max :</span></dt><dd>24.133988467789724</dd><dt><span>description :</span></dt><dd>Gridded scale factors to be used with mascon solution that has the CRI filter applied; based on CLM data from 2002-2009</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -4108,62 +3822,7 @@ Gridded scale factors to be used with mascon solution that has the CRI filter ap
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>mascon_ID</span>
-</div>
-<div class="xr-var-dims">
-(lat, lon)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(360, 720), meta=np.ndarray&gt;
-</div>
-<input id="attrs-6f50deed-166a-49a3-ad71-6fdc75c81e74" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-6f50deed-166a-49a3-ad71-6fdc75c81e74" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-4b9a1962-40fe-453d-a4e5-b39e6eb51422" class="xr-var-data-in" type="checkbox">
-<label for="data-4b9a1962-40fe-453d-a4e5-b39e6eb51422" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>units :</span></dt>
-<dd>
-dimensionless
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Mascon_Identifier
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-Mascon_ID
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-1
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-4551
-</dd>
-<dt><span>description :</span></dt>
-<dd>
-Mascon identifier mapped to the grid
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>mascon_ID</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(360, 720), meta=np.ndarray&gt;</div><input id="attrs-6f50deed-166a-49a3-ad71-6fdc75c81e74" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6f50deed-166a-49a3-ad71-6fdc75c81e74" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4b9a1962-40fe-453d-a4e5-b39e6eb51422" class="xr-var-data-in" type="checkbox"><label for="data-4b9a1962-40fe-453d-a4e5-b39e6eb51422" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>dimensionless</dd><dt><span>long_name :</span></dt><dd>Mascon_Identifier</dd><dt><span>standard_name :</span></dt><dd>Mascon_ID</dd><dt><span>valid_min :</span></dt><dd>1</dd><dt><span>valid_max :</span></dt><dd>4551</dd><dt><span>description :</span></dt><dd>Mascon identifier mapped to the grid</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -4208,8 +3867,7 @@ Mascon identifier mapped to the grid
 </tr>
 </tbody>
 </table>
-</div>
-</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-0a2a2671-42f4-4a88-b1a0-c7681ae92ce8" class="xr-section-summary-in" type="checkbox"><label for="section-0a2a2671-42f4-4a88-b1a0-c7681ae92ce8" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-4c03c22a-f434-4f49-8a18-810c1768d390" class="xr-index-data-in" type="checkbox"><label for="index-4c03c22a-f434-4f49-8a18-810c1768d390" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([  0.25,   0.75,   1.25,   1.75,   2.25,   2.75,   3.25,   3.75,
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-0a2a2671-42f4-4a88-b1a0-c7681ae92ce8" class="xr-section-summary-in" type="checkbox"><label for="section-0a2a2671-42f4-4a88-b1a0-c7681ae92ce8" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-4c03c22a-f434-4f49-8a18-810c1768d390" class="xr-index-data-in" type="checkbox"><label for="index-4c03c22a-f434-4f49-8a18-810c1768d390" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([  0.25,   0.75,   1.25,   1.75,   2.25,   2.75,   3.25,   3.75,
                 4.25,   4.75,
               ...
               355.25, 355.75, 356.25, 356.75, 357.25, 357.75, 358.25, 358.75,
@@ -4230,12 +3888,12 @@ Mascon identifier mapped to the grid
                '2022-10-16 12:00:00', '2022-11-16 00:00:00',
                '2022-12-16 12:00:00', '2023-01-16 12:00:00',
                '2023-02-15 00:00:00', '2023-03-16 12:00:00'],
-              dtype='datetime64[ns]', name='time', length=219, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-91c6b881-0846-4327-9a65-eb133a561307" class="xr-section-summary-in" type="checkbox"><label for="section-91c6b881-0846-4327-9a65-eb133a561307" class="xr-section-summary">Attributes: <span>(53)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD-1.3, ISO 8601</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Dataset Discovery v1.0</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention-1.6</dd><dt><span>title :</span></dt><dd>JPL GRACE and GRACE-FO MASCON RL06.1Mv03 CRI</dd><dt><span>summary :</span></dt><dd>Monthly gravity solutions from GRACE and GRACE-FO as determined from the JPL RL06.1Mv03 mascon solution - with CRI filter applied</dd><dt><span>keywords :</span></dt><dd>Solid Earth, Geodetics/Gravity, Gravity, liquid_water_equivalent_thickness</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>platform :</span></dt><dd>GRACE and GRACE-FO</dd><dt><span>institution :</span></dt><dd>NASA/JPL</dd><dt><span>creator_name :</span></dt><dd>David Wiese</dd><dt><span>creator_email :</span></dt><dd>grace@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>https://grace.jpl.nasa.gov</dd><dt><span>creator_type :</span></dt><dd>group</dd><dt><span>creator_institution :</span></dt><dd>NASA/JPL</dd><dt><span>publisher_name :</span></dt><dd>Physical Oceanography Distributed Active Archive Center</dd><dt><span>publisher_email :</span></dt><dd>podaac@jpl.nasa.gov</dd><dt><span>publisher_url :</span></dt><dd>https://podaac.jpl.nasa.gov</dd><dt><span>publisher_type :</span></dt><dd>group</dd><dt><span>publisher_institution :</span></dt><dd>NASA/JPL</dd><dt><span>project :</span></dt><dd>NASA Gravity Recovery and Climate Experiment (GRACE) and NASA Gravity Recovery and Climate Experiment Follow-On (GRACE-FO)</dd><dt><span>program :</span></dt><dd>NASA Earth Science System Pathfinder and NASA Earth Systematic Missions Program</dd><dt><span>id :</span></dt><dd>10.5067/TEMSC-3JC62</dd><dt><span>naming_authority :</span></dt><dd>org.doi.dx</dd><dt><span>source :</span></dt><dd>GRACE and GRACE-FO JPL RL06.1Mv03-CRI</dd><dt><span>processing_level :</span></dt><dd>2 and 3</dd><dt><span>acknowledgement :</span></dt><dd>GRACE is a joint mission of NASA (USA) and DLR (Germany).  GRACE-FO is a joint mission of NASA (USA) and the German Research Center for Geosciences (GFZ).  Use the digital object identifier provided in the id attribute when citing this data.  See https://podaac.jpl.nasa.gov/CitingPODAAC</dd><dt><span>license :</span></dt><dd>https://science.nasa.gov/earth-science/earth-science-data/data-information-policy</dd><dt><span>product_version :</span></dt><dd>v3.0</dd><dt><span>time_epoch :</span></dt><dd>2002-01-01T00:00:00Z</dd><dt><span>time_coverage_start :</span></dt><dd>2002-04-16T00:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2023-03-16T23:59:59Z</dd><dt><span>geospatial_lat_min :</span></dt><dd>-89.75</dd><dt><span>geospatial_lat_max :</span></dt><dd>89.75</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.5 degree grid; however the native resolution of the data is 3-degree equal-area mascons</dd><dt><span>geospatial_lon_min :</span></dt><dd>0.25</dd><dt><span>geospatial_lon_max :</span></dt><dd>359.75</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.5 degree grid; however the native resolution of the data is 3-degree equal-area mascons</dd><dt><span>time_mean_removed :</span></dt><dd>2004.000 to 2009.999</dd><dt><span>months_missing :</span></dt><dd>2002-06;2002-07;2003-06;2011-01;2011-06;2012-05;2012-10;2013-03;2013-08;2013-09;2014-02;2014-07;2014-12;2015-06;2015-10;2015-11;2016-04;2016-09;2016-10;2017-02;2017-07;2017-08;2017-09;2017-10;2017-11;2017-12;2018-01;2018-02;2018-03;2018-04;2018-05;2018-08-2018-09</dd><dt><span>postprocess_1 :</span></dt><dd> OCEAN_ATMOSPHERE_DEALIAS_MODEL (GAD), MONTHLY_AVE, ADDED BACK TO OCEAN PIXELS ONLY</dd><dt><span>postprocess_2 :</span></dt><dd>Water density used to convert to equivalent water height: 1000 kg/m^3</dd><dt><span>postprocess_3 :</span></dt><dd>Coastline Resolution Improvement (CRI) filter has been applied to separate land/ocean mass within mascons that span coastlines</dd><dt><span>GIA_removed :</span></dt><dd>ICE6G-D; Peltier, W. R., D. F. Argus, and R. Drummond (2018) Comment on the paper by Purcell et al. 2016 entitled An assessment of ICE-6G_C (VM5a) glacial isostatic adjustment model, J. Geophys. Res. Solid Earth, 122.</dd><dt><span>geocenter_correction :</span></dt><dd>We use a version of TN-13 based on the JPL mascons</dd><dt><span>C_20_substitution :</span></dt><dd>TN-14; Loomis et al., 2019, Geophys. Res. Lett., doi:10.1029/2019GL082929</dd><dt><span>C_30_substitution :</span></dt><dd>TN-14; Loomis et al., 2019, Geophys. Res. Lett., doi:10.1029/2019GL082929.  This substitution is made for all months after August 2016.</dd><dt><span>user_note_1 :</span></dt><dd>The accelerometer on the GRACE-B spacecraft was turned off after August 2016.  After this date, the accelerometer on GRACE-A was used to derive the non-gravitational accelerations acting on GRACE-B using a transplant procedure.  This has led to a subsequent degradation in the quality of the gravity fields derived.  The uncertainties in this file have been scaled to accomodate this degradation.</dd><dt><span>user_note_2 :</span></dt><dd>The accelerometer on the GRACE-D spacecraft began performing sub-optimally after June 21, 2018.  After this date, the accelerometer on GRACE-C is used to derive the non-gravitational accelerations acting on GRACE-D using a transplant procedure.  The uncertainties in the file have been scaled to accomodate this degradation using the current best state of knowledge.</dd><dt><span>journal_reference :</span></dt><dd>Watkins, M. M., D. N. Wiese, D.-N. Yuan, C. Boening, and F. W. Landerer (2015) Improved methods for observing Earth's time variable mass distribution with GRACE using spherical cap mascons, J. Geophys. Res., 120, doi:10.1002/2014JB011547. </dd><dt><span>CRI_filter_journal_reference :</span></dt><dd>Wiese, D. N., F. W. Landerer, and M. M. Watkins (2016) Quantifying and reducing leakage errors in the JPL RL05M GRACE mascon solution, Water Resour. Res., 52, doi:10.1002/2016WR019344. </dd><dt><span>date_created :</span></dt><dd>2023-05-22T06:05:03Z</dd></dl></div></li></div></div>
+              dtype='datetime64[ns]', name='time', length=219, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-91c6b881-0846-4327-9a65-eb133a561307" class="xr-section-summary-in" type="checkbox"><label for="section-91c6b881-0846-4327-9a65-eb133a561307" class="xr-section-summary">Attributes: <span>(53)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD-1.3, ISO 8601</dd><dt><span>Metadata_Conventions :</span></dt><dd>Unidata Dataset Discovery v1.0</dd><dt><span>standard_name_vocabulary :</span></dt><dd>NetCDF Climate and Forecast (CF) Metadata Convention-1.6</dd><dt><span>title :</span></dt><dd>JPL GRACE and GRACE-FO MASCON RL06.1Mv03 CRI</dd><dt><span>summary :</span></dt><dd>Monthly gravity solutions from GRACE and GRACE-FO as determined from the JPL RL06.1Mv03 mascon solution - with CRI filter applied</dd><dt><span>keywords :</span></dt><dd>Solid Earth, Geodetics/Gravity, Gravity, liquid_water_equivalent_thickness</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>platform :</span></dt><dd>GRACE and GRACE-FO</dd><dt><span>institution :</span></dt><dd>NASA/JPL</dd><dt><span>creator_name :</span></dt><dd>David Wiese</dd><dt><span>creator_email :</span></dt><dd>grace@podaac.jpl.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>https://grace.jpl.nasa.gov</dd><dt><span>creator_type :</span></dt><dd>group</dd><dt><span>creator_institution :</span></dt><dd>NASA/JPL</dd><dt><span>publisher_name :</span></dt><dd>Physical Oceanography Distributed Active Archive Center</dd><dt><span>publisher_email :</span></dt><dd>podaac@jpl.nasa.gov</dd><dt><span>publisher_url :</span></dt><dd>https://podaac.jpl.nasa.gov</dd><dt><span>publisher_type :</span></dt><dd>group</dd><dt><span>publisher_institution :</span></dt><dd>NASA/JPL</dd><dt><span>project :</span></dt><dd>NASA Gravity Recovery and Climate Experiment (GRACE) and NASA Gravity Recovery and Climate Experiment Follow-On (GRACE-FO)</dd><dt><span>program :</span></dt><dd>NASA Earth Science System Pathfinder and NASA Earth Systematic Missions Program</dd><dt><span>id :</span></dt><dd>10.5067/TEMSC-3JC62</dd><dt><span>naming_authority :</span></dt><dd>org.doi.dx</dd><dt><span>source :</span></dt><dd>GRACE and GRACE-FO JPL RL06.1Mv03-CRI</dd><dt><span>processing_level :</span></dt><dd>2 and 3</dd><dt><span>acknowledgement :</span></dt><dd>GRACE is a joint mission of NASA (USA) and DLR (Germany).  GRACE-FO is a joint mission of NASA (USA) and the German Research Center for Geosciences (GFZ).  Use the digital object identifier provided in the id attribute when citing this data.  See https://podaac.jpl.nasa.gov/CitingPODAAC</dd><dt><span>license :</span></dt><dd>https://science.nasa.gov/earth-science/earth-science-data/data-information-policy</dd><dt><span>product_version :</span></dt><dd>v3.0</dd><dt><span>time_epoch :</span></dt><dd>2002-01-01T00:00:00Z</dd><dt><span>time_coverage_start :</span></dt><dd>2002-04-16T00:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2023-03-16T23:59:59Z</dd><dt><span>geospatial_lat_min :</span></dt><dd>-89.75</dd><dt><span>geospatial_lat_max :</span></dt><dd>89.75</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.5 degree grid; however the native resolution of the data is 3-degree equal-area mascons</dd><dt><span>geospatial_lon_min :</span></dt><dd>0.25</dd><dt><span>geospatial_lon_max :</span></dt><dd>359.75</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.5 degree grid; however the native resolution of the data is 3-degree equal-area mascons</dd><dt><span>time_mean_removed :</span></dt><dd>2004.000 to 2009.999</dd><dt><span>months_missing :</span></dt><dd>2002-06;2002-07;2003-06;2011-01;2011-06;2012-05;2012-10;2013-03;2013-08;2013-09;2014-02;2014-07;2014-12;2015-06;2015-10;2015-11;2016-04;2016-09;2016-10;2017-02;2017-07;2017-08;2017-09;2017-10;2017-11;2017-12;2018-01;2018-02;2018-03;2018-04;2018-05;2018-08-2018-09</dd><dt><span>postprocess_1 :</span></dt><dd> OCEAN_ATMOSPHERE_DEALIAS_MODEL (GAD), MONTHLY_AVE, ADDED BACK TO OCEAN PIXELS ONLY</dd><dt><span>postprocess_2 :</span></dt><dd>Water density used to convert to equivalent water height: 1000 kg/m^3</dd><dt><span>postprocess_3 :</span></dt><dd>Coastline Resolution Improvement (CRI) filter has been applied to separate land/ocean mass within mascons that span coastlines</dd><dt><span>GIA_removed :</span></dt><dd>ICE6G-D; Peltier, W. R., D. F. Argus, and R. Drummond (2018) Comment on the paper by Purcell et al. 2016 entitled An assessment of ICE-6G_C (VM5a) glacial isostatic adjustment model, J. Geophys. Res. Solid Earth, 122.</dd><dt><span>geocenter_correction :</span></dt><dd>We use a version of TN-13 based on the JPL mascons</dd><dt><span>C_20_substitution :</span></dt><dd>TN-14; Loomis et al., 2019, Geophys. Res. Lett., doi:10.1029/2019GL082929</dd><dt><span>C_30_substitution :</span></dt><dd>TN-14; Loomis et al., 2019, Geophys. Res. Lett., doi:10.1029/2019GL082929.  This substitution is made for all months after August 2016.</dd><dt><span>user_note_1 :</span></dt><dd>The accelerometer on the GRACE-B spacecraft was turned off after August 2016.  After this date, the accelerometer on GRACE-A was used to derive the non-gravitational accelerations acting on GRACE-B using a transplant procedure.  This has led to a subsequent degradation in the quality of the gravity fields derived.  The uncertainties in this file have been scaled to accomodate this degradation.</dd><dt><span>user_note_2 :</span></dt><dd>The accelerometer on the GRACE-D spacecraft began performing sub-optimally after June 21, 2018.  After this date, the accelerometer on GRACE-C is used to derive the non-gravitational accelerations acting on GRACE-D using a transplant procedure.  The uncertainties in the file have been scaled to accomodate this degradation using the current best state of knowledge.</dd><dt><span>journal_reference :</span></dt><dd>Watkins, M. M., D. N. Wiese, D.-N. Yuan, C. Boening, and F. W. Landerer (2015) Improved methods for observing Earth's time variable mass distribution with GRACE using spherical cap mascons, J. Geophys. Res., 120, doi:10.1002/2014JB011547. </dd><dt><span>CRI_filter_journal_reference :</span></dt><dd>Wiese, D. N., F. W. Landerer, and M. M. Watkins (2016) Quantifying and reducing leakage errors in the JPL RL05M GRACE mascon solution, Water Resour. Res., 52, doi:10.1002/2016WR019344. </dd><dt><span>date_created :</span></dt><dd>2023-05-22T06:05:03Z</dd></dl></div></li></ul></div></div>
 </div>
-</section></section></section></main></div>
-
+</div>
+</section>
 <section id="plot-a-subset-of-the-data" class="level4">
-<h4 data-anchor-id="plot-a-subset-of-the-data">Plot a subset of the data</h4>
+<h4 class="anchored" data-anchor-id="plot-a-subset-of-the-data">Plot a subset of the data</h4>
 <p>Use the function <code>xarray.DataSet.sel</code> to select a subset of the data to plot with <code>hvplot</code>.</p>
 <div id="4cb58ee3" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lat_bnds, lon_bnds <span class="op">=</span> [<span class="op">-</span><span class="dv">18</span>, <span class="dv">10</span>], [<span class="dv">275</span>, <span class="dv">330</span>] <span class="co">#degrees east for longitude</span></span>
@@ -4286,9 +3944,9 @@ Mascon identifier mapped to the grid
 </div>
 </div>
 </section>
-
+</section>
 <section id="river-heights-pre-swot-measures" class="level2">
-<h2 data-anchor-id="river-heights-pre-swot-measures">River heights (Pre-SWOT MEaSUREs)</h2>
+<h2 class="anchored" data-anchor-id="river-heights-pre-swot-measures">River heights (Pre-SWOT MEaSUREs)</h2>
 <p>The shortname for MEaSUREs is ‘PRESWOT_HYDRO_GRRATS_L2_DAILY_VIRTUAL_STATION_HEIGHTS_V2’.</p>
 <p>Our desired variable is height (meters above EGM2008 geoid) for this exercise, which can be subset by distance and time. Distance represents the distance from the river mouth, in this example, the Amazon estuary. Time is between April 8, 1993 and April 20, 2019.</p>
 <p>To get the data for the exact area we need, we have set the boundaries of (-74.67188,-4.51279,-51.04688,0.19622) as reflected in our earthaccess data search.</p>
@@ -4746,7 +4404,7 @@ Attributes: (12/40)
 </div>
 </div>
 <section id="plot-a-subset-of-the-data-1" class="level4">
-<h4 data-anchor-id="plot-a-subset-of-the-data-1">Plot a subset of the data</h4>
+<h4 class="anchored" data-anchor-id="plot-a-subset-of-the-data-1">Plot a subset of the data</h4>
 <p>Plotting the river distances and associated heights on the map at time t=9069 (March 16, 2018) using <code>plt</code>.</p>
 <div id="e7a545c6-158a-4eea-a762-2a0fd72fde91" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>[<span class="dv">11</span>,<span class="dv">7</span>]) </span>
@@ -4771,7 +4429,7 @@ Attributes: (12/40)
 </section>
 </section>
 <section id="sea-surface-salinity-multi-mission-smap-aquarius-smos" class="level2">
-<h2 data-anchor-id="sea-surface-salinity-multi-mission-smap-aquarius-smos">Sea Surface Salinity (Multi-mission: SMAP, Aquarius, SMOS)</h2>
+<h2 class="anchored" data-anchor-id="sea-surface-salinity-multi-mission-smap-aquarius-smos">Sea Surface Salinity (Multi-mission: SMAP, Aquarius, SMOS)</h2>
 <p>The shortname for this dataset is ‘OISSS_L4_multimission_7day_v1’. This dataset contains hundreds of granules, by using earthaccess search, we access 998 granules.</p>
 <p>Since this dataset has more than 1 granule that we want to open for visualization, we have to establish the full file path in a different way. For the previous datasets, we could list the exact file, but that would be difficult to do with hundreds of granules. Therefore, the extra step to recurse through the directory to access all files.</p>
 <div id="1d39982b-cfef-43f4-8915-f3cf925b2d51" class="cell" data-execution_count="11">
@@ -5253,62 +4911,7 @@ Attributes: (12/42)
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>sss_empirical_uncertainty</span>
-</div>
-<div class="xr-var-dims">
-(latitude, longitude, time)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(720, 1440, 962), meta=np.ndarray&gt;
-</div>
-<input id="attrs-98b123d9-d7a3-444d-8341-b3e89ea9e78a" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-98b123d9-d7a3-444d-8341-b3e89ea9e78a" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-40a86fc6-38a2-4c32-a0c7-b628041fdadc" class="xr-var-data-in" type="checkbox">
-<label for="data-40a86fc6-38a2-4c32-a0c7-b628041fdadc" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-estimated empirical uncertainty of multi-mission OISSS
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-1e-3
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-45.0
-</dd>
-<dt><span>add_factor :</span></dt>
-<dd>
-0.0
-</dd>
-<dt><span>coverage_content_type :</span></dt>
-<dd>
-qualityInformation
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>sss_empirical_uncertainty</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(720, 1440, 962), meta=np.ndarray&gt;</div><input id="attrs-98b123d9-d7a3-444d-8341-b3e89ea9e78a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-98b123d9-d7a3-444d-8341-b3e89ea9e78a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-40a86fc6-38a2-4c32-a0c7-b628041fdadc" class="xr-var-data-in" type="checkbox"><label for="data-40a86fc6-38a2-4c32-a0c7-b628041fdadc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>estimated empirical uncertainty of multi-mission OISSS</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>0.0</dd><dt><span>valid_max :</span></dt><dd>45.0</dd><dt><span>add_factor :</span></dt><dd>0.0</dd><dt><span>coverage_content_type :</span></dt><dd>qualityInformation</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -5353,66 +4956,7 @@ qualityInformation
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>sss_uncertainty</span>
-</div>
-<div class="xr-var-dims">
-(latitude, longitude, time)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;
-</div>
-<input id="attrs-749c5ec6-4044-4fb9-a6c1-353406f8070c" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-749c5ec6-4044-4fb9-a6c1-353406f8070c" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-a2072d5c-8dfb-4907-98de-1303701cb8bc" class="xr-var-data-in" type="checkbox">
-<label for="data-a2072d5c-8dfb-4907-98de-1303701cb8bc" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-estimated empirical uncertainty of multi-mission OISSS
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-1e-3
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-45.0
-</dd>
-<dt><span>add_factor :</span></dt>
-<dd>
-0.0
-</dd>
-<dt><span>coordinates :</span></dt>
-<dd>
-time longitude latudude
-</dd>
-<dt><span>coverage_content_type :</span></dt>
-<dd>
-qualityInformation
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>sss_uncertainty</span></div><div class="xr-var-dims">(latitude, longitude, time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(720, 1440, 1), meta=np.ndarray&gt;</div><input id="attrs-749c5ec6-4044-4fb9-a6c1-353406f8070c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-749c5ec6-4044-4fb9-a6c1-353406f8070c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a2072d5c-8dfb-4907-98de-1303701cb8bc" class="xr-var-data-in" type="checkbox"><label for="data-a2072d5c-8dfb-4907-98de-1303701cb8bc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>estimated empirical uncertainty of multi-mission OISSS</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>valid_min :</span></dt><dd>0.0</dd><dt><span>valid_max :</span></dt><dd>45.0</dd><dt><span>add_factor :</span></dt><dd>0.0</dd><dt><span>coordinates :</span></dt><dd>time longitude latudude</dd><dt><span>coverage_content_type :</span></dt><dd>qualityInformation</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -5457,8 +5001,7 @@ qualityInformation
 </tr>
 </tbody>
 </table>
-</div>
-</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-4a29f280-15ba-4763-8b91-37ef868ed33e" class="xr-section-summary-in" type="checkbox"><label for="section-4a29f280-15ba-4763-8b91-37ef868ed33e" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>longitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-6af6b920-e1b4-4db1-abc3-8e01e5d2286c" class="xr-index-data-in" type="checkbox"><label for="index-6af6b920-e1b4-4db1-abc3-8e01e5d2286c" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625,
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-4a29f280-15ba-4763-8b91-37ef868ed33e" class="xr-section-summary-in" type="checkbox"><label for="section-4a29f280-15ba-4763-8b91-37ef868ed33e" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>longitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-6af6b920-e1b4-4db1-abc3-8e01e5d2286c" class="xr-index-data-in" type="checkbox"><label for="index-6af6b920-e1b4-4db1-abc3-8e01e5d2286c" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625,
               -178.375, -178.125, -177.875, -177.625,
               ...
                177.625,  177.875,  178.125,  178.375,  178.625,  178.875,
@@ -5475,11 +5018,11 @@ qualityInformation
                '2022-06-27', '2022-07-01', '2022-07-05', '2022-07-09',
                '2022-07-13', '2022-07-17', '2022-07-21', '2022-07-25',
                '2022-07-29', '2022-08-02'],
-              dtype='datetime64[ns]', name='time', length=998, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-120d6733-764b-4c10-97cd-55de97668839" class="xr-section-summary-in" type="checkbox"><label for="section-120d6733-764b-4c10-97cd-55de97668839" class="xr-section-summary">Attributes: <span>(42)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.8, ACDD-1.3</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v27</dd><dt><span>Title :</span></dt><dd>Multi-Mission Optimally Interpolated Sea Surface Salinity 7-Day Global Dataset V1.0</dd><dt><span>Short_Name :</span></dt><dd>OISSS_L4_multimission_7d_v1</dd><dt><span>Version :</span></dt><dd>V1.0</dd><dt><span>Processing_Level :</span></dt><dd>Level 4</dd><dt><span>source :</span></dt><dd>Aquarius V5.0 Level 2 SSS; SMAP RSS V4.0 Level 2 SSS_40km; SMOS Level 2 SSS L2OS version 662</dd><dt><span>sourse_of_input_Aquarius_SSS :</span></dt><dd>Aquarius Official Release Level 2 Sea Surface Salinity &amp; Wind Speed Cal Data V5.0. Distributed by PO.DAAC at https://podaac.jpl.nasa.gov/dataset/AQUARIUS_L2_SSS_CAL_V5</dd><dt><span>sourse_of_input_SMAP_SSS :</span></dt><dd>Meissner, T., F. Wentz, A. Manaster, R. Lindsley, 2019. Remote Sensing Systems SMAP L2C Sea Surface Salinity, Version 4.0 Validated Release, Remote Sensing Systems, Santa Rosa, CA, USA, Available online at www.remss.com/missions/smap.</dd><dt><span>sourse_of_input_SMOS_SSS :</span></dt><dd>ESA SMOS online dissemination service at https://smos-diss.eo.esa.int/oads/access</dd><dt><span>platform :</span></dt><dd>Aquarius/SAC-D, SMAP, SMOS</dd><dt><span>instrument :</span></dt><dd>Aquarius radiometer, SMAP radiometer, SMOS MIRAS</dd><dt><span>Creation_Date :</span></dt><dd>2023-01-16T04:04:41Z</dd><dt><span>Creator_Name :</span></dt><dd>Oleg Melnichenko</dd><dt><span>Creator_Email :</span></dt><dd>oleg@hawaii.edu</dd><dt><span>Creator_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Project :</span></dt><dd>NASA Ocean Salinity</dd><dt><span>Keywords :</span></dt><dd>Sea Surface Salinity, SSS, Aquarius, SMAP, Optimum Interpolation, OISSS</dd><dt><span>Keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>Institution :</span></dt><dd>IPRC/SOEST, University of Hawaii, Honolulu, HI; Remote Sensing Systems (RSS), Santa Rosa, CA</dd><dt><span>Publisher_Name :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Publisher_Email :</span></dt><dd>oleg@hawaii.edu.org</dd><dt><span>Publisher_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Dataset_Citation_Authors :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Dataset_Citation_Year :</span></dt><dd>2021</dd><dt><span>Dataset_Citation_Product :</span></dt><dd>Aquarius/SMAP Sea Surface Salinity Optimum Interpolation Analysis</dd><dt><span>Technical_Notes :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB/OISSS_Product_Notes.pdf</dd><dt><span>year_of_observation :</span></dt><dd>2022</dd><dt><span>month_of_observation :</span></dt><dd>3</dd><dt><span>day_of_observation :</span></dt><dd>11</dd><dt><span>time_coverage_start :</span></dt><dd>2022-03-07T12:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2022-03-15T12:00:00Z</dd><dt><span>time_coverage_resolution :</span></dt><dd>P7D</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.25</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_min :</span></dt><dd>-180.0</dd><dt><span>geospatial_lon_max :</span></dt><dd>180.0</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.25</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd></dl></div></li></div></div>
+              dtype='datetime64[ns]', name='time', length=998, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-120d6733-764b-4c10-97cd-55de97668839" class="xr-section-summary-in" type="checkbox"><label for="section-120d6733-764b-4c10-97cd-55de97668839" class="xr-section-summary">Attributes: <span>(42)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.8, ACDD-1.3</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v27</dd><dt><span>Title :</span></dt><dd>Multi-Mission Optimally Interpolated Sea Surface Salinity 7-Day Global Dataset V1.0</dd><dt><span>Short_Name :</span></dt><dd>OISSS_L4_multimission_7d_v1</dd><dt><span>Version :</span></dt><dd>V1.0</dd><dt><span>Processing_Level :</span></dt><dd>Level 4</dd><dt><span>source :</span></dt><dd>Aquarius V5.0 Level 2 SSS; SMAP RSS V4.0 Level 2 SSS_40km; SMOS Level 2 SSS L2OS version 662</dd><dt><span>sourse_of_input_Aquarius_SSS :</span></dt><dd>Aquarius Official Release Level 2 Sea Surface Salinity &amp; Wind Speed Cal Data V5.0. Distributed by PO.DAAC at https://podaac.jpl.nasa.gov/dataset/AQUARIUS_L2_SSS_CAL_V5</dd><dt><span>sourse_of_input_SMAP_SSS :</span></dt><dd>Meissner, T., F. Wentz, A. Manaster, R. Lindsley, 2019. Remote Sensing Systems SMAP L2C Sea Surface Salinity, Version 4.0 Validated Release, Remote Sensing Systems, Santa Rosa, CA, USA, Available online at www.remss.com/missions/smap.</dd><dt><span>sourse_of_input_SMOS_SSS :</span></dt><dd>ESA SMOS online dissemination service at https://smos-diss.eo.esa.int/oads/access</dd><dt><span>platform :</span></dt><dd>Aquarius/SAC-D, SMAP, SMOS</dd><dt><span>instrument :</span></dt><dd>Aquarius radiometer, SMAP radiometer, SMOS MIRAS</dd><dt><span>Creation_Date :</span></dt><dd>2023-01-16T04:04:41Z</dd><dt><span>Creator_Name :</span></dt><dd>Oleg Melnichenko</dd><dt><span>Creator_Email :</span></dt><dd>oleg@hawaii.edu</dd><dt><span>Creator_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Project :</span></dt><dd>NASA Ocean Salinity</dd><dt><span>Keywords :</span></dt><dd>Sea Surface Salinity, SSS, Aquarius, SMAP, Optimum Interpolation, OISSS</dd><dt><span>Keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Science Keywords</dd><dt><span>Institution :</span></dt><dd>IPRC/SOEST, University of Hawaii, Honolulu, HI; Remote Sensing Systems (RSS), Santa Rosa, CA</dd><dt><span>Publisher_Name :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Publisher_Email :</span></dt><dd>oleg@hawaii.edu.org</dd><dt><span>Publisher_URL :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB</dd><dt><span>Dataset_Citation_Authors :</span></dt><dd>Oleg Melnichenko, Peter Hacker, James Potemra, Thomas Meissner, Frank Wentz</dd><dt><span>Dataset_Citation_Year :</span></dt><dd>2021</dd><dt><span>Dataset_Citation_Product :</span></dt><dd>Aquarius/SMAP Sea Surface Salinity Optimum Interpolation Analysis</dd><dt><span>Technical_Notes :</span></dt><dd>http://iprc.soest.hawaii.edu/users/oleg/oisss/GLB/OISSS_Product_Notes.pdf</dd><dt><span>year_of_observation :</span></dt><dd>2022</dd><dt><span>month_of_observation :</span></dt><dd>3</dd><dt><span>day_of_observation :</span></dt><dd>11</dd><dt><span>time_coverage_start :</span></dt><dd>2022-03-07T12:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2022-03-15T12:00:00Z</dd><dt><span>time_coverage_resolution :</span></dt><dd>P7D</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.25</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_min :</span></dt><dd>-180.0</dd><dt><span>geospatial_lon_max :</span></dt><dd>180.0</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.25</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd></dl></div></li></ul></div></div>
 </div>
-
+</div>
 <section id="plot-a-subset-of-the-data-2" class="level4">
-<h4 data-anchor-id="plot-a-subset-of-the-data-2">Plot a subset of the data</h4>
+<h4 class="anchored" data-anchor-id="plot-a-subset-of-the-data-2">Plot a subset of the data</h4>
 <p>Use the function <code>xarray.DataSet.sel</code> to select a subset of the data at the outlet of the Amazon to plot at time t=0 (August 28, 2011) with <code>hvplot</code>.</p>
 <div id="b0c48717-24fb-44a9-bd56-f245cb973987" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>lat_bnds, lon_bnds <span class="op">=</span> [<span class="op">-</span><span class="dv">2</span>, <span class="dv">6</span>], [<span class="op">-</span><span class="dv">52</span>, <span class="op">-</span><span class="dv">44</span>] </span>
@@ -5532,7 +5075,7 @@ qualityInformation
 </section>
 </section>
 <section id="sea-surface-temperature-modis" class="level2">
-<h2 data-anchor-id="sea-surface-temperature-modis">Sea Surface Temperature (MODIS)</h2>
+<h2 class="anchored" data-anchor-id="sea-surface-temperature-modis">Sea Surface Temperature (MODIS)</h2>
 <p>MODIS has SST data with separate files on a monthly basis. By using earthaccess search with the shortname: “MODIS_AQUA_L3_SST_MID-IR_MONTHLY_9KM_NIGHTTIME_V2019.0”, and filtering by time to coincide when SSS started (2011), we access 143 granules.</p>
 <p>Get a list of files so we can open them all at once, creating an <code>xarray dataset</code> using the <code>open_mfdataset()</code> function to “read in” all of the netCDF4 files in one call. MODIS does not have a built-in time variable like SSS, but it is subset by latitude and longitude coordinates. We need to combine the files using the nested format with a created ‘time’ dimension.</p>
 <div id="2d51357d-ddbd-4186-a785-964a145f8ff2" class="cell" data-execution_count="16">
@@ -6086,50 +5629,7 @@ Attributes: (12/59)
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>qual_sst4</span>
-</div>
-<div class="xr-var-dims">
-(time, lat, lon)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(1, 2160, 4320), meta=np.ndarray&gt;
-</div>
-<input id="attrs-0b2564f5-bcf4-4d3e-bfee-999c836ff157" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-0b2564f5-bcf4-4d3e-bfee-999c836ff157" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-11b2fd9b-ee1f-4036-a460-19d05366549d" class="xr-var-data-in" type="checkbox">
-<label for="data-11b2fd9b-ee1f-4036-a460-19d05366549d" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Quality Levels, Sea Surface Temperature
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-5
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>qual_sst4</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 2160, 4320), meta=np.ndarray&gt;</div><input id="attrs-0b2564f5-bcf4-4d3e-bfee-999c836ff157" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0b2564f5-bcf4-4d3e-bfee-999c836ff157" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-11b2fd9b-ee1f-4036-a460-19d05366549d" class="xr-var-data-in" type="checkbox"><label for="data-11b2fd9b-ee1f-4036-a460-19d05366549d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Quality Levels, Sea Surface Temperature</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>5</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -6174,38 +5674,7 @@ Quality Levels, Sea Surface Temperature
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>palette</span>
-</div>
-<div class="xr-var-dims">
-(time, lon, lat, rgb, eightbitcolor)
-</div>
-<div class="xr-var-dtype">
-uint8
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(1, 4320, 2160, 3, 256), meta=np.ndarray&gt;
-</div>
-<input id="attrs-7c6a589e-5bae-4f3a-a647-d348dbe0237a" class="xr-var-attrs-in" type="checkbox" disabled="">
-<label for="attrs-7c6a589e-5bae-4f3a-a647-d348dbe0237a" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-be686a24-7346-45f8-ae1a-c4a521adf10a" class="xr-var-data-in" type="checkbox">
-<label for="data-be686a24-7346-45f8-ae1a-c4a521adf10a" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>palette</span></div><div class="xr-var-dims">(time, lon, lat, rgb, eightbitcolor)</div><div class="xr-var-dtype">uint8</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 4320, 2160, 3, 256), meta=np.ndarray&gt;</div><input id="attrs-7c6a589e-5bae-4f3a-a647-d348dbe0237a" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-7c6a589e-5bae-4f3a-a647-d348dbe0237a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-be686a24-7346-45f8-ae1a-c4a521adf10a" class="xr-var-data-in" type="checkbox"><label for="data-be686a24-7346-45f8-ae1a-c4a521adf10a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -6250,8 +5719,7 @@ dask.array&lt;chunksize=(1, 4320, 2160, 3, 256), meta=np.ndarray&gt;
 </tr>
 </tbody>
 </table>
-</div>
-</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-d1f0f818-c3d3-448d-a6b1-b21a8ad259a1" class="xr-section-summary-in" type="checkbox"><label for="section-d1f0f818-c3d3-448d-a6b1-b21a8ad259a1" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-3b4717b1-1184-41c2-9c61-7a2566f17196" class="xr-index-data-in" type="checkbox"><label for="index-3b4717b1-1184-41c2-9c61-7a2566f17196" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([ 89.95833587646484,             89.875,  89.79167175292969,
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-d1f0f818-c3d3-448d-a6b1-b21a8ad259a1" class="xr-section-summary-in" type="checkbox"><label for="section-d1f0f818-c3d3-448d-a6b1-b21a8ad259a1" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-3b4717b1-1184-41c2-9c61-7a2566f17196" class="xr-index-data-in" type="checkbox"><label for="index-3b4717b1-1184-41c2-9c61-7a2566f17196" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Float64Index([ 89.95833587646484,             89.875,  89.79167175292969,
                89.70833587646484,             89.625,  89.54167175292969,
                89.45833587646484,             89.375,  89.29167175292969,
                89.20833587646484,
@@ -6276,11 +5744,11 @@ dask.array&lt;chunksize=(1, 4320, 2160, 3, 256), meta=np.ndarray&gt;
                '2022-03-01', '2022-04-01', '2022-05-01', '2022-06-01',
                '2022-07-01', '2022-08-01', '2022-09-01', '2022-10-01',
                '2022-11-01', '2023-01-01'],
-              dtype='datetime64[ns]', name='time', length=143, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-45818c9a-4213-44de-a3f8-47e1f161a473" class="xr-section-summary-in" type="checkbox"><label for="section-45818c9a-4213-44de-a3f8-47e1f161a473" class="xr-section-summary">Attributes: <span>(59)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>product_name :</span></dt><dd>AQUA_MODIS.20110101_20110131.L3m.MO.SST4.sst4.9km.nc</dd><dt><span>instrument :</span></dt><dd>MODIS</dd><dt><span>title :</span></dt><dd>MODISA Level-3 Standard Mapped Image</dd><dt><span>project :</span></dt><dd>Ocean Biology Processing Group (NASA/GSFC/OBPG)</dd><dt><span>platform :</span></dt><dd>Aqua</dd><dt><span>temporal_range :</span></dt><dd>month</dd><dt><span>processing_version :</span></dt><dd>R2019.0</dd><dt><span>date_created :</span></dt><dd>2019-12-17T18:28:57.000Z</dd><dt><span>history :</span></dt><dd>l3mapgen par=AQUA_MODIS.20110101_20110131.L3m.MO.SST4.sst4.9km.nc.param </dd><dt><span>l2_flag_names :</span></dt><dd>LAND,~HISOLZEN</dd><dt><span>time_coverage_start :</span></dt><dd>2010-12-31T12:10:01.000Z</dd><dt><span>time_coverage_end :</span></dt><dd>2011-01-31T14:29:59.000Z</dd><dt><span>start_orbit_number :</span></dt><dd>46065</dd><dt><span>end_orbit_number :</span></dt><dd>46518</dd><dt><span>map_projection :</span></dt><dd>Equidistant Cylindrical</dd><dt><span>latitude_units :</span></dt><dd>degrees_north</dd><dt><span>longitude_units :</span></dt><dd>degrees_east</dd><dt><span>northernmost_latitude :</span></dt><dd>90.0</dd><dt><span>southernmost_latitude :</span></dt><dd>-90.0</dd><dt><span>westernmost_longitude :</span></dt><dd>-180.0</dd><dt><span>easternmost_longitude :</span></dt><dd>180.0</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lon_max :</span></dt><dd>180.0</dd><dt><span>geospatial_lon_min :</span></dt><dd>-180.0</dd><dt><span>latitude_step :</span></dt><dd>0.083333336</dd><dt><span>longitude_step :</span></dt><dd>0.083333336</dd><dt><span>sw_point_latitude :</span></dt><dd>-89.958336</dd><dt><span>sw_point_longitude :</span></dt><dd>-179.95833</dd><dt><span>spatialResolution :</span></dt><dd>9.28 km</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.083333336</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.083333336</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>number_of_lines :</span></dt><dd>2160</dd><dt><span>number_of_columns :</span></dt><dd>4320</dd><dt><span>measure :</span></dt><dd>Mean</dd><dt><span>suggested_image_scaling_minimum :</span></dt><dd>-2.0</dd><dt><span>suggested_image_scaling_maximum :</span></dt><dd>45.0</dd><dt><span>suggested_image_scaling_type :</span></dt><dd>LINEAR</dd><dt><span>suggested_image_scaling_applied :</span></dt><dd>No</dd><dt><span>_lastModified :</span></dt><dd>2019-12-17T18:28:57.000Z</dd><dt><span>Conventions :</span></dt><dd>CF-1.6 ACDD-1.3</dd><dt><span>institution :</span></dt><dd>NASA Goddard Space Flight Center, Ocean Ecology Laboratory, Ocean Biology Processing Group</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v36</dd><dt><span>naming_authority :</span></dt><dd>gov.nasa.gsfc.sci.oceandata</dd><dt><span>id :</span></dt><dd>AQUA_MODIS.20110101_20110131.L3b.MO.SST4.nc/L3/AQUA_MODIS.20110101_20110131.L3b.MO.SST4.nc</dd><dt><span>license :</span></dt><dd>https://science.nasa.gov/earth-science/earth-science-data/data-information-policy/</dd><dt><span>creator_name :</span></dt><dd>NASA/GSFC/OBPG</dd><dt><span>publisher_name :</span></dt><dd>NASA/GSFC/OBPG</dd><dt><span>creator_email :</span></dt><dd>data@oceancolor.gsfc.nasa.gov</dd><dt><span>publisher_email :</span></dt><dd>data@oceancolor.gsfc.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>https://oceandata.sci.gsfc.nasa.gov</dd><dt><span>publisher_url :</span></dt><dd>https://oceandata.sci.gsfc.nasa.gov</dd><dt><span>processing_level :</span></dt><dd>L3 Mapped</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>data_bins :</span></dt><dd>4834400</dd><dt><span>data_minimum :</span></dt><dd>-1.635</dd><dt><span>data_maximum :</span></dt><dd>32.06999</dd></dl></div></li></div></div>
+              dtype='datetime64[ns]', name='time', length=143, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-45818c9a-4213-44de-a3f8-47e1f161a473" class="xr-section-summary-in" type="checkbox"><label for="section-45818c9a-4213-44de-a3f8-47e1f161a473" class="xr-section-summary">Attributes: <span>(59)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>product_name :</span></dt><dd>AQUA_MODIS.20110101_20110131.L3m.MO.SST4.sst4.9km.nc</dd><dt><span>instrument :</span></dt><dd>MODIS</dd><dt><span>title :</span></dt><dd>MODISA Level-3 Standard Mapped Image</dd><dt><span>project :</span></dt><dd>Ocean Biology Processing Group (NASA/GSFC/OBPG)</dd><dt><span>platform :</span></dt><dd>Aqua</dd><dt><span>temporal_range :</span></dt><dd>month</dd><dt><span>processing_version :</span></dt><dd>R2019.0</dd><dt><span>date_created :</span></dt><dd>2019-12-17T18:28:57.000Z</dd><dt><span>history :</span></dt><dd>l3mapgen par=AQUA_MODIS.20110101_20110131.L3m.MO.SST4.sst4.9km.nc.param </dd><dt><span>l2_flag_names :</span></dt><dd>LAND,~HISOLZEN</dd><dt><span>time_coverage_start :</span></dt><dd>2010-12-31T12:10:01.000Z</dd><dt><span>time_coverage_end :</span></dt><dd>2011-01-31T14:29:59.000Z</dd><dt><span>start_orbit_number :</span></dt><dd>46065</dd><dt><span>end_orbit_number :</span></dt><dd>46518</dd><dt><span>map_projection :</span></dt><dd>Equidistant Cylindrical</dd><dt><span>latitude_units :</span></dt><dd>degrees_north</dd><dt><span>longitude_units :</span></dt><dd>degrees_east</dd><dt><span>northernmost_latitude :</span></dt><dd>90.0</dd><dt><span>southernmost_latitude :</span></dt><dd>-90.0</dd><dt><span>westernmost_longitude :</span></dt><dd>-180.0</dd><dt><span>easternmost_longitude :</span></dt><dd>180.0</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lon_max :</span></dt><dd>180.0</dd><dt><span>geospatial_lon_min :</span></dt><dd>-180.0</dd><dt><span>latitude_step :</span></dt><dd>0.083333336</dd><dt><span>longitude_step :</span></dt><dd>0.083333336</dd><dt><span>sw_point_latitude :</span></dt><dd>-89.958336</dd><dt><span>sw_point_longitude :</span></dt><dd>-179.95833</dd><dt><span>spatialResolution :</span></dt><dd>9.28 km</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.083333336</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.083333336</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>number_of_lines :</span></dt><dd>2160</dd><dt><span>number_of_columns :</span></dt><dd>4320</dd><dt><span>measure :</span></dt><dd>Mean</dd><dt><span>suggested_image_scaling_minimum :</span></dt><dd>-2.0</dd><dt><span>suggested_image_scaling_maximum :</span></dt><dd>45.0</dd><dt><span>suggested_image_scaling_type :</span></dt><dd>LINEAR</dd><dt><span>suggested_image_scaling_applied :</span></dt><dd>No</dd><dt><span>_lastModified :</span></dt><dd>2019-12-17T18:28:57.000Z</dd><dt><span>Conventions :</span></dt><dd>CF-1.6 ACDD-1.3</dd><dt><span>institution :</span></dt><dd>NASA Goddard Space Flight Center, Ocean Ecology Laboratory, Ocean Biology Processing Group</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v36</dd><dt><span>naming_authority :</span></dt><dd>gov.nasa.gsfc.sci.oceandata</dd><dt><span>id :</span></dt><dd>AQUA_MODIS.20110101_20110131.L3b.MO.SST4.nc/L3/AQUA_MODIS.20110101_20110131.L3b.MO.SST4.nc</dd><dt><span>license :</span></dt><dd>https://science.nasa.gov/earth-science/earth-science-data/data-information-policy/</dd><dt><span>creator_name :</span></dt><dd>NASA/GSFC/OBPG</dd><dt><span>publisher_name :</span></dt><dd>NASA/GSFC/OBPG</dd><dt><span>creator_email :</span></dt><dd>data@oceancolor.gsfc.nasa.gov</dd><dt><span>publisher_email :</span></dt><dd>data@oceancolor.gsfc.nasa.gov</dd><dt><span>creator_url :</span></dt><dd>https://oceandata.sci.gsfc.nasa.gov</dd><dt><span>publisher_url :</span></dt><dd>https://oceandata.sci.gsfc.nasa.gov</dd><dt><span>processing_level :</span></dt><dd>L3 Mapped</dd><dt><span>cdm_data_type :</span></dt><dd>grid</dd><dt><span>data_bins :</span></dt><dd>4834400</dd><dt><span>data_minimum :</span></dt><dd>-1.635</dd><dt><span>data_maximum :</span></dt><dd>32.06999</dd></dl></div></li></ul></div></div>
 </div>
-
+</div>
 </section>
-
+</section>
 <section id="plot-a-subset-of-the-data-3" class="level1">
 <h1>Plot a subset of the data</h1>
 <p>Use the function <code>xarray.DataSet.sel</code> to select a subset of the data at the outlet of the Amazon to plot with <code>hvplot</code>.</p>
@@ -6332,7 +5800,7 @@ dask.array&lt;chunksize=(1, 4320, 2160, 3, 256), meta=np.ndarray&gt;
 </div>
 </div>
 <section id="time-series-comparison" class="level2">
-<h2 data-anchor-id="time-series-comparison">Time Series Comparison</h2>
+<h2 class="anchored" data-anchor-id="time-series-comparison">Time Series Comparison</h2>
 <p>Plot each dataset for the time period 2011-2019.</p>
 <p>First, we need to average all pixels in the subset lat/lon per time for sea surface salinity and sea surface temperature to set up for the graphs.</p>
 <div id="82d44e6f" class="cell" data-execution_count="21">
@@ -6351,7 +5819,7 @@ dask.array&lt;chunksize=(1, 4320, 2160, 3, 256), meta=np.ndarray&gt;
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co">#sst_MODIS_mean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="combined-timeseries-plot-of-river-height-and-lwe-thickness" class="level3">
-<h3 data-anchor-id="combined-timeseries-plot-of-river-height-and-lwe-thickness">Combined timeseries plot of river height and LWE thickness</h3>
+<h3 class="anchored" data-anchor-id="combined-timeseries-plot-of-river-height-and-lwe-thickness">Combined timeseries plot of river height and LWE thickness</h3>
 <p>Both datasets are mapped for the outlet of the Amazon River into the estuary.</p>
 <div id="1ff1aef8" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot river height and land water equivalent thickness</span></span>
@@ -6384,7 +5852,7 @@ dask.array&lt;chunksize=(1, 4320, 2160, 3, 256), meta=np.ndarray&gt;
 <p>LWE thickness captures the seasonality of Pre-SWOT MEaSUREs river heights well, and so LWE thickness can be compared to all other variables as a representative of the seasonality of both measurements for the purpose of this notebook.</p>
 </section>
 <section id="combined-timeseries-plots-of-salinity-and-lwe-thickness-followed-by-temperature" class="level3">
-<h3 data-anchor-id="combined-timeseries-plots-of-salinity-and-lwe-thickness-followed-by-temperature">Combined timeseries plots of salinity and LWE thickness, followed by temperature</h3>
+<h3 class="anchored" data-anchor-id="combined-timeseries-plots-of-salinity-and-lwe-thickness-followed-by-temperature">Combined timeseries plots of salinity and LWE thickness, followed by temperature</h3>
 <div id="1b23553c" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Combined Subplots</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
@@ -6430,7 +5898,7 @@ dask.array&lt;chunksize=(1, 4320, 2160, 3, 256), meta=np.ndarray&gt;
 </section>
 </section>
 
- <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -6610,18 +6078,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -6653,7 +6110,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
@@ -6661,7 +6140,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -6996,7 +6475,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
- <!-- /content -->
+</div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
