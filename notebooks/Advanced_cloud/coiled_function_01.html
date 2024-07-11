@@ -115,6 +115,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -1112,7 +1141,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>A separate notebook explores this workflow for computing spatial correlation maps between sea surface temperature (SST) and sea surface height (SSH) (an overview of the analysis is described below), where the parallel computations were performed with Dask on a local cluster using <code>dask.delayed()</code>. In this notebook, we perform the same computations, but parallelize them using the third party software/package <code>Coiled</code>. In short <code>Coiled</code> will allow us to spin up AWS virtual machines (EC2 instances) and create a distributed cluster out of them, all with a few lines of Python from within this notebook. For this type of parallel computation, we use <code>coiled.function()</code>’s, taking the place of <code>dask.delayed()</code>. <em>You will need a Coiled account, but once set up, you can run this notebook entirely from your laptop while the parallel computation portion will be run on the distributed cluster in AWS.</em></p>
 <section id="sst-ssh-correlation-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="sst-ssh-correlation-analysis">SST-SSH Correlation Analysis</h4>
-<p>The analysis will generate global maps of spatial correlation between sea surface temperature (SST) and sea surface height (SSH). The analysis uses PO.DAAC hosted, gridded SSH and SST data sets: * MEaSUREs gridded SSH Version 2205: 0.17° x 0.17° resolution, global map, one file per 5-days, https://doi.org/10.5067/SLREF-CDRV3 * GHRSST Level 4 MW_OI Global Foundation SST, V5.0: 0.25° x 0.25° resolution, global map, daily files, https://doi.org/10.5067/GHMWO-4FR05</p>
+<p>The analysis will generate global maps of spatial correlation between sea surface temperature (SST) and sea surface height (SSH). The analysis uses PO.DAAC hosted, gridded SSH and SST data sets:</p>
+<ul>
+<li>MEaSUREs gridded SSH Version 2205: 0.17° x 0.17° resolution, global map, one file per 5-days, https://doi.org/10.5067/SLREF-CDRV3</li>
+<li>GHRSST Level 4 MW_OI Global Foundation SST, V5.0: 0.25° x 0.25° resolution, global map, daily files, https://doi.org/10.5067/GHMWO-4FR05</li>
+</ul>
 <p>The time period of overlap between these data sets is 1998 – 2020, with 1808 days in total overlapping. For each pair of SST, SSH files on these days, compute a map of spatial correlation between them, where the following method is used at each gridpoint:</p>
 <p><img src="../../images/schematic_sst-ssh_corr.png" alt="sch_sst-ssh-corr" width="1000"></p>
 <p>This notebook will first define the functions to read in the data and perform the computations, then test them on a single file. Next a smaller parallel computation will be performed on all pairs of files in 2018 (73 pairs in total), reducing what would have otherwise taken hours to minutes instead. Finally, an optional section will demonstrate what was used to perform the full computation on all 1808 pairs of files at 0.25 degree resolution.</p>
@@ -1131,7 +1164,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section id="prerequisite-knowledge" class="level4">
 <h4 class="anchored" data-anchor-id="prerequisite-knowledge">Prerequisite knowledge</h4>
 <ul>
-<li>Please make sure you are comfortable with the <a href="https://podaac.github.io/tutorials/notebooks/Advanced_cloud/basic_dask.html">notebook on Dask basics</a> and all prerequisites therein.</li>
+<li>The <a href="https://podaac.github.io/tutorials/notebooks/Advanced_cloud/basic_dask.html">notebook on Dask basics</a> and all prerequisites therein.</li>
 </ul>
 </section>
 <section id="learning-outcomes" class="level4">
@@ -1190,8 +1223,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spatialcorr(x, y, p1, p2):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Correlation between two 2D variables p1(x, y), p2(x, y), over the domain (x, y). Correlation is </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">    computed between the anomalies of p1, p2, where anomalies for each variables are the deviations from </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">    respective linear 2D surface fits.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">    computed between the anomalies of p1, p2, where anomalies for each variables are the deviations </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">    from respective linear 2D surface fits.</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute anomalies:</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    ssha, _ <span class="op">=</span> anomalies_2Dsurf(x, y, p1) <span class="co"># See function further down.</span></span>
@@ -1199,80 +1232,81 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute correlation coefficient:</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> ssta.flatten(), ssha.flatten()</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ( np.nansum(<span class="bu">abs</span>(a))<span class="op">==</span><span class="dv">0</span> ) <span class="kw">or</span> ( np.nansum(<span class="bu">abs</span>(b))<span class="op">==</span><span class="dv">0</span> ): <span class="co"># For cases where all anomalies are 0, the correlation </span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># should be 0. Numpy computes this correctly but throws a lot of warnings. So instead, we manually append 0.</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.nanmean(a<span class="op">*</span>b)<span class="op">/</span>np.sqrt(np.nanvar(a) <span class="op">*</span> np.nanvar(b))</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ( np.nansum(<span class="bu">abs</span>(a))<span class="op">==</span><span class="dv">0</span> ) <span class="kw">or</span> ( np.nansum(<span class="bu">abs</span>(b))<span class="op">==</span><span class="dv">0</span> ): </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># For cases with all 0's, the correlation should be 0. Numpy computes this correctly </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># but throws a lot of warnings. So instead, manually append 0.</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.nanmean(a<span class="op">*</span>b)<span class="op">/</span>np.sqrt(np.nanvar(a) <span class="op">*</span> np.nanvar(b))</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> anomalies_2Dsurf(x, y, p):</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">    Return anomalies for a 2D variable. Anomalies are computed as the deviations of each </span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">    point from a bi-linear 2D surface fit to the data (using scipy).</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">    Inputs</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">    ------</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">    x, y: 1D array-like.</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">        Independent vars (likely the lon, lat coordinates).</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">    p: 2D array-like, of shape (len(y), len(x)).</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">        Dependent variable. 2D surface fit will be to p(x, y).</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">    ------</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">    va, vm: 2D NumPy arrays</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">        Anomalies (va) and mean surface fit (vm).</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Functions to (1) output a 2D surface and (2) output the difference between 2D data and the computed surface:</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> surface(c,x0,y0): <span class="co"># Takes independent vars and poly coefficients</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        a,b,c<span class="op">=</span>c</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">+</span> b<span class="op">*</span>x0 <span class="op">+</span> c<span class="op">*</span>y0</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> err(c,x0,y0,p): <span class="co"># Takes independent/dependent vars and poly coefficients</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        a,b,c<span class="op">=</span>c</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> p <span class="op">-</span> (a <span class="op">+</span> b<span class="op">*</span>x0 <span class="op">+</span> c<span class="op">*</span>y0 )</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> anomalies_2Dsurf(x, y, p):</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">    Return anomalies for a 2D variable. Anomalies are computed as the deviations of each </span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">    point from a bi-linear 2D surface fit to the data (using scipy).</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">    Inputs</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">    x, y: 1D array-like.</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">        Independent vars (likely the lon, lat coordinates).</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">    p: 2D array-like, of shape (len(y), len(x)).</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">        Dependent variable. 2D surface fit will be to p(x, y).</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">    va, vm: 2D NumPy arrays</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">        Anomalies (va) and mean surface fit (vm).</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Function for a 2D surface:</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> surface(c,x0,y0): <span class="co"># Takes independent vars and poly coefficients</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        a,b,c<span class="op">=</span>c</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">+</span> b<span class="op">*</span>x0 <span class="op">+</span> c<span class="op">*</span>y0</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Function for the difference between data and the computed surface:</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> err(c,x0,y0,p): <span class="co"># Takes independent/dependent vars and poly coefficients</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        a,b,c<span class="op">=</span>c</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> p <span class="op">-</span> (a <span class="op">+</span> b<span class="op">*</span>x0 <span class="op">+</span> c<span class="op">*</span>y0 )</span>
 <span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prep arrays and remove NAN's:</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    xx, yy <span class="op">=</span> np.meshgrid(x, y)</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    xf, yf, pf <span class="op">=</span> xx.flatten(), yy.flatten(), p.flatten()</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    msk<span class="op">=~</span>np.isnan(pf)</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    xf, yf, pf <span class="op">=</span> xf[msk], yf[msk], pf[msk]</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initial values of polynomial coefficients to start fitting algorithm off with:</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    dpdx<span class="op">=</span>(pf.<span class="bu">max</span>()<span class="op">-</span>pf.<span class="bu">min</span>())<span class="op">/</span>(xf.<span class="bu">max</span>()<span class="op">-</span>xf.<span class="bu">min</span>())</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    dpdy<span class="op">=</span>(pf.<span class="bu">max</span>()<span class="op">-</span>pf.<span class="bu">min</span>())<span class="op">/</span>(yf.<span class="bu">max</span>()<span class="op">-</span>yf.<span class="bu">min</span>())</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> [pf.mean(),dpdx,dpdy]</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit and compute anomalies:</span></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    coef <span class="op">=</span> leastsq(err,c,args<span class="op">=</span>(xf,yf,pf))[<span class="dv">0</span>]</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    vm <span class="op">=</span> surface(coef, xx, yy) <span class="co"># mean surface</span></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    va <span class="op">=</span> p <span class="op">-</span> vm <span class="co"># anomalies</span></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> va, vm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prep arrays and remove NAN's:</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    xx, yy <span class="op">=</span> np.meshgrid(x, y)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    xf, yf, pf <span class="op">=</span> xx.flatten(), yy.flatten(), p.flatten()</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    msk<span class="op">=~</span>np.isnan(pf)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    xf, yf, pf <span class="op">=</span> xf[msk], yf[msk], pf[msk]</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initial values of polynomial coefficients to start fitting algorithm off with:</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    dpdx<span class="op">=</span>(pf.<span class="bu">max</span>()<span class="op">-</span>pf.<span class="bu">min</span>())<span class="op">/</span>(xf.<span class="bu">max</span>()<span class="op">-</span>xf.<span class="bu">min</span>())</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    dpdy<span class="op">=</span>(pf.<span class="bu">max</span>()<span class="op">-</span>pf.<span class="bu">min</span>())<span class="op">/</span>(yf.<span class="bu">max</span>()<span class="op">-</span>yf.<span class="bu">min</span>())</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> [pf.mean(),dpdx,dpdy]</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit and compute anomalies:</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    coef <span class="op">=</span> leastsq(err,c,args<span class="op">=</span>(xf,yf,pf))[<span class="dv">0</span>]</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    vm <span class="op">=</span> surface(coef, xx, yy) <span class="co"># mean surface</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    va <span class="op">=</span> p <span class="op">-</span> vm <span class="co"># anomalies</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> va, vm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="f7e23d8b-0c6a-4c39-943e-4c37b6cc0177" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spatial_corrmap(grans, lat_halfwin, lon_halfwin, lats<span class="op">=</span><span class="va">None</span>, lons<span class="op">=</span><span class="va">None</span>, f_notnull<span class="op">=</span><span class="fl">0.5</span>):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Get a 2D map of SSH-SST spatial correlation coefficients, for one each of the </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">    SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL2205 and MW_OI-REMSS-L4-GLOB-v5.0 collections. </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    At each gridpoint, the spatial correlation is computed over a lat, lon window of size </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    2*lat_halfwin x 2*lon_halfwin. Correlation is computed from the SSH, SST anomalies, which are computed </span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    in turn as the deviations from a fitted 2D surface over the window.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">    SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL2205 and MW_OI-REMSS-L4-GLOB-v5.0 </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    collections. At each gridpoint, the spatial correlation is computed over a lat, lon window of size </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    2*lat_halfwin x 2*lon_halfwin. Correlation is computed from the SSH, SST anomalies, which are </span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    computed in turn as the deviations from a fitted 2D surface over the window.</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Inputs</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">    ------</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    grans: 2-tuple of earthaccess.results.DataGranule objects</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Granule info for the SSH, SST files (in that order). These objects contain https and S3 locations.</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Metadata for the SSH, SST files. These objects contain https and S3 locations.</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">    lat_halfwin, lon_halfwin: floats</span></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">        Half window size in degrees for latitude and longitude dimensions, respectively.</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">    lats, lons: None or 1D array-like</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">        Latitude, longitude gridpoints at which to compute the correlations. </span></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">        If None, will use the SSH grid.</span></span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">    f_notnull: float between 0-1 (default = 0.5)</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">        Threshold fraction of non-NAN values in a window in order for the correlation to be computed,</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">        otherwise NAN is returned for that grid point. For edge cases, 'ghost' elements are counted as NAN.</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">        Threshold fraction of non-NAN values in a window, otherwise the correlation is not computed, </span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">        and NAN is returned for that grid point. For edge cases, 'ghost' elements are counted.</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">    ------</span></span>
@@ -1320,18 +1354,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>            lat_top <span class="op">=</span> lat_cen <span class="op">+</span> lat_halfwin</span>
 <span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>            lon_left <span class="op">=</span> lon_cen <span class="op">-</span> lon_halfwin</span>
 <span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>            lon_right <span class="op">=</span> lon_cen <span class="op">+</span> lon_halfwin</span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>            data_win <span class="op">=</span> mergeddata.sel(Longitude<span class="op">=</span><span class="bu">slice</span>(lon_left, lon_right), Latitude<span class="op">=</span><span class="bu">slice</span>(lat_bottom, lat_top))</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If number of non-nan values in window is less than threshold </span></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>            <span class="co"># value, append np.nan, else compute correlation coefficient:</span></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>            n_notnul <span class="op">=</span> data_win[<span class="st">"notnul"</span>].<span class="bu">sum</span>().item()</span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> n_notnul <span class="op">&lt;</span> n_thresh:</span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>                coef.append(np.nan)</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>                c <span class="op">=</span> spatialcorr(data_win[<span class="st">'Longitude'</span>], data_win[<span class="st">'Latitude'</span>], data_win[<span class="st">'SLA'</span>].data, data_win[<span class="st">'analysed_sst'</span>].data)</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>                coef.append(c)</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(coef).reshape((<span class="bu">len</span>(lats), <span class="bu">len</span>(lons))), np.array(lats), np.array(lons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>            data_win <span class="op">=</span> mergeddata.sel(</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>                Longitude<span class="op">=</span><span class="bu">slice</span>(lon_left, lon_right), </span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>                Latitude<span class="op">=</span><span class="bu">slice</span>(lat_bottom, lat_top)</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If number of non-nan values in window is less than threshold </span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>            <span class="co"># value, append np.nan, else compute correlation coefficient:</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>            n_notnul <span class="op">=</span> data_win[<span class="st">"notnul"</span>].<span class="bu">sum</span>().item()</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> n_notnul <span class="op">&lt;</span> n_thresh:</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>                coef.append(np.nan)</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>                c <span class="op">=</span> spatialcorr(</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>                    data_win[<span class="st">'Longitude'</span>], data_win[<span class="st">'Latitude'</span>], </span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>                    data_win[<span class="st">'SLA'</span>].data, data_win[<span class="st">'analysed_sst'</span>].data</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>                coef.append(c)</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(coef).reshape((<span class="bu">len</span>(lats), <span class="bu">len</span>(lons))), np.array(lats), np.array(lons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="get-all-matching-pairs-of-ssh-sst-files-for-2018" class="level2">
@@ -1346,8 +1386,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div id="8a64811a-9b86-403e-9dd5-10594219c5eb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Granule info for all files in 2018:</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dt2018 <span class="op">=</span> (<span class="st">"2018-01-01"</span>, <span class="st">"2018-12-31"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>grans_ssh <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL2205"</span>, temporal<span class="op">=</span>dt2018)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>grans_sst <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"MW_OI-REMSS-L4-GLOB-v5.0"</span>, temporal<span class="op">=</span>dt2018)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>grans_ssh <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span><span class="st">"SEA_SURFACE_HEIGHT_ALT_GRIDS_L4_2SATS_5DAY_6THDEG_V_JPL2205"</span>, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    temporal<span class="op">=</span>dt2018</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>grans_sst <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span><span class="st">"MW_OI-REMSS-L4-GLOB-v5.0"</span>, </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    temporal<span class="op">=</span>dt2018</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Granules found: 73
 Granules found: 365</code></pre>
@@ -1388,7 +1434,7 @@ MW_OI-REMSS-L4-GLOB-v5.0 : 73 granules
 </section>
 <section id="test-the-computation-on-a-pair-of-files-output-on-a-coarse-resolution-grid" class="level2">
 <h2 class="anchored" data-anchor-id="test-the-computation-on-a-pair-of-files-output-on-a-coarse-resolution-grid">3. Test the computation on a pair of files, output on a coarse resolution grid</h2>
-<p>To verify the functions work, we test them on the first pair of files. To reduce computation time, we compute them for a 2 degree x 2 degree output grid for now.</p>
+<p>To verify the functions work, test them on the first pair of files. To reduce computation time, we compute them for a 2 degree x 2 degree output grid for now.</p>
 <div id="fc03e8f0-bea8-430d-8b1d-fa156661cf46" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute spatial correlation map for 2 degree x 2 degree resolution and time it:</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> time.time()</span>
@@ -1492,12 +1538,15 @@ MW_OI-REMSS-L4-GLOB-v5.0 : 73 granules
 <div id="22d3df8d-56f6-44bf-87fc-4efa2098866e" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrmap_toda(grans, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, lats<span class="op">=</span><span class="va">None</span>, lons<span class="op">=</span><span class="va">None</span>, f_notnull<span class="op">=</span><span class="fl">0.5</span>):</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calls spatial_corrmap() for a pair of SSH, SST granules and collects output into an Xarray DataArray. </span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns this along with the date of the file coverages.</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calls spatial_corrmap() for a pair of SSH, SST granules and collects output into an </span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Xarray DataArray. Returns this along with the date of the file coverages.</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    coef, lats, lons <span class="op">=</span> spatial_corrmap(grans, lat_halfwin, lon_halfwin, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> grans[<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="co"># get date from SSH UR.</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> date, xr.DataArray(data<span class="op">=</span>coef, dims<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>], coords<span class="op">=</span><span class="bu">dict</span>(lon<span class="op">=</span>lons, lat<span class="op">=</span>lats), name<span class="op">=</span><span class="st">'corr_ssh_sst'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    coef, lats, lons <span class="op">=</span> spatial_corrmap(</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        grans, lat_halfwin, lon_halfwin, </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> grans[<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="co"># get date from SSH UR.</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> date, xr.DataArray(data<span class="op">=</span>coef, dims<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>], coords<span class="op">=</span><span class="bu">dict</span>(lon<span class="op">=</span>lons, lat<span class="op">=</span>lats), name<span class="op">=</span><span class="st">'corr_ssh_sst'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, some prep work:</p>
 <div id="ac4e6584-dd66-4955-a00e-407ebc42e9d1" class="cell" data-execution_count="16">
@@ -1521,23 +1570,26 @@ MW_OI-REMSS-L4-GLOB-v5.0 : 73 granules
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrap function in a Coiled function. Here is where we make cluster specifications like VM type:</span></span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>corrmap_toda_parallel <span class="op">=</span> coiled.function(</span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    region<span class="op">=</span><span class="st">"us-west-2"</span>, spot_policy<span class="op">=</span><span class="st">"on-demand"</span>, vm_type<span class="op">=</span><span class="st">"m6i.large"</span>, </span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    environ<span class="op">=</span>earthaccess.auth_environ(), <span class="co"># This ensures that our EDL credentials are passed to each worker.</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    n_workers<span class="op">=</span><span class="dv">73</span> <span class="co"># Optional: have the cluster manually scale to 73 VM's. Omit this line to have Coiled adaptively scale</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    environ<span class="op">=</span>earthaccess.auth_environ(), <span class="co"># Ensure that our EDL credentials are passed to each worker.</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    n_workers<span class="op">=</span><span class="dv">73</span> <span class="co"># Optional: have the cluster manually scale to 73 VM's. Omit for adaptive scaling.</span></span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    )(corrmap_toda)</span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin computations:</span></span>
 <span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>grans_2tuples <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(grans_ssh_analyze, grans_sst_analyze))</span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> corrmap_toda_parallel.<span class="bu">map</span>(grans_2tuples, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Retreive the results from the cluster as they become available and save as .nc files locally:</span></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> date, result_da <span class="kw">in</span> results:</span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>     result_da.to_netcdf(dir_results<span class="op">+</span><span class="st">"spatial-corr-map_ssh-sst_"</span> <span class="op">+</span> date <span class="op">+</span> <span class="st">".nc"</span>)</span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Since we manually scaled up the cluster, we have to manually scale it back down if we want to stop using resources:</span></span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>corrmap_toda_parallel.cluster.scale(<span class="dv">1</span>)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> corrmap_toda_parallel.<span class="bu">map</span>(</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    grans_2tuples, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, </span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Retreive the results from the cluster as they become available and save as .nc files locally:</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> date, result_da <span class="kw">in</span> results:</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>     result_da.to_netcdf(dir_results<span class="op">+</span><span class="st">"spatial-corr-map_ssh-sst_"</span> <span class="op">+</span> date <span class="op">+</span> <span class="st">".nc"</span>)</span>
 <span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> time.time()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Since we manually scaled up the cluster, manually scale it back down to stop using resources:</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>corrmap_toda_parallel.cluster.scale(<span class="dv">1</span>)</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> time.time()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"a10bd0618b484775b18424cc9f81ed60","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -2046,7 +2098,7 @@ Dimensions without coordinates: dummy_time</pre><div class="xr-wrap" style="disp
 <section id="optional-parallel-computation-on-full-record-at-0.25-degree-resolution" class="level2">
 <h2 class="anchored" data-anchor-id="optional-parallel-computation-on-full-record-at-0.25-degree-resolution">5. Optional: Parallel computation on full record at 0.25 degree resolution</h2>
 <p>Only Section 1 needs to be run prior to this. Sections 2-4 can be skipped.</p>
-<p>This section mirrors the workflow of Section 4, but processes all 1808 pairs of files, spanning a little over two decades, at higher resolution. To get an estimate of how long this would take without parallel computing, you can re-run section 3 but replace a value of 0.5 for the higher_res variable with 0.25 (in the part where we estimate comp times). Trying this on a few machines, we get that it would take anywhere from 21 to 34 hours to process the record over a single year, which means for 22 years it would take 19 to 31 days to complete the entire record. When we used this code to run the computation in parallel on a 250 <em>t4g.small</em> instances, computation took us instead ~5 hours and cost ~$20, obtaining the following mean map for the full record:</p>
+<p>This section mirrors the workflow of Section 4, but processes all 1808 pairs of files, spanning a little over two decades, at higher resolution. To get an estimate of how long this would take without parallel computing, you can re-run section 3 but replace a value of 0.5 for the higher_res variable with 0.25 (in the part where we estimate comp times). Trying this on a few machines, we get that it would take anywhere from 21 to 34 hours to process the record over a single year, which means for 22 years it would take 19 to 31 days to complete the entire record. When we used this code to run the computation in parallel on a 250 t4g.small instances, computation took us instead ~5 hours and cost ~<span class="math inline">\(\$\)</span> 20, obtaining the following mean map for the full record:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="coiled_function_01_files/figure-html/61b71e59-45f3-48c7-a307-220636e40255-1-210f8467-aef9-4240-bd2d-ffc11c955094.png" class="img-fluid figure-img"></p>
@@ -2081,12 +2133,15 @@ Granules found: 9039</code></pre>
 <div id="83c61980-0ad4-45ec-872c-c45cdbee0a16" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrmap_toda(grans, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, lats<span class="op">=</span><span class="va">None</span>, lons<span class="op">=</span><span class="va">None</span>, f_notnull<span class="op">=</span><span class="fl">0.5</span>):</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calls spatial_corrmap() for a pair of SSH, SST granules and collects output into an Xarray DataArray. </span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns this along with the date of the file coverages.</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calls spatial_corrmap() for a pair of SSH, SST granules and collects output into an </span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Xarray DataArray. Returns this along with the date of the file coverages.</span></span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    coef, lats, lons <span class="op">=</span> spatial_corrmap(grans, lat_halfwin, lon_halfwin, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> grans[<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="co"># get date from SSH UR.</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> date, xr.DataArray(data<span class="op">=</span>coef, dims<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>], coords<span class="op">=</span><span class="bu">dict</span>(lon<span class="op">=</span>lons, lat<span class="op">=</span>lats), name<span class="op">=</span><span class="st">'corr_ssh_sst'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    coef, lats, lons <span class="op">=</span> spatial_corrmap(</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>        grans, lat_halfwin, lon_halfwin, </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> grans[<span class="dv">0</span>][<span class="st">'umm'</span>][<span class="st">'GranuleUR'</span>].split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">8</span>] <span class="co"># get date from SSH UR.</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> date, xr.DataArray(data<span class="op">=</span>coef, dims<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>], coords<span class="op">=</span><span class="bu">dict</span>(lon<span class="op">=</span>lons, lat<span class="op">=</span>lats), name<span class="op">=</span><span class="st">'corr_ssh_sst'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Some prep work:</p>
 <div id="568046a6-e387-47ee-8c6b-2d91863e2be3" class="cell" data-execution_count="31">
@@ -2113,23 +2168,26 @@ Granules found: 9039</code></pre>
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>corrmap_toda_parallel <span class="op">=</span> coiled.function(</span>
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    region<span class="op">=</span><span class="st">"us-west-2"</span>, spot_policy<span class="op">=</span><span class="st">"on-demand"</span>, </span>
 <span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    vm_type<span class="op">=</span><span class="st">"t4g.small"</span>, <span class="co"># General purpose vm that strikes a balance between performance and cost.</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    environ<span class="op">=</span>earthaccess.auth_environ(), <span class="co"># This ensures that our EDL credentials are passed to each worker.</span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    n_workers<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">250</span>] <span class="co"># Have cluster adaptively scale to at most 250 VM's. Will go back to 0 once work is finished.</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    environ<span class="op">=</span>earthaccess.auth_environ(), <span class="co"># Ensure our EDL credentials are passed to each worker.</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    n_workers<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">250</span>] <span class="co"># Adaptively scale to at most 250 VM's. Will go back to 0 once finished.</span></span>
 <span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    )(corrmap_toda)</span>
 <span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin computations:</span></span>
 <span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>grans_2tuples <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(grans_ssh_analyze, grans_sst_analyze))</span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> corrmap_toda_parallel.<span class="bu">map</span>(grans_2tuples, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Retreive the results from the cluster as they become available and save as .nc files locally:</span></span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> date, result_da <span class="kw">in</span> results:</span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>     result_da.to_netcdf(dir_results<span class="op">+</span><span class="st">"spatial-corr-map_ssh-sst_"</span> <span class="op">+</span> date <span class="op">+</span> <span class="st">".nc"</span>)</span>
-<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="co"># shutdown cluster:</span></span>
-<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>corrmap_toda_parallel.cluster.shutdown()</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> corrmap_toda_parallel.<span class="bu">map</span>(</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>    grans_2tuples, lat_halfwin<span class="op">=</span><span class="dv">3</span>, lon_halfwin<span class="op">=</span><span class="dv">3</span>, </span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>    lats<span class="op">=</span>lats, lons<span class="op">=</span>lons, f_notnull<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Retreive the results from the cluster as they become available and save as .nc files locally:</span></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> date, result_da <span class="kw">in</span> results:</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>     result_da.to_netcdf(dir_results<span class="op">+</span><span class="st">"spatial-corr-map_ssh-sst_"</span> <span class="op">+</span> date <span class="op">+</span> <span class="st">".nc"</span>)</span>
 <span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> time.time()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a><span class="co"># shutdown cluster:</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>corrmap_toda_parallel.cluster.shutdown()</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> time.time()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="a087093c-b908-460d-a5c6-6ed41976de1e" class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">## What was the total computation time?</span></span>

@@ -115,6 +115,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -1098,13 +1127,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>Previous notebooks have covered the use of Dask and parallel computing applied to the type of tasks in the schematic below, where we have a function which needs to work on a large data set as a whole. This could e.g.&nbsp;because the function works on some or all of the data from each of the files, so we can’t just work on each file independently like in the function replication example.</p>
 <p><img src="../../images/basicdask_schematic3.png" alt="sch1" width="500"> <img src="../../images/basicdask_schematic2.png" alt="sch1" width="500"></p>
-<p>In a previous notebook, a toy example was used to demonstrate this basic functionality using a local dask cluster and Xarray built-in functions to work on the data set in chunks. In this notebook, we expand that workflow to a more complex analysis, representing something closer to a real-world use-case. In this notebook, we parallelize computations using the third party software/package <code>Coiled</code>. In short, <code>Coiled</code> will allow us to spin up AWS virtual machines (EC2 instances) and create a distributed cluster out of them, all with a few lines of Python from within this notebook. <em>You will need a Coiled account, but once set up, you can run this notebook entirely from your laptop while the parallel computation portion will be run on the distributed cluster in AWS.</em></p>
+<p>In a previous notebook, a toy example was used to demonstrate this basic functionality using a local dask cluster and Xarray built-in functions to work on the data set in chunks. In this notebook, that workflow is expanded to a more complex analysis. Parallel computations are performed via the third party software/package <code>Coiled</code>. In short, <code>Coiled</code> allows us to spin up AWS virtual machines (EC2 instances) and create a distributed cluster out of them, all with a few lines of Python from within a notebook. <em>You will need a Coiled account, but once set up, you can run this notebook entirely from your laptop while the parallel computation portion will be run on the distributed cluster in AWS.</em></p>
 <section id="analysis-mean-seasonal-cycle-of-sst-anomalies" class="level4">
 <h4 class="anchored" data-anchor-id="analysis-mean-seasonal-cycle-of-sst-anomalies">Analysis: Mean Seasonal Cycle of SST Anomalies</h4>
-<p>The analysis will generate the mean seasonal cycle of sea surface temperature (SST) at each gridpoint in a region of the west coast of the U.S.A. The analysis uses a PO.DAAC hosted gridded global SST data sets: * GHRSST Level 4 MUR Global Foundation SST Analysis, V4.1: 0.01° x 0.01° resolution, global map, daily files, https://doi.org/10.5067/GHGMR-4FJ04</p>
+<p>The analysis will generate the mean seasonal cycle of sea surface temperature (SST) at each gridpoint in a region of the west coast of the U.S.A. The analysis uses a PO.DAAC hosted gridded global SST data set:</p>
+<ul>
+<li>GHRSST Level 4 MUR Global Foundation SST Analysis, V4.1: 0.01° x 0.01° resolution, global map, daily files, https://doi.org/10.5067/GHGMR-4FJ04</li>
+</ul>
 <p>The analysis will use files over the first decade of the time record. The following procedure is used to generate seasonal cycles:</p>
 <p><img src="../../images/schematic_sst-cycle.png" alt="sch_sst-ssh-corr" width="800"></p>
-<p>In Section 1 of this notebook, the first decade of MUR files are located on PO.DAAC using the <code>earthaccess</code> package, then a file is inspected and memory requirements for this data set are assessed. In Section 2, a “medium-sized” computation is performed, deriving the mean seasonal cycle for the files thinned out to once per week (570 files, 1.3 TB of uncompressed data) for about \$0.20. In Section 3, we perform the computation on all the files in the first decade, ~4000 files, ~10 TB of uncompressed data, for about \$3.</p>
+<p>In Section 1 of this notebook, the first decade of MUR files are located on PO.DAAC using the <code>earthaccess</code> package, then a file is inspected and memory requirements for this data set are assessed. In Section 2, a “medium-sized” computation is performed, deriving the mean seasonal cycle for the files thinned out to once per week (570 files, 1.3 TB of uncompressed data) for about <span class="math inline">\(\$\)</span> 0.20. In Section 3, we perform the computation on all the files in the first decade, ~4000 files, ~10 TB of uncompressed data, for about <span class="math inline">\(\$\)</span> 3.</p>
 </section>
 </section>
 <section id="requirements-prerequisite-knowledge-learning-outcomes" class="level2">
@@ -1188,7 +1220,7 @@ Enter your Earthdata password:  ········</code></pre>
 <h4 class="anchored" data-anchor-id="open-and-inspect-a-file"><strong>Open and inspect a file</strong></h4>
 <p>Open a file and plot the SST data in the region for our analysis.</p>
 <div id="6fa56a14-307b-4298-adbd-d313335cc404" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fileobj_test <span class="op">=</span> earthaccess.<span class="bu">open</span>([datainfo[<span class="dv">0</span>]])[<span class="dv">0</span>] <span class="co"># Generate file objects from the endpoints which are compatible with Xarray</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fileobj_test <span class="op">=</span> earthaccess.<span class="bu">open</span>([datainfo[<span class="dv">0</span>]])[<span class="dv">0</span>] <span class="co"># Generate file-like objects compatible with Xarray</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sst_test <span class="op">=</span> xr.open_dataset(fileobj_test)[<span class="st">'analysed_sst'</span>]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sst_test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2202,9 +2234,9 @@ Attributes: (7)</pre><div class="xr-wrap" style="display:none"><div class="xr-he
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>sst_regional <span class="op">=</span> sst.sel(lat<span class="op">=</span><span class="bu">slice</span>(<span class="op">*</span>lat_region), lon<span class="op">=</span><span class="bu">slice</span>(<span class="op">*</span>lon_region))</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">## Remove linear warming trend:</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> sst_regional.polyfit(dim<span class="op">=</span><span class="st">'time'</span>, deg<span class="op">=</span><span class="dv">1</span>) <span class="co"># Degree 1 polynomial fit coefficients over time for each lat, lon.</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> xr.polyval(sst_regional[<span class="st">'time'</span>], p.polyfit_coefficients) <span class="co"># Compute linear trend time series at each lat, lon.</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>sst_detrend <span class="op">=</span> (sst_regional <span class="op">-</span> fit) <span class="co"># xarray is smart enough to subtract along the time dim only.</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> sst_regional.polyfit(dim<span class="op">=</span><span class="st">'time'</span>, deg<span class="op">=</span><span class="dv">1</span>) <span class="co"># Deg 1 poly fit coefficients at each grid point.</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> xr.polyval(sst_regional[<span class="st">'time'</span>], p.polyfit_coefficients) <span class="co"># Linear fit time series at each point.</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>sst_detrend <span class="op">=</span> (sst_regional <span class="op">-</span> fit) <span class="co"># xarray is smart enough to subtract along the time dim.</span></span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">## Mean seasonal cycle:</span></span>
 <span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>seasonal_cycle <span class="op">=</span> sst_detrend.groupby(<span class="st">"time.month"</span>).mean(<span class="st">"time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2285,7 +2317,7 @@ Wall time: 3min 54s</code></pre>
 <p>In this section, all files in the decade are processed. This will be ~4000 files, ~1.3 TB on disk, and ~10 TB for the SST varaible once uncompressed in memory. Using the parallel computing methods below (with 40 <code>r7g.xlarge</code> VMs), we were able to accomplish this in about 20 minutes for \$3 (5 minutes for opening the data set and 15 minutes for computations).</p>
 <p>For this computation, <a href="https://aws.amazon.com/ec2/instance-types/">memory-optimized VMs</a> were chosen (they have high memory per CPU), following the example <a href="https://docs.coiled.io/blog/coiled-xarray.html">Coiled post here</a>. In short, it is more efficient to create larger chunks and have VMs which can handle the larger chunks.</p>
 <div id="21868469-84f0-4899-8626-72530c24457f" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fileobjs <span class="op">=</span> earthaccess.<span class="bu">open</span>(datainfo) <span class="co"># Generate file objects from the endpoints which are compatible with Xarray</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fileobjs <span class="op">=</span> earthaccess.<span class="bu">open</span>(datainfo) <span class="co"># Generate file-like objects compatible with Xarray</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Opening 3988 granules, approx size: 1330.13 GB
 using endpoint: https://archive.podaac.earthdata.nasa.gov/s3credentials</code></pre>
@@ -2817,15 +2849,15 @@ Attributes: (7)</pre><div class="xr-wrap" style="display:none"><div class="xr-he
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">## ----------------</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up analysis</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co">## ----------------</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">## (Since we're dealing with dask arrays, these functions calls don't do the computations yet, just set them up)</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">## (Since these are dask arrays, functions calls don't do the computations yet, just set them up)</span></span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co">## Subset to region off U.S.A. west coast:</span></span>
 <span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>sst_regional <span class="op">=</span> sst.sel(lat<span class="op">=</span><span class="bu">slice</span>(<span class="op">*</span>lat_region), lon<span class="op">=</span><span class="bu">slice</span>(<span class="op">*</span>lon_region))</span>
 <span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co">## Remove linear warming trend:</span></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> sst_regional.polyfit(dim<span class="op">=</span><span class="st">'time'</span>, deg<span class="op">=</span><span class="dv">1</span>) <span class="co"># Degree 1 polynomial fit coefficients over time for each lat, lon.</span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> xr.polyval(sst_regional[<span class="st">'time'</span>], p.polyfit_coefficients) <span class="co"># Compute linear trend time series at each lat, lon.</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>sst_detrend <span class="op">=</span> (sst_regional <span class="op">-</span> fit) <span class="co"># xarray is smart enough to subtract along the time dim only.</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> sst_regional.polyfit(dim<span class="op">=</span><span class="st">'time'</span>, deg<span class="op">=</span><span class="dv">1</span>) <span class="co"># Deg 1 poly fit coefficients at each grid point.</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> xr.polyval(sst_regional[<span class="st">'time'</span>], p.polyfit_coefficients) <span class="co"># Linear fit time series at each point.</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>sst_detrend <span class="op">=</span> (sst_regional <span class="op">-</span> fit) <span class="co"># xarray is smart enough to subtract along the time dim.</span></span>
 <span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="co">## Mean seasonal cycle:</span></span>
 <span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>seasonal_cycle <span class="op">=</span> sst_detrend.groupby(<span class="st">"time.month"</span>).mean(<span class="st">"time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
