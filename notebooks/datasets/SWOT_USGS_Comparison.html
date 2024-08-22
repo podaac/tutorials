@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Compare SWOT water surface elevation with USGS gage heights – PO.DAAC Cookbook</title>
+<title>swot_usgs_comparison – PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,7 +121,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Compare SWOT water surface elevation with USGS gage heights</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -670,6 +670,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT_Datum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datum Conversion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">River Time Series</span></a>
   </div>
@@ -1074,15 +1080,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#compare-swot-water-surface-elevation-with-usgs-gage-heights" id="toc-compare-swot-water-surface-elevation-with-usgs-gage-heights" class="nav-link active" data-scroll-target="#compare-swot-water-surface-elevation-with-usgs-gage-heights">Compare SWOT water surface elevation with USGS gage heights</a>
+  <ul class="collapse">
+  <li><a href="#datum-transformation-tutorial" id="toc-datum-transformation-tutorial" class="nav-link" data-scroll-target="#datum-transformation-tutorial">Datum Transformation Tutorial</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
   <ul class="collapse">
-  <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
-  <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">2. Earthdata Login</a></li>
+  <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">Compute environment:</a></li>
   <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import libraries</a></li>
   </ul></li>
-  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
+  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a>
+  <ul class="collapse">
+  <li><a href="#datum-transformation-to-compare-with-swot-data" id="toc-datum-transformation-to-compare-with-swot-data" class="nav-link" data-scroll-target="#datum-transformation-to-compare-with-swot-data">Datum Transformation to Compare with SWOT Data</a></li>
+  </ul></li>
   <li><a href="#transform-usgs-coordinates-for-comparison-with-swot-lakesp" id="toc-transform-usgs-coordinates-for-comparison-with-swot-lakesp" class="nav-link" data-scroll-target="#transform-usgs-coordinates-for-comparison-with-swot-lakesp">Transform USGS coordinates for comparison with SWOT LakeSP</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -1092,27 +1104,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Compare SWOT water surface elevation with USGS gage heights</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="author-katie-mcquillan-and-george-allen-virginia-tech" class="level4">
-<h4 class="anchored" data-anchor-id="author-katie-mcquillan-and-george-allen-virginia-tech"><em>Author: Katie McQuillan and George Allen, Virginia Tech</em></h4>
+<p><img src="https://img.shields.io/badge/Community-Contribution-%20?color=grey&amp;labelColor=yellow.png" class="img-fluid"></p>
+<blockquote class="blockquote">
+<p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/datasets/SWOT_USGS_Comparison.ipynb">this link</a>.</p>
+</blockquote>
+<section id="compare-swot-water-surface-elevation-with-usgs-gage-heights" class="level1">
+<h1>Compare SWOT water surface elevation with USGS gage heights</h1>
+<section id="datum-transformation-tutorial" class="level3">
+<h3 class="anchored" data-anchor-id="datum-transformation-tutorial">Datum Transformation Tutorial</h3>
+<section id="authors-katie-mcquillan-and-george-allen-virginia-tech" class="level4">
+<h4 class="anchored" data-anchor-id="authors-katie-mcquillan-and-george-allen-virginia-tech"><em>Authors: Katie McQuillan and George Allen, Virginia Tech</em></h4>
+</section>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
@@ -1121,19 +1126,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section id="requirements" class="level2">
 <h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
 <section id="compute-environment" class="level3">
-<h3 class="anchored" data-anchor-id="compute-environment">1. Compute environment</h3>
-<p>This tutorial is written to run in the following environment: - <strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine</p>
-<ul>
-<li>GDAL must be installed (https://gdal.org/)</li>
-</ul>
-</section>
-<section id="earthdata-login" class="level3">
-<h3 class="anchored" data-anchor-id="earthdata-login">2. Earthdata Login</h3>
-<p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
+<h3 class="anchored" data-anchor-id="compute-environment">Compute environment:</h3>
+<p>This tutorial is written to run in the following environment: - <strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine - <strong>GDAL</strong> must be installed (https://gdal.org/)</p>
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
-<div id="cell-2" class="cell" data-execution_count="2">
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> osgeo <span class="im">import</span> osr</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1145,14 +1143,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="datasets" class="level2">
 <h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<ol type="1">
-<li><p>USGS Lake/Reservoir Water Surface Elevation dataset can be acccessed using the DataRetrieval python module with the parameter code 62615.</p></li>
-<li><p>SWOT LakeSP dataset can be accessed using the EarthAccess python module or the PO.DAAC Data Downloader.</p></li>
-</ol>
+<p><strong>1. USGS Lake/Reservoir Water Surface Elevation dataset</strong> can be acccessed using the <a href="https://github.com/DOI-USGS/dataretrieval-python">DataRetrieval</a> python module with the parameter code 62615.</p>
+<p><strong>2. SWOT LakeSP dataset</strong> can be accessed using the <a href="https://earthaccess.readthedocs.io/en/latest/">Earthaccess</a> python module or the <a href="https://podaac.github.io/tutorials/quarto_text/DataSubscriberDownloader.html">PO.DAAC Data Downloader</a>.</p>
+<p>The above data were combined outside of this tutorial into a csv file called ‘usgs_swot_merged_example.csv’.</p>
+<section id="datum-transformation-to-compare-with-swot-data" class="level3">
+<h3 class="anchored" data-anchor-id="datum-transformation-to-compare-with-swot-data">Datum Transformation to Compare with SWOT Data</h3>
 <p>Cotemporal SWOT LakeSP and USGS observations were used to form the dataset used for comparisons including X lakes with gages. To directly compare SWOT and USGS datasets, the USGS horizontal and vertical coordiantes must be transformed to match the SWOT datums. Datums for each dataset are noted in Table 1.</p>
 <p>It is important to note that using the generic WGS84 (EPSG:4326) is not recommended because it is based on a datum ensemble whose positional accuracy is approximately two meters. Instead, a realization such as WGS84 (G1762) is recommended. WGS84 (G1762) and ITRF 2014 are equivalent for all practical purposes when their epochs are the same.</p>
 <p>Epochs are used to define a reference date for positions esablished using the datum ellipsoid and reference frame. Due to tectonic plate movement, landmasses are constantly moving in relationship to each other and in relation to the reference frame. Therefore, accounting for the epoch is necessary for accurate coordinate transformations. The NAD83 (2011) epoch is 2010.0. The standard epoch of WGS84 (G1762) is 2005.0 and the standard epoch of ITRF2014 is 2010.0. Since SWOT is based on ITRF2014, we set the target epoch to 2010.0.</p>
-<p>Table 1. SWOT and USGS datum information | Data source | Horizontal Datum | Reference Ellipsoid | Vertical Datum | EPSG Code | | — | — | — | — | — | | SWOT | ITRF2014 | WGS84 | EGM2008 | EPSG:9057+EPSG:3855 | | USGS | NAD83 (2011) | GRS80 | NAVD88 | EPSG:6349 |</p>
+<p>Table 1. SWOT and USGS datum information</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data source</th>
+<th>Horizontal Datum</th>
+<th>Reference Ellipsoid</th>
+<th>Vertical Datum</th>
+<th>EPSG Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SWOT</td>
+<td>ITRF2014</td>
+<td>WGS84</td>
+<td>EGM2008</td>
+<td>EPSG:9057+EPSG:3855</td>
+</tr>
+<tr class="even">
+<td>USGS</td>
+<td>NAD83 (2011)</td>
+<td>GRS80</td>
+<td>NAVD88</td>
+<td>EPSG:6349</td>
+</tr>
+</tbody>
+</table>
 <p>USGS data is represented using EPSG:6349. EPSG:6349 is a compound CRS that represents NAD83 (2011) + NAVD88 height.</p>
 <div id="cell-7" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Details of the the compound NAD83(2011) + NAVD88 (EPSG:6349)</span></span>
@@ -1182,17 +1215,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         AUTHORITY["EPSG","5703"]],
     AUTHORITY["EPSG","6349"]]</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>c:\Users\kmcquil\anaconda3\envs\swot-wind\lib\site-packages\osgeo\osr.py:410: FutureWarning: Neither osr.UseExceptions() nor osr.DontUseExceptions() has been explicitly called. In GDAL 4.0, exceptions will be enabled by default.
-  warnings.warn(</code></pre>
-</div>
 </div>
 <p>SWOT data is represented using EPSG:9057 + EPSG:3855. EPSG:9057 represents WGS84 (G1762) and EPSG: 3855 represents EGM 2008.</p>
 <div id="cell-9" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Details for EPSG:9057 WGS84 (G1762)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dst <span class="op">=</span> osr.SpatialReference()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dst.ImportFromEPSG(<span class="dv">9057</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Details for EPSG:9057 WGS84 (G1762)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dst <span class="op">=</span> osr.SpatialReference()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dst.ImportFromEPSG(<span class="dv">9057</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GEOGCS["WGS 84 (G1762)",
     DATUM["World_Geodetic_System_1984_G1762",
@@ -1209,10 +1238,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <div id="cell-10" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Details of EPSG:3855 EGM2008</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>v_dst <span class="op">=</span> osr.SpatialReference()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>v_dst.ImportFromEPSG(<span class="dv">3855</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(v_dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Details of EPSG:3855 EGM2008</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>v_dst <span class="op">=</span> osr.SpatialReference()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>v_dst.ImportFromEPSG(<span class="dv">3855</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(v_dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>VERT_CS["EGM2008 height",
     VERT_DATUM["EGM2008 geoid",2005,
@@ -1224,71 +1253,73 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 </section>
+</section>
 <section id="transform-usgs-coordinates-for-comparison-with-swot-lakesp" class="level2">
 <h2 class="anchored" data-anchor-id="transform-usgs-coordinates-for-comparison-with-swot-lakesp">Transform USGS coordinates for comparison with SWOT LakeSP</h2>
 <section id="prep-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="prep-the-data">Prep the data</h4>
-<div id="cell-13" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change working directory to tutorials folder</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">'.'</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the dataset of cotemporal SWOT and USGS observations</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>swot_usgs_df <span class="op">=</span> pd.read_csv(<span class="st">"notebooks/resources/usgs_swot_merged_example.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># How many cotemporal observations? </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of cotemporal USGS and SWOT observations = '</span> <span class="op">+</span> <span class="bu">str</span>(swot_usgs_df.shape[<span class="dv">0</span>]))</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data into correct format to pass to gdal including longitude, latitude, and gage height in feet</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>in_gdal <span class="op">=</span> swot_usgs_df[[<span class="st">"usgs_long"</span>, <span class="st">"usgs_lat"</span>, <span class="st">"usgs_X_62615_00000"</span>]].copy()</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Since the USGS heights are in feet but the projection we have assigned are in meters, convert heights to meters</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>in_gdal.loc[:,<span class="st">'usgs_X_62615_00000'</span>] <span class="op">=</span> in_gdal.loc[:,<span class="st">'usgs_X_62615_00000'</span>] <span class="op">*</span> <span class="fl">0.3048</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a column with long, lat, height combined </span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>in_gdal.loc[:,<span class="st">"out"</span>] <span class="op">=</span> [</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">str</span>(i) <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> <span class="bu">str</span>(k)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, j, k <span class="kw">in</span> <span class="bu">zip</span>(</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_long"</span>],</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_lat"</span>],</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_X_62615_00000"</span>],</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the combined column to a text file</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>in_gdal[<span class="st">"out"</span>].to_csv(<span class="st">"notebooks/resources/gdal_in.txt"</span>, header<span class="op">=</span><span class="va">False</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-13" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change working directory to tutorials folder</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">'.'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the dataset of cotemporal SWOT and USGS observations</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>swot_usgs_df <span class="op">=</span> pd.read_csv(<span class="st">"../resources/usgs_swot_merged_example.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># How many cotemporal observations? </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of cotemporal USGS and SWOT observations = '</span> <span class="op">+</span> <span class="bu">str</span>(swot_usgs_df.shape[<span class="dv">0</span>]))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data into correct format to pass to gdal including longitude, latitude, and gage height in feet</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>in_gdal <span class="op">=</span> swot_usgs_df[[<span class="st">"usgs_long"</span>, <span class="st">"usgs_lat"</span>, <span class="st">"usgs_X_62615_00000"</span>]].copy()</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Since the USGS heights are in feet but the projection we have assigned are in meters, convert heights to meters</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>in_gdal.loc[:,<span class="st">'usgs_X_62615_00000'</span>] <span class="op">=</span> in_gdal.loc[:,<span class="st">'usgs_X_62615_00000'</span>] <span class="op">*</span> <span class="fl">0.3048</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a column with long, lat, height combined </span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>in_gdal.loc[:,<span class="st">"out"</span>] <span class="op">=</span> [</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">str</span>(i) <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> <span class="bu">str</span>(k)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, j, k <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_long"</span>],</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_lat"</span>],</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_X_62615_00000"</span>],</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the combined column to a text file</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>in_gdal[<span class="st">"out"</span>].to_csv(<span class="st">"../resources/gdal_in.txt"</span>, header<span class="op">=</span><span class="va">False</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The number of cotemporal USGS and SWOT observations = 425</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="25">
-<pre><code>CompletedProcess(args='cd c:\\Users\\kmcquil\\Documents\\tutorials\\notebooks\\resources &amp;&amp; gdaltransform -s_coord_epoch "2010.0" -t_coord_epoch "2010.0" -s_srs "EPSG:6349" -t_srs "EPSG:9057+EPSG:3855" &lt; "gdal_in.txt" &gt; "gdal_out.txt"', returncode=0)</code></pre>
 </div>
 </div>
 </section>
 <section id="transform-using-gdal" class="level4">
 <h4 class="anchored" data-anchor-id="transform-using-gdal">Transform using gdal</h4>
-<div id="cell-15" class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the gdal command and run in the shell </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cd_command <span class="op">=</span> <span class="st">"cd "</span> <span class="op">+</span> os.getcwd() <span class="op">+</span> <span class="st">"</span><span class="ch">\\</span><span class="st">notebooks</span><span class="ch">\\</span><span class="st">resources &amp;&amp; "</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>gdal_command <span class="op">=</span> <span class="st">'gdaltransform -s_coord_epoch "2010.0" -t_coord_epoch "2010.0" -s_srs "EPSG:6349" -t_srs "EPSG:9057+EPSG:3855" &lt; "gdal_in.txt" &gt; "gdal_out.txt"'</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>subprocess.run(cd_command <span class="op">+</span> gdal_command, shell<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-15" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the gdal command and run in the shell </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">'../'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>cd_command <span class="op">=</span> <span class="st">"cd "</span> <span class="op">+</span> os.getcwd() <span class="op">+</span> <span class="st">"//resources &amp;&amp; "</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>gdal_command <span class="op">=</span> <span class="st">'gdaltransform -s_coord_epoch "2010.0" -t_coord_epoch "2010.0" -s_srs "EPSG:6349" -t_srs "EPSG:9057+EPSG:3855" &lt; "gdal_in.txt" &gt; "gdal_out.txt"'</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>subprocess.run(cd_command <span class="op">+</span> gdal_command, shell<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>CompletedProcess(args='cd /home/jovyan/tutorials/notebooks//resources &amp;&amp; gdaltransform -s_coord_epoch "2010.0" -t_coord_epoch "2010.0" -s_srs "EPSG:6349" -t_srs "EPSG:9057+EPSG:3855" &lt; "gdal_in.txt" &gt; "gdal_out.txt"', returncode=0)</code></pre>
+</div>
 </div>
 </section>
-<section id="calculate-error-statistics" class="level4">
-<h4 class="anchored" data-anchor-id="calculate-error-statistics">Calculate error statistics</h4>
-<div id="cell-17" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge back with the original data </span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>out_gdal <span class="op">=</span> pd.read_csv(<span class="st">"notebooks/resources/gdal_out.txt"</span>, header<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>out_gdal <span class="op">=</span> out_gdal.rename(columns<span class="op">=</span>{<span class="dv">0</span>: <span class="st">"result"</span>})</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>out_gdal[[<span class="st">"usgs_long"</span>, <span class="st">"usgs_lat"</span>, <span class="st">"usgs_X_62615_00000_egm0_meters"</span>]] <span class="op">=</span> out_gdal[<span class="st">"result"</span>].<span class="bu">str</span>.split(<span class="st">" "</span>, expand<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>] <span class="op">=</span> out_gdal[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Error stats</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>mae <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])))</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> np.mean(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>]))</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> math.sqrt(np.square(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])).mean())</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>one_sigma <span class="op">=</span> np.quantile(np.<span class="bu">abs</span>(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])),<span class="fl">0.68</span>)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame([[bias, mae, rmse, one_sigma]], columns<span class="op">=</span>[<span class="st">"MBE (m)"</span>, <span class="st">"MAE (m)"</span>, <span class="st">"RMSE (m)"</span>, <span class="st">"One-Sigma (m)"</span>])</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="calculate-error-statistics-between-usgs-datum-transformed-data-and-swot-data" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-error-statistics-between-usgs-datum-transformed-data-and-swot-data">Calculate error statistics between USGS datum-transformed data and SWOT data</h4>
+<div id="cell-17" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge back with the original data </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>out_gdal <span class="op">=</span> pd.read_csv(<span class="st">"resources/gdal_out.txt"</span>, header<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>out_gdal <span class="op">=</span> out_gdal.rename(columns<span class="op">=</span>{<span class="dv">0</span>: <span class="st">"result"</span>})</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>out_gdal[[<span class="st">"usgs_long"</span>, <span class="st">"usgs_lat"</span>, <span class="st">"usgs_X_62615_00000_egm0_meters"</span>]] <span class="op">=</span> out_gdal[<span class="st">"result"</span>].<span class="bu">str</span>.split(<span class="st">" "</span>, expand<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>] <span class="op">=</span> out_gdal[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Error stats</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>mae <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> np.mean(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>]))</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> math.sqrt(np.square(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])).mean())</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>one_sigma <span class="op">=</span> np.quantile(np.<span class="bu">abs</span>(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])),<span class="fl">0.68</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame([[bias, mae, rmse, one_sigma]], columns<span class="op">=</span>[<span class="st">"MBE (m)"</span>, <span class="st">"MAE (m)"</span>, <span class="st">"RMSE (m)"</span>, <span class="st">"One-Sigma (m)"</span>])</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    MBE (m)   MAE (m)  RMSE (m)  One-Sigma (m)
 0 -0.144761  0.299489  0.974874       0.139806</code></pre>
@@ -1296,6 +1327,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 
 
+</section>
 </section>
 </section>
 

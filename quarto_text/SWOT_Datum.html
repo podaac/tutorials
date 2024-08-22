@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>hls-waterdetection-local – PO.DAAC Cookbook</title>
+<title>Datum Conversion for SWOT Data – PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,62 +20,28 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<link href="../../../quarto_text/ScienceDataStories.html" rel="next">
-<link href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" rel="prev">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../notebooks/GIS/SWOTshp_CSVconversion.html" rel="next">
+<link href="../notebooks/GIS/SWOT_datetime_GIS.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +89,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../quarto_text/CloudvsLocalWorkflows.html">Cloud vs.&nbsp;Local Workflows</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html">Reservoir Example</a></li><li class="breadcrumb-item"><a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html">Local</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../quarto_text/SWOT.html">SWOT</a></li><li class="breadcrumb-item"><a href="../quarto_text/SWOT_Datum.html">Transform Data</a></li><li class="breadcrumb-item"><a href="../quarto_text/SWOT_Datum.html">Datum Conversion</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -137,8 +103,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="../../../index.html" class="sidebar-logo-link">
-      <img src="../../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
@@ -155,19 +121,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cheatsheets &amp; Guides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How To</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -185,13 +151,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">using Earthdata Search</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">using Code</span></a>
   </div>
 </li>
@@ -199,7 +165,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Authenticate</span></a>
   </div>
 </li>
@@ -214,19 +180,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">in the Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/access-local-python.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/access-local-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Locally</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via OPeNDAP</span></a>
   </div>
 </li>
@@ -234,13 +200,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/read_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/read_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Read Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Download/Subscribe</span></a>
   </div>
 </li>
@@ -248,7 +214,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorials</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -257,16 +223,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Specific</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ECCO</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -275,19 +241,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-cloud Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local Download Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
@@ -295,7 +261,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GHRSST</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -304,31 +270,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In QGIS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPeNDAP Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-Cloud Access</span></a>
   </div>
 </li>
@@ -336,7 +302,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPERA</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -354,13 +320,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -370,7 +336,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -379,25 +345,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/sentinel-6/S6_Cloud_Notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/sentinel-6/S6_Cloud_Notebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access in Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access by Cycle/Pass</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access NRT Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPeNDAP Access</span></a>
   </div>
 </li>
@@ -405,7 +371,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SMAP</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -414,7 +380,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
@@ -422,7 +388,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">S-MODE</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -431,19 +397,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study Airborne Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study Airborne Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study In Situ</span></a>
   </div>
 </li>
@@ -451,13 +417,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SWOT</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
@@ -469,37 +435,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via GUI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programmatically</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via Command Line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/SWOT.html#search-swot-passes-over-time" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/SWOT.html#search-swot-passes-over-time" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Passes over Time</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/SWOT.html#swot-spatial-coverage" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/SWOT.html#swot-spatial-coverage" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Coverage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/SWOT.html#tips-for-swot-spatial-search" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/SWOT.html#tips-for-swot-spatial-search" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tips: Spatial Search</span></a>
   </div>
 </li>
@@ -525,13 +491,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOTHR_localmachine.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOTHR_localmachine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -548,13 +514,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/DirectCloud_Access_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/DirectCloud_Access_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -562,19 +528,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hydrocron Time Series</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_PIXC_Area_localmachine.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_PIXC_Area_localmachine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PIXC Area Aggregration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_PIXC_PhaseUnwrap_localmachine.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_PIXC_PhaseUnwrap_localmachine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PIXC Phase Unwrap</span></a>
   </div>
 </li>
@@ -589,13 +555,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_Raster_Notebook_cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_Raster_Notebook_cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_Raster_Notebook_local.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_Raster_Notebook_local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -603,7 +569,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_quality_flag_demo.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_quality_flag_demo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quality Flags</span></a>
   </div>
 </li>
@@ -620,13 +586,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/DataStories/SWOTHR_Science_Application.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/DataStories/SWOTHR_Science_Application.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/DataStories/SWOTHR_Science_Application_localmachine.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/DataStories/SWOTHR_Science_Application_localmachine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -649,13 +615,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/GIS/SWOT_GISshapefiles.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/GIS/SWOT_GISshapefiles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Shapefile Exploration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/GIS/SWOT_datetime_GIS.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/GIS/SWOT_datetime_GIS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Datetime Conversion</span></a>
   </div>
 </li>
@@ -663,28 +629,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="true">
  <span class="menu-text">Transform Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth4 ">  
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth4 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/SWOT_Datum.html" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/SWOT_Datum.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Datum Conversion</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">River Time Series</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lake Time Series</span></a>
   </div>
 </li>
@@ -699,13 +665,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mac/Linux</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Windows</span></a>
   </div>
 </li>
@@ -715,7 +681,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/SWOT.html#tools" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/SWOT.html#tools" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tools</span></a>
   </div>
 </li>
@@ -730,25 +696,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploring river discharge</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploring river discharge and gauge data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plotting ALL river discharge algorithms</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizing river discharge</span></a>
   </div>
 </li>
@@ -760,19 +726,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GIS</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud vs. Local Workflows</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false">
@@ -784,13 +750,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -798,22 +764,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false">
  <span class="menu-text">Reservoir Example</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth3 show">  
+      <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -830,13 +796,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -846,7 +812,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Science Data Stories</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -864,13 +830,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-29" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -878,25 +844,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Monthly SST EOF Decomposition</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SSS Changes in the Arctic</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mississippi River Heights</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SST Cross Validation</span></a>
   </div>
 </li>
@@ -904,7 +870,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Examples</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -913,19 +879,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-30" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/zarr_access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr Access for NetCDF4 Files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">zarr-eosdis-store library</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">zarr2netCDF</span></a>
   </div>
 </li>
@@ -935,7 +901,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced Cloud</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -944,7 +910,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-31" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
+            <a href="../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AWS Lambda</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -953,7 +919,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-32" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Notebook</span></a>
   </div>
 </li>
@@ -961,7 +927,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask and Coiled</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -970,31 +936,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-33" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Basic Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/Advanced_cloud/dask_delayed_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/Advanced_cloud/dask_delayed_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask Function Replication Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/Advanced_cloud/dask_cluster_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/Advanced_cloud/dask_cluster_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask Dataset Chunking Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/Advanced_cloud/coiled_function_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/Advanced_cloud/coiled_function_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Coiled Function Replication Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/Advanced_cloud/coiled_cluster_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/Advanced_cloud/coiled_cluster_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Coiled Dataset Chunking Example</span></a>
   </div>
 </li>
@@ -1002,13 +968,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kerchunk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask, Kerchunk, &amp; Zarr</span></a>
   </div>
 </li>
@@ -1016,19 +982,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In Development</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshops</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Webinars</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -1037,7 +1003,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-34" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
+  <a href="../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">July 2022 Earthdata Webinar Notebook</span></a>
   </div>
 </li>
@@ -1045,13 +1011,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tech Guides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
+            <a href="../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contribute</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-35" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -1060,7 +1026,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-35" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorial Template</span></a>
   </div>
 </li>
@@ -1068,7 +1034,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
+  <a href="../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Questions?</span></a>
   </div>
 </li>
@@ -1082,16 +1048,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#estimating-reservoir-surface-area-from-harmonized-landsat-sentinel-hls-imagery-local-machine-version" id="toc-estimating-reservoir-surface-area-from-harmonized-landsat-sentinel-hls-imagery-local-machine-version" class="nav-link active" data-scroll-target="#estimating-reservoir-surface-area-from-harmonized-landsat-sentinel-hls-imagery-local-machine-version">Estimating Reservoir Surface Area From Harmonized Landsat-Sentinel (HLS) Imagery – Local Machine Version</a>
+  <li><a href="#use-the-handbook" id="toc-use-the-handbook" class="nav-link active" data-scroll-target="#use-the-handbook">Use the Handbook</a></li>
+  <li><a href="#community-tutorials" id="toc-community-tutorials" class="nav-link" data-scroll-target="#community-tutorials">Community Tutorials</a>
   <ul class="collapse">
-  <li><a href="#initiate-data-search" id="toc-initiate-data-search" class="nav-link" data-scroll-target="#initiate-data-search">Initiate Data Search</a></li>
-  <li><a href="#define-date-range-and-region-of-interest" id="toc-define-date-range-and-region-of-interest" class="nav-link" data-scroll-target="#define-date-range-and-region-of-interest">Define Date Range and Region of Interest</a></li>
-  <li><a href="#search-for-hls-imagery-matching-search-criteria" id="toc-search-for-hls-imagery-matching-search-criteria" class="nav-link" data-scroll-target="#search-for-hls-imagery-matching-search-criteria">Search for HLS imagery matching search criteria</a></li>
-  <li><a href="#filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification" id="toc-filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification" class="nav-link" data-scroll-target="#filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification">Filter imagery for low cloud images and identify image bands needed for water classification</a></li>
-  <li><a href="#download-identified-images-to-local-computer" id="toc-download-identified-images-to-local-computer" class="nav-link" data-scroll-target="#download-identified-images-to-local-computer">Download identified images to local computer</a></li>
-  <li><a href="#load-images-and-visualize" id="toc-load-images-and-visualize" class="nav-link" data-scroll-target="#load-images-and-visualize">Load images and visualize</a></li>
-  <li><a href="#caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas" id="toc-caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas" class="nav-link" data-scroll-target="#caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas">Caclulate Normalized Difference Water Index (NDWI) and Classify Innundated Areas</a></li>
-  <li><a href="#caclulate-surface-area-of-reservoir-and-plot-time-series" id="toc-caclulate-surface-area-of-reservoir-and-plot-time-series" class="nav-link" data-scroll-target="#caclulate-surface-area-of-reservoir-and-plot-time-series">Caclulate surface area of reservoir and plot time series</a></li>
+  <li><a href="#for-more-help" id="toc-for-more-help" class="nav-link" data-scroll-target="#for-more-help">For More Help</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -1102,242 +1062,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../quarto_text/DatasetSpecificExamples.html">Dataset Specific</a></li><li class="breadcrumb-item"><a href="../quarto_text/SWOT.html">SWOT</a></li><li class="breadcrumb-item"><a href="../quarto_text/SWOT_Datum.html">Transform Data</a></li><li class="breadcrumb-item"><a href="../quarto_text/SWOT_Datum.html">Datum Conversion</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Datum Conversion for SWOT Data</h1>
+<p class="subtitle lead">Community Tutorials</p>
+</div>
 
 
 
-<p><img src="https://img.shields.io/badge/Community-Contribution-%20?color=grey&amp;labelColor=yellow.png" class="img-fluid"></p>
-<blockquote class="blockquote">
-<p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.ipynb">this link</a>.</p>
-</blockquote>
-<section id="estimating-reservoir-surface-area-from-harmonized-landsat-sentinel-hls-imagery-local-machine-version" class="level1">
-<h1>Estimating Reservoir Surface Area From Harmonized Landsat-Sentinel (HLS) Imagery – Local Machine Version</h1>
-<p><em>Author: Matthew Bonnema (JPL)</em></p>
-<div id="8d6e1510" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client  </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict    </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geoviews <span class="im">as</span> gv</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cartopy <span class="im">import</span> crs</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.session <span class="im">import</span> AWSSession</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.plot <span class="im">import</span> show</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geoviews <span class="im">as</span> gv</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.xarray</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> holoviews <span class="im">as</span> hv</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pprint <span class="im">import</span> pprint</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>gv.extension(<span class="st">'bokeh'</span>, <span class="st">'matplotlib'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="initiate-data-search" class="level2">
-<h2 class="anchored" data-anchor-id="initiate-data-search">Initiate Data Search</h2>
-<div id="d96c74fa" class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>STAC_URL <span class="op">=</span> <span class="st">'https://cmr.earthdata.nasa.gov/stac'</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>provider_cat <span class="op">=</span> Client.<span class="bu">open</span>(STAC_URL)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(<span class="ss">f'</span><span class="sc">{</span>STAC_URL<span class="sc">}</span><span class="ss">/LPCLOUD/'</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#collections = ['HLSL30.v2.0', 'HLSS30.v2.0']</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>collections <span class="op">=</span> [<span class="st">'HLSL30.v2.0'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="use-the-handbook" class="level3">
+<h3 class="anchored" data-anchor-id="use-the-handbook">Use the Handbook</h3>
+<p>Please first see the <a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/D-109532_SWOT_UserHandbook_20240502.pdf?_ga=2.76536725.1816513343.1724259518-1354658737.1715875596">SWOT Data User Handbook</a> sections 3.3.3 on the reference ellipsoid and 11.3.1 on the geoid. In addition, section 3.1.23 gives detailed information about Height with section 3.1.24 elaborating on Sea Surface Height Anomalies and 3.1.25 elaborating on Water Surface Elevation over inland waters.</p>
 </section>
-<section id="define-date-range-and-region-of-interest" class="level2">
-<h2 class="anchored" data-anchor-id="define-date-range-and-region-of-interest">Define Date Range and Region of Interest</h2>
-<div id="9614a24e" class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>date_range <span class="op">=</span> <span class="st">"2021-01/2022-01"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>roi <span class="op">=</span> {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"type"</span>: <span class="st">"Feature"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"properties"</span>: {},</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"geometry"</span>: {</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"type"</span>: <span class="st">"Polygon"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"coordinates"</span>: [</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>          [</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="fl">121.60835266113281</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>              <span class="fl">39.49874248613119</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="fl">121.26983642578124</span>,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>              <span class="fl">39.49874248613119</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="fl">121.26983642578124</span>,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>              <span class="fl">39.756824261131406</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="fl">121.60835266113281</span>,</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>              <span class="fl">39.756824261131406</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="fl">121.60835266113281</span>,</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>              <span class="fl">39.49874248613119</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>            ]</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>          ]</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    }[<span class="st">'geometry'</span>]</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> gv.tile_sources.EsriImagery.opts(width<span class="op">=</span><span class="dv">650</span>, height<span class="op">=</span><span class="dv">500</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>Reservoir <span class="op">=</span> gv.Polygons(roi[<span class="st">'coordinates'</span>]).opts(line_color<span class="op">=</span><span class="st">'yellow'</span>, line_width<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>Reservoir <span class="op">*</span> base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="community-tutorials" class="level2">
+<h2 class="anchored" data-anchor-id="community-tutorials">Community Tutorials</h2>
+<p>As a summary, SWOT data is referenced to the WGS84 reference ellipsoid as a first step, and in a second step referenced to the EGM2008 geoid that references WGS84. To get a direct conversion with another dataset, it is easiest to transform all local data to the EGM2008 geoid. We recognize this conversion is different globally and depending on the data being used to compare, but we have collected a few community examples of direct comparisons to share below:</p>
+<section id="comparing-usgs-gage-data-and-swot-data-in-the-united-states---python-notebook" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-usgs-gage-data-and-swot-data-in-the-united-states---python-notebook">1. Comparing <strong>USGS gage</strong> data and SWOT data in the <strong>United States</strong> - <a href="../notebooks/datasets/SWOT_USGS_Comparison.html">Python Notebook</a></h4>
 </section>
-<section id="search-for-hls-imagery-matching-search-criteria" class="level2">
-<h2 class="anchored" data-anchor-id="search-for-hls-imagery-matching-search-criteria">Search for HLS imagery matching search criteria</h2>
-<div id="80dadee0" class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> catalog.search(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    collections<span class="op">=</span>collections,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    intersects<span class="op">=</span>roi,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    datetime<span class="op">=</span>date_range,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">100</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>item_collection <span class="op">=</span> search.get_all_items()</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>search.matched()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="converting-the-swot-frame-and-geoid-in-canada---google-colab-section-from-canadian-colleagues" class="level4">
+<h4 class="anchored" data-anchor-id="converting-the-swot-frame-and-geoid-in-canada---google-colab-section-from-canadian-colleagues">2. Converting the SWOT Frame and Geoid in <strong>Canada</strong> - <a href="https://colab.research.google.com/drive/1we0a24gBKbs-CFMVBfRIUm4SSW8RdwmA#scrollTo=cu09EYYRxxd4">Google Colab Section from Canadian Colleagues</a></h4>
 </section>
-<section id="filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification" class="level2">
-<h2 class="anchored" data-anchor-id="filter-imagery-for-low-cloud-images-and-identify-image-bands-needed-for-water-classification">Filter imagery for low cloud images and identify image bands needed for water classification</h2>
-<div id="d1e85061" class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>s30_bands <span class="op">=</span> [<span class="st">'B8A'</span>, <span class="st">'B03'</span>]    <span class="co"># S30 bands for NDWI calculation and quality filtering -&gt; NIR, GREEN, Quality </span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>l30_bands <span class="op">=</span> [<span class="st">'B05'</span>, <span class="st">'B03'</span>]    <span class="co"># L30 bands for NDWI calculation and quality filtering -&gt; NIR, GREEN, Quality </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cloudcover <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="aa59e302" class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ndwi_band_links <span class="op">=</span> []</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> item_collection:</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i.properties[<span class="st">'eo:cloud_cover'</span>] <span class="op">&lt;=</span> cloudcover:</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i.collection_id <span class="op">==</span> <span class="st">'HLSS30.v2.0'</span>:</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print(i.properties['eo:cloud_cover'])</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            ndwi_bands <span class="op">=</span> s30_bands</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i.collection_id <span class="op">==</span> <span class="st">'HLSL30.v2.0'</span>:</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print(i.properties['eo:cloud_cover'])</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            ndwi_bands <span class="op">=</span> l30_bands</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> a <span class="kw">in</span> i.assets:</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">any</span>(b<span class="op">==</span>a <span class="cf">for</span> b <span class="kw">in</span> ndwi_bands):</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                ndwi_band_links.append(i.assets[a].href)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="f9cde5bf" class="cell" data-scrolled="true">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ndwi_band_links[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="fac05ff2" class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tile_dicts <span class="op">=</span> defaultdict(<span class="bu">list</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="c5c06be9" class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> l <span class="kw">in</span> ndwi_band_links:</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    tile <span class="op">=</span> l.split(<span class="st">'.'</span>)[<span class="op">-</span><span class="dv">6</span>]</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    tile_dicts[tile].append(l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="eb641ea5" class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tile_dicts.keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="6b7daa69" class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tile_links <span class="op">=</span> tile_dicts[<span class="st">'T10SFJ'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="4fc92c89" class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>bands_dicts <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> tile_links:</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    band <span class="op">=</span> b.split(<span class="st">'.'</span>)[<span class="op">-</span><span class="dv">2</span>]</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    bands_dicts[band].append(b)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> bands_dicts:</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="download-identified-images-to-local-computer" class="level2">
-<h2 class="anchored" data-anchor-id="download-identified-images-to-local-computer">Download identified images to local computer</h2>
-<div id="d98fb809" class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">"downloads"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="48bb6301" class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download(url: <span class="bu">str</span>, fname: <span class="bu">str</span>):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    resp <span class="op">=</span> requests.get(url, stream<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">int</span>(resp.headers.get(<span class="st">'content-length'</span>, <span class="dv">0</span>))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(fname, <span class="st">'wb'</span>) <span class="im">as</span> <span class="bu">file</span>, tqdm(</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        desc<span class="op">=</span>fname,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        ncols<span class="op">=</span><span class="dv">110</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        total<span class="op">=</span>total,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        unit<span class="op">=</span><span class="st">'iB'</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        unit_scale<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        unit_divisor<span class="op">=</span><span class="dv">1024</span>,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="im">as</span> bar:</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> data <span class="kw">in</span> resp.iter_content(chunk_size<span class="op">=</span><span class="dv">1024</span>):</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>            size <span class="op">=</span> <span class="bu">file</span>.write(data)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>            bar.update(size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="453fdbf6" class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>path_dicts <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Begin Downloading Imagery'</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key <span class="kw">in</span> bands_dicts:</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> bands_dicts[key]</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> u <span class="kw">in</span> url:</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        filename <span class="op">=</span> u.split(<span class="st">'/'</span>)[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        path <span class="op">=</span> <span class="st">'./downloads/'</span> <span class="op">+</span> filename</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        download(u,path)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        path_dicts[key].append(path)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Download Complete'</span>)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- </span><span class="sc">%s</span><span class="st"> seconds ---"</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="load-images-and-visualize" class="level2">
-<h2 class="anchored" data-anchor-id="load-images-and-visualize">Load images and visualize</h2>
-<div id="17b49686" class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> time_index_from_filenames(file_links):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [datetime.strptime(f.split(<span class="st">'.'</span>)[<span class="op">-</span><span class="dv">5</span>], <span class="st">'%Y%jT%H%M%S'</span>) <span class="cf">for</span> f <span class="kw">in</span> file_links]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="768a703c" class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> xr.Variable(<span class="st">'time'</span>, time_index_from_filenames(path_dicts[<span class="st">'B03'</span>]))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>chunks<span class="op">=</span><span class="bu">dict</span>(band<span class="op">=</span><span class="dv">1</span>, x<span class="op">=</span><span class="dv">512</span>, y<span class="op">=</span><span class="dv">512</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>hls_ts_da_LB3 <span class="op">=</span> xr.concat([rioxarray.open_rasterio(f, chunks<span class="op">=</span>chunks).squeeze(<span class="st">'band'</span>, drop<span class="op">=</span><span class="va">True</span>) <span class="cf">for</span> f <span class="kw">in</span> path_dicts[<span class="st">'B03'</span>]], dim<span class="op">=</span>time)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>hls_ts_da_LB5 <span class="op">=</span> xr.concat([rioxarray.open_rasterio(f, chunks<span class="op">=</span>chunks).squeeze(<span class="st">'band'</span>, drop<span class="op">=</span><span class="va">True</span>) <span class="cf">for</span> f <span class="kw">in</span> path_dicts[<span class="st">'B05'</span>]], dim<span class="op">=</span>time)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>hls_ts_da_LB3 <span class="op">=</span> hls_ts_da_LB3.rio.reproject(<span class="st">"epsg:4326"</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>hls_ts_da_LB5 <span class="op">=</span> hls_ts_da_LB5.rio.reproject(<span class="st">"epsg:4326"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="16876756" class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB3 <span class="op">=</span> hls_ts_da_LB3.load()</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB5 <span class="op">=</span> hls_ts_da_LB5.load()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB3 <span class="op">=</span> hls_ts_da_data_LB3.rio.clip([roi])</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB5 <span class="op">=</span> hls_ts_da_data_LB5.rio.clip([roi])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="7c0d2eaf" class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hls_ts_da_data_LB5.hvplot.image(x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>, rasterize<span class="op">=</span><span class="va">True</span>, width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>, colorbar<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'gray'</span>).opts(clim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">2000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas" class="level2">
-<h2 class="anchored" data-anchor-id="caclulate-normalized-difference-water-index-ndwi-and-classify-innundated-areas">Caclulate Normalized Difference Water Index (NDWI) and Classify Innundated Areas</h2>
-<div id="b8ed3c2b" class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>LB3 <span class="op">=</span> hls_ts_da_data_LB3 </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>LB5 <span class="op">=</span> hls_ts_da_data_LB5</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>NDWI <span class="op">=</span> (LB3<span class="op">-</span>LB5)<span class="op">/</span>(LB3<span class="op">+</span>LB5)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>NDWI.hvplot.image(x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>, rasterize<span class="op">=</span><span class="va">True</span>, width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>, colorbar<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>).opts(clim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="193965f4" class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>water <span class="op">=</span> NDWI<span class="op">&gt;</span><span class="dv">0</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>water.hvplot.image(x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>, rasterize<span class="op">=</span><span class="va">True</span>, width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>, colorbar<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'PuOr'</span>).opts(clim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="caclulate-surface-area-of-reservoir-and-plot-time-series" class="level2">
-<h2 class="anchored" data-anchor-id="caclulate-surface-area-of-reservoir-and-plot-time-series">Caclulate surface area of reservoir and plot time series</h2>
-<div id="1a7c85d4" class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> water.variable.<span class="bu">max</span>() <span class="op">==</span> <span class="va">True</span>:</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    water_real <span class="op">=</span> water<span class="op">*</span><span class="dv">30</span><span class="op">*</span><span class="dv">30</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>water_area <span class="op">=</span> water_real.<span class="bu">sum</span>(axis<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>(water_area[:]<span class="op">/</span><span class="dv">1000000</span>).plot(ax<span class="op">=</span>ax, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle <span class="op">=</span> <span class="st">'-'</span>,  marker<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Surface area of waterbody in km2"</span>)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Area [km^2]'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="for-more-help" class="level3">
+<h3 class="anchored" data-anchor-id="for-more-help">For More Help</h3>
+<p>If you have any questions for your specific region, please ask in the <a href="https://forum.earthdata.nasa.gov/viewforum.php?f=7">Earthdata Forum</a> and experts should be able to help.</p>
 
 
 </section>
@@ -1910,13 +1670,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="pagination-link" aria-label="Cloud">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cloud</span>
+      <a href="../notebooks/GIS/SWOT_datetime_GIS.html" class="pagination-link" aria-label="Datetime Conversion">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Datetime Conversion</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../quarto_text/ScienceDataStories.html" class="pagination-link" aria-label="Science Data Stories">
-        <span class="nav-page-text">Science Data Stories</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notebooks/GIS/SWOTshp_CSVconversion.html" class="pagination-link" aria-label="Lake Time Series">
+        <span class="nav-page-text">Lake Time Series</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
