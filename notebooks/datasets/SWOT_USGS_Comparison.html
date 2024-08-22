@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>COF Zarr Access via Reformat – PO.DAAC Cookbook</title>
+<title>Compare SWOT water surface elevation with USGS gage heights – PO.DAAC Cookbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,25 +57,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../quarto_text/Advanced.html" rel="next">
-<link href="../external/zarr-eosdis-store.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +121,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../quarto_text/CloudOptimizedExamples.html">Cloud Optimized Examples</a></li><li class="breadcrumb-item"><a href="../external/cof-zarr-reformat.html">zarr2netCDF</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Compare SWOT water surface elevation with USGS gage heights</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -137,8 +135,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
@@ -155,19 +153,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cheatsheets &amp; Guides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How To</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -185,13 +183,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">using Earthdata Search</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">using Code</span></a>
   </div>
 </li>
@@ -199,7 +197,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Authenticate</span></a>
   </div>
 </li>
@@ -214,19 +212,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">in the Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/access-local-python.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/access-local-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Locally</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via OPeNDAP</span></a>
   </div>
 </li>
@@ -234,13 +232,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/read_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/read_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Read Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Download/Subscribe</span></a>
   </div>
 </li>
@@ -248,16 +246,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Specific</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -266,7 +264,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ECCO</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -275,19 +273,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-cloud Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local Download Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
@@ -295,7 +293,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GHRSST</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -304,31 +302,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MUR with Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In QGIS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPeNDAP Access</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-Cloud Access</span></a>
   </div>
 </li>
@@ -336,7 +334,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPERA</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -354,13 +352,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -370,7 +368,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -379,25 +377,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/sentinel-6/S6_Cloud_Notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/sentinel-6/S6_Cloud_Notebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access in Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access by Cycle/Pass</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Access NRT Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OPeNDAP Access</span></a>
   </div>
 </li>
@@ -405,7 +403,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SMAP</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -414,7 +412,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Case Demo</span></a>
   </div>
 </li>
@@ -422,7 +420,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">S-MODE</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -431,19 +429,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study Airborne Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study Airborne Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study In Situ</span></a>
   </div>
 </li>
@@ -451,7 +449,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SWOT</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -469,37 +467,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via GUI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programmatically</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
  <span class="menu-text">via Command Line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#search-swot-passes-over-time" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#search-swot-passes-over-time" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Passes over Time</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#swot-spatial-coverage" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#swot-spatial-coverage" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Coverage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#tips-for-swot-spatial-search" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#tips-for-swot-spatial-search" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tips: Spatial Search</span></a>
   </div>
 </li>
@@ -525,13 +523,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOTHR_localmachine.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOTHR_localmachine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -548,13 +546,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/DirectCloud_Access_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/DirectCloud_Access_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -562,19 +560,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hydrocron Time Series</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_PIXC_Area_localmachine.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_PIXC_Area_localmachine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PIXC Area Aggregration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_PIXC_PhaseUnwrap_localmachine.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_PIXC_PhaseUnwrap_localmachine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PIXC Phase Unwrap</span></a>
   </div>
 </li>
@@ -589,13 +587,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_Raster_Notebook_cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_Raster_Notebook_cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_Raster_Notebook_local.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_Raster_Notebook_local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -603,7 +601,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_quality_flag_demo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_quality_flag_demo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quality Flags</span></a>
   </div>
 </li>
@@ -620,13 +618,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/DataStories/SWOTHR_Science_Application.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/DataStories/SWOTHR_Science_Application.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/DataStories/SWOTHR_Science_Application_localmachine.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/DataStories/SWOTHR_Science_Application_localmachine.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -649,13 +647,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/SWOT_GISshapefiles.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/SWOT_GISshapefiles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Shapefile Exploration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/SWOT_datetime_GIS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/SWOT_datetime_GIS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Datetime Conversion</span></a>
   </div>
 </li>
@@ -672,13 +670,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">River Time Series</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lake Time Series</span></a>
   </div>
 </li>
@@ -693,13 +691,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth5 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mac/Linux</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Windows</span></a>
   </div>
 </li>
@@ -709,7 +707,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/SWOT.html#tools" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/SWOT.html#tools" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tools</span></a>
   </div>
 </li>
@@ -724,25 +722,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploring river discharge</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploring river discharge and gauge data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plotting ALL river discharge algorithms</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizing river discharge</span></a>
   </div>
 </li>
@@ -754,13 +752,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GIS</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud vs. Local Workflows</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -778,13 +776,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -801,13 +799,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -824,13 +822,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -840,7 +838,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Science Data Stories</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -858,13 +856,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-29" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Local</span></a>
   </div>
 </li>
@@ -872,25 +870,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Monthly SST EOF Decomposition</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SSS Changes in the Arctic</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mississippi River Heights</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SST Cross Validation</span></a>
   </div>
 </li>
@@ -898,28 +896,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Examples</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-30" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-30" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr Access for NetCDF4 Files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">zarr-eosdis-store library</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">zarr2netCDF</span></a>
   </div>
 </li>
@@ -929,7 +927,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced Cloud</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -938,7 +936,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-31" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
+            <a href="../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AWS Lambda</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -947,7 +945,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-32" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Notebook</span></a>
   </div>
 </li>
@@ -955,7 +953,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask and Coiled</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -964,31 +962,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-33" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Basic Dask</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Advanced_cloud/dask_delayed_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Advanced_cloud/dask_delayed_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask Function Replication Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Advanced_cloud/dask_cluster_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Advanced_cloud/dask_cluster_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask Dataset Chunking Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Advanced_cloud/coiled_function_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Advanced_cloud/coiled_function_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Coiled Function Replication Example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Advanced_cloud/coiled_cluster_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Advanced_cloud/coiled_cluster_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Coiled Dataset Chunking Example</span></a>
   </div>
 </li>
@@ -996,13 +994,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kerchunk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dask, Kerchunk, &amp; Zarr</span></a>
   </div>
 </li>
@@ -1010,19 +1008,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In Development</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshops</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Webinars</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -1031,7 +1029,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-34" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">July 2022 Earthdata Webinar Notebook</span></a>
   </div>
 </li>
@@ -1039,13 +1037,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tech Guides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
+            <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contribute</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-35" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -1054,7 +1052,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul id="quarto-sidebar-section-35" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorial Template</span></a>
   </div>
 </li>
@@ -1062,7 +1060,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Questions?</span></a>
   </div>
 </li>
@@ -1076,16 +1074,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#access-ecco-data-via-harmony-the-zarr-reformatter-service" id="toc-access-ecco-data-via-harmony-the-zarr-reformatter-service" class="nav-link active" data-scroll-target="#access-ecco-data-via-harmony-the-zarr-reformatter-service">Access ECCO data via Harmony &amp; the Zarr reformatter service</a>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
   <ul class="collapse">
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a>
-  <ul class="collapse">
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#requirements-1" id="toc-requirements-1" class="nav-link" data-scroll-target="#requirements-1">Requirements</a></li>
-  <li><a href="#study-period" id="toc-study-period" class="nav-link" data-scroll-target="#study-period">Study period</a></li>
-  <li><a href="#data-access" id="toc-data-access" class="nav-link" data-scroll-target="#data-access">Data Access</a></li>
+  <li><a href="#compute-environment" id="toc-compute-environment" class="nav-link" data-scroll-target="#compute-environment">1. Compute environment</a></li>
+  <li><a href="#earthdata-login" id="toc-earthdata-login" class="nav-link" data-scroll-target="#earthdata-login">2. Earthdata Login</a></li>
+  <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import libraries</a></li>
   </ul></li>
-  </ul></li>
+  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
+  <li><a href="#transform-usgs-coordinates-for-comparison-with-swot-lakesp" id="toc-transform-usgs-coordinates-for-comparison-with-swot-lakesp" class="nav-link" data-scroll-target="#transform-usgs-coordinates-for-comparison-with-swot-lakesp">Transform USGS coordinates for comparison with SWOT LakeSP</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -1095,9 +1092,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto_text/Tutorials.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../quarto_text/CloudOptimizedExamples.html">Cloud Optimized Examples</a></li><li class="breadcrumb-item"><a href="../external/cof-zarr-reformat.html">zarr2netCDF</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">COF Zarr Access via Reformat</h1>
+<h1 class="title">Compare SWOT water surface elevation with USGS gage heights</h1>
 </div>
 
 
@@ -1114,352 +1111,191 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </header>
 
 
-<p>imported on: <strong>2024-08-22</strong></p>
-<p>
-This notebook is from a different repository in NASA’s PO.DAAC, ECCO.
-</p>
-<blockquote class="blockquote">
-<p>The original source for this document is <a href="https://github.com/podaac/ECCO/blob/main/Data_Access/cloud_harmony_zarr_reformat.ipynb">https://github.com/podaac/ECCO/blob/main/Data_Access/cloud_harmony_zarr_reformat.ipynb</a></p>
-</blockquote>
-<section id="access-ecco-data-via-harmony-the-zarr-reformatter-service" class="level1">
-<h1>Access ECCO data via Harmony &amp; the Zarr reformatter service</h1>
-<p>This notebook leverages the Zarr reformatter service (available through <a href="https://harmony.earthdata.nasa.gov/">Harmony API</a>) to access ocean bottom pressure (OBP) data from ECCO V4r4 in Zarr format (instead of native netCDF4 file format).</p>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
-<p>We will access monthly ocean bottom pressure (OBP) data from ECCO V4r4 (<a href="https://doi.org/10.5067/ECG5M-OBP44">10.5067/ECG5M-OBP44</a>), which are provided as a monthly time series on a 0.5-degree latitude/longitude grid.</p>
-<p>The data are archived in netCDF format. However, this notebook demonstration will request conversion to Zarr format for files covering the period between 2010 and 2018. Upon receiving our request, Harmony’s backend will convert the files and stage them in S3 for native access in AWS (<code>us-west-2</code> region, specifically). We will access the new Zarr datasets as an aggregated dataset using xarray, and leverage the S3 native protocols for direct access to the data in an efficient manner.</p>
-<p><img src="https://podaac.jpl.nasa.gov/Podaac/thumbnails/ECCO_L4_OBP_05DEG_MONTHLY_V4R4.jpg" width="50%"></p>
-<section id="requirements" class="level3">
-<h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
-<section id="aws" class="level4">
-<h4 class="anchored" data-anchor-id="aws">AWS</h4>
-<p>This notebook should be running in an EC2 instance in AWS region <em>us-west-2</em>, as previously mentioned. We recommend using an EC2 with at least 8GB of memory available.</p>
-<p>The notebook was developed and tested using a <em>t2.large</em> instance (2 cpus; 8GB memory).</p>
+<section id="author-katie-mcquillan-and-george-allen-virginia-tech" class="level4">
+<h4 class="anchored" data-anchor-id="author-katie-mcquillan-and-george-allen-virginia-tech"><em>Author: Katie McQuillan and George Allen, Virginia Tech</em></h4>
 </section>
-<section id="python-3" class="level4">
-<h4 class="anchored" data-anchor-id="python-3">Python 3</h4>
-<p>Most of these imports are from the Python standard library. However, you will need to install these packages into your Python 3 environment if you have not already done so:</p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>This notebook showcases how to transform the horizontal and vertical coordinates of USGS gage heights to match SWOT LakeSP water surface elevation using GDAL.</p>
+</section>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<section id="compute-environment" class="level3">
+<h3 class="anchored" data-anchor-id="compute-environment">1. Compute environment</h3>
+<p>This tutorial is written to run in the following environment: - <strong>Local compute environment</strong> e.g.&nbsp;laptop, server: this tutorial can be run on your local machine</p>
 <ul>
-<li>s3fs</li>
-<li>requests</li>
-<li>pandas</li>
-<li>xarray</li>
-<li>matplotlib</li>
+<li>GDAL must be installed (https://gdal.org/)</li>
 </ul>
 </section>
+<section id="earthdata-login" class="level3">
+<h3 class="anchored" data-anchor-id="earthdata-login">2. Earthdata Login</h3>
+<p>An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p>
 </section>
-<section id="requirements-1" class="level3">
-<h3 class="anchored" data-anchor-id="requirements-1">Requirements</h3>
-<div id="quick-force" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<section id="import-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
+<div id="cell-2" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> osgeo <span class="im">import</span> osr</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ShortName <span class="op">=</span> <span class="st">"ECCO_L4_OBP_05DEG_MONTHLY_V4R4"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="study-period" class="level3">
-<h3 class="anchored" data-anchor-id="study-period">Study period</h3>
-<p>Set some “master” inputs to define the time and place contexts for our case studies in the ipynb. This example will be requesting time subsets and receiving global data back from the Harmony API.</p>
-<div id="promising-helen" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>start_date <span class="op">=</span> <span class="st">"2010-01-01"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>end_date   <span class="op">=</span> <span class="st">"2018-12-31"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="datasets" class="level2">
+<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
+<ol type="1">
+<li><p>USGS Lake/Reservoir Water Surface Elevation dataset can be acccessed using the DataRetrieval python module with the parameter code 62615.</p></li>
+<li><p>SWOT LakeSP dataset can be accessed using the EarthAccess python module or the PO.DAAC Data Downloader.</p></li>
+</ol>
+<p>Cotemporal SWOT LakeSP and USGS observations were used to form the dataset used for comparisons including X lakes with gages. To directly compare SWOT and USGS datasets, the USGS horizontal and vertical coordiantes must be transformed to match the SWOT datums. Datums for each dataset are noted in Table 1.</p>
+<p>It is important to note that using the generic WGS84 (EPSG:4326) is not recommended because it is based on a datum ensemble whose positional accuracy is approximately two meters. Instead, a realization such as WGS84 (G1762) is recommended. WGS84 (G1762) and ITRF 2014 are equivalent for all practical purposes when their epochs are the same.</p>
+<p>Epochs are used to define a reference date for positions esablished using the datum ellipsoid and reference frame. Due to tectonic plate movement, landmasses are constantly moving in relationship to each other and in relation to the reference frame. Therefore, accounting for the epoch is necessary for accurate coordinate transformations. The NAD83 (2011) epoch is 2010.0. The standard epoch of WGS84 (G1762) is 2005.0 and the standard epoch of ITRF2014 is 2010.0. Since SWOT is based on ITRF2014, we set the target epoch to 2010.0.</p>
+<p>Table 1. SWOT and USGS datum information | Data source | Horizontal Datum | Reference Ellipsoid | Vertical Datum | EPSG Code | | — | — | — | — | — | | SWOT | ITRF2014 | WGS84 | EGM2008 | EPSG:9057+EPSG:3855 | | USGS | NAD83 (2011) | GRS80 | NAVD88 | EPSG:6349 |</p>
+<p>USGS data is represented using EPSG:6349. EPSG:6349 is a compound CRS that represents NAD83 (2011) + NAVD88 height.</p>
+<div id="cell-7" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Details of the the compound NAD83(2011) + NAVD88 (EPSG:6349)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>src <span class="op">=</span> osr.SpatialReference()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>src.ImportFromEPSG(<span class="dv">6349</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(src)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>COMPD_CS["NAD83(2011) + NAVD88 height",
+    GEOGCS["NAD83(2011)",
+        DATUM["NAD83_National_Spatial_Reference_System_2011",
+            SPHEROID["GRS 1980",6378137,298.257222101,
+                AUTHORITY["EPSG","7019"]],
+            AUTHORITY["EPSG","1116"]],
+        PRIMEM["Greenwich",0,
+            AUTHORITY["EPSG","8901"]],
+        UNIT["degree",0.0174532925199433,
+            AUTHORITY["EPSG","9122"]],
+        AXIS["Latitude",NORTH],
+        AXIS["Longitude",EAST],
+        AUTHORITY["EPSG","6318"]],
+    VERT_CS["NAVD88 height",
+        VERT_DATUM["North American Vertical Datum 1988",2005,
+            AUTHORITY["EPSG","5103"]],
+        UNIT["metre",1,
+            AUTHORITY["EPSG","9001"]],
+        AXIS["Gravity-related height",UP],
+        AUTHORITY["EPSG","5703"]],
+    AUTHORITY["EPSG","6349"]]</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\Users\kmcquil\anaconda3\envs\swot-wind\lib\site-packages\osgeo\osr.py:410: FutureWarning: Neither osr.UseExceptions() nor osr.DontUseExceptions() has been explicitly called. In GDAL 4.0, exceptions will be enabled by default.
+  warnings.warn(</code></pre>
+</div>
+</div>
+<p>SWOT data is represented using EPSG:9057 + EPSG:3855. EPSG:9057 represents WGS84 (G1762) and EPSG: 3855 represents EGM 2008.</p>
+<div id="cell-9" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Details for EPSG:9057 WGS84 (G1762)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dst <span class="op">=</span> osr.SpatialReference()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dst.ImportFromEPSG(<span class="dv">9057</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GEOGCS["WGS 84 (G1762)",
+    DATUM["World_Geodetic_System_1984_G1762",
+        SPHEROID["WGS 84",6378137,298.257223563,
+            AUTHORITY["EPSG","7030"]],
+        AUTHORITY["EPSG","1156"]],
+    PRIMEM["Greenwich",0,
+        AUTHORITY["EPSG","8901"]],
+    UNIT["degree",0.0174532925199433,
+        AUTHORITY["EPSG","9122"]],
+    AXIS["Latitude",NORTH],
+    AXIS["Longitude",EAST],
+    AUTHORITY["EPSG","9057"]]</code></pre>
+</div>
+</div>
+<div id="cell-10" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Details of EPSG:3855 EGM2008</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>v_dst <span class="op">=</span> osr.SpatialReference()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>v_dst.ImportFromEPSG(<span class="dv">3855</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(v_dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>VERT_CS["EGM2008 height",
+    VERT_DATUM["EGM2008 geoid",2005,
+        AUTHORITY["EPSG","1027"]],
+    UNIT["metre",1,
+        AUTHORITY["EPSG","9001"]],
+    AXIS["Gravity-related height",UP],
+    AUTHORITY["EPSG","3855"]]</code></pre>
+</div>
 </div>
 </section>
-<section id="data-access" class="level3">
-<h3 class="anchored" data-anchor-id="data-access">Data Access</h3>
-<p>Some features in the Harmony API require us to identify the target dataset/collection by its <em>concept-id</em> (which uniquely idenfifies it among the other datasets in the Common Metadata Repository). Support for selection by the dataset <em>ShortName</em> will be added in a future release.</p>
-<section id="common-metadata-repository-cmr" class="level4">
-<h4 class="anchored" data-anchor-id="common-metadata-repository-cmr">Common Metadata Repository (CMR)</h4>
-<p>For now, we will need to get the <em>concept-id</em> that corresponds to our dataset by accessing its metadata from the CMR. Read more about the CMR at: https://cmr.earthdata.nasa.gov/</p>
-<p>Request the UMM Collection metadata (i.e.&nbsp;metadata about the dataset) from the CMR and select the <em>concept-id</em> as a new variable <em>ccid</em>.</p>
-<div id="steady-highway" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    url<span class="op">=</span><span class="st">'https://cmr.earthdata.nasa.gov/search/collections.umm_json'</span>, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{<span class="st">'provider'</span>: <span class="st">"POCLOUD"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">'ShortName'</span>: ShortName,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">'page_size'</span>: <span class="dv">1</span>}</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>ummc <span class="op">=</span> response.json()[<span class="st">'items'</span>][<span class="dv">0</span>]</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>ccid <span class="op">=</span> ummc[<span class="st">'meta'</span>][<span class="st">'concept-id'</span>]</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ccid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>'C1990404791-POCLOUD'</code></pre>
+<section id="transform-usgs-coordinates-for-comparison-with-swot-lakesp" class="level2">
+<h2 class="anchored" data-anchor-id="transform-usgs-coordinates-for-comparison-with-swot-lakesp">Transform USGS coordinates for comparison with SWOT LakeSP</h2>
+<section id="prep-the-data" class="level4">
+<h4 class="anchored" data-anchor-id="prep-the-data">Prep the data</h4>
+<div id="cell-13" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change working directory to tutorials folder</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">'.'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the dataset of cotemporal SWOT and USGS observations</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>swot_usgs_df <span class="op">=</span> pd.read_csv(<span class="st">"notebooks/resources/usgs_swot_merged_example.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># How many cotemporal observations? </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The number of cotemporal USGS and SWOT observations = '</span> <span class="op">+</span> <span class="bu">str</span>(swot_usgs_df.shape[<span class="dv">0</span>]))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data into correct format to pass to gdal including longitude, latitude, and gage height in feet</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>in_gdal <span class="op">=</span> swot_usgs_df[[<span class="st">"usgs_long"</span>, <span class="st">"usgs_lat"</span>, <span class="st">"usgs_X_62615_00000"</span>]].copy()</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Since the USGS heights are in feet but the projection we have assigned are in meters, convert heights to meters</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>in_gdal.loc[:,<span class="st">'usgs_X_62615_00000'</span>] <span class="op">=</span> in_gdal.loc[:,<span class="st">'usgs_X_62615_00000'</span>] <span class="op">*</span> <span class="fl">0.3048</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a column with long, lat, height combined </span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>in_gdal.loc[:,<span class="st">"out"</span>] <span class="op">=</span> [</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">str</span>(i) <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> <span class="bu">str</span>(k)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, j, k <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_long"</span>],</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_lat"</span>],</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        in_gdal[<span class="st">"usgs_X_62615_00000"</span>],</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the combined column to a text file</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>in_gdal[<span class="st">"out"</span>].to_csv(<span class="st">"notebooks/resources/gdal_in.txt"</span>, header<span class="op">=</span><span class="va">False</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The number of cotemporal USGS and SWOT observations = 425</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>CompletedProcess(args='cd c:\\Users\\kmcquil\\Documents\\tutorials\\notebooks\\resources &amp;&amp; gdaltransform -s_coord_epoch "2010.0" -t_coord_epoch "2010.0" -s_srs "EPSG:6349" -t_srs "EPSG:9057+EPSG:3855" &lt; "gdal_in.txt" &gt; "gdal_out.txt"', returncode=0)</code></pre>
 </div>
 </div>
 </section>
-<section id="harmony-api" class="level4">
-<h4 class="anchored" data-anchor-id="harmony-api">Harmony API</h4>
-<p>And get the Harmony API endpoint and zarr parameter like we did for SMAP before:</p>
-<div id="unknown-copyright" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> <span class="ss">f"https://harmony.earthdata.nasa.gov/</span><span class="sc">{</span>ccid<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>hreq <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base<span class="sc">}</span><span class="ss">/ogc-api-coverages/1.0.0/collections/all/coverage/rangeset"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rurl <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>hreq<span class="sc">}</span><span class="ss">?format=application/x-zarr"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rurl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="transform-using-gdal" class="level4">
+<h4 class="anchored" data-anchor-id="transform-using-gdal">Transform using gdal</h4>
+<div id="cell-15" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the gdal command and run in the shell </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cd_command <span class="op">=</span> <span class="st">"cd "</span> <span class="op">+</span> os.getcwd() <span class="op">+</span> <span class="st">"</span><span class="ch">\\</span><span class="st">notebooks</span><span class="ch">\\</span><span class="st">resources &amp;&amp; "</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>gdal_command <span class="op">=</span> <span class="st">'gdaltransform -s_coord_epoch "2010.0" -t_coord_epoch "2010.0" -s_srs "EPSG:6349" -t_srs "EPSG:9057+EPSG:3855" &lt; "gdal_in.txt" &gt; "gdal_out.txt"'</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>subprocess.run(cd_command <span class="op">+</span> gdal_command, shell<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calculate-error-statistics" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-error-statistics">Calculate error statistics</h4>
+<div id="cell-17" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge back with the original data </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>out_gdal <span class="op">=</span> pd.read_csv(<span class="st">"notebooks/resources/gdal_out.txt"</span>, header<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>out_gdal <span class="op">=</span> out_gdal.rename(columns<span class="op">=</span>{<span class="dv">0</span>: <span class="st">"result"</span>})</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>out_gdal[[<span class="st">"usgs_long"</span>, <span class="st">"usgs_lat"</span>, <span class="st">"usgs_X_62615_00000_egm0_meters"</span>]] <span class="op">=</span> out_gdal[<span class="st">"result"</span>].<span class="bu">str</span>.split(<span class="st">" "</span>, expand<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>] <span class="op">=</span> out_gdal[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Error stats</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>mae <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])))</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> np.mean(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>]))</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> math.sqrt(np.square(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])).mean())</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>one_sigma <span class="op">=</span> np.quantile(np.<span class="bu">abs</span>(np.subtract(swot_usgs_df[<span class="st">"usgs_X_62615_00000_egm0_meters"</span>], swot_usgs_df[<span class="st">"swot_wse"</span>])),<span class="fl">0.68</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame([[bias, mae, rmse, one_sigma]], columns<span class="op">=</span>[<span class="st">"MBE (m)"</span>, <span class="st">"MAE (m)"</span>, <span class="st">"RMSE (m)"</span>, <span class="st">"One-Sigma (m)"</span>])</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>https://harmony.earthdata.nasa.gov/C1990404791-POCLOUD/ogc-api-coverages/1.0.0/collections/all/coverage/rangeset?format=application/x-zarr</code></pre>
-</div>
-</div>
-<p>ECCO monthly collections have 312 granules in V4r4 (you can confirm with the granule listing from CMR Search API) so we can get the entire time series for 2010 to 2018 with one request to the Harmony API.</p>
-<p>Format a string of query parameters to limit the processing to the desired time period. Then, append the string of time subset parameters to the variable <em><code>rurl</code></em>.</p>
-<div id="b8b22658-71e9-4456-96ac-adfed49079c9" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>subs <span class="op">=</span> <span class="st">'&amp;'</span>.join([<span class="ss">f'subset=time("</span><span class="sc">{</span>start_date<span class="sc">}</span><span class="ss">T00:00:00.000Z":"</span><span class="sc">{</span>end_date<span class="sc">}</span><span class="ss">T23:59:59.999Z")'</span>])</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rurl <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>rurl<span class="sc">}</span><span class="ss">&amp;</span><span class="sc">{</span>subs<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rurl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>https://harmony.earthdata.nasa.gov/C1990404791-POCLOUD/ogc-api-coverages/1.0.0/collections/all/coverage/rangeset?format=application/x-zarr&amp;subset=time("2010-01-01T00:00:00.000Z":"2018-12-31T23:59:59.999Z")</code></pre>
-</div>
-</div>
-<p>Submit the request and monitor the processing status in a <em>while</em> loop, breaking it on completion of the request job:</p>
-<div id="5c2a949e-6d5a-436b-9f04-c4e6cac09a9f" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">=</span>rurl).json()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Monitor status in a while loop. Wait 10 seconds for each check.</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>wait <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(url<span class="op">=</span>response[<span class="st">'links'</span>][<span class="dv">0</span>][<span class="st">'href'</span>]).json()</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> response[<span class="st">'status'</span>]<span class="op">!=</span><span class="st">'running'</span>:</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Job in progress (</span><span class="sc">{</span>response[<span class="st">'progress'</span>]<span class="sc">}</span><span class="ss">%)"</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    time.sleep(wait)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DONE!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-Job in progress (0%)
-DONE!</code></pre>
-</div>
-</div>
-<p><strong>Access the staged cloud datasets over native AWS interfaces</strong></p>
-<p>Check the <em>message</em> field in the response for clues about how to proceed:</p>
-<div id="focused-reform" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response[<span class="st">'message'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The job has completed successfully. Contains results in AWS S3. Access from AWS us-west-2 with keys from https://harmony.earthdata.nasa.gov/cloud-access.sh</code></pre>
-</div>
-</div>
-<p>The third item in the list of <em>links</em> contains the shell script from the job status message printed above. Let’s download the same information in JSON format. It should be the fourth item; check to be sure:</p>
-<div id="terminal-angola" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(response[<span class="st">'links'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>102</code></pre>
-</div>
-</div>
-<p>Select the url and download the json, then load to Python dictionary and print the keys:</p>
-<div id="adopted-listening" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> requests.get(response[<span class="st">'links'</span>][<span class="dv">3</span>][<span class="st">'href'</span>]) <span class="im">as</span> r:</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    creds <span class="op">=</span> r.json()</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(creds.keys())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>dict_keys(['AccessKeyId', 'SecretAccessKey', 'SessionToken', 'Expiration'])</code></pre>
-</div>
-</div>
-<p>Check the expiration timestamp for the temporary credentials:</p>
-<div id="green-paintball" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>creds[<span class="st">'Expiration'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>'2021-06-11T02:36:29.000Z'</code></pre>
-</div>
-</div>
-<p><strong>Open zarr datasets with <em>s3fs</em> and <em>xarray</em></strong></p>
-<p>Get the s3 output directory and list of zarr datasets from the list of <em>links</em>. The s3 directory should be the fifth item; the urls are from item six onward:</p>
-<div id="fifth-holly" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>s3_dir <span class="op">=</span> response[<span class="st">'links'</span>][<span class="dv">4</span>][<span class="st">'href'</span>]</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s3_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>s3://harmony-prod-staging/public/harmony/netcdf-to-zarr/2295236b-8086-4543-9482-f524a9f2d0c3/</code></pre>
-</div>
-</div>
-<p>Now select the URLs for the staged files and print the first one:</p>
-<div id="entertaining-afternoon" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>s3_urls <span class="op">=</span> [u[<span class="st">'href'</span>] <span class="cf">for</span> u <span class="kw">in</span> response[<span class="st">'links'</span>][<span class="dv">5</span>:]]</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s3_urls[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>s3://harmony-prod-staging/public/harmony/netcdf-to-zarr/2295236b-8086-4543-9482-f524a9f2d0c3/OCEAN_BOTTOM_PRESSURE_mon_mean_2009-12_ECCO_V4r4_latlon_0p50deg.zarr</code></pre>
-</div>
-</div>
-<p>Use the AWS <em>s3fs</em> package and your temporary <em><code>aws_creds</code></em> to open the zarr directory storage:</p>
-<div id="suitable-edwards" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>s3 <span class="op">=</span> s3fs.S3FileSystem(</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    key<span class="op">=</span>creds[<span class="st">'AccessKeyId'</span>],</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    secret<span class="op">=</span>creds[<span class="st">'SecretAccessKey'</span>],</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    token<span class="op">=</span>creds[<span class="st">'SessionToken'</span>],</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    client_kwargs<span class="op">=</span>{<span class="st">'region_name'</span>:<span class="st">'us-west-2'</span>},</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(s3.ls(s3_dir))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>97</code></pre>
-</div>
-</div>
-<p><strong>Plot the first <em>Ocean Bottom Pressure</em> dataset</strong></p>
-<p>Check out the documentation for xarray’s open_zarr method at <a href="http://xarray.pydata.org/en/stable/generated/xarray.open_zarr.html">this link</a>. Open the first dataset and plot the OBP variable:</p>
-<div id="seventh-investigation" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ds0 <span class="op">=</span> xr.open_zarr(s3.get_mapper(s3_urls[<span class="dv">0</span>]), decode_cf<span class="op">=</span><span class="va">True</span>, mask_and_scale<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Mask the dataset where OBP is not within the bounds of the variable's valid min/max:</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>ds0_masked <span class="op">=</span> ds0.where((ds0.OBP<span class="op">&gt;=</span>ds0.OBP.valid_min) <span class="op">&amp;</span> (ds0.OBP<span class="op">&lt;=</span>ds0.OBP.valid_max))</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the masked dataset</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>ds0_masked.OBP.isel(time<span class="op">=</span><span class="dv">0</span>).plot.imshow(size<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cof-zarr-reformat_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Load the zarr datasets into one large <em>xarray</em> dataset</strong></p>
-<p>Load all the datasets in a loop and concatenate them:</p>
-<div id="bibliographic-carry" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>zds <span class="op">=</span> xr.concat([xr.open_zarr(s3.get_mapper(u)) <span class="cf">for</span> u <span class="kw">in</span> s3_urls], dim<span class="op">=</span><span class="st">"time"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(zds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;xarray.Dataset&gt;
-Dimensions:         (latitude: 360, longitude: 720, nv: 2, time: 97)
-Coordinates:
-  * latitude        (latitude) float64 -89.75 -89.25 -88.75 ... 89.25 89.75
-    latitude_bnds   (latitude, nv) float64 -90.0 -89.5 -89.5 ... 89.5 89.5 90.0
-  * longitude       (longitude) float64 -179.8 -179.2 -178.8 ... 179.2 179.8
-    longitude_bnds  (longitude, nv) float64 -180.0 -179.5 -179.5 ... 179.5 180.0
-  * time            (time) datetime64[ns] 2009-12-16T12:00:00 ... 2017-12-16T...
-    time_bnds       (time, nv) datetime64[ns] dask.array&lt;chunksize=(1, 2), meta=np.ndarray&gt;
-Dimensions without coordinates: nv
-Data variables:
-    OBP             (time, latitude, longitude) float64 dask.array&lt;chunksize=(1, 360, 720), meta=np.ndarray&gt;
-    OBPGMAP         (time, latitude, longitude) float64 dask.array&lt;chunksize=(1, 360, 720), meta=np.ndarray&gt;
-Attributes: (12/57)
-    Conventions:                  CF-1.8, ACDD-1.3
-    acknowledgement:              This research was carried out by the Jet Pr...
-    author:                       Ian Fenty and Ou Wang
-    cdm_data_type:                Grid
-    comment:                      Fields provided on a regular lat-lon grid. ...
-    coordinates_comment:          Note: the global 'coordinates' attribute de...
-    ...                           ...
-    time_coverage_duration:       P1M
-    time_coverage_end:            2010-01-01T00:00:00
-    time_coverage_resolution:     P1M
-    time_coverage_start:          2009-12-01T00:00:00
-    title:                        ECCO Ocean Bottom Pressure - Monthly Mean 0...
-    uuid:                         297c8df0-4158-11eb-b208-0cc47a3f687b</code></pre>
-</div>
-</div>
-<p>Reference OBP and mask the dataset according to the valid minimum and maximum:</p>
-<div id="social-elements" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>obp <span class="op">=</span> zds.OBP</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(obp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;xarray.DataArray 'OBP' (time: 97, latitude: 360, longitude: 720)&gt;
-dask.array&lt;concatenate, shape=(97, 360, 720), dtype=float64, chunksize=(1, 360, 720), chunktype=numpy.ndarray&gt;
-Coordinates:
-  * latitude   (latitude) float64 -89.75 -89.25 -88.75 ... 88.75 89.25 89.75
-  * longitude  (longitude) float64 -179.8 -179.2 -178.8 ... 178.8 179.2 179.8
-  * time       (time) datetime64[ns] 2009-12-16T12:00:00 ... 2017-12-16T06:00:00
-Attributes:
-    comment:                OBP excludes the contribution from global mean at...
-    coverage_content_type:  modelResult
-    long_name:              Ocean bottom pressure given as equivalent water t...
-    units:                  m
-    valid_max:              72.07011413574219
-    valid_min:              -1.7899188995361328</code></pre>
-</div>
-</div>
-<p>Get the valid min and max from the corresponding CF attributes:</p>
-<div id="abandoned-realtor" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>obp_vmin, obp_vmax <span class="op">=</span> obp.valid_min, obp.valid_max</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>obp_vmin, obp_vmax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>(-1.7899188995361328, 72.07011413574219)</code></pre>
-</div>
-</div>
-<p>Mask the dataset according to the OBP min and max and plot a series:</p>
-<div id="constant-literature" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mask dataset where not inside OBP variable valid min/max:</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>zds_masked <span class="op">=</span> zds.where((obp<span class="op">&gt;=</span>obp_vmin)<span class="op">&amp;</span>(obp<span class="op">&lt;=</span>obp_vmax))</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SSH again for the first 12 time slices:</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>obpp <span class="op">=</span> zds_masked.OBP.isel(time<span class="op">=</span><span class="bu">slice</span>(<span class="dv">0</span>, <span class="dv">6</span>)).plot(</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"longitude"</span>, </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"latitude"</span>, </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"time"</span>,</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    levels<span class="op">=</span><span class="dv">8</span>,</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    col_wrap<span class="op">=</span><span class="dv">3</span>, </span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    add_colorbar<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>)</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a colorbar on a secondary axis</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>mappable <span class="op">=</span> obpp.axes[<span class="dv">0</span>][<span class="dv">0</span>].collections[<span class="dv">0</span>]</span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>cax <span class="op">=</span> plt.axes([<span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.04</span>, <span class="fl">0.95</span>, <span class="fl">0.04</span>])</span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>cbar1 <span class="op">=</span> plt.colorbar(mappable, cax<span class="op">=</span>cax, orientation<span class="op">=</span><span class="st">'horizontal'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cof-zarr-reformat_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<pre><code>    MBE (m)   MAE (m)  RMSE (m)  One-Sigma (m)
+0 -0.144761  0.299489  0.974874       0.139806</code></pre>
 </div>
 </div>
 
 
-</section>
-</section>
 </section>
 </section>
 
@@ -2028,18 +1864,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../external/zarr-eosdis-store.html" class="pagination-link" aria-label="zarr-eosdis-store library">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">zarr-eosdis-store library</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../quarto_text/Advanced.html" class="pagination-link" aria-label="Advanced Cloud">
-        <span class="nav-page-text">Advanced Cloud</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
