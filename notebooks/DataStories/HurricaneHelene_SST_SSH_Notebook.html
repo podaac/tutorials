@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -110,6 +110,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
 </head>
@@ -1094,11 +1098,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary:</a>
-  <ul class="collapse">
-  <li><a href="#learning-objective" id="toc-learning-objective" class="nav-link" data-scroll-target="#learning-objective">Learning Objective:</a></li>
-  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary:</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements:</a></li>
   <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets:</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives:</a>
+  <ul class="collapse">
+  <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import packages</a></li>
+  <li><a href="#authenticate" id="toc-authenticate" class="nav-link" data-scroll-target="#authenticate">Authenticate</a></li>
+  <li><a href="#use-earthaccess-to-search-for-data" id="toc-use-earthaccess-to-search-for-data" class="nav-link" data-scroll-target="#use-earthaccess-to-search-for-data">Use <code>earthaccess</code> to search for data</a></li>
+  <li><a href="#download" id="toc-download" class="nav-link" data-scroll-target="#download">Download</a></li>
+  <li><a href="#define-plotting-function" id="toc-define-plotting-function" class="nav-link" data-scroll-target="#define-plotting-function">Define plotting function</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -1132,162 +1142,252 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary:</h2>
-<p>Here we show how to plot sea surface temperature (SST) and sea surface height (SSH) data for Hurricane Helene in September 2024. The data used in this tutorial were downloaded via Earthdata Search (https://search.earthdata.nasa.gov/) on a local machine. You will need to create an account in order to download the data. See <a href="https://podaac.github.io/tutorials/external/earthdata_search.html">this tutorial</a> on how to use Earthdata Search.</p>
-<section id="learning-objective" class="level3">
-<h3 class="anchored" data-anchor-id="learning-objective">Learning Objective:</h3>
-<ul>
-<li>Use python to plot the SST and SSH in the Gulf of Mexico to show how Hurricane Helene impacted the region.</li>
-</ul>
+<p>Here we show how to plot sea surface temperature (SST) and sea surface height (SSH) data for Hurricane Helene in September 2024 using Python packages.</p>
 </section>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements:</h2>
+<ol type="1">
+<li><p>Compute environment - This tutorial can be run on your <strong>local compute environment</strong> e.g.&nbsp;laptop, server</p></li>
+<li><p>Earthdata Login - An Earthdata Login account is required to access data, as well as discover restricted data, from the NASA Earthdata system. Thus, to access NASA data, you need Earthdata Login. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account. This account is free to create and only takes a moment to set up.</p></li>
+</ol>
 </section>
 <section id="datasets" class="level2">
 <h2 class="anchored" data-anchor-id="datasets">Datasets:</h2>
-<section id="nasa-sea-surface-temperature-data-mur-httpspodaac.jpl.nasa.govmeasures-mur" class="level4">
-<h4 class="anchored" data-anchor-id="nasa-sea-surface-temperature-data-mur-httpspodaac.jpl.nasa.govmeasures-mur">NASA Sea Surface Temperature data, MUR <a href="https://podaac.jpl.nasa.gov/MEaSUREs-MUR">https://podaac.jpl.nasa.gov/MEaSUREs-MUR</a></h4>
+<ul>
+<li><strong>NASA Sea Surface Temperature data</strong>, MUR <a href="https://podaac.jpl.nasa.gov/MEaSUREs-MUR">https://podaac.jpl.nasa.gov/MEaSUREs-MUR</a></li>
+<li><strong>NASA Sea Surface Height data</strong> <a href="https://podaac.jpl.nasa.gov/NASA-SSH">https://podaac.jpl.nasa.gov/NASA-SSH</a></li>
+</ul>
 </section>
-<section id="nasa-sea-surface-height-data-httpspodaac.jpl.nasa.govnasa-ssh" class="level4">
-<h4 class="anchored" data-anchor-id="nasa-sea-surface-height-data-httpspodaac.jpl.nasa.govnasa-ssh">NASA Sea Surface Height data <a href="https://podaac.jpl.nasa.gov/NASA-SSH">https://podaac.jpl.nasa.gov/NASA-SSH</a></h4>
-<div id="cell-5" class="cell" data-execution_count="4">
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives:</h2>
+<ul>
+<li>Use python to plot the SST and SSH in the Gulf of Mexico to show how Hurricane Helene impacted the region.</li>
+<li>Use <code>earthaccess</code> Python package to search for NASA data</li>
+</ul>
+<section id="import-packages" class="level3">
+<h3 class="anchored" data-anchor-id="import-packages">Import packages</h3>
+<div id="cell-5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import needed packages </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cartopy.crs <span class="im">as</span> ccrs</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cartopy.feature <span class="im">as</span> cfeature</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Common function to plot SST, anomalies, SSHA, or differences along with hurricane tracks</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_with_tracks(data, title, vmin<span class="op">=</span><span class="va">None</span>, vmax<span class="op">=</span><span class="va">None</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>, extent<span class="op">=</span>[<span class="op">-</span><span class="dv">100</span>, <span class="op">-</span><span class="dv">80</span>, <span class="dv">17</span>, <span class="dv">31</span>], land_color<span class="op">=</span><span class="st">'#8B4513'</span>, marker_color<span class="op">=</span><span class="st">'red'</span>, cbar_label<span class="op">=</span><span class="st">'(°C)'</span>):</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check if the data contains valid numeric values</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> data.isnull().<span class="bu">all</span>():</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Warning: The data for </span><span class="sc">{</span>title<span class="sc">}</span><span class="ss"> contains only NaN or missing values."</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the data if it contains valid numeric entries</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set custom zoom extent</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    ax.set_extent(extent, crs<span class="op">=</span>ccrs.PlateCarree())</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a filled land feature with darker brown color</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    land <span class="op">=</span> cfeature.NaturalEarthFeature(<span class="st">'physical'</span>, <span class="st">'land'</span>, <span class="st">'50m'</span>, facecolor<span class="op">=</span>land_color)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    ax.add_feature(land)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the data</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> data.fillna(<span class="dv">0</span>)  <span class="co"># Fill NaN values with 0 or other reasonable value</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    plot <span class="op">=</span> data.plot(ax<span class="op">=</span>ax, transform<span class="op">=</span>ccrs.PlateCarree(), vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax, cmap<span class="op">=</span>cmap, </span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                     cbar_kwargs<span class="op">=</span>{<span class="st">'label'</span>: cbar_label})  <span class="co"># Unit on the colorbar</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add coastlines, gridlines, and labels</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    ax.coastlines(resolution<span class="op">=</span><span class="st">'50m'</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Customize gridlines </span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    gl <span class="op">=</span> ax.gridlines(draw_labels<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    gl.right_labels <span class="op">=</span> <span class="va">False</span>  <span class="co"># No latitude labels on the right side</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    gl.top_labels <span class="op">=</span> <span class="va">False</span>  <span class="co"># No top labels</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add country borders and region outlines</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    ax.add_feature(cfeature.BORDERS, linestyle<span class="op">=</span><span class="st">':'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Hurricane Helene track data</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    hurricane_data <span class="op">=</span> [</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP23'</span>, <span class="fl">25.0</span>, <span class="fl">17.64</span>, <span class="op">-</span><span class="fl">82.02</span>, <span class="st">'Tropical Depression'</span>, <span class="dv">5</span>),</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP24'</span>, <span class="fl">34.0</span>, <span class="fl">18.84</span>, <span class="op">-</span><span class="fl">83.11</span>, <span class="st">'Tropical Storm'</span>, <span class="dv">7</span>),</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP25'</span>, <span class="fl">65.0</span>, <span class="fl">21.73</span>, <span class="op">-</span><span class="fl">86.33</span>, <span class="st">'Category 1'</span>, <span class="dv">9</span>),</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP26'</span>, <span class="fl">82.2</span>, <span class="fl">24.06</span>, <span class="op">-</span><span class="fl">86.27</span>, <span class="st">'Category 2'</span>, <span class="dv">11</span>),</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP26'</span>, <span class="fl">99.6</span>, <span class="fl">24.86</span>, <span class="op">-</span><span class="fl">85.43</span>, <span class="st">'Category 3'</span>, <span class="dv">13</span>),</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP26'</span>, <span class="fl">115.0</span>, <span class="fl">26.59</span>, <span class="op">-</span><span class="fl">84.89</span>, <span class="st">'Category 4'</span>, <span class="dv">15</span>),</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP27'</span>, <span class="fl">137.4</span>, <span class="fl">29.89</span>, <span class="op">-</span><span class="fl">83.73</span>, <span class="st">'Category 4'</span>, <span class="dv">15</span>),</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot hurricane track markers</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (day, knts, lat, lon, category, marker_size) <span class="kw">in</span> <span class="bu">enumerate</span>(hurricane_data):</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>        ax.plot(lon, lat, marker<span class="op">=</span><span class="st">'o'</span>, markersize<span class="op">=</span>marker_size, color<span class="op">=</span>marker_color, transform<span class="op">=</span>ccrs.PlateCarree())</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Only add the day label when it changes to avoid repetition</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> hurricane_data[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>] <span class="op">!=</span> day:</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            ax.text(lon <span class="op">+</span> <span class="fl">0.2</span>, lat <span class="op">-</span> <span class="fl">0.3</span>, day, transform<span class="op">=</span>ccrs.PlateCarree(), fontsize<span class="op">=</span><span class="dv">7</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure the legend marker sizes match the track marker sizes</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> matplotlib.lines <span class="im">import</span> Line2D</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    legend_elements <span class="op">=</span> [</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Tropical Depression'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">5</span>),</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Tropical Storm'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">7</span>),</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Category 1'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">9</span>),</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Category 2'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">11</span>),</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Category 3'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">13</span>),</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Category 4'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">15</span>),</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    ax.legend(handles<span class="op">=</span>legend_elements, loc<span class="op">=</span><span class="st">'upper left'</span>, title<span class="op">=</span><span class="st">"Hurricane Intensity"</span>, frameon<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add map title</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Show the plot</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Load datasets for different dates</span></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>file_path_sept_23 <span class="op">=</span> <span class="st">'/Users/20240923090000-JPL-L4_GHRSST-SSTfnd-MUR25-GLOB-v02.0-fv04.2.nc'</span></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>file_path_sept_27 <span class="op">=</span> <span class="st">'/Users/20240927090000-JPL-L4_GHRSST-SSTfnd-MUR25-GLOB-v02.0-fv04.2.nc'</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>file_path_ssha <span class="op">=</span> <span class="st">'/Users/NASA-SSH_alt_ref_simple_grid_v1_20240923.nc'</span></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>ds_sept_23 <span class="op">=</span> xr.open_dataset(file_path_sept_23)</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>ds_sept_27 <span class="op">=</span> xr.open_dataset(file_path_sept_27)</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>ds_ssha <span class="op">=</span> xr.open_dataset(file_path_ssha)</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract SST data and convert to Celsius</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>sst_sept_23 <span class="op">=</span> ds_sept_23[<span class="st">'analysed_sst'</span>].isel(time<span class="op">=</span><span class="dv">0</span>) <span class="op">-</span> <span class="fl">273.15</span> </span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>sst_sept_27 <span class="op">=</span> ds_sept_27[<span class="st">'analysed_sst'</span>].isel(time<span class="op">=</span><span class="dv">0</span>) <span class="op">-</span> <span class="fl">273.15</span> </span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that both datasets are on the same grid</span></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>sst_sept_23, sst_sept_27 <span class="op">=</span> xr.align(sst_sept_23, sst_sept_27, join<span class="op">=</span><span class="st">'inner'</span>)</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate SST difference between Sept 27 and Sept 23</span></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>sst_difference <span class="op">=</span> sst_sept_27 <span class="op">-</span> sst_sept_23</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SST difference</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>plot_with_tracks(sst_difference, title<span class="op">=</span><span class="st">'Sea Surface Temperature (SST) Difference (Sept 27 - Sept 23)'</span>, vmin<span class="op">=-</span><span class="dv">3</span>, vmax<span class="op">=</span><span class="dv">3</span>, marker_color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SST for September 23</span></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>plot_with_tracks(sst_sept_23, title<span class="op">=</span><span class="st">'September 23, 2024 Sea Surface Temperature (SST)'</span>, vmin<span class="op">=</span><span class="dv">20</span>, vmax<span class="op">=</span><span class="dv">35</span>, marker_color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SST anomaly if available</span></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'sst_anomaly'</span> <span class="kw">in</span> ds_sept_23.variables:</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>    sst_anomaly <span class="op">=</span> ds_sept_23[<span class="st">'sst_anomaly'</span>].isel(time<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    plot_with_tracks(sst_anomaly, title<span class="op">=</span><span class="st">'September 23, 2024 Sea Surface Temperature (SST) Anomaly'</span>, vmin<span class="op">=-</span><span class="dv">3</span>, vmax<span class="op">=</span><span class="dv">3</span>, marker_color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the SSHA variable (no time indexing needed)</span></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>ssha <span class="op">=</span> ds_ssha[<span class="st">'SSHA'</span>] <span class="op">*</span> <span class="dv">100</span>  <span class="co"># Convert from meters to centimeters</span></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Mask out invalid values (NaN values)</span></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>ssha <span class="op">=</span> ssha.where(<span class="op">~</span>ssha.isnull(), other<span class="op">=</span>np.nan)</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SSHA with the same extent and color scheme, including hurricane tracks</span></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>plot_with_tracks(ssha, title<span class="op">=</span><span class="st">'September 23, 2024 Sea Surface Height Anomaly (SSHA)'</span>, vmin<span class="op">=-</span><span class="dv">30</span>, vmax<span class="op">=</span><span class="dv">30</span>, marker_color<span class="op">=</span><span class="st">'black'</span>, cbar_label<span class="op">=</span><span class="st">'(cm)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="authenticate" class="level3">
+<h3 class="anchored" data-anchor-id="authenticate">Authenticate</h3>
+<p>Authenticate your Earthdata Login (EDL) information using the earthaccess python package as follows:</p>
+<div id="cell-7" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(persist<span class="op">=</span><span class="va">True</span>) <span class="co"># Login with your EDL credentials if asked</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="use-earthaccess-to-search-for-data" class="level3">
+<h3 class="anchored" data-anchor-id="use-earthaccess-to-search-for-data">Use <code>earthaccess</code> to search for data</h3>
+<div id="cell-9" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Information for MUR SST data in the specified range:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>results_SST <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span><span class="st">"MUR25-JPL-L4-GLOB-v04.2"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    temporal<span class="op">=</span>(<span class="st">"2024-09-23"</span>, <span class="st">"2024-09-27"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#results_SST</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Granules found: 5</code></pre>
+</div>
+</div>
+</section>
+<section id="download" class="level3">
+<h3 class="anchored" data-anchor-id="download">Download</h3>
+<p>Download files from September 23rd and 27th, 2024 for comparison.</p>
+<div id="cell-11" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results_SST[<span class="dv">0</span>], <span class="st">"../datasets/data_downloads/Helene/"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results_SST[<span class="dv">4</span>], <span class="st">"../datasets/data_downloads/Helene/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Getting 1 granules, approx download size: 0.0 GB</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"dce6e25cb8d04f1b99b4bdaa313ee102","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"6a5932a8d06f494eafcb66a9aa904137","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"abf49ce9d4ae4c8e8ae06ffb31516446","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Getting 1 granules, approx download size: 0.0 GB</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"08113ae4b21a4f838609be1ff0e0060d","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"9f8e50df0d8c474da03a0e09597e0729","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"eb966c26424f494b922035614a41f131","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>['..\\datasets\\data_downloads\\Helene\\20240927090000-JPL-L4_GHRSST-SSTfnd-MUR25-GLOB-v02.0-fv04.2.nc']</code></pre>
+</div>
+</div>
+<p>The NASA-SSH dataset used in this notebook was created and gridded via the following method from Sentinel-6 data: <a href="https://github.com/kevinmarlis/simple-gridder">https://github.com/kevinmarlis/simple-gridder</a>. Here we host a sample file that can be accessed via our GitHub repository.</p>
+<div id="cell-13" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>file_path_ssha <span class="op">=</span> <span class="st">'./Data/NASA-SSH_alt_ref_simple_grid_v1_20240923.nc'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-14" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for datasets for different dates</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>file_path_sept_23 <span class="op">=</span> <span class="st">'../datasets/data_downloads/Helene/20240923090000-JPL-L4_GHRSST-SSTfnd-MUR25-GLOB-v02.0-fv04.2.nc'</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>file_path_sept_27 <span class="op">=</span> <span class="st">'../datasets/data_downloads/Helene/20240927090000-JPL-L4_GHRSST-SSTfnd-MUR25-GLOB-v02.0-fv04.2.nc'</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ds_sept_23 <span class="op">=</span> xr.open_dataset(file_path_sept_23)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>ds_sept_27 <span class="op">=</span> xr.open_dataset(file_path_sept_27)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>ds_ssha <span class="op">=</span> xr.open_dataset(file_path_ssha)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract SST data and convert to Celsius</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>sst_sept_23 <span class="op">=</span> ds_sept_23[<span class="st">'analysed_sst'</span>].isel(time<span class="op">=</span><span class="dv">0</span>) <span class="op">-</span> <span class="fl">273.15</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>sst_sept_27 <span class="op">=</span> ds_sept_27[<span class="st">'analysed_sst'</span>].isel(time<span class="op">=</span><span class="dv">0</span>) <span class="op">-</span> <span class="fl">273.15</span> </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that both datasets are on the same grid</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>sst_sept_23, sst_sept_27 <span class="op">=</span> xr.align(sst_sept_23, sst_sept_27, join<span class="op">=</span><span class="st">'inner'</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate SST difference between Sept 27 and Sept 23</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>sst_difference <span class="op">=</span> sst_sept_27 <span class="op">-</span> sst_sept_23</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="define-plotting-function" class="level3">
+<h3 class="anchored" data-anchor-id="define-plotting-function">Define plotting function</h3>
+<div id="cell-16" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Common function to plot SST, anomalies, SSHA, or differences along with hurricane tracks</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_with_tracks(data, title, vmin<span class="op">=</span><span class="va">None</span>, vmax<span class="op">=</span><span class="va">None</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>, extent<span class="op">=</span>[<span class="op">-</span><span class="dv">100</span>, <span class="op">-</span><span class="dv">80</span>, <span class="dv">17</span>, <span class="dv">31</span>], land_color<span class="op">=</span><span class="st">'#8B4513'</span>, marker_color<span class="op">=</span><span class="st">'red'</span>, cbar_label<span class="op">=</span><span class="st">'(°C)'</span>):</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check if the data contains valid numeric values</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> data.isnull().<span class="bu">all</span>():</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Warning: The data for </span><span class="sc">{</span>title<span class="sc">}</span><span class="ss"> contains only NaN or missing values."</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the data if it contains valid numeric entries</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>ccrs.PlateCarree())</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set custom zoom extent</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    ax.set_extent(extent, crs<span class="op">=</span>ccrs.PlateCarree())</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a filled land feature with darker brown color</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    land <span class="op">=</span> cfeature.NaturalEarthFeature(<span class="st">'physical'</span>, <span class="st">'land'</span>, <span class="st">'50m'</span>, facecolor<span class="op">=</span>land_color)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    ax.add_feature(land)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the data</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> data.fillna(<span class="dv">0</span>)  <span class="co"># Fill NaN values with 0 or other reasonable value</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    plot <span class="op">=</span> data.plot(ax<span class="op">=</span>ax, transform<span class="op">=</span>ccrs.PlateCarree(), vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax, cmap<span class="op">=</span>cmap, </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>                     cbar_kwargs<span class="op">=</span>{<span class="st">'label'</span>: cbar_label})  <span class="co"># Unit on the colorbar</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add coastlines, gridlines, and labels</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    ax.coastlines(resolution<span class="op">=</span><span class="st">'50m'</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>     <span class="co"># Add coastlines, gridlines, and labels</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    ax.coastlines(resolution<span class="op">=</span><span class="st">'50m'</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Customize gridlines </span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    gl <span class="op">=</span> ax.gridlines(draw_labels<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    gl.right_labels <span class="op">=</span> <span class="va">False</span>  <span class="co"># No latitude labels on the right side</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    gl.top_labels <span class="op">=</span> <span class="va">False</span>  <span class="co"># No top labels</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add country borders and region outlines</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    ax.add_feature(cfeature.BORDERS, linestyle<span class="op">=</span><span class="st">':'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Hurricane Helene track data</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    hurricane_data <span class="op">=</span> [</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP23'</span>, <span class="fl">25.0</span>, <span class="fl">17.64</span>, <span class="op">-</span><span class="fl">82.02</span>, <span class="st">'Tropical Depression'</span>, <span class="dv">5</span>),</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP24'</span>, <span class="fl">34.0</span>, <span class="fl">18.84</span>, <span class="op">-</span><span class="fl">83.11</span>, <span class="st">'Tropical Storm'</span>, <span class="dv">7</span>),</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP25'</span>, <span class="fl">65.0</span>, <span class="fl">21.73</span>, <span class="op">-</span><span class="fl">86.33</span>, <span class="st">'Category 1'</span>, <span class="dv">9</span>),</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP26'</span>, <span class="fl">82.2</span>, <span class="fl">24.06</span>, <span class="op">-</span><span class="fl">86.27</span>, <span class="st">'Category 2'</span>, <span class="dv">11</span>),</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP26'</span>, <span class="fl">99.6</span>, <span class="fl">24.86</span>, <span class="op">-</span><span class="fl">85.43</span>, <span class="st">'Category 3'</span>, <span class="dv">13</span>),</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP26'</span>, <span class="fl">115.0</span>, <span class="fl">26.59</span>, <span class="op">-</span><span class="fl">84.89</span>, <span class="st">'Category 4'</span>, <span class="dv">15</span>),</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'SEP27'</span>, <span class="fl">137.4</span>, <span class="fl">29.89</span>, <span class="op">-</span><span class="fl">83.73</span>, <span class="st">'Category 4'</span>, <span class="dv">15</span>),</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot hurricane track markers</span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (day, knts, lat, lon, category, marker_size) <span class="kw">in</span> <span class="bu">enumerate</span>(hurricane_data):</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>        ax.plot(lon, lat, marker<span class="op">=</span><span class="st">'o'</span>, markersize<span class="op">=</span>marker_size, color<span class="op">=</span>marker_color, transform<span class="op">=</span>ccrs.PlateCarree())</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Only add the day label when it changes to avoid repetition</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> hurricane_data[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>] <span class="op">!=</span> day:</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>            ax.text(lon <span class="op">+</span> <span class="fl">0.2</span>, lat <span class="op">-</span> <span class="fl">0.3</span>, day, transform<span class="op">=</span>ccrs.PlateCarree(), fontsize<span class="op">=</span><span class="dv">7</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure the legend marker sizes match the track marker sizes</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> matplotlib.lines <span class="im">import</span> Line2D</span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    legend_elements <span class="op">=</span> [</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Tropical Depression'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">5</span>),</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Tropical Storm'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">7</span>),</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Category 1'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">9</span>),</span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Category 2'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">11</span>),</span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Category 3'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">13</span>),</span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>        Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span><span class="st">'Category 4'</span>, markerfacecolor<span class="op">=</span>marker_color, markersize<span class="op">=</span><span class="dv">15</span>),</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>    ax.legend(handles<span class="op">=</span>legend_elements, loc<span class="op">=</span><span class="st">'upper left'</span>, title<span class="op">=</span><span class="st">"Hurricane Intensity"</span>, frameon<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add map title</span></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Show the plot</span></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SST difference</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plot_with_tracks(sst_difference, title<span class="op">=</span><span class="st">'Sea Surface Temperature (SST) Difference (Sept 27 - Sept 23)'</span>, vmin<span class="op">=-</span><span class="dv">3</span>, vmax<span class="op">=</span><span class="dv">3</span>, marker_color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SST for September 23</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plot_with_tracks(sst_sept_23, title<span class="op">=</span><span class="st">'September 23, 2024 Sea Surface Temperature (SST)'</span>, vmin<span class="op">=</span><span class="dv">20</span>, vmax<span class="op">=</span><span class="dv">35</span>, marker_color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SST anomaly if available</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'sst_anomaly'</span> <span class="kw">in</span> ds_sept_23.variables:</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    sst_anomaly <span class="op">=</span> ds_sept_23[<span class="st">'sst_anomaly'</span>].isel(time<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    plot_with_tracks(sst_anomaly, title<span class="op">=</span><span class="st">'September 23, 2024 Sea Surface Temperature (SST) Anomaly'</span>, vmin<span class="op">=-</span><span class="dv">3</span>, vmax<span class="op">=</span><span class="dv">3</span>, marker_color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the SSHA variable (no time indexing needed)</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>ssha <span class="op">=</span> ds_ssha[<span class="st">'SSHA'</span>] <span class="op">*</span> <span class="dv">100</span>  <span class="co"># Convert from meters to centimeters</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Mask out invalid values (NaN values)</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ssha <span class="op">=</span> ssha.where(<span class="op">~</span>ssha.isnull(), other<span class="op">=</span>np.nan)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot SSHA with the same extent and color scheme, including hurricane tracks</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>plot_with_tracks(ssha, title<span class="op">=</span><span class="st">'September 23, 2024 Sea Surface Height Anomaly (SSHA)'</span>, vmin<span class="op">=-</span><span class="dv">30</span>, vmax<span class="op">=</span><span class="dv">30</span>, marker_color<span class="op">=</span><span class="st">'black'</span>, cbar_label<span class="op">=</span><span class="st">'(cm)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="HurricaneHelene_SST_SSH_Notebook_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="HurricaneHelene_SST_SSH_Notebook_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="HurricaneHelene_SST_SSH_Notebook_files/figure-html/cell-2-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="HurricaneHelene_SST_SSH_Notebook_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="HurricaneHelene_SST_SSH_Notebook_files/figure-html/cell-2-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="HurricaneHelene_SST_SSH_Notebook_files/figure-html/cell-9-output-3.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="HurricaneHelene_SST_SSH_Notebook_files/figure-html/cell-2-output-4.png" class="img-fluid figure-img"></p>
+<p><img src="HurricaneHelene_SST_SSH_Notebook_files/figure-html/cell-9-output-4.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
