@@ -56,6 +56,17 @@ podaac-data-downloader -c SWOT_L2_LR_SSH_Basic_2.0 -d ./data -sd 2023-11-25T00:0
 
 > See [how to Download/Subscribe](DataSubscriberDownloader.qmd) for more information on how to use the PO.DAAC subscriber/downloader including with spatial queries.
 
+#### **SWOT Data Versioning**
+
+See the [Version C product release notes](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/releases/SWOT_VersionC_KaRIn_Products_Release_Note_20241014.pdf) for more information about the latest release. Note that version C has used different versions of data processing algorithms, as indicated in the Composite Release Identifier (CRID) in the filename of KaRIn science data products. The CRID values are as follows:
+
+1. PGC0 for reprocessed version C products spanning March 30, 2023 to January 25, 2024 (repeat cycles 475-578 of calibration phase, and repeat cycles 1-9 of science phase). This reprocessing of the original data is now complete.
+2. PIC0 for forward-processed version C products spanning January 25, 2024 to October 15, 2024 (repeat cycle 10 to part of repeat cycle 22 of science phase).
+3. PIC2 for forward-processed version C products spanning October 16, 2024 (part of cycle 22 of science phase) onward.
+
+The best available science data processing algorithms in early 2024 were applied into the operational forward processing and reprocessing of KaRIn data to generate both the PIC0 and PGC0 products. 
+The PIC2 products have resolved several algorithm and product issues that were identified in the PIC0/PGC0 products.
+
 #### **Search SWOT Passes over Time**
 
 CNES developed this dedicated visualization tool for a quick look at where SWOT has been, where it is, and where it will be. Once you have selected the area of interest, click the Search button to search for SWOT passes. The results are displayed in a table and the swaths that intersect the area of interest are displayed on the map. Click on the marker to view the pass number.
@@ -142,7 +153,7 @@ In [Earthdata Search GUI](https://search.earthdata.nasa.gov/search):
 
 #### [HiTIDE subsetter for Sea Surface Height Products](https://hitide.podaac.earthdatacloud.nasa.gov/) - select KaRIn instrument in `sensors`, see video tutorial [here](https://www.youtube.com/watch?v=S8MIHltlwWA)
 
-#### [Hydrocron: Time series API](../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.ipynb) - Currently for rivers, see [Hydrocron documentation](https://podaac.github.io/hydrocron/intro.html) and more description under tools below. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11176233.svg)](https://doi.org/10.5281/zenodo.11176233)
+#### [Hydrocron: Time series API](../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.ipynb) - Currently for rivers and lakes see [Hydrocron documentation](https://podaac.github.io/hydrocron/intro.html) and more description under tools below. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11176233.svg)](https://doi.org/10.5281/zenodo.11176233)
 
 #### [Transform SWOT Hydrology lake shapefiles into time series](../notebooks/GIS/SWOTshp_CSVconversion.ipynb) - work around for lake time series while Hydrocron is under development to include lakes.
 
@@ -150,7 +161,7 @@ In [Earthdata Search GUI](https://search.earthdata.nasa.gov/search):
 
 ### **Tools**
 
-[Hydrocron](https://podaac.github.io/hydrocron/intro.html) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11193245.svg)](https://doi.org/10.5281/zenodo.11193245) - an API that repackages the river shapefile dataset (L2_HR_RiverSP) into csv or GeoJSON formats that make time-series analysis easier. SWOT data is archived as individually timestamped shapefiles, which would otherwise require users to perform potentially thousands of file operations per river feature to view the data as a timeseries. Hydrocron makes this possible with a single API call. 
+[Hydrocron](https://podaac.github.io/hydrocron/intro.html) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11193245.svg)](https://doi.org/10.5281/zenodo.11193245) - an API that repackages the river (L2_HR_RiverSP) and lake (L2_HR_LakeSP) shapefile datasets into csv or GeoJSON formats that make time-series analysis easier. SWOT data is archived as individually timestamped shapefiles, which would otherwise require users to perform potentially thousands of file operations per feature to view the data as a timeseries. Hydrocron makes this possible with a single API call. 
 
 [SWODLR](https://github.com/podaac/swodlr) - a system for generating on demand raster products from SWOT L2 raster data with custom resolutions, projections, and extents. *-in development*
 
@@ -177,7 +188,7 @@ For more information about SWOT discharge, see the following paper: [https://doi
 
 [Features of KaRIn Data that Users Should be Aware of](https://swotst.aviso.altimetry.fr/fileadmin/user_upload/SWOTST2023/20230919_3_Karin_overview2/14h10-KaRInFeatures.pdf) - Slide Deck presented at the 2023 SWOT Science Team by Curtis Chen that addresses practical aspects of interpreting SWOT KaRIn data products, answers frequently asked questions, and provides tips to hopefully avoid misinterpretation and confusion of the data.
 
-[Latest Release Notes - Version C KaRIn Science Data Products (aka 2.0)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/releases/SWOT_VersionC_KaRIn_Products_Release_Note.pdf) - See section 6 for current issues and features of the datasets!
+[Latest Release Notes - Version C KaRIn Science Data Products (aka 2.0)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/releases/SWOT_VersionC_KaRIn_Products_Release_Note_20241014.pdf) - see section 7 for known features and issues.
 
 [Mission Spacecraft Events](https://podaac.jpl.nasa.gov/SWOT-events/SWOT_events.html) - page for relevant information about spacecraft events that impact data quality and availability.
 
@@ -215,7 +226,7 @@ This is a code space for the global SWOT mission community. We share experience,
 
 [https://github.com/podaac/2024-SWOT-ECR-Workshop](https://github.com/podaac/2024-SWOT-ECR-Workshop)
 
-Explore SWOT data on a Binder virtual environment or local machine. This material was presented at the 9th Global Energy and Water Exchanges (GEWEX) Open Science Conference and the Hacking Limnology 2024 Virtual Summit Remote Sensing Day.
+Explore SWOT data on a Binder virtual environment or local machine. This material was presented at the 9th Global Energy and Water Exchanges (GEWEX) Open Science Conference and the Hacking Limnology 2024 Virtual Summit Remote Sensing Day. See [YouTube Video](https://www.youtube.com/watch?v=7qqiUqR43_8&list=PLDWiCz1Ka4kRhE-g39HwvvyMLtn87m1vH&index=1) for full recording.
 
 #### **2024 SWOT Hydrology Data Access Workshop**
 
