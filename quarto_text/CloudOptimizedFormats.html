@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -29,19 +29,19 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../notebooks/Advanced_cloud/kerchunk_recipes.html" rel="next">
+<link href="../notebooks/Advanced_cloud/virtualizarr_recipes.html" rel="next">
 <link href="../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-748a278995d6d57df2b791b710aa6a63.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ab6b8b7d8618fd52021f453d175ef30d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -960,6 +960,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../notebooks/Advanced_cloud/virtualizarr_recipes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Virtualizarr Recipes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../notebooks/Advanced_cloud/kerchunk_recipes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kerchunk Recipes</span></a>
   </div>
@@ -1120,7 +1126,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </header>
 
 
-<p>Traditional Earth data formats like netCDF and HDF are not optimal for storing and then accessing those data in the cloud, e.g.&nbsp;for streaming data from the files rather than direct downloading. They do work, but new file formats are emerging which will allow data to be accessed faster. In some cases, future data sets will be completely in these new formats, such as <a href="https://guide.cloudnativegeo.org/zarr/intro.html">Zarr</a> (no netCDF, HDF available). In other cases, technology is emerging that will allow data sets to still be written in more traditional formats, but with supplementary files which act as a “road map” to the data, allowing machines/software to navigate the data files more efficiently. Which ever is implemented, a key goal is to minimize the additional technical knowledge a user must aquire just to access the data. For example, the Python package <code>Xarray</code> is already adding new capabilities to its <code>open_mfdataset()</code> function so it works in a similar way whether using netCDF or cloud optimized data. There are many resources to gain a high-level understanding of cloud optimized data, such as this page <a href="https://guide.cloudnativegeo.org">Cloud-Optimized Geospatial Formats Guide</a>.</p>
+<p>Traditional Earth data formats like netCDF and HDF are not optimal for storing and then accessing those data in the cloud, e.g.&nbsp;for streaming data from the files rather than direct downloading. They do work, but new file formats are emerging that allow faster data access. Some of the future data sets hosted at PO.DAAC could be in these new formats, such as <a href="https://guide.cloudnativegeo.org/zarr/intro.html">Zarr</a> (no netCDF, HDF available). In other cases, technology is emerging that allows data sets to remain in traditional formats, but with supplementary files which act as “road maps” to the data, allowing machines/software to navigate the data files more efficiently. Regardless of which method is implemented, a key goal is to minimize the additional technical knowledge a user must have to access the data. For example, the Python package <code>Xarray</code> is adding new capabilities to its <code>open_dataset()</code> function so it works in a similar way for either netCDF or cloud optimized data. There are many resources to gain a high-level understanding of cloud optimized data, such as this page <a href="https://guide.cloudnativegeo.org">Cloud-Optimized Geospatial Formats Guide</a>. Additionaly, the notebooks in this section often provide additional resources for learning.</p>
 <section id="zarr" class="level3">
 <h3 class="anchored" data-anchor-id="zarr"><strong>Zarr</strong></h3>
 <ul>
@@ -1131,6 +1137,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 class="anchored" data-anchor-id="kerchunk-and-virtualizarr"><strong>Kerchunk and Virtualizarr</strong></h3>
 <p>Both <a href="https://fsspec.github.io/kerchunk/">Kerchunk</a> and <a href="https://virtualizarr.readthedocs.io/en/latest/">Virtualizarr</a> are Python packages that aim to achieve cloud-optimized results while still allowing a data set to be stored in traditional formats (e.g.&nbsp;netCDF, HDF). These packages create relatively small supplementary files that can be used by software to more efficiently navigate through a collection of e.g.&nbsp;netCDF files. This allows much faster lazy loading, faster selection and access to subsets of the data, and in some cases faster computations.</p>
 <ul>
+<li><a href="../notebooks/Advanced_cloud/virtualizarr_recipes.html">VirtualiZarr recipes</a> - Meant to be used after having a high-level understanding of the pacakge, this notebook goes through several functionalities of VirtualiZarr that we found relevant to Earthdata users. Workflows here combine VirtualiZarr with the earthaccess package.</li>
 <li><a href="../notebooks/Advanced_cloud/kerchunk_recipes.html">Kerchunk recipes</a> - Meant to be used after having a high-level understanding of the pacakge, this notebook goes through several functionalities of kerchunk that we found relevant to Earthdata users. Workflows here combine Kerchunk with the earthaccess package.</li>
 <li><a href="../external/SWOT_to_kerchunk.html">Kerchunk JSON Generation</a> - An additional tutorial on generating a Kerchunk JSON file, demonstrating its use with one of the SWOT data sets hosted on PO.DAAC. Creates output for input in the following tutorial.</li>
 <li><a href="../external/SWOT_SSH_dashboard.html">Integrating Dask, Kerchunk, Zarr and Xarray</a> - Efficiently visualize a whole collection of data in an interactive dashboard via cloud-optimized formats.</li>
@@ -1367,8 +1374,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1479,7 +1484,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1712,8 +1716,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../notebooks/Advanced_cloud/kerchunk_recipes.html" class="pagination-link" aria-label="Kerchunk Recipes">
-        <span class="nav-page-text">Kerchunk Recipes</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notebooks/Advanced_cloud/virtualizarr_recipes.html" class="pagination-link" aria-label="Virtualizarr Recipes">
+        <span class="nav-page-text">Virtualizarr Recipes</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

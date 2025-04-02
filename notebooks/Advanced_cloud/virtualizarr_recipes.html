@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>VirtualiZarr Useful Recipes with NASA Earthdata – PO.DAAC Cookbook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../notebooks/Advanced_cloud/kerchunk_recipes.html" rel="next">
+<link href="../../quarto_text/CloudOptimizedFormats.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-748a278995d6d57df2b791b710aa6a63.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-ab6b8b7d8618fd52021f453d175ef30d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
+<!-- End Google Tag Manager -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../quarto_text/CloudOptimizedFormats.html">Cloud Optimized Data Formats</a></li><li class="breadcrumb-item"><a href="../../notebooks/Advanced_cloud/virtualizarr_recipes.html">Virtualizarr Recipes</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/podaac/tutorials" title="Github Repository" class="quarto-navigation-tool px-1" aria-label="Github Repository"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets &amp; Guides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/HowTo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How To</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Find Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/earthdata_search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">using Earthdata Search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/find_data_programmatically.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">using Code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/NASA_Earthdata_Authentication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authenticate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Access Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-cloud-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">in the Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-local-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Locally</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/access-local-opendap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via OPeNDAP</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/read_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Read Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/DataSubscriberDownloader.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download/Subscribe</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Tutorials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/DatasetSpecificExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Specific</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/ECCO.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECCO</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/ECCO_cloud_direct_access_s3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-cloud Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/ECCO_download_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local Download Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/ECCO_ssh_sst_corr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/GHRSST.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GHRSST</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/enso_MUR_tutorial_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MUR with Dask</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/DataStories/HurricaneHelene_SST_SSH_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hurricane Helene</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/MUR_SSTA_QGIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In QGIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/opendap/MUR-OPeNDAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/MUR_SST_Washington_Comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-Cloud Access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/OPERA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPERA</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">Visualization and Mosaicking</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Sentinel6MF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sentinel-6 Michael Freilich</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/S6_Cloud_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access in Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access by Cycle/Pass</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/sentinel-6/Access_Sentinel6_NRT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access NRT Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/S6_OPeNDAP_Access_Gridding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPeNDAP Access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SMAP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMAP</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/smap_imerg_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Case Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SMODE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S-MODE</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/DownloadDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/VisualizeDopplerScattData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study Airborne Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/insitu_dataviz_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study In Situ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SWOT</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+ <span class="menu-text">Search</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#via-graphical-user-interface" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via GUI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#programmatically-ie.-within-python-code-workflows" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmatically</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#via-command-line---po.daac-subscriberdownloader-examples" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">via Command Line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#swot-data-versioning" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SWOT Data Versioning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#search-swot-passes-over-time" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Passes over Time</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#swot-spatial-coverage" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spatial Coverage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#tips-for-swot-spatial-search" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tips: Spatial Search</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+ <span class="menu-text">Access &amp; Visualization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
+ <span class="menu-text">SWOT Hydrology</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOTHR_s3Access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOTHR_localmachine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false">
+ <span class="menu-text">SWOT Oceanography</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/DirectCloud_Access_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/Localmachine_SWOT_Oceanography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hydrocron Time Series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_PIXC_Area_localmachine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PIXC Area Aggregration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_PIXC_PhaseUnwrap_localmachine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PIXC Phase Unwrap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false">
+ <span class="menu-text">Raster Multifile</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_Raster_Notebook_cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_Raster_Notebook_local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_quality_flag_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Flags</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false">
+ <span class="menu-text">River Profiles Data Story</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/DataStories/SWOTHR_Science_Application.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/DataStories/SWOTHR_Science_Application_localmachine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false">
+ <span class="menu-text">GIS Workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://storymaps.arcgis.com/stories/4a9184e813e540248040069580f6a54c" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StoryMap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOT_GISshapefiles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shapefile Exploration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOT_datetime_GIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datetime Conversion</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transform Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT_Datum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datum Conversion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/Hydrocron_SWOT_timeseries_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">River Time Series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/SWOTshp_CSVconversion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lake Time Series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false">
+ <span class="menu-text">NetCDF to Geotiff</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth5 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/Subscriber_nc_to_tif_SWOT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mac/Linux</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/GIS/GDAL_NetCDF_GeoTIFF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Windows</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/SWOT.html#tools" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="false">
+ <span class="menu-text">SWORD of Science (SoS) Discharge</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploring river discharge</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploring river discharge and gauge data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting ALL river discharge algorithms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing river discharge</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/GIS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudvsLocalWorkflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud vs. Local Workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false">
+ <span class="menu-text">Estuary Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false">
+ <span class="menu-text">Reservoir Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-26" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-26" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/HLS-WaterDetection-Local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lake Extent Example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-27" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-27" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/OPERA_GIS_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/ScienceDataStories.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science Data Stories</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-28" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-28" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/DataStories/HurricaneHelene_SST_SSH_Notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hurricane Helene</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" role="navigation" aria-expanded="false">
+ <span class="menu-text">Amazon Estuary Exploration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-29" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-29" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/CloudAWS_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/workshop_osm_2022/Cloud_DirectDownload_AmazonRiver_Estuary_Exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Local</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/DataStories/eof_example_ersst.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monthly SST EOF Decomposition</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/arctic_2019.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SSS Changes in the Arctic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/meetings_workshops/swot_ea_hackweek_2022/River_Heights_in_the_Cloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mississippi River Heights</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/SWOT-EA-2021/Colocate_satellite_insitu_ocean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SST Cross Validation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudOptimizedExamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Optimized Examples</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-30" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-30" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Access for NetCDF4 Files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/zarr-eosdis-store.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr-eosdis-store library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/cof-zarr-reformat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">zarr2netCDF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Cloud</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-31" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-31" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../notebooks/aws_lambda_sst/docs/documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AWS Lambda</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-32" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-32" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/aws_lambda_sst/podaac-lambda-invoke-sst-global-mean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notebook</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/CloudOptimizedFormats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Optimized Data Formats</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-33" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-33" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/zarr_access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/virtualizarr_recipes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Virtualizarr Recipes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/kerchunk_recipes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kerchunk Recipes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/SWOT_to_kerchunk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kerchunk JSON Generation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/SWOT_SSH_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dask, Kerchunk, &amp; Zarr</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Dask_Coiled.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dask and Coiled</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-34" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-34" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/basic_dask.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Dask</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/dask_delayed_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dask Function Replication Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/dask_cluster_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dask Dataset Chunking Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/coiled_function_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Coiled Function Replication Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Advanced_cloud/coiled_cluster_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Coiled Dataset Chunking Example</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Experimental.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In Development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Workshops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshops</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Webinars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webinars</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-35" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-35" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external/July_2022_Earthdata_Webinar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">July 2022 Earthdata Webinar Notebook</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/TechGuides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tech Guides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../quarto_text/Contribute.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contribute</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-36" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-36" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/Tutorials_TEMPLATE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial Template</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_text/Questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions?</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#requirements-prerequisite-knowledge-learning-outcomes" id="toc-requirements-prerequisite-knowledge-learning-outcomes" class="nav-link" data-scroll-target="#requirements-prerequisite-knowledge-learning-outcomes">Requirements, prerequisite knowledge, learning outcomes</a></li>
+  <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import Packages</a></li>
+  <li><a href="#other-setup" id="toc-other-setup" class="nav-link" data-scroll-target="#other-setup">Other Setup</a></li>
+  <li><a href="#get-data-file-s3-endpoints-in-earthdata-cloud" id="toc-get-data-file-s3-endpoints-in-earthdata-cloud" class="nav-link" data-scroll-target="#get-data-file-s3-endpoints-in-earthdata-cloud">1. Get Data File S3 endpoints in Earthdata Cloud</a></li>
+  <li><a href="#generate-reference-files-for-1-day-1-year-and-entire-record" id="toc-generate-reference-files-for-1-day-1-year-and-entire-record" class="nav-link" data-scroll-target="#generate-reference-files-for-1-day-1-year-and-entire-record">2. Generate reference files for 1 day, 1 year, and entire record</a>
+  <ul class="collapse">
+  <li><a href="#first-day" id="toc-first-day" class="nav-link" data-scroll-target="#first-day">2.1 First day</a></li>
+  <li><a href="#first-year" id="toc-first-year" class="nav-link" data-scroll-target="#first-year">2.2 First year</a></li>
+  <li><a href="#method-1-parallelize-using-dask-local-cluster" id="toc-method-1-parallelize-using-dask-local-cluster" class="nav-link" data-scroll-target="#method-1-parallelize-using-dask-local-cluster">2.2.1 Method 1: parallelize using Dask local cluster</a></li>
+  <li><a href="#optional-method-2-parallelize-using-distributed-cluster-with-coiled" id="toc-optional-method-2-parallelize-using-distributed-cluster-with-coiled" class="nav-link" data-scroll-target="#optional-method-2-parallelize-using-distributed-cluster-with-coiled">2.2.2 Optional method 2: parallelize using distributed cluster with Coiled</a></li>
+  </ul></li>
+  <li><a href="#entire-record" id="toc-entire-record" class="nav-link" data-scroll-target="#entire-record">2.3 Entire record</a></li>
+  <li><a href="#appending-additional-reference-files" id="toc-appending-additional-reference-files" class="nav-link" data-scroll-target="#appending-additional-reference-files">3. Appending additional reference files</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<!-- Google Tag Manager (noscript) -->
+               <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../quarto_text/CloudOptimizedFormats.html">Cloud Optimized Data Formats</a></li><li class="breadcrumb-item"><a href="../../notebooks/Advanced_cloud/virtualizarr_recipes.html">Virtualizarr Recipes</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">VirtualiZarr Useful Recipes with NASA Earthdata</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="author-dean-henze-po.daac" class="level4">
+<h4 class="anchored" data-anchor-id="author-dean-henze-po.daac"><em>Author: Dean Henze, PO.DAAC</em></h4>
+<p><em>Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or otherwise, does not constitute or imply its endorsement by the United States Government or the Jet Propulsion Laboratory, California Institute of Technology.</em></p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>This notebook goes through several functionalities of the VirtualiZarr package to create virtual reference files, specifically using it with NASA Earthdata and utilizing the <code>earthaccess</code> package. It is meant to be a quick-start reference that introduces some key capabilities / characteristics of the package once a user has a high-level understanding of virtual data sets and the cloud-computing challenges they address (see references in the <em>Prerequisite knowledge</em> section below). In short, VirtualiZarr is a Python package to create “reference files”, which can be thought of as road maps for the computer to efficiently navigate through large arrays in a single data file, or across many files. Once a reference file for a data set is created, utilizing it to open the data can speed up several processes including lazy loading, accessing subsets, and in some cases performing computations. Importantly, one can create a combined reference for all the files in a dataset and use it to lazy load / access the entire record at once.</p>
+<p>The functionalities of VirtualiZarr (with earthaccess) covered in this notebook are:</p>
+<ol type="1">
+<li><strong>Getting Data File endpoints in Earthdata Cloud</strong> which are needed for virtualizarr to create reference files.</li>
+<li><strong>Generating reference files for 1 day, 1 year, and the entire record of a ~750 GB data set</strong>. The data set used is the Level 4 global gridded 6-hourly wind product from the Cross-Calibrated Multi-Platform project (https://doi.org/10.5067/CCMP-6HW10M-L4V31), available on PO.DAAC. This section also covers speeding up the reference creation using parallel computing. Reference files are saved in both JSON and PARQUET formats. The latter is an important format as it reduces the reference file size by ~30x in our tests. <em>Saving in ice chunk formats will be tested / covered in the coming months.</em></li>
+<li><strong>Combining reference files (in progress)</strong>. The ability to combine reference files together is valuable, for example to upate reference files for forward-streaming datasets when new data are available, without re-creating the entire record from scratch. However, with the current workflows and version of VirtualiZarr, this is not possible due to our use of a specific kwarg when creating the reference files. The workflow is still included here (with errors) because it is anticipated that this will be fixed in upcoming versions. Alternately, the use of ice chunk will also likely solve this issue (ice chunk functionality to be tested soon).</li>
+</ol>
+</section>
+<section id="requirements-prerequisite-knowledge-learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="requirements-prerequisite-knowledge-learning-outcomes">Requirements, prerequisite knowledge, learning outcomes</h2>
+<section id="requirements-to-run-this-notebook" class="level4">
+<h4 class="anchored" data-anchor-id="requirements-to-run-this-notebook">Requirements to run this notebook</h4>
+<ul>
+<li><p>Earthdata login account: An Earthdata Login account is required to access data from the NASA Earthdata system. Please visit https://urs.earthdata.nasa.gov to register and manage your Earthdata Login account.</p></li>
+<li><p>Compute environment: This notebook is meant to be run in the cloud (AWS instance running in us-west-2). We used an <code>m6i.4xlarge</code> EC2 instance (16 CPU’s, 64 GiB memory) for the parallel computing sections. At minimum we recommend a VM with 10 CPU’s to make the parallel computations in Section 2.2.1 faster.</p></li>
+<li><p>Optional Coiled account: To run the section on distributed clusters, Create a coiled account (free to sign up), and connect it to an AWS account. For more information on Coiled, setting up an account, and connecting it to an AWS account, see their website <a href="https://www.coiled.io">https://www.coiled.io</a>.</p></li>
+</ul>
+</section>
+<section id="prerequisite-knowledge" class="level4">
+<h4 class="anchored" data-anchor-id="prerequisite-knowledge">Prerequisite knowledge</h4>
+<ul>
+<li><p>This notebook covers virtualizarr functionality but does not present the high-level ideas behind it. For an understanding of reference files and how they are meant to enhance in-cloud access to file formats that are not cloud optimized (such netCDF, HDF), please see e.g.&nbsp;this <a href="https://fsspec.github.io/kerchunk/">kerchunk page</a>, or <a href="https://virtualizarr.readthedocs.io/en/latest/">this page on virtualizarr</a>.</p></li>
+<li><p>Familiarity with the <code>earthaccess</code> and <code>Xarray</code> packages. Familiarity with directly accessing NASA Earthdata in the cloud.</p></li>
+<li><p>The Cookbook notebook on <a href="https://podaac.github.io/tutorials/notebooks/Advanced_cloud/basic_dask.html">Dask basics</a> is handy for those new to parallel computating.</p></li>
+</ul>
+</section>
+<section id="learning-outcomes" class="level4">
+<h4 class="anchored" data-anchor-id="learning-outcomes">Learning Outcomes</h4>
+<p>This notebook serves both as a pedagogical resource for learning several key workflows as well as a quick reference guide. Readers will gain the understanding to combine the virtualizarr and earthaccess packages to create virtual dataset reference files for NASA Earthdata.</p>
+</section>
+</section>
+<section id="import-packages" class="level2">
+<h2 class="anchored" data-anchor-id="import-packages">Import Packages</h2>
+<section id="note-zarr-version" class="level4">
+<h4 class="anchored" data-anchor-id="note-zarr-version"><strong><em>Note Zarr Version</em></strong></h4>
+<p><strong><em>Zarr version 2 is needed for the current implementation of this notebook, due to (as of February 2025) Zarr version 3 not accepting <code>FSMap</code> objects.</em></strong></p>
+<p>We ran this notebook in a Python 3.12 environment. The minimal working environment we used to run this notebook was:</p>
+<pre><code>zarr==2.18.4
+fastparquet==2024.5.0
+xarray==2025.1.2
+earthaccess==0.11.0
+fsspec==2024.10.0
+dask==2024.5.2 ("dask[complete]"==2024.5.2 if using pip)
+h5netcdf==1.3.0
+matplotlib==3.9.2
+jupyterlab
+jupyter-server-proxy
+virtualizarr==1.3.0
+kerchunk==0.2.7</code></pre>
+<p>And optionally:</p>
+<pre><code>coiled==1.58.0</code></pre>
+<div id="fc0b1c0c-c8f9-412c-8038-4b674de896c9" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Built-in packages</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Filesystem management </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Data handling</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> virtualizarr <span class="im">import</span> open_virtual_dataset</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Parallel computing </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> multiprocessing</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask <span class="im">import</span> delayed</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask.array <span class="im">as</span> da</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.distributed <span class="im">import</span> Client</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Other</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8e601488-7348-45cb-bfed-068121fc4d2f" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> coiled</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="other-setup" class="level2">
+<h2 class="anchored" data-anchor-id="other-setup">Other Setup</h2>
+<div id="22c5a123-6025-4a85-a7b0-4b9b747a9a8d" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>xr.set_options( <span class="co"># display options for xarray objects</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    display_expand_attrs<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    display_expand_coords<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    display_expand_data<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>&lt;xarray.core.options.set_options at 0x7f78f44a7aa0&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="get-data-file-s3-endpoints-in-earthdata-cloud" class="level2">
+<h2 class="anchored" data-anchor-id="get-data-file-s3-endpoints-in-earthdata-cloud">1. Get Data File S3 endpoints in Earthdata Cloud</h2>
+<p>The first step is to find the S3 endpoints to the files. Handling access credentials to Earthdata and then finding the endpoints can be done a number of ways (e.g.&nbsp;using the <code>requests</code>, <code>s3fs</code> packages) but we use the <code>earthaccess</code> package for its ease of use. We get the endpoints for all files in the CCMP record.</p>
+<div id="20dbc070-d5f7-407e-b92e-4fda1b8a82ba" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get Earthdata creds</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>&lt;earthaccess.auth.Auth at 0x7f790c5b4770&gt;</code></pre>
+</div>
+</div>
+<div id="7519aab1-b2aa-40fa-862a-62ed69439ff4" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get AWS creds. Note that if you spend more than 1 hour in the notebook, you may have to re-run this line!!!</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fs <span class="op">=</span> earthaccess.get_s3_filesystem(daac<span class="op">=</span><span class="st">"PODAAC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="487b4dd6-39c6-4d7e-8051-eddcd22e2a4a" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Locate CCMP file information / metadata:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>granule_info <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span><span class="st">"CCMP_WINDS_10M6HR_L4_V3.1"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="0fc311a3-df1a-4565-a314-658bff759203" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get S3 endpoints for all files:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>data_s3links <span class="op">=</span> [g.data_links(access<span class="op">=</span><span class="st">"direct"</span>)[<span class="dv">0</span>] <span class="cf">for</span> g <span class="kw">in</span> granule_info]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>data_s3links[<span class="dv">0</span>:<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<pre><code>['s3://podaac-ops-cumulus-protected/CCMP_WINDS_10M6HR_L4_V3.1/CCMP_Wind_Analysis_19930102_V03.1_L4.nc',
+ 's3://podaac-ops-cumulus-protected/CCMP_WINDS_10M6HR_L4_V3.1/CCMP_Wind_Analysis_19930103_V03.1_L4.nc',
+ 's3://podaac-ops-cumulus-protected/CCMP_WINDS_10M6HR_L4_V3.1/CCMP_Wind_Analysis_19930105_V03.1_L4.nc']</code></pre>
+</div>
+</div>
+</section>
+<section id="generate-reference-files-for-1-day-1-year-and-entire-record" class="level2">
+<h2 class="anchored" data-anchor-id="generate-reference-files-for-1-day-1-year-and-entire-record">2. Generate reference files for 1 day, 1 year, and entire record</h2>
+<section id="first-day" class="level3">
+<h3 class="anchored" data-anchor-id="first-day">2.1 First day</h3>
+<p>The virtualizarr function to generate reference information is compact. We use it on one file for demonstration.</p>
+<p><strong><em>Important</em></strong></p>
+<p>The kwarg <code>loadable_variables</code> is not mandatory to create a viable reference file, but will become important for rapid lazy loading when working with large combined reference files. Assign to this at minimum the list of 1D coordinate variable names for the data set (additional 1D or scalar vars can also be added). This functionality will be the default in future releases of virtualizarr.</p>
+<div id="75957e8b-2c74-49ac-9413-38cc54f86a49" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will be assigned to 'loadable_variables' and needs to be modified per the specific </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># coord names of the data set:</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>coord_vars <span class="op">=</span> [<span class="st">"latitude"</span>,<span class="st">"longitude"</span>,<span class="st">"time"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="329db221-b2dc-41de-8e67-3405402e4fa2" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>reader_opts <span class="op">=</span> {<span class="st">"storage_options"</span>: fs.storage_options} <span class="co"># S3 filesystem creds from previous section.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reference for the first data file:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>virtual_ds_example <span class="op">=</span> open_virtual_dataset(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    data_s3links[<span class="dv">0</span>], indexes<span class="op">=</span>{}, </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    reader_options<span class="op">=</span>reader_opts, loadable_variables<span class="op">=</span>coord_vars</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(virtual_ds_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt; Size: 66MB
+Dimensions:    (time: 4, latitude: 720, longitude: 1440)
+Coordinates:
+  * latitude   (latitude) float32 3kB -89.88 -89.62 -89.38 ... 89.38 89.62 89.88
+  * longitude  (longitude) float32 6kB 0.125 0.375 0.625 ... 359.4 359.6 359.9
+  * time       (time) datetime64[ns] 32B 1993-01-02 ... 1993-01-02T18:00:00
+Data variables:
+    uwnd       (time, latitude, longitude) float32 17MB ManifestArray&lt;shape=(...
+    vwnd       (time, latitude, longitude) float32 17MB ManifestArray&lt;shape=(...
+    ws         (time, latitude, longitude) float32 17MB ManifestArray&lt;shape=(...
+    nobs       (time, latitude, longitude) float32 17MB ManifestArray&lt;shape=(...
+Attributes: (54)
+CPU times: user 301 ms, sys: 123 ms, total: 424 ms
+Wall time: 1.75 s</code></pre>
+</div>
+</div>
+<p>The reference can be saved to file and used to open the corresponding CCMP data file with Xarray:</p>
+<div id="f9e53d64-6547-4193-a24e-6018bbad0476" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>virtual_ds_example.virtualize.to_kerchunk(<span class="st">'virtual_ds_example.json'</span>, <span class="bu">format</span><span class="op">=</span><span class="st">'json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="15707ccc-fcb3-4bf9-94cb-71b11d468054" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open data using the reference file, using a small wrapper function around xarray's open_dataset. </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This will shorten code blocks in other sections. </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> opends_withref(ref, fs_data):</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">    "ref" is a reference file or object. "fs_data" is a filesystem with credentials to</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">    access the actual data files. </span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    storage_opts <span class="op">=</span> {<span class="st">"fo"</span>: ref, <span class="st">"remote_protocol"</span>: <span class="st">"s3"</span>, <span class="st">"remote_options"</span>: fs_data.storage_options}</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    fs_ref <span class="op">=</span> fsspec.filesystem(<span class="st">'reference'</span>, <span class="op">**</span>storage_opts)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> fs_ref.get_mapper(<span class="st">''</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> xr.open_dataset(</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        m, engine<span class="op">=</span><span class="st">"zarr"</span>, chunks<span class="op">=</span>{},</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        backend_kwargs<span class="op">=</span>{<span class="st">"consolidated"</span>: <span class="va">False</span>}</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b02a2f1c-2b53-4a0b-ba0e-2bc0a35fce00" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_example <span class="op">=</span> opends_withref(<span class="st">'virtual_ds_example.json'</span>, fs)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt; Size: 66MB
+Dimensions:    (latitude: 720, longitude: 1440, time: 4)
+Coordinates:
+  * latitude   (latitude) float32 3kB -89.88 -89.62 -89.38 ... 89.38 89.62 89.88
+  * longitude  (longitude) float32 6kB 0.125 0.375 0.625 ... 359.4 359.6 359.9
+  * time       (time) datetime64[ns] 32B 1993-01-02 ... 1993-01-02T18:00:00
+Data variables:
+    nobs       (time, latitude, longitude) float32 17MB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    uwnd       (time, latitude, longitude) float32 17MB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    vwnd       (time, latitude, longitude) float32 17MB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    ws         (time, latitude, longitude) float32 17MB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+Attributes: (54)</code></pre>
+</div>
+</div>
+<div id="051e7d34-594c-40dc-9219-6e281ccea777" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Also useful to note, these reference objects don't take much memory:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sys.getsizeof(virtual_ds_example), <span class="st">"bytes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>120 bytes</code></pre>
+</div>
+</div>
+</section>
+<section id="first-year" class="level3">
+<h3 class="anchored" data-anchor-id="first-year">2.2 First year</h3>
+<p>Reference information for each data file in the year is created individually, and then the combined reference file for the year can be created.</p>
+<p>For us, reference file creation for a single file takes about 0.7 seconds, so processing a year of files would take about 4.25 minuts. One can easly accomplish this with a for-loop:</p>
+<pre><code>virtual_ds_list = [
+    open_virtual_dataset(
+        p, indexes={},
+        reader_options={"storage_options": fs.storage_options},
+        loadable_variables=coord_vars
+        )
+    for p in data_s3links
+    ]</code></pre>
+<p>However, we speed things up using basic parallel computing.</p>
+</section>
+<section id="method-1-parallelize-using-dask-local-cluster" class="level3">
+<h3 class="anchored" data-anchor-id="method-1-parallelize-using-dask-local-cluster">2.2.1 Method 1: parallelize using Dask local cluster</h3>
+<p>If using an <code>m6i.4xlarge</code> AWS EC2 instance, there are 16 CPUs available and each should have enough memory to utilize all at once. If working on a different VM-type, change the <code>n_workers</code> in the call to <code>Client()</code> below as needed.</p>
+<div id="f6bae28c-0527-4ad8-8065-f6187fb46961" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check how many cpu's are on this VM:</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CPU count ="</span>, multiprocessing.cpu_count())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU count = 16</code></pre>
+</div>
+</div>
+<div id="081fdd0e-03c7-4746-9066-9c1342b99cb2" class="cell" data-scrolled="true" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start up cluster and print some information about it:</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client(n_workers<span class="op">=</span><span class="dv">15</span>, threads_per_worker<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client.cluster)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"View any work being done on the cluster here"</span>, client.dashboard_link)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>LocalCluster(cbeb9b3b, 'tcp://127.0.0.1:33393', workers=15, threads=15, memory=60.81 GiB)
+View any work being done on the cluster here https://cluster-ykalm.dask.host/jupyter/proxy/8787/status</code></pre>
+</div>
+</div>
+<div id="cd722c4e-7b51-4807-b138-c9e1052ba465" class="cell" data-scrolled="true" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create individual references:</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>open_vds_par <span class="op">=</span> delayed(open_virtual_dataset)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>tasks <span class="op">=</span> [</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    open_vds_par(p, indexes<span class="op">=</span>{}, reader_options<span class="op">=</span>reader_opts, loadable_variables<span class="op">=</span>coord_vars) </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> data_s3links[:<span class="dv">365</span>] <span class="co"># First year only!</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>virtual_ds_list <span class="op">=</span> <span class="bu">list</span>(da.compute(<span class="op">*</span>tasks)) <span class="co"># The xr.combine_nested() function below needs a list rather than a tuple.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 5.5 s, sys: 1.14 s, total: 6.64 s
+Wall time: 47.6 s</code></pre>
+</div>
+</div>
+<p>Using the individual references to create the combined reference is fast and does not requre parallel computing.</p>
+<div id="45722c2f-a4c5-4249-a2d6-06761ff35052" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the combined reference</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>virtual_ds_combined <span class="op">=</span> xr.combine_nested(virtual_ds_list, concat_dim<span class="op">=</span><span class="st">'time'</span>, coords<span class="op">=</span><span class="st">'minimal'</span>, compat<span class="op">=</span><span class="st">'override'</span>, combine_attrs<span class="op">=</span><span class="st">'drop_conflicts'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 181 ms, sys: 18.1 ms, total: 199 ms
+Wall time: 195 ms</code></pre>
+</div>
+</div>
+<div id="d1628e4a-0e46-45ec-bd9e-63922fd085f6" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save in JSON or PARQUET format:</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>fname_combined_json <span class="op">=</span> <span class="st">'ref_combined_1year.json'</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fname_combined_parq <span class="op">=</span> <span class="st">'ref_combined_1year.parq'</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>virtual_ds_combined.virtualize.to_kerchunk(fname_combined_json, <span class="bu">format</span><span class="op">=</span><span class="st">'json'</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>virtual_ds_combined.virtualize.to_kerchunk(fname_combined_parq, <span class="bu">format</span><span class="op">=</span><span class="st">'parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e94bfee1-087a-4290-83a3-609de26a519d" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Test lazy loading of the combine reference file JSON:</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>data_json <span class="op">=</span> opends_withref(fname_combined_json, fs)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data_json)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt; Size: 24GB
+Dimensions:    (latitude: 720, longitude: 1440, time: 1460)
+Coordinates:
+  * latitude   (latitude) float32 3kB -89.88 -89.62 -89.38 ... 89.38 89.62 89.88
+  * longitude  (longitude) float32 6kB 0.125 0.375 0.625 ... 359.4 359.6 359.9
+  * time       (time) datetime64[ns] 12kB 1993-01-02 ... 1994-01-04T18:00:00
+Data variables:
+    nobs       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    uwnd       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    vwnd       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    ws         (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+Attributes: (47)
+CPU times: user 33.6 ms, sys: 0 ns, total: 33.6 ms
+Wall time: 32.5 ms</code></pre>
+</div>
+</div>
+<div id="89451f0c-7453-4fee-843f-5faa196bcda1" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Test lazy loading of the combine reference file PARQUET:</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>data_parq <span class="op">=</span> opends_withref(fname_combined_parq, fs)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data_parq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt; Size: 24GB
+Dimensions:    (latitude: 720, longitude: 1440, time: 1460)
+Coordinates:
+  * latitude   (latitude) float32 3kB -89.88 -89.62 -89.38 ... 89.38 89.62 89.88
+  * longitude  (longitude) float32 6kB 0.125 0.375 0.625 ... 359.4 359.6 359.9
+  * time       (time) datetime64[ns] 12kB 1993-01-02 ... 1994-01-04T18:00:00
+Data variables:
+    nobs       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    uwnd       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    vwnd       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    ws         (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+Attributes: (47)
+CPU times: user 27.2 ms, sys: 0 ns, total: 27.2 ms
+Wall time: 24.7 ms</code></pre>
+</div>
+</div>
+</section>
+<section id="optional-method-2-parallelize-using-distributed-cluster-with-coiled" class="level3">
+<h3 class="anchored" data-anchor-id="optional-method-2-parallelize-using-distributed-cluster-with-coiled">2.2.2 Optional method 2: parallelize using distributed cluster with Coiled</h3>
+<p>At PO.DAAC we have been testing the third party software/package Coiled which makes it easy to spin up distributed computing clusters in the cloud. Since we suspect that Coiled may become a key member of the Cloud ecosystem for earth science researchers, this optional section is included, which can be used as an alternative to Section 2.2.1 for generating the individual reference files in parallel.</p>
+<div id="8fa76bec-1ef7-4ed1-bc58-f16eea3aa9e8" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">## --------------------------------------------</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co">## Create single reference files with parallel computing using Coiled</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co">## --------------------------------------------</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrap `open_virtual_dataset()` into coiled function and copy to mulitple VM's:</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>open_vds_par <span class="op">=</span> coiled.function(</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    region<span class="op">=</span><span class="st">"us-west-2"</span>, spot_policy<span class="op">=</span><span class="st">"on-demand"</span>, </span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    vm_type<span class="op">=</span><span class="st">"m6i.large"</span>, n_workers<span class="op">=</span><span class="dv">15</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    )(open_virtual_dataset)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin computations for first year only:</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> open_vds_par.<span class="bu">map</span>(</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>    data_s3links[:<span class="dv">365</span>], indexes<span class="op">=</span>{}, </span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    reader_options<span class="op">=</span>reader_opts, loadable_variables<span class="op">=</span>coord_vars</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>virtual_ds_list <span class="op">=</span> []</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> results:</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    virtual_ds_list.append(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"f0df0ed2de3c4cc68cd9955bb8d2fae2","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"e72d79eeacb041efbd5da043d4cbd081","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 2.6 s, sys: 135 ms, total: 2.73 s
+Wall time: 2min 15s</code></pre>
+</div>
+</div>
+<div id="3d0c311a-9523-44d4-96eb-b88db5bda632" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>open_vds_par.cluster.shutdown()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using the individual references to create the combined reference is fast and does not requre parallel computing.</p>
+<div id="ca199351-8ea0-47a5-99e7-483bc8c75f18" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Combining the individual references works the same as in Section 2.2.1:</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>virtual_ds_combined <span class="op">=</span> xr.combine_nested(virtual_ds_list, concat_dim<span class="op">=</span><span class="st">'time'</span>, coords<span class="op">=</span><span class="st">'minimal'</span>, compat<span class="op">=</span><span class="st">'override'</span>, combine_attrs<span class="op">=</span><span class="st">'drop_conflicts'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 176 ms, sys: 0 ns, total: 176 ms
+Wall time: 176 ms</code></pre>
+</div>
+</div>
+<div id="fcc631c2-4747-46ce-866f-e406ca298aca" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save in JSON or PARQUET format:</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>fname_combined_json <span class="op">=</span> <span class="st">'ref_combined_1year.json'</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>fname_combined_parq <span class="op">=</span> <span class="st">'ref_combined_1year.parq'</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>virtual_ds_combined.virtualize.to_kerchunk(fname_combined_json, <span class="bu">format</span><span class="op">=</span><span class="st">'json'</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>virtual_ds_combined.virtualize.to_kerchunk(fname_combined_parq, <span class="bu">format</span><span class="op">=</span><span class="st">'parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="af082915-cb86-4e9d-8800-20287f8528dd" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Test lazy loading of the combine reference file JSON:</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>data_json <span class="op">=</span> opends_withref(fname_combined_json, fs)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data_json)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt; Size: 24GB
+Dimensions:    (latitude: 720, longitude: 1440, time: 1460)
+Coordinates:
+  * latitude   (latitude) float32 3kB -89.88 -89.62 -89.38 ... 89.38 89.62 89.88
+  * longitude  (longitude) float32 6kB 0.125 0.375 0.625 ... 359.4 359.6 359.9
+  * time       (time) datetime64[ns] 12kB 1993-01-02 ... 1994-01-04T18:00:00
+Data variables:
+    nobs       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    uwnd       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    vwnd       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    ws         (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+Attributes: (47)
+CPU times: user 20.2 ms, sys: 4.06 ms, total: 24.2 ms
+Wall time: 23.8 ms</code></pre>
+</div>
+</div>
+<div id="38e315d3-bd54-4c94-b993-33c69ab8fb95" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Test lazy loading of the combine reference file PARQUET:</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>data_parq <span class="op">=</span> opends_withref(fname_combined_parq, fs)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data_parq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;xarray.Dataset&gt; Size: 24GB
+Dimensions:    (latitude: 720, longitude: 1440, time: 1460)
+Coordinates:
+  * latitude   (latitude) float32 3kB -89.88 -89.62 -89.38 ... 89.38 89.62 89.88
+  * longitude  (longitude) float32 6kB 0.125 0.375 0.625 ... 359.4 359.6 359.9
+  * time       (time) datetime64[ns] 12kB 1993-01-02 ... 1994-01-04T18:00:00
+Data variables:
+    nobs       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    uwnd       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    vwnd       (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+    ws         (time, latitude, longitude) float32 6GB dask.array&lt;chunksize=(1, 720, 1440), meta=np.ndarray&gt;
+Attributes: (47)
+CPU times: user 303 ms, sys: 12 ms, total: 315 ms
+Wall time: 314 ms</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="entire-record" class="level2">
+<h2 class="anchored" data-anchor-id="entire-record">2.3 Entire record</h2>
+<p>Processing the entire record follows the exact same workflow as processing the first year Section 2.2 (either parallelization method). The only modification required is to change the one instance of</p>
+<pre><code>data_s3links[:365]</code></pre>
+<p>with</p>
+<pre><code>data_s3links[:]</code></pre>
+<p>when setting up the parallel computations (occurs once in each of Sections 2.2.1 and 2.2.2). Optionally, also change the saved file names e.g.&nbsp;from <code>ref_combined_1year.json</code> to <code>ref_combined_record.json</code>.</p>
+<p>For us, processing the entire record using a local cluster on an <code>m6i.4xlarge</code> EC2 instance, with 15 workers, took about 13 minutes. Using 20 <code>m6i.large</code> VM’s on a distributed cluster with Coiled also took ~15 minutes and cost ~$0.40.</p>
+<p>Because the virtualizarr package is so efficient at combining many individual reference files together, and because the individual references have such small in-memory requirements, the workflows in Section 2.2 are assumed to scale to tens of thousands of files and TB’s of data. However, this assumption will be tested as the techniques in the notebook are applied to progressively larger data sets.</p>
+<p>For us, lazy loading the entire record took ~3 seconds. Compare that to an attempt at opening these same files with <code>Xarray</code> the “traditional” way with a call to <code>xr.open_mfdataset()</code>. On a smaller machine, the following line of code will either fail or take a long (possibly very long) amount of time:</p>
+<div id="ec7ac19b-217b-472b-993a-0c560a228c30" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">## You can try un-commenting and running this but your notebook will probably stall or crash:</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># fobjs = earthaccess.open(granule_info)</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># data = xr.open_mfdataset(fobjs[:])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="appending-additional-reference-files" class="level2">
+<h2 class="anchored" data-anchor-id="appending-additional-reference-files">3. Appending additional reference files</h2>
+<p><strong><em>! Currently this is not viable since the <code>loadable_variables</code> kwarg was used when creating the individual reference files !</em></strong></p>
+<p>Using the <code>loadable_variables</code> kwarg is important for faster lazy loading of large data sets with combined reference files, but does have this current limitation. The issue is that in order to append an additional reference file to our already saved year-long reference file from the previous section, we need to be able to re-load that reference file back into memory as manifest arrays. This isn’t supported yet for files created with the <code>loadable_variables</code> kwarg.</p>
+<p>For example, this is how we would append an extra day to the year-long reference file from section 2:</p>
+<div id="30a37e94-5b90-4902-9be1-c76db23d774d" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In case this notebook has been running over an hour, refresh the file system and credentials:</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>fs <span class="op">=</span> earthaccess.get_s3_filesystem(daac<span class="op">=</span><span class="st">"PODAAC"</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>reader_opts <span class="op">=</span> {<span class="st">"storage_options"</span>: fs.storage_options}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="51b0736a-e581-4e7f-991a-6a2ced3e3504" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reference file for 366th CCMP file:</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>vds_extraday <span class="op">=</span> open_virtual_dataset(</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    data_s3links[<span class="dv">366</span>], indexes<span class="op">=</span>{}, </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    reader_options<span class="op">=</span>reader_opts, loadable_variables<span class="op">=</span>coord_vars</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 319 ms, sys: 98 ms, total: 417 ms
+Wall time: 1.72 s</code></pre>
+</div>
+</div>
+<div id="19a23add-33df-4928-8f25-b425985fe81a" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to add it to the year-long reference:</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>vds_year1 <span class="op">=</span> open_virtual_dataset(<span class="st">'ref_combined_1year.json'</span>, filetype<span class="op">=</span><span class="st">'kerchunk'</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>vds_appended <span class="op">=</span> xr.combine_nested([vds_year1, vds_extraday], concat_dim<span class="op">=</span><span class="st">'time'</span>, coords<span class="op">=</span><span class="st">'minimal'</span>, compat<span class="op">=</span><span class="st">'override'</span>, combine_attrs<span class="op">=</span><span class="st">'drop_conflicts'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NotImplementedError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">&lt;timed exec&gt;:2</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/coiled/env/lib/python3.12/site-packages/virtualizarr/backend.py:199</span>, in <span class="ansi-cyan-fg">open_virtual_dataset</span><span class="ansi-blue-fg">(filepath, filetype, group, drop_variables, loadable_variables, decode_times, cftime_variables, indexes, virtual_array_class, virtual_backend_kwargs, reader_options, backend)</span>
+<span class="ansi-green-fg">    196</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> backend_cls <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>:
+<span class="ansi-green-fg">    197</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">NotImplementedError</span>(<span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Unsupported file type: </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>filetype.name<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">"</span>)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">199</span> vds = <span class="ansi-yellow-bg">backend_cls</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_virtual_dataset</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    200</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">filepath</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    201</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    202</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    203</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">loadable_variables</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">loadable_variables</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    204</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">decode_times</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_times</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    205</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">indexes</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">indexes</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    206</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">virtual_backend_kwargs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">virtual_backend_kwargs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    207</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">reader_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">reader_options</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    208</span> <span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    210</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> vds
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/coiled/env/lib/python3.12/site-packages/virtualizarr/readers/kerchunk.py:75</span>, in <span class="ansi-cyan-fg">KerchunkVirtualBackend.open_virtual_dataset</span><span class="ansi-blue-fg">(filepath, group, drop_variables, loadable_variables, decode_times, indexes, virtual_backend_kwargs, reader_options)</span>
+<span class="ansi-green-fg">     72</span>     <span style="font-weight:bold;color:rgb(0,135,0)">with</span> fs.open_file() <span style="font-weight:bold;color:rgb(0,135,0)">as</span> of:
+<span class="ansi-green-fg">     73</span>         refs = ujson.load(of)
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">75</span>     vds = <span class="ansi-yellow-bg">dataset_from_kerchunk_refs</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">KerchunkStoreRefs</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">refs</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">fs_root</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fs_root</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">     77</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">     78</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>(
+<span class="ansi-green-fg">     79</span>         <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">The input Kerchunk reference did not seem to be in Kerchunk</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">s JSON or Parquet spec: https://fsspec.github.io/kerchunk/spec.html. If your Kerchunk generated references are saved in parquet format, make sure the file extension is `.parquet`. The Kerchunk format autodetection is quite flaky, so if your reference matches the Kerchunk spec feel free to open an issue: https://github.com/zarr-developers/VirtualiZarr/issues</span><span class="ansi-yellow-fg">"</span>
+<span class="ansi-green-fg">     80</span>     )
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/coiled/env/lib/python3.12/site-packages/virtualizarr/translators/kerchunk.py:136</span>, in <span class="ansi-cyan-fg">dataset_from_kerchunk_refs</span><span class="ansi-blue-fg">(refs, drop_variables, virtual_array_class, indexes, fs_root)</span>
+<span class="ansi-green-fg">    119</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">dataset_from_kerchunk_refs</span>(
+<span class="ansi-green-fg">    120</span>     refs: KerchunkStoreRefs,
+<span class="ansi-green-fg">    121</span>     drop_variables: <span style="color:rgb(0,135,0)">list</span>[<span style="color:rgb(0,135,0)">str</span>] = [],
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    124</span>     fs_root: <span style="color:rgb(0,135,0)">str</span> | <span style="font-weight:bold;color:rgb(0,135,0)">None</span> = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
+<span class="ansi-green-fg">    125</span> ) -&gt; Dataset:
+<span class="ansi-green-fg">    126</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""</span>
+<span class="ansi-green-fg">    127</span> <span style="font-style:italic" class="ansi-yellow-fg">    Translate a store-level kerchunk reference dict into an xarray Dataset containing virtualized arrays.</span>
+<span class="ansi-green-fg">    128</span> 
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    133</span> <span style="font-style:italic" class="ansi-yellow-fg">        Currently can only be ManifestArray, but once VirtualZarrArray is implemented the default should be changed to that.</span>
+<span class="ansi-green-fg">    134</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">136</span>     <span style="color:rgb(0,135,0)">vars</span> = <span class="ansi-yellow-bg">virtual_vars_from_kerchunk_refs</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    137</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">refs</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">virtual_array_class</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">fs_root</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fs_root</span>
+<span class="ansi-green-fg">    138</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    139</span>     ds_attrs = fully_decode_arr_refs(refs[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">refs</span><span class="ansi-yellow-fg">"</span>]).get(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">.zattrs</span><span class="ansi-yellow-fg">"</span>, {})
+<span class="ansi-green-fg">    140</span>     coord_names = ds_attrs.pop(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">coordinates</span><span class="ansi-yellow-fg">"</span>, [])
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/coiled/env/lib/python3.12/site-packages/virtualizarr/translators/kerchunk.py:111</span>, in <span class="ansi-cyan-fg">virtual_vars_from_kerchunk_refs</span><span class="ansi-blue-fg">(refs, drop_variables, virtual_array_class, fs_root)</span>
+<span class="ansi-green-fg">    105</span>     drop_variables = []
+<span class="ansi-green-fg">    106</span> var_names_to_keep = [
+<span class="ansi-green-fg">    107</span>     var_name <span style="font-weight:bold;color:rgb(0,135,0)">for</span> var_name <span style="font-weight:bold;color:rgb(175,0,255)">in</span> var_names <span style="font-weight:bold;color:rgb(0,135,0)">if</span> var_name <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(175,0,255)">in</span> drop_variables
+<span class="ansi-green-fg">    108</span> ]
+<span class="ansi-green-fg">    110</span> <span style="color:rgb(0,135,0)">vars</span> = {
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">111</span>     var_name: <span class="ansi-yellow-bg">variable_from_kerchunk_refs</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    112</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">refs</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">var_name</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">virtual_array_class</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">fs_root</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fs_root</span>
+<span class="ansi-green-fg">    113</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    114</span>     <span style="font-weight:bold;color:rgb(0,135,0)">for</span> var_name <span style="font-weight:bold;color:rgb(175,0,255)">in</span> var_names_to_keep
+<span class="ansi-green-fg">    115</span> }
+<span class="ansi-green-fg">    116</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="color:rgb(0,135,0)">vars</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/coiled/env/lib/python3.12/site-packages/virtualizarr/translators/kerchunk.py:169</span>, in <span class="ansi-cyan-fg">variable_from_kerchunk_refs</span><span class="ansi-blue-fg">(refs, var_name, virtual_array_class, fs_root)</span>
+<span class="ansi-green-fg">    167</span> dims = zattrs.pop(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">_ARRAY_DIMENSIONS</span><span class="ansi-yellow-fg">"</span>)
+<span class="ansi-green-fg">    168</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> chunk_dict:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">169</span>     manifest = <span class="ansi-yellow-bg">manifest_from_kerchunk_chunk_dict</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">chunk_dict</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">fs_root</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fs_root</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    170</span>     varr = virtual_array_class(zarray=zarray, chunkmanifest=manifest)
+<span class="ansi-green-fg">    171</span> <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> <span style="color:rgb(0,135,0)">len</span>(zarray.shape) != <span class="ansi-green-fg">0</span>:
+<span class="ansi-green-fg">    172</span>     <span style="font-style:italic;color:rgb(95,135,135)"># empty variables don't have physical chunks, but zarray shows that the variable</span>
+<span class="ansi-green-fg">    173</span>     <span style="font-style:italic;color:rgb(95,135,135)"># is at least 1D</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/coiled/env/lib/python3.12/site-packages/virtualizarr/translators/kerchunk.py:195</span>, in <span class="ansi-cyan-fg">manifest_from_kerchunk_chunk_dict</span><span class="ansi-blue-fg">(kerchunk_chunk_dict, fs_root)</span>
+<span class="ansi-green-fg">    193</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> k, v <span style="font-weight:bold;color:rgb(175,0,255)">in</span> kerchunk_chunk_dict.items():
+<span class="ansi-green-fg">    194</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">isinstance</span>(v, (<span style="color:rgb(0,135,0)">str</span>, <span style="color:rgb(0,135,0)">bytes</span>)):
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">195</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">NotImplementedError</span>(
+<span class="ansi-green-fg">    196</span>             <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Reading inlined reference data is currently not supported. [ToDo]</span><span class="ansi-yellow-fg">"</span>
+<span class="ansi-green-fg">    197</span>         )
+<span class="ansi-green-fg">    198</span>     <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="color:rgb(0,135,0)">isinstance</span>(v, (<span style="color:rgb(0,135,0)">tuple</span>, <span style="color:rgb(0,135,0)">list</span>)):
+<span class="ansi-green-fg">    199</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">TypeError</span>(<span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Unexpected type </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span><span style="color:rgb(0,135,0)">type</span>(v)<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> for chunk value: </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>v<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">"</span>)
+
+<span class="ansi-red-fg">NotImplementedError</span>: Reading inlined reference data is currently not supported. [ToDo]</pre>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/podaac\.github\.io\/tutorials\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../quarto_text/CloudOptimizedFormats.html" class="pagination-link" aria-label="Cloud Optimized Data Formats">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cloud Optimized Data Formats</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../notebooks/Advanced_cloud/kerchunk_recipes.html" class="pagination-link" aria-label="Kerchunk Recipes">
+        <span class="nav-page-text">Kerchunk Recipes</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© PO.DAAC, 2022</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
