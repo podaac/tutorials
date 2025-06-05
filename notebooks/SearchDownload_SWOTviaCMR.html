@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -75,9 +75,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9b4caa2115199f7fcce8bca7ad5f0bce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-cd719ebde59ce05e85f49d665558410e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-9b4caa2115199f7fcce8bca7ad5f0bce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f5e329c7025d3749e01ee46641530714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-15909e8544352339cc401053a82fce46.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f5e329c7025d3749e01ee46641530714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -112,6 +112,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WNP7MLF');</script>
 <!-- End Google Tag Manager -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
 </head>
@@ -1330,7 +1334,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>This notebook will find and download pre-validated SWOT hydrology data (v2.0) programmatically via earthaccess python library. For more information about earthaccess visit: https://nsidc.github.io/earthaccess/</p>
+<p>This notebook will find and download SWOT hydrology data (vD) programmatically via earthaccess python library. For more information about earthaccess visit: https://nsidc.github.io/earthaccess/</p>
 </section>
 <section id="requirements" class="level2">
 <h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
@@ -1362,22 +1366,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 class="anchored" data-anchor-id="search-for-swot-data-links">Search for SWOT data links</h3>
 <p>We want to find the SWOT files for a particular pass over North America.</p>
 <p>Each dataset has it’s own unique shortname, which can be used to search earthaccess. Shortnames can be found on dataset landing pages or <a href="https://search.earthdata.nasa.gov/search">Earthdata Search</a> Collections.</p>
-<section id="swot-level-2-karin-high-rate-version-2.0-datasets" class="level4">
-<h4 class="anchored" data-anchor-id="swot-level-2-karin-high-rate-version-2.0-datasets">SWOT Level 2 KaRIn High Rate Version 2.0 Datasets:</h4>
+<section id="swot-level-2-karin-high-rate-version-d-datasets" class="level4">
+<h4 class="anchored" data-anchor-id="swot-level-2-karin-high-rate-version-d-datasets">SWOT Level 2 KaRIn High Rate Version D Datasets:</h4>
 <ul>
-<li><strong>Water Mask Pixel Cloud NetCDF</strong> - SWOT_L2_HR_PIXC_2.0</li>
-<li><strong>Water Mask Pixel Cloud Vector Attribute NetCDF</strong> - SWOT_L2_HR_PIXCVec_2.0</li>
-<li><strong>River Vector Shapefile</strong> - SWOT_L2_HR_RiverSP_2.0</li>
-<li><strong>Lake Vector Shapefile</strong> - SWOT_L2_HR_LakeSP_2.0</li>
-<li><strong>Raster NetCDF</strong> - SWOT_L2_HR_Raster_2.0</li>
+<li><strong>Water Mask Pixel Cloud NetCDF</strong> - SWOT_L2_HR_PIXC_D</li>
+<li><strong>Water Mask Pixel Cloud Vector Attribute NetCDF</strong> - SWOT_L2_HR_PIXCVec_D</li>
+<li><strong>River Vector Shapefile</strong> - SWOT_L2_HR_RiverSP_D</li>
+<li><strong>Lake Vector Shapefile</strong> - SWOT_L2_HR_LakeSP_D</li>
+<li><strong>Raster NetCDF</strong> - SWOT_L2_HR_Raster_D</li>
 </ul>
 <p>Let’s start our search for River Vector Shapefiles with a particular pass, pass 013. SWOT files come in “reach” and “node” versions in the same collection, here we want the 10km reaches rather than the nodes. We will also only get files for North America, or ‘NA’ and call out a specific pass number that we want.</p>
 <div id="cell-6" class="cell" data-tags="[]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_RIVERSP_2.0'</span>, </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="co">#temporal = ('2024-02-01 00:00:00', '2024-02-29 23:59:59'), # can also specify by time</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Reach*_013_NA*'</span>) <span class="co"># here we filter by Reach files (not node), pass=013, continent code=NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name <span class="op">=</span> <span class="st">'SWOT_L2_HR_RIVERSP_D'</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="co">#temporal = ('2025-05-05 00:00:00', '2025-05-29 23:59:59'), # can also specify by time</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                  granule_name <span class="op">=</span> <span class="st">'*Reach*_013_NA*'</span>) <span class="co"># here we filter by Reach files (not node), pass=013, continent code=NA</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>granule_list <span class="op">=</span> <span class="bu">list</span>(results)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total granules found: </span><span class="sc">{</span><span class="bu">len</span>(granule_list)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Granules found: 6</code></pre>
+<pre><code>Total granules found: 1</code></pre>
 </div>
 </div>
 <p>During the science orbit, a pass will be repeated once every 21 days. A particular location may have different passes observe it within the 21 days, however.</p>
@@ -1385,69 +1392,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="download-the-data-into-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-data-into-a-folder">Download the Data into a folder</h3>
-<div id="cell-9" class="cell" data-tags="[]" data-execution_count="7">
+<div id="cell-9" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>earthaccess.download(results, <span class="st">"./datasets/data_downloads/SWOT_files/"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>folder <span class="op">=</span> Path(<span class="st">"./datasets/data_downloads/SWOT_files"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> Getting 6 granules, approx download size: 0.0 GB
-Accessing cloud dataset using dataset endpoint credentials: https://archive.swot.podaac.earthdata.nasa.gov/s3credentials
-Downloaded: ./datasets/data_downloads/SWOT_files/SWOT_L2_HR_RiverSP_Reach_007_013_NA_20231123T210452_20231123T210454_PIC0_01.zip
-Downloaded: ./datasets/data_downloads/SWOT_files/SWOT_L2_HR_RiverSP_Reach_008_013_NA_20231214T174955_20231214T174957_PIC0_01.zip
-Downloaded: ./datasets/data_downloads/SWOT_files/SWOT_L2_HR_RiverSP_Reach_009_013_NA_20240104T143502_20240104T143504_PIC0_01.zip
-Downloaded: ./datasets/data_downloads/SWOT_files/SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_01.zip
-Downloaded: ./datasets/data_downloads/SWOT_files/SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_02.zip
-Downloaded: ./datasets/data_downloads/SWOT_files/SWOT_L2_HR_RiverSP_Reach_011_013_NA_20240215T080513_20240215T080514_PIC0_01.zip</code></pre>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"2ebbfcbe3f7943bda82849e1952777d2","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"00f8608532ac4be1937faac6d79fdad6","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"0177874811864c82ad1121e54e4da4d3","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
 </div>
 </div>
 </section>
 <section id="shapefiles-come-in-a-.zip-format-and-need-to-be-unzipped-in-the-existing-folder" class="level3">
 <h3 class="anchored" data-anchor-id="shapefiles-come-in-a-.zip-format-and-need-to-be-unzipped-in-the-existing-folder">Shapefiles come in a .zip format, and need to be unzipped in the existing folder</h3>
-<div id="cell-11" class="cell" data-tags="[]" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-11" class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> os.listdir(folder): <span class="co"># loop through items in dir</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> item.endswith(<span class="st">".zip"</span>): <span class="co"># check for ".zip" extension</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        zip_ref <span class="op">=</span> zipfile.ZipFile(<span class="ss">f"</span><span class="sc">{</span>folder<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">"</span>) <span class="co"># create zipfile object</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(folder) <span class="co"># extract file to dir</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        zip_ref.close() <span class="co"># close file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-12" class="cell" data-tags="[]" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>os.listdir(folder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>['SWOT_L2_HR_RiverSP_Reach_008_013_NA_20231214T174955_20231214T174957_PIC0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_008_013_NA_20231214T174955_20231214T174957_PIC0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_009_013_NA_20240104T143502_20240104T143504_PIC0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_02.zip',
- 'SWOT_L2_HR_RiverSP_Reach_009_013_NA_20240104T143502_20240104T143504_PIC0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_02.shx',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_02.shp',
- 'SWOT_L2_HR_RiverSP_Reach_009_013_NA_20240104T143502_20240104T143504_PIC0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_013_NA_20231123T210452_20231123T210454_PIC0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_007_013_NA_20231123T210452_20231123T210454_PIC0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_007_013_NA_20231123T210452_20231123T210454_PIC0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_011_013_NA_20240215T080513_20240215T080514_PIC0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_011_013_NA_20240215T080513_20240215T080514_PIC0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_008_013_NA_20231214T174955_20231214T174957_PIC0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_011_013_NA_20240215T080513_20240215T080514_PIC0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_013_NA_20231123T210452_20231123T210454_PIC0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_02.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_02.prj',
- 'SWOT_L2_HR_RiverSP_Reach_011_013_NA_20240215T080513_20240215T080514_PIC0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_009_013_NA_20240104T143502_20240104T143504_PIC0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_009_013_NA_20240104T143502_20240104T143504_PIC0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_009_013_NA_20240104T143502_20240104T143504_PIC0_01.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_007_013_NA_20231123T210452_20231123T210454_PIC0_01.prj',
- 'SWOT_L2_HR_RiverSP_Reach_010_013_NA_20240125T112008_20240125T112010_PIC0_02.shp.xml',
- 'SWOT_L2_HR_RiverSP_Reach_007_013_NA_20231123T210452_20231123T210454_PIC0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_008_013_NA_20231214T174955_20231214T174957_PIC0_01.zip',
- 'SWOT_L2_HR_RiverSP_Reach_008_013_NA_20231214T174955_20231214T174957_PIC0_01.shx',
- 'SWOT_L2_HR_RiverSP_Reach_008_013_NA_20231214T174955_20231214T174957_PIC0_01.shp',
- 'SWOT_L2_HR_RiverSP_Reach_011_013_NA_20240215T080513_20240215T080514_PIC0_01.dbf',
- 'SWOT_L2_HR_RiverSP_Reach_011_013_NA_20240215T080513_20240215T080514_PIC0_01.prj']</code></pre>
+<div id="cell-12" class="cell" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>os.listdir(folder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>['SWOT_L2_HR_RiverSP_Reach_033_013_NA_20250519T083655_20250519T083727_PID0_01.dbf',
+ 'SWOT_L2_HR_RiverSP_Reach_033_013_NA_20250519T083655_20250519T083727_PID0_01.prj',
+ 'SWOT_L2_HR_RiverSP_Reach_033_013_NA_20250519T083655_20250519T083727_PID0_01.shp',
+ 'SWOT_L2_HR_RiverSP_Reach_033_013_NA_20250519T083655_20250519T083727_PID0_01.shp.xml',
+ 'SWOT_L2_HR_RiverSP_Reach_033_013_NA_20250519T083655_20250519T083727_PID0_01.shx',
+ 'SWOT_L2_HR_RiverSP_Reach_033_013_NA_20250519T083655_20250519T083727_PID0_01.zip']</code></pre>
 </div>
 </div>
 
