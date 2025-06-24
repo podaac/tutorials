@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,9 +72,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-83a2d0441f44c9117bbf6dbf767ff1c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -1357,6 +1357,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h4 class="anchored" data-anchor-id="via-graphical-user-interface"><strong>Via Graphical User Interface:</strong></h4>
 <ul>
 <li>Find/download <a href="https://search.earthdata.nasa.gov/search?fpj=SWOT">SWOT data on Earthdata Search</a></li>
+<li>WISP (Water Information from SPace) by USGS <a href="https://apps.usgs.gov/wisp">https://apps.usgs.gov/wisp</a></li>
+<li>SWOT Viz by CUAHSI <a href="https://swotvis.cuahsi.io/">https://swotvis.cuahsi.io/</a></li>
 </ul>
 </section>
 <section id="programmatically-ie.-within-python-code-workflows" class="level4">
@@ -1367,36 +1369,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li><a href="../notebooks/HUC Feature Translation Service Examples-updated-20210804.html">with unique Hydrologic Unit Code (HUC) basin ID</a></li>
 </ul>
 </section>
-<section id="via-dashboard" class="level4">
-<h4 class="anchored" data-anchor-id="via-dashboard"><strong>Via Dashboard</strong></h4>
-<ul>
-<li>SWOT Viz by CUAHSI <a href="https://swotvis.cuahsi.io/">https://swotvis.cuahsi.io/</a></li>
-</ul>
-</section>
 <section id="via-command-line---po.daac-subscriberdownloader-examples" class="level4">
 <h4 class="anchored" data-anchor-id="via-command-line---po.daac-subscriberdownloader-examples"><strong>Via Command Line</strong> - PO.DAAC subscriber/downloader examples:</h4>
 <p>Hydrology: <em>These examples will download either the river vector files or the raster files for February 2024:</em></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_L2_HR_RiverSP_2.0 <span class="at">-d</span> ./SWOT_L2_HR_RiverSP_2.0/ <span class="at">--start-date</span> 2024-02-01T00:00:00Z <span class="at">--end-date</span> 2024-02-29T23:59:59Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_L2_HR_RiverSP_D <span class="at">-d</span> ./SWOT_L2_HR_RiverSP_D/ <span class="at">--start-date</span> 2025-05-05T00:00:00Z <span class="at">--end-date</span> 2025-05-29T23:59:59Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This only downloads 1 hours worth of data for the globe:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_L2_HR_Raster_2.0 <span class="at">-d</span> ./SWOT_L2_HR_Raster_2.0/ <span class="at">--start-date</span> 2024-02-01T00:00:00Z <span class="at">--end-date</span> 2024-02-29T00:59:59Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_L2_HR_Raster_D <span class="at">-d</span> ./SWOT_L2_HR_Raster_D/ <span class="at">--start-date</span> 2025-05-05T00:00:00Z <span class="at">--end-date</span> 2025-05-29T23:59:59Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Oceanography: <em>These examples will download modeled sea surface heights for the whole SSH collection and then the anomalies using the subscriber then downloader and finally, subset the data by bounding box:</em></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-subscriber</span> <span class="at">-c</span> SWOT_L2_LR_SSH_2.0 <span class="at">-d</span> ./SWOT_L2_LR_SSH_2.0/ <span class="at">--start-date</span> 2023-03-29T00:00:00Z </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-subscriber</span> <span class="at">-c</span> SWOT_L2_NALT_OGDR_SSHA_2.0 <span class="at">-d</span> ./data/SWOT_L2_NALT_OGDR_SSHA_2.0 <span class="at">--start-date</span> 2023-08-01T00:00:00Z <span class="at">--end-date</span> 2023-08-02T00:00:00Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_L2_NALT_OGDR_SSHA_2.0 <span class="at">-d</span> ./data/SWOT_L2_NALT_OGDR_SSHA_2.0 <span class="at">--start-date</span> 2023-06-23T00:00:00Z <span class="at">--end-date</span> 2023-06-23T06:00:00Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_L2_LR_SSH_Basic_2.0 <span class="at">-d</span> ./data <span class="at">-sd</span> 2023-11-25T00:00:00Z <span class="at">-ed</span> 2023-12-15T00:00:00Z <span class="at">-b</span><span class="op">=</span><span class="st">"-22.0,-27,6.5,0"</span> <span class="at">--subset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-subscriber</span> <span class="at">-c</span> SWOT_L2_LR_SSH_D <span class="at">-d</span> ./SWOT_L2_LR_SSH_D/ <span class="at">--start-date</span> 2025-05-06T00:00:00Z </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-subscriber</span> <span class="at">-c</span> SWOT_L2_NALT_OGDR_SSHA_D <span class="at">-d</span> ./data/SWOT_L2_NALT_OGDR_SSHA_D <span class="at">--start-date</span> 2025-05-07T00:00:00Z <span class="at">--end-date</span> 2025-05-08T00:00:00Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podaac-data-downloader</span> <span class="at">-c</span> SWOT_L2_LR_SSH_Basic_D <span class="at">-d</span> ./data <span class="at">-sd</span> 2025-05-06T00:00:00Z <span class="at">-ed</span> 2025-06-01T00:00:00Z <span class="at">-b</span><span class="op">=</span><span class="st">"-22.0,-27,6.5,0"</span> <span class="at">--subset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote class="blockquote">
 <p>See <a href="../quarto_text/DataSubscriberDownloader.html">how to Download/Subscribe</a> for more information on how to use the PO.DAAC subscriber/downloader including with spatial queries.</p>
 </blockquote>
 </section>
 <section id="swot-data-versioning" class="level4">
 <h4 class="anchored" data-anchor-id="swot-data-versioning"><strong>SWOT Data Versioning</strong></h4>
+<p>SWOT Science Data Products transitioned from Version C to Version D. For more details please see this <a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/KaRIn_VersionD_Summary20250423.pdf">package</a>.</p>
+<p>See the <a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/SWOT_VersionD_KaRIn_Products_Release_Note_20250423b.pdf">Version D product release notes</a> The CRID for KaRIn Version D products have values of:</p>
+<ol type="1">
+<li>PGD0 for reprocessed Version D products spanning measurements from March 30, 2023 to April 27, 2025 (repeat cycles 475-578 of calibration phase, and repeat cycles 1-31 of science phase).</li>
+<li>PID0 for forward-processed Version D products spanning April 28, 2025 onward (~repeat cycle 32 onward).</li>
+</ol>
+<p>The best available science data processing algorithms in early 2025 were applied into the operational forward processing and reprocessing of KaRIn data to generate both the PID0 and PGD0 products.</p>
 <p>See the <a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/releases/SWOT_VersionC_KaRIn_Products_Release_Note_20241014.pdf">Version C product release notes</a> for more information about the latest release. Note that version C has used different versions of data processing algorithms, as indicated in the Composite Release Identifier (CRID) in the filename of KaRIn science data products. The CRID values are as follows:</p>
 <ol type="1">
 <li>PGC0 for reprocessed version C products spanning March 30, 2023 to January 25, 2024 (repeat cycles 475-578 of calibration phase, and repeat cycles 1-9 of science phase). This reprocessing of the original data is now complete.</li>
 <li>PIC0 for forward-processed version C products spanning January 25, 2024 to October 15, 2024 (repeat cycle 10 to part of repeat cycle 22 of science phase).</li>
-<li>PIC2 for forward-processed version C products spanning October 16, 2024 (part of cycle 22 of science phase) onward.</li>
+<li>PIC2 for forward-processed version C products spanning October 16, 2024 to May 5, 2025 (part of cycle 22 to cycle 32 of science phase).</li>
 </ol>
-<p>The best available science data processing algorithms in early 2024 were applied into the operational forward processing and reprocessing of KaRIn data to generate both the PIC0 and PGC0 products. The PIC2 products have resolved several algorithm and product issues that were identified in the PIC0/PGC0 products.</p>
+<p>The best available science data processing algorithms in early 2024 were applied into the operational forward processing and reprocessing of KaRIn data to generate both the PIC0 and PGC0 products. The PIC2 products have resolved several algorithm and product issues that were identified in the PIC0/PGC0 products. The PIC2 products have resolved several algorithm and product issues that were identified in the PIC0/PGC0 products.</p>
 </section>
 <section id="search-swot-passes-over-time" class="level4">
 <h4 class="anchored" data-anchor-id="search-swot-passes-over-time"><strong>Search SWOT Passes over Time</strong></h4>
@@ -1576,9 +1578,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
 <section id="data-descriptions-and-features" class="level3">
 <h3 class="anchored" data-anchor-id="data-descriptions-and-features"><strong>Data Descriptions and Features</strong></h3>
-<p><a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/D-109532_SWOT_UserHandbook_20240502.pdf">SWOT Data User Handbook</a></p>
+<p><a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/D-109532_SWOT_UserHandbook_RevA_20250311_sig-final.pdf">SWOT Data User Handbook</a></p>
 <p><a href="https://swotst.aviso.altimetry.fr/fileadmin/user_upload/SWOTST2023/20230919_3_Karin_overview2/14h10-KaRInFeatures.pdf">Features of KaRIn Data that Users Should be Aware of</a> - Slide Deck presented at the 2023 SWOT Science Team by Curtis Chen that addresses practical aspects of interpreting SWOT KaRIn data products, answers frequently asked questions, and provides tips to hopefully avoid misinterpretation and confusion of the data.</p>
-<p><a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/releases/SWOT_VersionC_KaRIn_Products_Release_Note_20241014.pdf">Latest Release Notes - Version C KaRIn Science Data Products (aka 2.0)</a> - see section 7 for known features and issues.</p>
+<p><a href="https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/SWOT_VersionD_KaRIn_Products_Release_Note_20250423b.pdf">Latest Release Notes - Version D KaRIn Science Data Products</a> - see section 7 for known features and issues.</p>
 <p><a href="https://podaac.jpl.nasa.gov/SWOT-events/SWOT_events.html">Mission Spacecraft Events</a> - page for relevant information about spacecraft events that impact data quality and availability.</p>
 <p><a href="https://forum.earthdata.nasa.gov/viewtopic.php?t=5270">SWOT Data Product User Feedback</a> - Post on this topic in the Earthdata Forum to give feedback or ask questions of the experts!</p>
 </section>
