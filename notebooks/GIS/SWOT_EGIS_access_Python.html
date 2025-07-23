@@ -1336,7 +1336,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>The following instructions describe how to connect to <a href="https://gis.earthdata.nasa.gov/portal/home/index.html">Earthdata GIS (EGIS)</a> endpoints programattically. This guide shows how to connect to the recently released Surface Water and Ocean Topography (SWOT) Feature Service of the <a href="https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_RiverSP_D">SWOT_L2_HR_RiverSP_D</a> River Reach collection.</p>
-<p>For more details on these services and the latest available services, please visit the <a href="../notebooks/GIS/SWOT_Rivers_EGIS_Services.md">EGIS SWOT Feature Service page</a>:</p>
+<p>For more details on these services and the latest available services, please visit the <a href="https://podaac.github.io/tutorials/notebooks/GIS/SWOT_Rivers_EGIS_Services.html">EGIS SWOT Feature Service page</a>:</p>
 <p><a href="https://gis.earthdata.nasa.gov/portal/home/item.html?id=7f510639ede7482d822b8b2b5b0e7423">SWOT_L2_HR_RiverSP_reach_vD</a></p>
 <p><a href="https://gis.earthdata.nasa.gov/portal/home/item.html?id=a5573390413f4350a8ce7ecc69ded590">SWOT_L2_HR_RiverSP_reach_vD_BASIC</a></p>
 <hr>
@@ -1352,17 +1352,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
-<div id="ee51ad88" class="cell" data-execution_count="1">
+<div id="ee51ad88" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> leafmap</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipysheet</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The SWOT Rivers Feature Service endpoint can be queried through the ArcGIS REST endpoint. To reach the query URL of the service, first open the URL endpoint by selecting ‘View’ in the bottom right corner of the service landing page under ‘URL’ (https://gis.earthdata.nasa.gov/portal/home/item.html?id=7f510639ede7482d822b8b2b5b0e7423) and then select the feature service layer, as shown below:</p>
+<p>The SWOT Rivers Feature Service endpoint can be queried through the ArcGIS REST endpoint. To reach the query URL of the service, first open the URL endpoint by selecting ‘View’ in the bottom right corner of the service landing page under <a href="https://gis.earthdata.nasa.gov/portal/home/item.html?id=7f510639ede7482d822b8b2b5b0e7423">‘URL’</a> and then select the feature service layer, as shown below:</p>
 <nop>
 <div style="width: 600px;">
-<img src="../../images/EGIS_SWOT_Images/attachment:EGIS_SWOT_Python_1.png" class="img-fluid">
+<img src="../../images/EGIS_SWOT_Images/EGIS_SWOT_Python_1.png" class="img-fluid">
 </div>
 <nop>
 <div style="width: 600px;">
@@ -1377,7 +1377,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>We will utilize the Python package <a href="https://leafmap.org/">leafmap</a> to plot data pulled through the service onto an interactive map.</p>
 <p>You can use <a href="http://bboxfinder.com/">bbox finder</a> to search for an area of interest, which helps in getting a quicker response time.</p>
 <p>Here we will be searching for Lake Powell, USA.</p>
-<div id="9e4ee1dc" class="cell" data-execution_count="2">
+<div id="9e4ee1dc" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> <span class="st">"-112.188137,36.323246,-109.644802,37.995725"</span>  <span class="co"># xmin,ymin,xmax,ymax</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1401,19 +1401,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 response: {"type":"FeatureCollection","features":[{"type":"Feature","id":370332,"geometry":{"type":"LineString","coordinates":[[-110.47415790399998,37.256347604000041],[-110.47313850199998,37.256992075000028],[-110.47245964499996,37.257313554000064],[-110.47144021599996,37.257958011000028],[-110.46973923199994,37.259302495000043],[-110.46837650099997,37.26064847300006],[-110.46769682999997,37.261078088000033],[-110.46599990999999,37.261827616000062],[-110.46532021499996,37.262257217000069],[-110.464299508</code></pre>
 </div>
 </div>
-<div id="8c9bfd89" class="cell" data-execution_count="3">
+<div id="8c9bfd89" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates a map with the queried data with leafmap</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="fl">37.05</span>, <span class="op">-</span><span class="fl">111.3</span>], zoom<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="st">"Lake Powell Features"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"61f4217aa3554ccc926608b4faf87382","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"1dfb63d52bba4c929e272a6a5dd2ff0f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
 <p>We can also search by a specific river name, for example the Colorado River. (River names are found in the attribute table, or also in the SWORD database https://www.swordexplorer.com/)</p>
-<div id="1c822cc3" class="cell" data-execution_count="4">
+<div id="1c822cc3" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"river_name='Colorado River'"</span>,  <span class="co"># Change to your river reach of interest</span></span>
@@ -1431,18 +1431,18 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","id":370332,
 response: {"type":"FeatureCollection","features":[{"type":"Feature","id":13817,"geometry":{"type":"LineString","coordinates":[[-115.05913648399996,32.000165692000053],[-115.05935570299999,31.99980826500007],[-115.05967313099995,31.999813122000035],[-115.05966515199998,32.000191820000055],[-115.05974486099996,32.000427547000072],[-115.05975424599995,32.000986902000079],[-115.05986982199994,32.001529841000036],[-115.06011237299998,32.002074723000078],[-115.06048304099994,32.002567447000047],[-115.0609852449</code></pre>
 </div>
 </div>
-<div id="a34ec4da" class="cell" data-execution_count="5">
+<div id="a34ec4da" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="dv">40</span>, <span class="op">-</span><span class="dv">100</span>], zoom<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="st">"Colorado River Features"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"5e200e74789b4fc5a8b132e40ec9f2c0","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"3fff9d7049624142b9987c62cace20d8","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
 <p>Next example shows how to plot a specific river reach based on its <code>reach_id</code> and create a time series chart.</p>
-<div id="8e9e5910" class="cell" data-execution_count="6">
+<div id="8e9e5910" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>reach_id_value <span class="op">=</span> <span class="dv">77250000051</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
@@ -1463,7 +1463,7 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","id":13817,"
 response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-111.68443226199997,36.746592557000042],[-111.68276167799996,36.747683910000035],[-111.68242803499999,36.747956262000059],[-111.68142517599995,36.748556975000042],[-111.67974973599996,36.749107436000031],[-111.67908050599999,36.74943578400007],[-111.67874636599998,36.749654041000042],[-111.67673720799996,36.750476801000048],[-111.67606605399999,36.75058879200003],[-111.67506026999996,36.7508</code></pre>
 </div>
 </div>
-<div id="7d19c064" class="cell" data-execution_count="7">
+<div id="7d19c064" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> [f[<span class="st">"properties"</span>] <span class="cf">for</span> f <span class="kw">in</span> geojson[<span class="st">"features"</span>]]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(records)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
@@ -1483,19 +1483,19 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{
 </div>
 </div>
 </div>
-<div id="3d27ee66" class="cell" data-execution_count="8">
+<div id="3d27ee66" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the reach_id on the map</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="dv">40</span>, <span class="op">-</span><span class="dv">100</span>], zoom<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="ss">f"Reach ID:</span><span class="sc">{</span>reach_id_value<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"1bebbc13f66649ad949251378dbce125","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"32e5c8a976154d0f9aa99582e9fa2d14","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
 <p>You also have the option to search through time.</p>
-<div id="0011ea5d" class="cell" data-execution_count="9">
+<div id="0011ea5d" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"time_str &gt;= '2025-05-07T00:00:00Z' AND time_str &lt;= '2025-05-07T23:59:59Z'"</span>,</span>
@@ -1513,13 +1513,13 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{
 First 500 chars of response: {"type":"FeatureCollection","features":[{"type":"Feature","id":74519,"geometry":{"type":"LineString","coordinates":[[102.23623453100004,77.248313629000052],[102.23629178900006,77.248045112000057],[102.23591987900005,77.247503018000032],[102.23463249200006,77.246682287000056],[102.23444658800008,77.246411240000043],[102.23401750700003,77.246137661000034],[102.23383162300007,77.245866613000032],[102.23211553300007,77.244772291000061],[102.23144340400006,77.244496176000041],[102.23101445000003,77.2</code></pre>
 </div>
 </div>
-<div id="ae637fba" class="cell" data-execution_count="10">
+<div id="ae637fba" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="dv">40</span>, <span class="op">-</span><span class="dv">100</span>], zoom<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="st">"Time Filtered Features"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"4e75c61003404a1e9d77c3eb35c64497","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"ab69fc65f2694e7f9aa0adeacef302a5","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
@@ -1527,7 +1527,7 @@ First 500 chars of response: {"type":"FeatureCollection","features":[{"type":"Fe
 <section id="bonus" class="level3">
 <h3 class="anchored" data-anchor-id="bonus">Bonus</h3>
 <p>If you would like to create a longer time series chart of a river reach, use SWOT Version C (2.0) collection, which is also available as a feature service.</p>
-<div id="1c544ecf" class="cell" data-execution_count="11">
+<div id="1c544ecf" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>reach_id_value <span class="op">=</span> <span class="dv">77250000211</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C2799438299_POCLOUD/SWOT_L2_HR_RiverSP_reach_vC_BASIC/FeatureServer/1/query"</span></span>
