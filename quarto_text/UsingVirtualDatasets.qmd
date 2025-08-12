@@ -1,0 +1,147 @@
+---
+title: "Introduction to Using Virtual Datasets for Cloud-Optimized Access at PO.DAAC"
+---
+
+#### *Authors: Dean Henze, Mike Gangl, and Edward Armstrong, PO.DAAC*
+
+## Contents:
+
+1. [What is a virtual dataset and how does it improve / simplify data access?](./UsingVirtualDatasets.html#what-is-a-virtual-dataset-and-how-does-it-improve-simplify-data-access)
+2. [Using Virtual Datasets](./UsingVirtualDatasets.html#using-virtual-datasets)
+3. [Available Products](./UsingVirtualDatasets.html#available-products)
+4. [Caveats - Don't Skip!](./UsingVirtualDatasets.html#caveats---dont-skip)
+5. [Future Developments](./UsingVirtualDatasets.html#future-developments)
+6. [Resources](./UsingVirtualDatasets.html#resources)
+7. [Benchmarking](./UsingVirtualDatasets.html#benchmarking)
+
+<br>
+
+### What is a Virtual Dataset and How Does it Improve / Simplify Data Access?
+
+There are many resources available to learn about virtual datasets (VDS’s) from a technical standpoint. Here we try to summarize their utility for Earthdata users with a couple of analogies, and provide links in the [Resources section](./Virtual_datasets_overview.html#resources) for those who want to understand the technology in depth.
+
+First, VDS’s allow users to interact with entire datasets programmatically, e.g. in their Jupyter notebooks and Python scripts, bypassing the task of wrangling and merging data from all the individual files first. Take for example one of PO.DAAC’s gridded sea surface temperature (SST) datasets from the OSTIA project. It contains >15,000 files and is over 11 TB’s. Ideally we want, in a single line of code, to have access to all the variables in the dataset (e.g. SST, SST uncertainty, and masks) as neatly organized multidimensional arrays (in this case 3D for latitude, longitude, and time), and then subset to the desired region and timerange. In the past though, we likely had to use a for-loop, or similar, to extract data from each file.
+
+![](../images/Using_Virtual_Datasets/data_access_schematic_01.png)
+
+**VDS’s eliminate the need to open and work with individual files in this way.**
+
+Second, **VDS’s greatly reduce data access times**. The VDS itself is a lightweight “sidecar” reference file filled with metadata that enables optimized access. If one thinks of the individual files in a data set as pages in a book, then the traditional method of data access would be analogous to reading the whole book cover to cover, even if just a small geographic subset of each file is needed. In contrast, the VDS reference file acts as a table of contents, allowing the computer to jump to the desired parts of the file. The [Benchmarking Section](./UsingVirtualDatasets.html#benchmarking) shows that even simple computations are sped up by an order of magnitude.
+
+![](../images/Using_Virtual_Datasets/data_access_schematic_02.png)
+
+Summarizing the points above, and adding some additional ones, the benefits of VDS’s include:
+
+* **Enabling "Analysis Ready, Cloud Optimized" (ARCO) Data**: By optimizing data for cloud access, cloud optimized data dramatically reduces the need for users to download massive datasets, prepare them for analysis, and manage local storage.
+* **Access in and outside of the Cloud**: Being in a cloud environment is not required! You can access these large datasets from your own hardware through normal mechanisms like HTTPS, although S3 access yields the best compute performance.
+* **Improving Performance and Reducing Computation Burden**: Users can quickly access and subset data directly from cloud storage, leading to faster exploration and analysis. Only the desired subset of data is downloaded, minimizing egress time, computational resources, and costs.
+* **Simplifying Data Integration**: VDS’s allows for the seamless integration of different data products regardless of their original format or location, simplifying complex research workflows.
+* **This safeguards the future of NASA data** while also enhancing the ways in which users can access and utilize the data.
+
+<br>
+
+### Using Virtual Datasets
+
+To date we have explored accessing VDS’s programmatically via Jupyter notebooks. The quickest way to get up to speed with this method is to check out the starter notebook here. **As with other access methods, you need an Earthdata Login account**. Other than that, the majority of the code to obtain credentials is boiler-plate and the only action item on the user is to find the VDS link for the dataset they want to use. Currently you can find the link using the table in the [Available Products](./UsingVirtualDatasets.html#available-products) section below. In the future, the links will be advertised on dataset landing pages and searchable in CMR metadata.
+
+Additionally, the following two notebooks demonstrate using VDS’s for more involved computations:
+
+* Gulf of Tehuantepec Upwelling Example (forthcoming)
+* Idian Ocean Dipole Example (forthcoming)
+
+Even in these cases, the access pattern is the same as for the starter notebook - loading the data with Xarray is simple. At that point you are only limited by your knowledge of Python programming, key scientific computing packages like Xarray, NumPy, and Scipy, and using Dask arrays with parallel computing. Check out the [Resources](./UsingVirtualDatasets.html#resources) section to find links to material on some of those areas.
+
+<br>
+
+### Available Products
+
+Note that PO.DAAC's VDS's are not new datasets - they are VDS-versions of datasets that already existed on PO.DAAC. Currently, we host VDS's covering the following parameters:
+
+* Ocean Currents
+* Ocean Winds
+* Sea Surface Height
+* Ocean Salinity
+* Sea Surface Temperature
+
+VDS’s are located in PO.DAAC’s *podaac-ops-cumulus-public* bucket with the following path convention:
+
+*https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/[SHORTNAME]/[VDS_FILENAME]*
+
+where *[SHORTNAME]* is the dataset short name, and *[VDS_FILENAME]* follows the format:
+
+* For S3 links (in-cloud): [SHORTNAME]_virtual_s3.json
+* For HTTPS links (out-of-cloud): [SHORTNAME]_virtual_https.json
+
+In the future, the *json* extension may be replaced by the new *icechunk* format.
+
+The table below provides links to our currently offered datasets, for both in-cloud and out-of-cloud usage (separate VDS files). **This table is meant to be a temporary method of finding the links, and will ultimately be replaced by advertising them on the dataset landing pages and making them searchable with CMR**. 
+
+| *Dataset Title <br> (Shortname)* | *VDS link(s)* | *VDS File Type* | *Time range covered* |
+|:-----------------------------:|:--------------------------------------:|:-------------------------------:|:---------------:|:--------------------:|
+| [RSS CCMP 6-Hourly 10 Meter Surface Winds Level 4 Version 3.1](https://doi.org/10.5067/CCMP-6HW10M-L4V31) <br> (CCMP_WINDS_10M6HR_L4_V3.1) | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/CCMP_WINDS_10M6HR_L4_V3.1/CCMP_WINDS_10M6HR_L4_V3.1_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/CCMP_WINDS_10M6HR_L4_V3.1/CCMP_WINDS_10M6HR_L4_V3.1_virtual_s3.json) | JSON | 01/02/1993 - 03/31/2025 |
+| [ECCO Ocean Temperature and Salinity - Daily Mean 0.5 Degree (Version 4 Release 4)](https://doi.org/10.5067/ECG5D-OTS44) <br> (ECCO_L4_TEMP_SALINITY_05DEG_DAILY_V4R4) | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/ECCO_L4_TEMP_SALINITY_05DEG_DAILY_V4R4/ECCO_L4_TEMP_SALINITY_05DEG_DAILY_V4R4_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/ECCO_L4_TEMP_SALINITY_05DEG_DAILY_V4R4/ECCO_L4_TEMP_SALINITY_05DEG_DAILY_V4R4_s3.json) | JSON | 01/01/1992 - 12/31/2017 |
+| [ECCO Ocean Velocity - Daily Mean 0.5 Degree (Version 4 Release 4)](https://doi.org/10.5067/ECG5D-OVE44) <br> (ECCO_L4_OCEAN_VEL_05DEG_DAILY_V4R4) | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/ECCO_L4_OCEAN_VEL_05DEG_DAILY_V4R4/ECCO_L4_OCEAN_VEL_05DEG_DAILY_V4R4_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/ECCO_L4_OCEAN_VEL_05DEG_DAILY_V4R4/ECCO_L4_OCEAN_VEL_05DEG_DAILY_V4R4_virtual_s3.json) | JSON | 01/01/1992 - 12/31/2017 |
+| [ECCO Ocean Bottom Pressure - Daily Mean 0.5 Degree (Version 4 Release 4b)](https://doi.org/10.5067/ECG5D-OBP4B) <br> (ECCO_L4_OBP_05DEG_DAILY_V4R4B) | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/ECCO_L4_OBP_05DEG_DAILY_V4R4B/ECCO_L4_OBP_05DEG_DAILY_V4R4B_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/ECCO_L4_OBP_05DEG_DAILY_V4R4B/ECCO_L4_OBP_05DEG_DAILY_V4R4B_virtual_s3.json) | JSON | 01/01/1992 - 12/31/2017 |
+| [ECCO Sea Surface Height - Daily Mean 0.5 Degree (Version 4 Release 4b)](https://doi.org/10.5067/ECG5D-SSH4B) <br> (ECCO_L4_SSH_05DEG_DAILY_V4R4B) | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/ECCO_L4_SSH_05DEG_DAILY_V4R4B/ECCO_L4_SSH_05DEG_DAILY_V4R4B_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/ECCO_L4_SSH_05DEG_DAILY_V4R4B/ECCO_L4_SSH_05DEG_DAILY_V4R4B_virtual_s3.json) | JSON | 01/01/1992 - 12/31/2017 |
+| [GHRSST Level 4 MUR 0.25deg Global Foundation Sea Surface Temperature Analysis (v4.2)](https://doi.org/10.5067/GHM25-4FJ42) <br> (MUR25-JPL-L4-GLOB-v04.2) <br><br> NOTE: The _FillValue for the data in this VDS are set to the wrong value and software will not correctly mask the data. This is only an issue if your analysis covers masked areas such as sea ice or land. Alternatively, you can manually mask the data using Xarray or NumPy built in functions. | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/MUR25-JPL-L4-GLOB-v04.2/MUR25-JPL-L4-GLOB-v04.2_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/MUR25-JPL-L4-GLOB-v04.2/MUR25-JPL-L4-GLOB-v04.2_virtual_s3.json) | JSON | 09/01/2002 - 07/20/2025 |
+| [GHRSST Level 4 OSTIA Global Historical Reprocessed Foundation Sea Surface Temperature Analysis produced by the UK Meteorological Office](https://doi.org/10.5067/GHOST-4RM02) <br> (OSTIA-UKMO-L4-GLOB-REP-v2.0) <br><br> NOTE: The _FillValue for the data in this VDS are set to the wrong value (-54.5300061 rather than -32768.0) and software will not correctly mask the data. This is only an issue if your analysis covers masked areas such as sea ice or land. Alternatively, you can manually mask the data using Xarray or NumPy built in functions. | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/OSTIA-UKMO-L4-GLOB-REP-v2.0/OSTIA-UKMO-L4-GLOB-REP-v2.0_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/OSTIA-UKMO-L4-GLOB-REP-v2.0/OSTIA-UKMO-L4-GLOB-REP-v2.0_virtual_s3.json) | JSON | 01/01/1982 - 12/31/2023 |
+| [Daily NeurOST L4 Sea Surface Height and Surface Geostrophic Currents](https://doi.org/10.5067/NEURO-STV24) <br> (NEUROST_SSH-SST_L4_V2024.0) <br><br> NOTE: Currently only available with HTTPS links. This will work for both in-cloud and out-of-cloud, with just slightly less performance than using S3 links. | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/NEUROST_SSH-SST_L4_V2024.0/NEUROST_SSH-SST_L4_V2024.0_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/NEUROST_SSH-SST_L4_V2024.0/NEUROST_SSH-SST_L4_V2024.0_virtual_s3.json) | JSON | 01/02/2010 - 12/11/2024 |
+| [RSS SMAP Level 3 Sea Surface Salinity Standard Mapped Image 8-Day Running Mean V6.0 Validated Dataset](https://doi.org/10.5067/SMP60-3SPCS) <br> (SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V6) <br><br> | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V6/SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V6_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V6/SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V6_virtual_s3.json) | JSON | 04/01/2015 - 06/27/2025 |
+| [JPL GRACE and GRACE-FO Mascon Ocean, Ice, and Hydrology](https://doi.org/10.5067/TEMSC-3JC634) <br> (TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4) <br><br> NOTE: Currently only available with HTTPS links. This will work for both in-cloud and out-of-cloud, with just slightly less performance than using S3 links. | [Link to HTTPS VDS (out-of-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_virtual_https.json) <br> [Link to S3 VDS (in-cloud use)](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-public/virtual_collections/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_virtual_s3.json) | JSON | 04/17/2002 - 05/16/2025 |
+
+: {tbl-colwidths="\[25,45,15,15\]"}
+
+<br>
+
+### Caveats - Don't Skip!
+
+* As mentioned above, these are not new datasets - they are VDS-versions of datasets that already existed on PO.DAAC. The table above links to the dataset landing pages of the pre-existing datasets, as will likely be the standard going forward. Therefore, for documentation, metadata, citations, etc, please consult those landing pages. If you use VDS’s for your work, please cite the dataset!
+* Most datasets are not the full record and will not contain any data delivered to PO.DAAC after the creation of these VDS’s. “Forward-streaming” VDS’s will be a future capability.
+* Be aware of the time span available for each record. If you try and select data outside of that timespan, you won’t get an error, you simply get no data chunks returned to you.
+* VDS’s (the HTTPS versions) can be used out-of-cloud for easy and efficient data exploration as well as smaller computations. We’ve found that for larger computations we hit a limit with the amount of data we are allowed to access at once. Therefore, for larger computations with VDS’s you will need to be in-cloud.
+* The MUR-JPL-L4-GLOB-v4.1 dataset is currently the only VDS that requires in-cloud access and cannot be accessed via HTTPS.
+* Currently, credentials to a dataset are valid for an hour (similarly to our original datasets), so if your computation runs past an hour, you may lose access and need to obtain new credentials - e.g. re-run earthaccess.login().
+
+<br>
+
+### Future Developments
+
+* Wider variety of L3 and L4 datasets.
+* Level 2 products. We have tested VDS technology with L2 and it can work, although currently it will not work with all collections due to file formatting. We aim to provide a VDS for the SWOT Project.
+* Datasets with HDF groups.
+* Composite VDS products. For example, the ECCO VDS's could be combined into a single VDS with the variables from all the original datasets combined. 
+* Forward streaming records - updating VDS’s as the latest data become available.
+* Simplified VDS access via the earthaccess package. We are aiming to have VDS access as convenient as
+
+```
+import xarray as xr
+import earthaccess
+
+earthaccess.login()
+vds_mapper = earthaccess.get_virtual_reference(shortname, **kwards)
+data = xr.open_dataset(
+vds_mapper, engine="zarr", chunks={},
+backend_kwargs={"consolidated": False}
+)
+```
+<br>
+
+### Resources
+As mentioned above, opening a VDS is easy with the Xarray package. At that point you are mostly limited by your knowledge of Xarray built-in functions, Dask, or extracting Dask/Numpy Arrays from an Xarray object for use with other Python packages. Fortunately the Xarray + Dask documentation is good, here are a few links to get started:
+
+[https://docs.xarray.dev/en/stable/index.html](https://docs.xarray.dev/en/stable/index.html)
+
+[https://docs.xarray.dev/en/stable/user-guide/dask.html](https://docs.xarray.dev/en/stable/user-guide/dask.html)
+
+[https://tutorial.xarray.dev/intermediate/xarray_and_dask.html](https://tutorial.xarray.dev/intermediate/xarray_and_dask.html)
+
+If you want to learn more about virtual datasets and cloud-optimized formats generally, there are many resources available. For a high level overview, check out this page [Cloud-Optimized Geospatial Formats Guide](https://guide.cloudnativegeo.org/), or for details on the package used to create virtual datasets, check out [virtualizarr’s read-the-docs page](https://virtualizarr.readthedocs.io/en/stable/index.html).
+Anyone can create a VDS for a new dataset if they are inclined (and if the underlying netCDF/HDF’s are formatted appropriately). There is a bit of a learning curve, you can check out our [virtualizarr recipes notebook](https://podaac.github.io/tutorials/notebooks/Advanced_cloud/virtualizarr_recipes.html), and references therein, to get started.
+
+<br>
+
+### Benchmarking
+
+We performed a benchmarking test, comparing a basic access and computation workflow using the VDS’s vs traditional methods of either streaming or downloading the native netCDF files. This was performed with three data sets: CCMP_WINDS_10M6HR_L4_V3.1 (ocean surface winds), OSTIA-UKMO-L4-GLOB-REP-v2.0 (sea surface temperature), and ECCO_L4_TEMP_SALINITY_05DEG_DAILY_V4R4 (ocean salinity). The workflow included lazy-loading the data, taking a regional subset 10° x 10° window off the USA west coast, and computing the regional mean average for one of the variables over each time step. This was performed for the entire record as well as 1, 5, 10, 20 and years. 
+
+We ran three VDS configurations, one out-of-cloud (necessitating HTTPS endpoints), and two in-cloud (using both the HTTPS and S3 endpoints). Results for any of the VDS methods show an order of magnitude improvement on this simple computation. However, using VDS’s out-of-cloud has limitations on the size of the computation. For example we could not apply our analysis to more than 15-20 years of data without running into errors which seemed to be from generating too many data requests at once. Also, once data are downloaded locally the computations are as fast or faster than the VDS’s. However, we do note that this is a computation that can be applied to each file separately in a for-loop. Alternately, if we wanted to perform a computation that needed access to data from all files simultaneously - e.g. a 20-year latitude-longitude map of ocean wind standard deviations - a simple for-loop would not achieve this and it’s unclear if local access methods could conveniently handle this.
