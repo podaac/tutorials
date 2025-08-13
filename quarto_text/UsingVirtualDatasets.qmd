@@ -1,12 +1,14 @@
 ---
-title: "Introduction to Using Virtual Datasets for Cloud-Optimized Access at PO.DAAC"
+title: Using Virtual Datasets
 ---
+
+## Using Virtual Datasets for Cloud-Optimized Access at PO.DAAC
 
 #### *Authors: Dean Henze, Mike Gangl, and Edward Armstrong, PO.DAAC*
 
 ## Contents:
 
-1. [What is a virtual dataset and how does it improve / simplify data access?](./UsingVirtualDatasets.html#what-is-a-virtual-dataset-and-how-does-it-improve-simplify-data-access)
+1. [What is a Virtual Dataset and How Does it Improve / Simplify Data Access?](./UsingVirtualDatasets.html#what-is-a-virtual-dataset-and-how-does-it-improve-simplify-data-access)
 2. [Using Virtual Datasets](./UsingVirtualDatasets.html#using-virtual-datasets)
 3. [Available Products](./UsingVirtualDatasets.html#available-products)
 4. [Caveats - Don't Skip!](./UsingVirtualDatasets.html#caveats---dont-skip)
@@ -101,6 +103,7 @@ The table below provides links to our currently offered datasets, for both in-cl
 * VDS’s (the HTTPS versions) can be used out-of-cloud for easy and efficient data exploration as well as smaller computations. We’ve found that for larger computations we hit a limit with the amount of data we are allowed to access at once. Therefore, for larger computations with VDS’s you will need to be in-cloud.
 * The MUR-JPL-L4-GLOB-v4.1 dataset is currently the only VDS that requires in-cloud access and cannot be accessed via HTTPS.
 * Currently, credentials to a dataset are valid for an hour (similarly to our original datasets), so if your computation runs past an hour, you may lose access and need to obtain new credentials - e.g. re-run earthaccess.login().
+* We found that the VDS’s will not work on JPL’s VPN, likely due to the high level of security on it. If you are using a very secure VPN and run into access issues, try jumping off it.
 
 <br>
 
@@ -145,3 +148,7 @@ Anyone can create a VDS for a new dataset if they are inclined (and if the under
 We performed a benchmarking test, comparing a basic access and computation workflow using the VDS’s vs traditional methods of either streaming or downloading the native netCDF files. This was performed with three data sets: CCMP_WINDS_10M6HR_L4_V3.1 (ocean surface winds), OSTIA-UKMO-L4-GLOB-REP-v2.0 (sea surface temperature), and ECCO_L4_TEMP_SALINITY_05DEG_DAILY_V4R4 (ocean salinity). The workflow included lazy-loading the data, taking a regional subset 10° x 10° window off the USA west coast, and computing the regional mean average for one of the variables over each time step. This was performed for the entire record as well as 1, 5, 10, 20 and years. 
 
 We ran three VDS configurations, one out-of-cloud (necessitating HTTPS endpoints), and two in-cloud (using both the HTTPS and S3 endpoints). Results for any of the VDS methods show an order of magnitude improvement on this simple computation. However, using VDS’s out-of-cloud has limitations on the size of the computation. For example we could not apply our analysis to more than 15-20 years of data without running into errors which seemed to be from generating too many data requests at once. Also, once data are downloaded locally the computations are as fast or faster than the VDS’s. However, we do note that this is a computation that can be applied to each file separately in a for-loop. Alternately, if we wanted to perform a computation that needed access to data from all files simultaneously - e.g. a 20-year latitude-longitude map of ocean wind standard deviations - a simple for-loop would not achieve this and it’s unclear if local access methods could conveniently handle this.
+
+![Figure 1: Benchmarking results for computing a regional mean time series over the window shown in the map for 1, 5, 10, 20 years and the full time record to-date (plotted in the center row) for ocean surface wind speed from CCMP_WINDS_10M6HR_L4_V3.1 (left), sea surface temperature from OSTIA-UKMO-L4-GLOB-REP-v2.0 (center), and salinity at 5 m depth from ECCO_L4_TEMP_SALINITY_05DEG_DAILY_V4R4 (right). Under each plotted time series record is the corresponding benchmarking results (bottom row). The color lines are different VDS access methods described in the main text. The black lines are data streaming or downloading methods using the original netCDF files.](../images/Using_Virtual_Datasets/benchmarking_results_with_roi-map_and_timeseries.png)
+
+![Figure 2: Similar Figure 1, but subtractring out any download times. Only the results for ocean surface wind speed is shown, but the results for the other two datasets/variables are qualitatively similar.](../images/Using_Virtual_Datasets/benchmarking_results_analysis-time-only_ccmp.png)
