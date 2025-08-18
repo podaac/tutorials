@@ -1289,8 +1289,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="#what-is-a-virtual-dataset-and-how-does-it-improve-simplify-data-access" id="toc-what-is-a-virtual-dataset-and-how-does-it-improve-simplify-data-access" class="nav-link" data-scroll-target="#what-is-a-virtual-dataset-and-how-does-it-improve-simplify-data-access">What is a Virtual Dataset and How Does it Improve / Simplify Data Access?</a></li>
   <li><a href="#using-virtual-datasets" id="toc-using-virtual-datasets" class="nav-link" data-scroll-target="#using-virtual-datasets">Using Virtual Datasets</a></li>
   <li><a href="#available-products" id="toc-available-products" class="nav-link" data-scroll-target="#available-products">Available Products</a></li>
-  <li><a href="#caveats---dont-skip" id="toc-caveats---dont-skip" class="nav-link" data-scroll-target="#caveats---dont-skip">Caveats - Don’t Skip!</a></li>
-  <li><a href="#future-developments" id="toc-future-developments" class="nav-link" data-scroll-target="#future-developments">Future Developments</a></li>
+  <li><a href="#guidance-on-scope-of-usability---dont-skip" id="toc-guidance-on-scope-of-usability---dont-skip" class="nav-link" data-scroll-target="#guidance-on-scope-of-usability---dont-skip">Guidance on Scope of Usability - Don’t Skip!</a></li>
+  <li><a href="#future-goals" id="toc-future-goals" class="nav-link" data-scroll-target="#future-goals">Future Goals</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   <li><a href="#benchmarking" id="toc-benchmarking" class="nav-link" data-scroll-target="#benchmarking">Benchmarking</a></li>
   </ul></li>
@@ -1335,8 +1335,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li><a href="./UsingVirtualDatasets.html#what-is-a-virtual-dataset-and-how-does-it-improve-simplify-data-access">What is a Virtual Dataset and How Does it Improve / Simplify Data Access?</a></li>
 <li><a href="./UsingVirtualDatasets.html#using-virtual-datasets">Using Virtual Datasets</a></li>
 <li><a href="./UsingVirtualDatasets.html#available-products">Available Products</a></li>
-<li><a href="./UsingVirtualDatasets.html#caveats---dont-skip">Caveats - Don’t Skip!</a></li>
-<li><a href="./UsingVirtualDatasets.html#future-developments">Future Developments</a></li>
+<li><a href="./UsingVirtualDatasets.html#guidance-on-scope-of-usability---dont-skip">Guidance on Scope of Usability - Don’t Skip!</a></li>
+<li><a href="./UsingVirtualDatasets.html#future-goals">Future Goals</a></li>
 <li><a href="./UsingVirtualDatasets.html#resources">Resources</a></li>
 <li><a href="./UsingVirtualDatasets.html#benchmarking">Benchmarking</a></li>
 </ol>
@@ -1361,7 +1361,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="using-virtual-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="using-virtual-datasets">Using Virtual Datasets</h3>
-<p>To date we have explored accessing VDS’s programmatically via Jupyter notebooks. The quickest way to get up to speed with this method is to check out the <a href="../notebooks/Advanced_cloud/using_vds_starter.html"><strong>starter notebook here</strong></a>. <strong>As with other access methods, you need an Earthdata Login account</strong>. Other than that, the majority of the code to obtain credentials is boiler-plate and the only action item on the user is to find the VDS link for the dataset they want to use. Currently you can find the link using the table in the <a href="./UsingVirtualDatasets.html#available-products">Available Products</a> section below. In the future, the links will be advertised on dataset landing pages and searchable in CMR metadata.</p>
+<p>To date we have explored accessing VDS’s programmatically via Jupyter notebooks, using the Xarray package for opening data. The quickest way to get up to speed with this method is to check out the <a href="../notebooks/Advanced_cloud/using_vds_starter.html"><strong>starter notebook here</strong></a>. <strong>As with other access methods, you need an Earthdata Login account</strong>. Other than that, the majority of the code to obtain credentials is boiler-plate and the only action item on the user is to find the VDS link for the dataset they want to use. Currently you can find the link using the table in the <a href="./UsingVirtualDatasets.html#available-products">Available Products</a> section below. In the future, the links will be advertised on dataset landing pages and searchable in CMR metadata.</p>
 <p>Additionally, the following two notebooks demonstrate using VDS’s for more involved computations:</p>
 <ul>
 <li><a href="../notebooks/Advanced_cloud/GulfofTehuantepec_SST+Wind.html"><strong>Gulf of Tehuantepec Upwelling Example</strong></a></li>
@@ -1481,47 +1481,51 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </table>
 <p><br></p>
 </section>
-<section id="caveats---dont-skip" class="level3">
-<h3 class="anchored" data-anchor-id="caveats---dont-skip">Caveats - Don’t Skip!</h3>
+<section id="guidance-on-scope-of-usability---dont-skip" class="level3">
+<h3 class="anchored" data-anchor-id="guidance-on-scope-of-usability---dont-skip">Guidance on Scope of Usability - Don’t Skip!</h3>
 <ul>
 <li>As mentioned above, these are not new datasets - they are VDS-versions of datasets that already existed on PO.DAAC. The table above links to the dataset landing pages of the pre-existing datasets, as will likely be the standard going forward. Therefore, for documentation, metadata, citations, etc, please consult those landing pages. If you use VDS’s for your work, please cite the dataset!</li>
+<li>The VDS lets you jump around and subset any part of a large dataset rapidly, but don’t mistake that for being able to crunch ALL the data rapidly. For larger-than-memory computations, you will still want to have access to more compute power and parallel computing techniques.</li>
 <li>Most datasets are not the full record and will not contain any data delivered to PO.DAAC after the creation of these VDS’s. “Forward-streaming” VDS’s will be a future capability.</li>
 <li>Be aware of the time span available for each record. If you try and select data outside of that timespan, you won’t get an error, you simply get no data chunks returned to you.</li>
 <li>VDS’s (the HTTPS versions) can be used out-of-cloud for easy and efficient data exploration as well as smaller computations. We’ve found that for larger computations we hit a limit with the amount of data we are allowed to access at once. Therefore, for larger computations with VDS’s you will need to be in-cloud.</li>
-<li>The MUR-JPL-L4-GLOB-v4.1 dataset is currently the only VDS that requires in-cloud access and cannot be accessed via HTTPS.</li>
-<li>Currently, credentials to a dataset are valid for an hour (similarly to our original datasets), so if your computation runs past an hour, you may lose access and need to obtain new credentials - e.g.&nbsp;re-run earthaccess.login().</li>
-<li>We found that the VDS’s will not work on JPL’s VPN, likely due to the high level of security on it. If you are using a very secure VPN and run into access issues, try jumping off it.</li>
+<li>Credentials to a dataset are valid for an hour (similarly to our original datasets), so if your computation runs past an hour, you may lose access and need to obtain new credentials - e.g.&nbsp;re-run <code>earthaccess.login()</code>.</li>
+<li>We found that the VDS’s sometimes will not work on JPL’s VPN, likely due to the high level of security on it. If you are using a very secure VPN and run into access issues, try jumping off it.</li>
 </ul>
 <p><br></p>
 </section>
-<section id="future-developments" class="level3">
-<h3 class="anchored" data-anchor-id="future-developments">Future Developments</h3>
+<section id="future-goals" class="level3">
+<h3 class="anchored" data-anchor-id="future-goals">Future Goals</h3>
+<p><strong><em>This technology is actively being developmed. Please let us know if you run into issues, we are monitoring this tech to improve it. Also, we may be updating this Cookbook chapter and notebooks within frequently as the tech progresses.</em></strong></p>
+<p>We aim to expand the number and types of datasets offered with VDS capability:</p>
 <ul>
 <li>Wider variety of L3 and L4 datasets.</li>
-<li>Level 2 products. We have tested VDS technology with L2 and it can work, although currently it will not work with all collections due to file formatting. We aim to provide a VDS for the SWOT Project.</li>
+<li>Level 2 products. We have tested VDS technology with L2 and it can work, although currently it will not work with all collections due to file formatting.</li>
 <li>Datasets with HDF groups.</li>
 <li>Composite VDS products. For example, the ECCO VDS’s could be combined into a single VDS with the variables from all the original datasets combined.</li>
 <li>Forward streaming records - updating VDS’s as the latest data become available.</li>
-<li>Simplified VDS access via the earthaccess package. We are aiming to have VDS access as convenient as</li>
 </ul>
+<p>The wider variety of products above will be easier to support with the emerging <a href="https://icechunk.io/en/latest/virtual/">icechunk format</a> for VDS’s, which we are also actively looking into.</p>
+<p>Another goal is integration of VDS search and access capabilities with the <code>earthaccess</code> package, which would simplify the user’s code even further, e.g.</p>
 <pre><code>import xarray as xr
 import earthaccess
 
 earthaccess.login()
-vds_mapper = earthaccess.get_virtual_reference(shortname, **kwards)
+vds_mapper = earthaccess.get_virtual_reference(shortname, **kwargs)
 data = xr.open_dataset(
-vds_mapper, engine="zarr", chunks={},
-backend_kwargs={"consolidated": False}
+    vds_mapper, engine="zarr", chunks={},
+    backend_kwargs={"consolidated": False}
 )</code></pre>
 <p><br></p>
 </section>
 <section id="resources" class="level3">
 <h3 class="anchored" data-anchor-id="resources">Resources</h3>
 <p>As mentioned above, opening a VDS is easy with the Xarray package. At that point you are mostly limited by your knowledge of Xarray built-in functions, Dask, or extracting Dask/Numpy Arrays from an Xarray object for use with other Python packages. Fortunately the Xarray + Dask documentation is good, here are a few links to get started:</p>
-<p><a href="https://docs.xarray.dev/en/stable/index.html">https://docs.xarray.dev/en/stable/index.html</a></p>
-<p><a href="https://docs.xarray.dev/en/stable/user-guide/dask.html">https://docs.xarray.dev/en/stable/user-guide/dask.html</a></p>
-<p><a href="https://tutorial.xarray.dev/intermediate/xarray_and_dask.html">https://tutorial.xarray.dev/intermediate/xarray_and_dask.html</a></p>
-<p>If you want to learn more about virtual datasets and cloud-optimized formats generally, there are many resources available. For a high level overview, check out this page <a href="https://guide.cloudnativegeo.org/">Cloud-Optimized Geospatial Formats Guide</a>, or for details on the package used to create virtual datasets, check out <a href="https://virtualizarr.readthedocs.io/en/stable/index.html">virtualizarr’s read-the-docs page</a>. Anyone can create a VDS for a new dataset if they are inclined (and if the underlying netCDF/HDF’s are formatted appropriately). There is a bit of a learning curve, you can check out our <a href="https://podaac.github.io/tutorials/notebooks/Advanced_cloud/virtualizarr_recipes.html">virtualizarr recipes notebook</a>, and references therein, to get started.</p>
+<p><strong>Xarray in 45 minutes</strong>: <a href="https://tutorial.xarray.dev/overview/xarray-in-45-min.html">https://tutorial.xarray.dev/overview/xarray-in-45-min.html</a></p>
+<p><strong>Xarray full documentation, user guide, API, etc</strong>: <a href="https://docs.xarray.dev/en/stable/index.html">https://docs.xarray.dev/en/stable/index.html</a></p>
+<p><strong>High-level intro to dask and basic compatibility with Xarray</strong>: <a href="https://tutorial.xarray.dev/intermediate/xarray_and_dask.html">https://tutorial.xarray.dev/intermediate/xarray_and_dask.html</a></p>
+<p><strong>Further functionality of Xarray + Dask</strong>: <a href="https://docs.xarray.dev/en/stable/user-guide/dask.html">https://docs.xarray.dev/en/stable/user-guide/dask.html</a></p>
+<p>If you want to learn more about virtual datasets and cloud-optimized formats generally, there are many resources available. For a high level overview, check out this page <a href="https://guide.cloudnativegeo.org/">Cloud-Optimized Geospatial Formats Guide</a>, or for details on the package used to create virtual datasets, check out <a href="https://virtualizarr.readthedocs.io/en/stable/index.html">virtualizarr’s read-the-docs page</a>. Anyone can create a VDS for a new dataset if they are inclined (and if the underlying netCDF/HDF’s are formatted appropriately). There is a bit of a learning curve, you can check out our <a href="https://podaac.github.io/tutorials/notebooks/Advanced_cloud/virtualizarr_recipes.html">virtualizarr recipes notebook</a> and references therein to get started.</p>
 <p><br></p>
 </section>
 <section id="benchmarking" class="level3">
