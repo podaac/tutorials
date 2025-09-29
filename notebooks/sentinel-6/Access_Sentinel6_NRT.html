@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,18 +68,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../notebooks/sentinel-6/Access_Sentinel6_By_CyclePass.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-fd91f4bc0eb4eb6afa2c21a465b47335.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-760370e8cb297afec6a548bb61c15eda.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-fd91f4bc0eb4eb6afa2c21a465b47335.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-268c9cee2aa83a2f2d8f129c43826a7c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -304,7 +305,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
-      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/podaac-logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://podaac.jpl.nasa.gov/" title="PO.DAAC Website" class="quarto-navigation-tool px-1" aria-label="PO.DAAC Website"><i class="bi bi-globe"></i></a>
@@ -1423,7 +1425,7 @@ Table of Contents<span class="tocSkip"></span>
 <p>Before you beginning this tutorial, make sure you have an Earthdata account: <a href="https://urs.earthdata.nasa.gov">https://urs.earthdata.nasa.gov</a> for the operations envionrment (most common) or <a href="https://uat.urs.earthdata.nasa.gov">https://uat.urs.earthdata.nasa.gov</a> for the UAT environment.</p>
 <p>Accounts are free to create and take just a moment to set up.</p>
 <div id="cell-3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:10.647942Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:10.645530Z&quot;}}" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os <span class="im">import</span> makedirs</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os.path <span class="im">import</span> isdir, basename</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.parse <span class="im">import</span> urlencode</span>
@@ -1431,14 +1433,14 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> json <span class="im">import</span> dumps, loads</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> earthaccess <span class="im">import</span> Auth, DataCollections, DataGranules, Store</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> earthaccess <span class="im">import</span> Auth, DataCollections, DataGranules, Store</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="authentication-with-earthaccess" class="level2">
 <h2 class="anchored" data-anchor-id="authentication-with-earthaccess">Authentication with earthaccess</h2>
 <p>In this notebook, we will be calling the authentication in the below cell.</p>
 <div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:10.555585Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:10.544750Z&quot;}}">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="hands-off-workflow" class="level2">
@@ -1454,7 +1456,7 @@ Table of Contents<span class="tocSkip"></span>
 <li><code>data</code>: The path to a local directory in which to download/maintain a copy of the NRT granule time series.</li>
 </ul>
 <div id="cell-7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:10.599682Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:10.597130Z&quot;}}" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cmr <span class="op">=</span> <span class="st">"cmr.earthdata.nasa.gov"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cmr <span class="op">=</span> <span class="st">"cmr.earthdata.nasa.gov"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># this function returns a concept id for a particular dataset</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_collection(url: <span class="bu">str</span><span class="op">=</span><span class="ss">f"https://</span><span class="sc">{</span>cmr<span class="sc">}</span><span class="ss">/search/collections.umm_json"</span>, <span class="op">**</span>params):</span>
@@ -1476,21 +1478,21 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>ccid <span class="op">=</span> get_collection(ShortName<span class="op">=</span>name).get(<span class="st">"meta"</span>).get(<span class="st">"concept-id"</span>)</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="st">"resources/nrt"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="st">"resources/nrt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The variable <code>data</code> is pointed at a nearby folder <a href="resources/nrt/"><code>resources/nrt</code></a> by default. <strong>You should change <code>data</code> to a suitable download path on your file system.</strong> An unlucky sequence of git commands could disappear that folder and its downloads if your not careful. Just change it.</p>
 <p>The Python imports relevant to the workflow</p>
 <p><strong>The search retrieves granules ingested during the last <code>n</code> minutes.</strong> A file in your local data dir file that tracks updates to your data directory, if one file exists. The CMR Search falls back on the ten minute window if not.</p>
 <div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:10.702571Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:10.695419Z&quot;}}" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>timestamp <span class="op">=</span> (datetime.utcnow()<span class="op">-</span>timedelta(minutes<span class="op">=</span>mins)).strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%SZ"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>timestamp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>timestamp <span class="op">=</span> (datetime.utcnow()<span class="op">-</span>timedelta(minutes<span class="op">=</span>mins)).strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%SZ"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>timestamp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>'2023-08-02T21:08:21Z'</code></pre>
 </div>
 </div>
 <p>This cell will replace the timestamp above with the one read from the <code>.update</code> file in the data directory, if it exists.</p>
 <div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:10.750039Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:10.745852Z&quot;}}" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> isdir(data):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> isdir(data):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"NOTE: Making new data directory at '</span><span class="sc">{</span>data<span class="sc">}</span><span class="ss">'. (This is the first run.)"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    makedirs(data)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
@@ -1500,7 +1502,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"WARN: No .update in the data directory. (Is this the first run?)"</span>)</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"NOTE: .update found in the data directory. (The last run was at </span><span class="sc">{</span>timestamp<span class="sc">}</span><span class="ss">.)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"NOTE: .update found in the data directory. (The last run was at </span><span class="sc">{</span>timestamp<span class="sc">}</span><span class="ss">.)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>WARN: No .update in the data directory. (Is this the first run?)</code></pre>
 </div>
@@ -1514,7 +1516,7 @@ Table of Contents<span class="tocSkip"></span>
 </ul>
 <p>The <code>created_at</code> parameter works for our purposes. It’s a granule search parameter that returns the records ingested since the input timestamp.</p>
 <div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:10.801347Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:10.797743Z&quot;}}" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'scroll'</span>: <span class="st">"true"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'page_size'</span>: <span class="dv">2000</span>,</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'sort_key'</span>: <span class="st">"-start_date"</span>,</span>
@@ -1524,7 +1526,7 @@ Table of Contents<span class="tocSkip"></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'bounding_box'</span>: <span class="st">"-146.5,57.5,-146,58"</span>,</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>{'scroll': 'true',
  'page_size': 2000,
@@ -1536,55 +1538,55 @@ Table of Contents<span class="tocSkip"></span>
 </div>
 <p>Get the query parameters as a string and then the complete search url:</p>
 <div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:10.850715Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:10.847984Z&quot;}}" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> urlencode(params)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> urlencode(params)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f"https://</span><span class="sc">{</span>cmr<span class="sc">}</span><span class="ss">/search/granules.umm_json?</span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>https://cmr.earthdata.nasa.gov/search/granules.umm_json?scroll=true&amp;page_size=2000&amp;sort_key=-start_date&amp;collection_concept_id=C1968980576-POCLOUD&amp;created_at=2023-08-02T21%3A08%3A21Z&amp;bounding_box=-146.5%2C57.5%2C-146%2C58</code></pre>
 </div>
 </div>
 <p>Get a new timestamp that represents the UTC time of the search. Then download the records in <code>umm_json</code> format for granules that match our search parameters:</p>
 <div id="cell-18" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:11.317884Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:10.898735Z&quot;}}" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> urlopen(url) <span class="im">as</span> f:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> urlopen(url) <span class="im">as</span> f:</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> loads(f.read().decode())</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>results[<span class="st">'hits'</span>]<span class="sc">}</span><span class="ss"> new granules ingested for '</span><span class="sc">{</span>ccid<span class="sc">}</span><span class="ss">' since '</span><span class="sc">{</span>timestamp<span class="sc">}</span><span class="ss">'."</span>)</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>timestamp <span class="op">=</span> datetime.utcnow().strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%SZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>timestamp <span class="op">=</span> datetime.utcnow().strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%SZ"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0 new granules ingested for 'C1968980576-POCLOUD' since '2023-08-02T21:08:21Z'.</code></pre>
 </div>
 </div>
 <p>Neatly print the first granule record (if one was returned):</p>
 <div id="cell-20" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:11.322394Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:11.319525Z&quot;}}" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(results[<span class="st">'items'</span>])<span class="op">&gt;</span><span class="dv">0</span>:</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(dumps(results[<span class="st">'items'</span>][<span class="dv">0</span>], indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(results[<span class="st">'items'</span>])<span class="op">&gt;</span><span class="dv">0</span>:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(dumps(results[<span class="st">'items'</span>][<span class="dv">0</span>], indent<span class="op">=</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The link for http access can be retrieved from each granule record’s <code>RelatedUrls</code> field. The download link is identified by <code>"Type": "GET DATA"</code> .</p>
 <p>Select the download URL for each of the granule records:</p>
 <div id="cell-22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:11.327699Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:11.324270Z&quot;}}" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>downloads <span class="op">=</span> [[u[<span class="st">'URL'</span>] <span class="cf">for</span> u <span class="kw">in</span> r[<span class="st">'umm'</span>][<span class="st">'RelatedUrls'</span>] <span class="cf">if</span> u[<span class="st">'Type'</span>]<span class="op">==</span><span class="st">"GET DATA"</span>][<span class="dv">0</span>] <span class="cf">for</span> r <span class="kw">in</span> results[<span class="st">'items'</span>]]</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>downloads</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>downloads <span class="op">=</span> [[u[<span class="st">'URL'</span>] <span class="cf">for</span> u <span class="kw">in</span> r[<span class="st">'umm'</span>][<span class="st">'RelatedUrls'</span>] <span class="cf">if</span> u[<span class="st">'Type'</span>]<span class="op">==</span><span class="st">"GET DATA"</span>][<span class="dv">0</span>] <span class="cf">for</span> r <span class="kw">in</span> results[<span class="st">'items'</span>]]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>downloads</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>[]</code></pre>
 </div>
 </div>
 <p>Finish by downloading the files to the data directory in a loop. Overwrite <code>.update</code> with a new timestamp on success.</p>
 <div id="cell-24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:24.401118Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:11.329211Z&quot;}}" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> downloads:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> downloads:</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        earthaccess.download([f[<span class="dv">0</span>]], <span class="ss">f"</span><span class="sc">{</span>data<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>basename(f)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"[</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">] FAILURE: </span><span class="sc">{</span>f<span class="sc">}</span><span class="ch">\n\n</span><span class="sc">{</span>e<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> e</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"[</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">] SUCCESS: </span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"[</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">] SUCCESS: </span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If there were updates to the local time series during this run and no exceptions were raised during the download loop, then overwrite the timestamp file that tracks updates to the data folder (<code>resources/nrt/.update</code>):</p>
 <div id="cell-26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2020-09-02T16:57:24.405668Z&quot;,&quot;start_time&quot;:&quot;2020-09-02T16:57:24.402794Z&quot;}}" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(results[<span class="st">'items'</span>])<span class="op">&gt;</span><span class="dv">0</span>:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(results[<span class="st">'items'</span>])<span class="op">&gt;</span><span class="dv">0</span>:</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"</span><span class="sc">{</span>data<span class="sc">}</span><span class="ss">/.update"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        f.write(timestamp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        f.write(timestamp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
@@ -1656,13 +1658,14 @@ Table of Contents<span class="tocSkip"></span>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
