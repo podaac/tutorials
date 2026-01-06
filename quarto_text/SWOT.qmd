@@ -70,21 +70,15 @@ See the [Version C product release notes](https://archive.podaac.earthdata.nasa.
 The best available science data processing algorithms in early 2024 were applied into the operational forward processing and reprocessing of KaRIn data to generate both the PIC0 and PGC0 products. The PIC2 products have resolved several algorithm and product issues that were identified in the PIC0/PGC0 products.
 The PIC2 products have resolved several algorithm and product issues that were identified in the PIC0/PGC0 products.
 
-#### **Search SWOT Passes over Time**
+#### **SWOT in Space and Time**
 
-CNES developed this dedicated visualization tool for a quick look at where SWOT has been, where it is, and where it will be. Once you have selected the area of interest, click the Search button to search for SWOT passes. The results are displayed in a table and the swaths that intersect the area of interest are displayed on the map. Click on the marker to view the pass number.
+#### [SWOT Track Visualizer](https://whereisswot.onrender.com/) - For more information on the SWOT Track Visualizer tool see the [SWOT Mission Page](https://swot.jpl.nasa.gov/mission/swath-visualizer/). 
 
-To launch the Binder application, click on this [link](https://mybinder.org/v2/gh/CNES/search_swot/HEAD?urlpath=voila%2Frender%2Fmain.ipynb).
+#### SWOT Spatial Coverage
 
-To launch jupyterlab in Binder, clink on this [link](https://mybinder.org/v2/gh/CNES/search_swot/HEAD?labpath=notebook.ipynb).
+To identify spatial coverage/search terms for the science 21-day orbit, PO.DAAC has created a KMZ file that has layers of the SWOT passes and tiles, with corresponding scene numbers identified in the pop-up when a location is selected (see screenshot below). Each layer has direct links to Earthdata Search results (the ‘search’ links) for corresponding files. NOTE: this KMZ include SWOT version C data only. The passes layer has useful information for all SWOT products, with links to the LR products specifically, and with the tiles layer being useful for HR products (L1B_HR_SLC, L2_HR_PIXC, and L2_HR_PIXCVec products use tile spatial extents, while the L2_HR_Raster product uses scenes; L2_HR_RiverSP and L2_HR_LakeSp use continent-level passes).
 
-*Note: The Binder versions of this are for casual quick looks, but we recommend for extensive use to access the Jupyter Notebook directly [here](https://github.com/CNES/search_swot/blob/master/notebook.ipynb).*
-
-#### **SWOT Spatial Coverage**
-
-To identify spatial coverage/search terms for the science 21-day orbit, PO.DAAC has created a KMZ file that has layers of the SWOT passes and tiles, with corresponding scene numbers identified in the pop-up when a location is selected (see screenshot below). Each layer has direct links to Earthdata Search results (the ‘search’ links) for corresponding files. The passes layer has useful information for all SWOT products, but links to the LR products specifically, the tiles layer is useful for HR products (L1B_HR_SLC, L2_HR_PIXC, and L2_HR_PIXCVec products use tile spatial extents while the L2_HR_Raster product uses scenes. L2_HR_RiverSP and L2_HR_LakeSp use continent-level passes). 
-
-To **download the KMZ file**, for the **science 21-day orbit, [click here](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/swot_science_coverage_20240319.kmz)**. 
+To **download the KMZ file**, for the **science 21-day orbit, version C [click here](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/swot_science_coverage_20240319.kmz)**. 
 
 For the Beta Pre-validated data KMZ that used the **cal/val 1-day orbit, [click here](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/swot_beta_preval_coverage_20231204.kmz)**.
 
@@ -161,9 +155,9 @@ These L4 discharge and water quality time series are available as netCDF, and re
 
 #### SWOT Discharge Data Resources & Tutorials 
 
-- #### Quick User Guide: SWOT HR River Discharge Products v1.0 Quick Guide [insert link once have final version from Colin and it’s hosted somewhere]
+- #### Quick User Guide: SWOT HR River Discharge Products v1.0 Quick Guide [https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/SWOT_Discharge_Product_Description_Document_20251210.docx.pdf]
 
-- #### Quick User Guide Graphic: SWOT HR River Discharge Products v1.0 Quick Guide Graphic [insert link once doc hosted]
+- #### Quick User Guide Graphic: SWOT HR River Discharge Graphical Overview [https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/SWOT_Discharge_Graphical_Overview.png]
 
 - #### Overview Video: [River Discharge from the SWOT Mission video](https://youtu.be/UWpqwy2IZog)
 
@@ -173,7 +167,7 @@ These L4 discharge and water quality time series are available as netCDF, and re
 
 - #### Tutorial:[Exploring gauges and river discharge in the SWORD of Science (SOS) dataset](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.ipynb)
 
-- #### Tutorial:[Exploring gauges and plotting all river discharge in the SWORD of Science (SOS) dataset](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.ipynb)
+- #### Tutorial:[Explore gauges and plot all SWOT SoS river discharge data](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.ipynb)
 
 - #### Tutorial:[Visualize discharge in the SWORD of Science (SoS)](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.ipynb)
 
@@ -236,13 +230,6 @@ These L4 discharge and water quality time series are available as netCDF, and re
 [Mission Spacecraft Events](https://podaac.jpl.nasa.gov/SWOT-events/SWOT_events.html) - page for relevant information about spacecraft events that impact data quality and availability.
 
 [SWOT Data Product User Feedback](https://forum.earthdata.nasa.gov/viewtopic.php?t=5270) - Post on this topic in the Earthdata Forum to give feedback or ask questions of the experts!
-
-SWORD of Science - The SWORD of Science (SoS) is a community-driven dataset produced for and from the execution of the Confluence workflow which is a cloud-based workflow that executes on SWOT observations to produce river discharge parameter estimates. Data granules contain two files, priors and results. The priors file contains prior information, such as in-situ gauge data and model output that is used to generate the discharge products. The results file contains the resulting river discharge data products. For more information about SWOT discharge, see the following paper: [https://doi.org/10.1029/2021WR031614](https://doi.org/10.1029/2021WR031614)
-
-- [Explore river discharge](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.ipynb)
-- [Explore river discharge with gauge data](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.ipynb)
-- [Plot ALL river discharge algorithms](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.ipynb)
-- [Visualize river discharge](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.ipynb)
 
 ### **Databases & Dashboards**
 
