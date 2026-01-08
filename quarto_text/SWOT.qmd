@@ -76,7 +76,7 @@ The PIC2 products have resolved several algorithm and product issues that were i
 
 #### SWOT Spatial Coverage
 
-To identify spatial coverage/search terms for the science 21-day orbit, PO.DAAC has created a KMZ file that has layers of the SWOT passes and tiles, with corresponding scene numbers identified in the pop-up when a location is selected (see screenshot below). Each layer has direct links to Earthdata Search results (the ‘search’ links) for corresponding files. NOTE: this KMZ include SWOT version C data only. The passes layer has useful information for all SWOT products, with links to the LR products specifically, and with the tiles layer being useful for HR products (L1B_HR_SLC, L2_HR_PIXC, and L2_HR_PIXCVec products use tile spatial extents, while the L2_HR_Raster product uses scenes; L2_HR_RiverSP and L2_HR_LakeSp use continent-level passes).
+To identify spatial coverage/search terms for the science 21-day orbit, PO.DAAC has created a KMZ file that has layers of the SWOT passes and tiles, with corresponding scene numbers identified in the pop-up when a location is selected (see screenshot below). Each layer has direct links to Earthdata Search results (the ‘search’ links) for corresponding files (note: this version links to vC of the SWOT collections). The passes layer has useful information for all SWOT products, but links to the LR products specifically, the tiles layer is useful for HR products (L1B_HR_SLC, L2_HR_PIXC, and L2_HR_PIXCVec products use tile spatial extents while the L2_HR_Raster product uses scenes. L2_HR_RiverSP and L2_HR_LakeSp use continent-level passes).
 
 To **download the KMZ file**, for the **science 21-day orbit, version C [click here](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/swot_science_coverage_20240319.kmz)**. 
 
@@ -138,20 +138,15 @@ In [Earthdata Search GUI](https://search.earthdata.nasa.gov/search):
 
 #### SWOT Hydrology Science Workflow [in the Cloud](../notebooks/DataStories/SWOTHR_Science_Application.ipynb) or [on a local machine](../notebooks/DataStories/SWOTHR_Science_Application_localmachine.ipynb) - Retrieving SWOT attributes (WSE, width, slope) and plotting a longitudinal profile along a river or over a basin
 
-### **Discharge and Water Quality (WQ)**
+### **SWOT Discharge and Water Quality (WQ)**
 
-The SWORD of Science (SoS) is a community-driven dataset produced for and from the execution of the Confluence workflow in the cloud which enables quick data access and compute on SWOT data. Data granules contain two files, priors and results. The priors file contains prior information, such as in-situ gage data and model output that is used to generate the discharge products. The results file contains the resulting river discharge data products.
+The SWORD of Science (SoS) River Discharge Products dataset is a community-driven, cloud-enabled data product generated through the SWOT-Confluence workflow and produced by the Discharge Algorithm Working Group (DAWG). It provides Level 4 (L4) river discharge time series derived from the SWOT Level 2 River Single-Pass Vector Data Product, with both unconstrained and gauge-constrained estimates that leverage in-situ measurements. These [SWOT Level 4 Sword of Science River Discharge Products, Version 3](https://www.earthdata.nasa.gov/data/catalog/pocloud-swot-l4-hr-dawg-sos-discharge-v3-3) provide discharge time series for the six flow law parameter estimate (FLPE) algorithms and a single ‘consensus’ estimate that represents the canonical ‘SWOT Discharge.’ It also provides suspended sediment at the same time, at a global scale. 
 
-The SoS is organized by continent following [SWOT River Database (SWORD)](https://www.swordexplorer.com/) structure and naming conventions. It is indexed on the same reach and node identifier dimensions found in SWORD. Time series data is stored by cycle and pass on an observation dimension.
+The dataset follows the [SWOT River Database (SWORD)](https://www.swordexplorer.com/) structure and naming conventions and is organized by continent, indexed by reach and node identifiers, and stored as time series by SWOT cycle and pass. Granules from both constrained and unconstrained branches are composed of prior information (e.g., mean annual flow predicted by global hydrological models) and the resulting discharge estimates. Priors and results files for both constrained and unconstrained branches are available in netCDF format, and released with an estimate of discharge matching each quality-controlled SWOT observation. Thus, the temporal frequency of discharge estimates is different for each river.
 
-More information is available in the SWOT-Confluence Github repository:
+The data are archived and made available through the NASA Physical Oceanography Distributed Active Archive Center ([PO.DAAC](https://www.earthdata.nasa.gov/centers/po-daac)). You can also directly search and access these data in [NASA Earthdata Search](https://search.earthdata.nasa.gov/search/granules?q=SWOT_L4_HR_DAWG_SOS_DISCHARGE_V3). More information about Confluence is available in the [SWOT-Confluence Github repository](https://github.com/SWOT-Confluence/documentation/blob/main/documentation/confluence_module_documentation_v1.0.pdf).
 
-- [Documentation for priors](https://github.com/SWOT-Confluence/documentation/blob/main/documentation/confluence_data_description-priors.pdf)
-
-- [Documentation for results](https://github.com/SWOT-Confluence/documentation/blob/main/documentation/confluence_data_description-results.pdf)
-
-Results are organized into groups corresponding to modules in the SWOT-Confluence processing software. Modules are described in the [Confluence Module Documentation.](https://github.com/SWOT-Confluence/documentation/blob/main/documentation/confluence_module_documentation_v1.0.pdf)
-These L4 discharge and water quality time series are available as netCDF, and released with a monthly temporal frequency. 
+Below are data resources to support the user in learning about, accessing and applying the data. More resources will be rolled out as they become available. We also welcome community contributions.
 
 #### SWOT Discharge Data Resources & Tutorials 
 
@@ -162,14 +157,6 @@ These L4 discharge and water quality time series are available as netCDF, and re
 - #### Overview Video: [River Discharge from the SWOT Mission video](https://youtu.be/UWpqwy2IZog)
 
 - #### Python & R Video Tutorials: [SWOT Discharge Video Tutorials] (https://www.youtube.com/@SWOTDAWG) - tutorials for accessing the SWOT discharge product from SoS netcdf files, for Python and R users.
-
-- #### Tutorial:[Exploring river discharge in the SWORD of Science (SOS) dataset](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE.ipynb)
-
-- #### Tutorial:[Exploring gauges and river discharge in the SWORD of Science (SOS) dataset](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges.ipynb)
-
-- #### Tutorial:[Explore gauges and plot all SWOT SoS river discharge data](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_gauges_plot_all.ipynb)
-
-- #### Tutorial:[Visualize discharge in the SWORD of Science (SoS)](../notebooks/datasets/SWOT_L4_DAWG_SOS_DISCHARGE_visualize.ipynb)
 
 ### **GIS workflows**
 
