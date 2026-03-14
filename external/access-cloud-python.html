@@ -1428,47 +1428,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section id="python" class="level2">
 <h2 class="anchored" data-anchor-id="python">Python</h2>
 <p>We can use the <a href="https://nsidc.github.io/earthaccess/"><code>earthaccess</code></a> python library to grab the file URLs and then access them with the <code>xarray</code> library.</p>
-<div id="cell-3" class="cell" data-tags="[]" data-execution_count="2">
+<div id="cell-3" class="cell" data-tags="[]" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-4" class="cell" data-tags="[]" data-execution_count="3">
+<div id="cell-4" class="cell" data-tags="[]" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Authentication with Earthdata Login</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"netrc"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-tags="[]" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Access land ice height from ATLAS/ICESat-2 V005 (10.5067/ATLAS/ATL06.005), searching for data over western Greenland coast over two weeks in July 2022. The data are provided as HDF5 granules (files) that span about 1/14th of an orbit.</span></span>
+<div id="cell-5" class="cell" data-tags="[]" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Access land ice height from ATLAS/ICESat-2 V007 (10.5067/ATLAS/ATL06.007), searching for data over western Greenland coast over two weeks in July 2022. The data are provided as HDF5 granules (files) that span about 1/14th of an orbit.</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> earthaccess.search_data(short_name<span class="op">=</span><span class="st">"ATL06"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                  version<span class="op">=</span><span class="st">"006"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                  version<span class="op">=</span><span class="st">"007"</span>,</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                  cloud_hosted<span class="op">=</span><span class="va">True</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                  temporal <span class="op">=</span> (<span class="st">"2022-07-17"</span>,<span class="st">"2022-07-31"</span>),</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                  bounding_box <span class="op">=</span> (<span class="op">-</span><span class="fl">51.96423</span>,<span class="fl">68.10554</span>,<span class="op">-</span><span class="fl">48.71969</span>,<span class="fl">70.70529</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Granules found: 5</code></pre>
-</div>
 </div>
 <div id="cell-6" class="cell" data-tags="[]" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Use xarray to load the data as a multifile dataset for a single group in the HDF5 file, in this case land ice segments:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_mfdataset(earthaccess.<span class="bu">open</span>(results), group<span class="op">=</span><span class="st">'/gt1l/land_ice_segments'</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> Opening 5 granules, approx size: 0.0 GB</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Use xarray to load the data as a multifile dataset for a single group in the HDF5 file, in this case land ice segments:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_mfdataset(earthaccess.<span class="bu">open</span>(results), group<span class="op">=</span><span class="st">'/gt1l/land_ice_segments'</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"cc8eca3fe2fd4849a5b5ab8a82494277","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"42991d9fab004b229978d3f09b7ebc29","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"38ae9e7fbb7b4073b4ff406b8d12e3c6","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"d28bb3d76a294900ae2181e9bf89674c","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"2d187c98afa045e4bec2f83970cf2ea3","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"47a94c154f894ef8a36b8b51fb2063cf","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -1492,27 +1486,76 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  */
 
 :root {
-  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
-  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
-  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
-  --xr-border-color: var(--jp-border-color2, #e0e0e0);
-  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
-  --xr-background-color: var(--jp-layout-color0, white);
-  --xr-background-color-row-even: var(--jp-layout-color1, white);
-  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
 }
 
-html[theme=dark],
-body[data-theme=dark],
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
 body.vscode-dark {
-  --xr-font-color0: rgba(255, 255, 255, 1);
-  --xr-font-color2: rgba(255, 255, 255, 0.54);
-  --xr-font-color3: rgba(255, 255, 255, 0.38);
-  --xr-border-color: #1F1F1F;
-  --xr-disabled-color: #515151;
-  --xr-background-color: #111111;
-  --xr-background-color-row-even: #111111;
-  --xr-background-color-row-odd: #313131;
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
 }
 
 .xr-wrap {
@@ -1553,7 +1596,7 @@ body.vscode-dark {
 .xr-sections {
   padding-left: 0 !important;
   display: grid;
-  grid-template-columns: 150px auto auto 1fr 20px 20px;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
 }
 
 .xr-section-item {
@@ -1561,16 +1604,23 @@ body.vscode-dark {
 }
 
 .xr-section-item input {
-  display: none;
+  display: inline-block;
+  opacity: 0;
+  height: 0;
 }
 
 .xr-section-item input + label {
   color: var(--xr-disabled-color);
+  border: 2px solid transparent !important;
 }
 
 .xr-section-item input:enabled + label {
   cursor: pointer;
   color: var(--xr-font-color2);
+}
+
+.xr-section-item input:focus + label {
+  border: 2px solid var(--xr-font-color0) !important;
 }
 
 .xr-section-item input:enabled + label:hover {
@@ -1594,7 +1644,7 @@ body.vscode-dark {
 
 .xr-section-summary-in + label:before {
   display: inline-block;
-  content: '►';
+  content: "►";
   font-size: 11px;
   width: 15px;
   text-align: center;
@@ -1605,7 +1655,7 @@ body.vscode-dark {
 }
 
 .xr-section-summary-in:checked + label:before {
-  content: '▼';
+  content: "▼";
 }
 
 .xr-section-summary-in:checked + label > span {
@@ -1677,15 +1727,15 @@ body.vscode-dark {
 }
 
 .xr-dim-list:before {
-  content: '(';
+  content: "(";
 }
 
 .xr-dim-list:after {
-  content: ')';
+  content: ")";
 }
 
 .xr-dim-list li:not(:last-child):after {
-  content: ',';
+  content: ",";
   padding-right: 5px;
 }
 
@@ -1702,7 +1752,9 @@ body.vscode-dark {
 .xr-var-item label,
 .xr-var-item > .xr-var-name span {
   background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
   margin-bottom: 0;
+  padding-top: 2px;
 }
 
 .xr-var-item > .xr-var-name:hover span {
@@ -1713,6 +1765,7 @@ body.vscode-dark {
 .xr-var-list > li:nth-child(odd) > label,
 .xr-var-list > li:nth-child(odd) > .xr-var-name span {
   background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
 }
 
 .xr-var-name {
@@ -1762,8 +1815,15 @@ body.vscode-dark {
 .xr-var-data,
 .xr-index-data {
   display: none;
-  background-color: var(--xr-background-color) !important;
-  padding-bottom: 5px !important;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
 }
 
 .xr-var-attrs-in:checked ~ .xr-var-attrs,
@@ -1774,6 +1834,12 @@ body.vscode-dark {
 
 .xr-var-data > table {
   float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
 }
 
 .xr-var-name span,
@@ -1835,24 +1901,33 @@ dl.xr-attrs {
   stroke: currentColor;
   fill: currentColor;
 }
-</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt;
-Dimensions:                (delta_time: 241711)
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt; Size: 11MB
+Dimensions:                (delta_time: 240873)
 Coordinates:
-  * delta_time             (delta_time) datetime64[ns] 2022-07-18T01:00:46.67...
-    latitude               (delta_time) float64 dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-    longitude              (delta_time) float64 dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
+  * delta_time             (delta_time) datetime64[ns] 2MB 2022-07-18T01:00:4...
+    latitude               (delta_time) float64 2MB dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;
+    longitude              (delta_time) float64 2MB dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;
 Data variables:
-    atl06_quality_summary  (delta_time) int8 dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-    h_li                   (delta_time) float32 dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-    h_li_sigma             (delta_time) float32 dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-    segment_id             (delta_time) float64 dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
-    sigma_geo_h            (delta_time) float32 dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;
+    atl06_quality_summary  (delta_time) int8 241kB dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;
+    fpb_warning_flag       (delta_time) int8 241kB dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;
+    h_li                   (delta_time) float32 963kB dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;
+    h_li_sigma             (delta_time) float32 963kB dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;
+    segment_id             (delta_time) float64 2MB dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;
+    sigma_geo_h            (delta_time) float32 963kB dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;
 Attributes:
-    Description:  The land_ice_height group contains the primary set of deriv...
-    data_rate:    Data within this group are sparse.  Data values are provide...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-3961dd9c-16ec-4560-b950-414fed057a25" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-3961dd9c-16ec-4560-b950-414fed057a25" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">delta_time</span>: 241711</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-9a2290da-c5b2-480b-b34c-961b6e7e3271" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-9a2290da-c5b2-480b-b34c-961b6e7e3271" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">delta_time</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2022-07-18T01:00:46.678760592 .....</div><input id="attrs-380c4cd6-626f-42d5-ace9-93846e888e9a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-380c4cd6-626f-42d5-ace9-93846e888e9a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a059c9f3-bca8-4c69-a41b-399fa22d2862" class="xr-var-data-in" type="checkbox"><label for="data-a059c9f3-bca8-4c69-a41b-399fa22d2862" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>referenceInformation</dd><dt><span>description :</span></dt><dd>Number of GPS seconds since the ATLAS SDP epoch. The ATLAS Standard Data Products (SDP) epoch offset is defined within /ancillary_data/atlas_sdp_gps_epoch as the number of GPS seconds between the GPS epoch (1980-01-06T00:00:00.000000Z UTC) and the ATLAS SDP epoch. By adding the offset contained within atlas_sdp_gps_epoch to delta time parameters, the time in gps_seconds relative to the GPS epoch can be computed.</dd><dt><span>long_name :</span></dt><dd>Elapsed GPS seconds</dd><dt><span>source :</span></dt><dd>section 4.4</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>array(['2022-07-18T01:00:46.678760592', '2022-07-18T01:00:46.681322640',
-       '2022-07-18T01:00:46.684008720', ..., '2022-07-26T00:49:18.826637808',
-       '2022-07-26T00:49:18.829449568', '2022-07-26T00:49:18.832263232'],
-      dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-57336b9a-2ba7-49ad-803b-e2ecf40bd95e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-57336b9a-2ba7-49ad-803b-e2ecf40bd95e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-99f21f7f-9cfa-48e2-a7ef-8f16cad42d95" class="xr-var-data-in" type="checkbox"><label for="data-99f21f7f-9cfa-48e2-a7ef-8f16cad42d95" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>physicalMeasurement</dd><dt><span>description :</span></dt><dd>Latitude of segment center, WGS84, North=+,</dd><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>source :</span></dt><dd>section 3.10</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90.0</dd><dt><span>valid_min :</span></dt><dd>-90.0</dd></dl></div><div class="xr-var-data">
+    data_rate:    Data within this group are sparse.  Data values are provide...
+    description:  The land_ice_height group contains the primary set of deriv...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-df8af2fb-2f33-4b42-8132-a31152ef45f1" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-df8af2fb-2f33-4b42-8132-a31152ef45f1" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">delta_time</span>: 240873</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-1129e1d5-a15b-4275-ac98-1a4f493a40ed" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-1129e1d5-a15b-4275-ac98-1a4f493a40ed" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">delta_time</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2022-07-18T01:00:40.698453696 .....</div><input id="attrs-7bd7424f-f9bb-45b0-be94-366502618b88" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7bd7424f-f9bb-45b0-be94-366502618b88" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-42cf0ccf-6280-4847-a6f8-f8fa11b762eb" class="xr-var-data-in" type="checkbox"><label for="data-42cf0ccf-6280-4847-a6f8-f8fa11b762eb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>referenceInformation</dd><dt><span>description :</span></dt><dd>Number of GPS seconds since the ATLAS SDP epoch. The ATLAS Standard Data Products (SDP) epoch offset is defined within /ancillary_data/atlas_sdp_gps_epoch as the number of GPS seconds between the GPS epoch (1980-01-06T00:00:00.000000Z UTC) and the ATLAS SDP epoch. By adding the offset contained within atlas_sdp_gps_epoch to delta time parameters, the time in gps_seconds relative to the GPS epoch can be computed.</dd><dt><span>long_name :</span></dt><dd>Elapsed GPS seconds</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - Top Level Fitting Routine</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>array(['2022-07-18T01:00:40.698453696', '2022-07-18T01:00:40.704002080',
+       '2022-07-18T01:00:40.706800224', ..., '2022-07-26T00:49:18.826685936',
+       '2022-07-26T00:49:18.829497600', '2022-07-26T00:49:18.832311504'],
+      shape=(240873,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;</div><input id="attrs-13b700e8-1414-4396-8724-6ca16ff071a4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-13b700e8-1414-4396-8724-6ca16ff071a4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0c201889-688e-4455-8712-a477e63aa72c" class="xr-var-data-in" type="checkbox"><label for="data-0c201889-688e-4455-8712-a477e63aa72c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>physicalMeasurement</dd><dt><span>description :</span></dt><dd>Latitude of segment center, WGS84, North=+,</dd><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - Top Level Fitting Routine</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90.0</dd><dt><span>valid_min :</span></dt><dd>-90.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1872,16 +1947,16 @@ Attributes:
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Bytes</th>
 <td>1.84 MiB</td>
-<td>611.91 kiB</td>
+<td>78.12 kiB</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Shape</th>
-<td>(241711,)</td>
-<td>(78325,)</td>
+<td>(240873,)</td>
+<td>(10000,)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">5 chunks in 11 graph layers</td>
+<td colspan="2">26 chunks in 11 graph layers</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Data type</th>
@@ -1890,12 +1965,12 @@ Attributes:
 </tbody>
 </table></td>
 <td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="38" y1="0" x2="38" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="84" y1="0" x2="84" y2="25"></line> <line x1="91" y1="0" x2="91" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">241711</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="44" y1="0" x2="44" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="59" y1="0" x2="59" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="78" y1="0" x2="78" y2="25"></line> <line x1="83" y1="0" x2="83" y2="25"></line> <line x1="89" y1="0" x2="89" y2="25"></line> <line x1="92" y1="0" x2="92" y2="25"></line> <line x1="97" y1="0" x2="97" y2="25"></line> <line x1="107" y1="0" x2="107" y2="25"></line> <line x1="112" y1="0" x2="112" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">240873</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
 </svg></td>
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-55a965fc-dab4-45a6-aed4-e55282745cd2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-55a965fc-dab4-45a6-aed4-e55282745cd2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a2dbe601-c289-4c63-b859-a434d681a369" class="xr-var-data-in" type="checkbox"><label for="data-a2dbe601-c289-4c63-b859-a434d681a369" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>physicalMeasurement</dd><dt><span>description :</span></dt><dd>Longitude of segment center, , WGS84, East=+</dd><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>source :</span></dt><dd>section 3.10</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180.0</dd><dt><span>valid_min :</span></dt><dd>-180.0</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;</div><input id="attrs-2052fee6-173a-468d-9479-1b950e98cd57" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2052fee6-173a-468d-9479-1b950e98cd57" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9984a1aa-94ca-4ad0-bb27-fbb7844b382d" class="xr-var-data-in" type="checkbox"><label for="data-9984a1aa-94ca-4ad0-bb27-fbb7844b382d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>physicalMeasurement</dd><dt><span>description :</span></dt><dd>Longitude of segment center, , WGS84, East=+</dd><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - Top Level Fitting Routine</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180.0</dd><dt><span>valid_min :</span></dt><dd>-180.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1915,16 +1990,16 @@ Attributes:
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Bytes</th>
 <td>1.84 MiB</td>
-<td>611.91 kiB</td>
+<td>78.12 kiB</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Shape</th>
-<td>(241711,)</td>
-<td>(78325,)</td>
+<td>(240873,)</td>
+<td>(10000,)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">5 chunks in 11 graph layers</td>
+<td colspan="2">26 chunks in 11 graph layers</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Data type</th>
@@ -1933,12 +2008,12 @@ Attributes:
 </tbody>
 </table></td>
 <td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="38" y1="0" x2="38" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="84" y1="0" x2="84" y2="25"></line> <line x1="91" y1="0" x2="91" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">241711</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="44" y1="0" x2="44" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="59" y1="0" x2="59" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="78" y1="0" x2="78" y2="25"></line> <line x1="83" y1="0" x2="83" y2="25"></line> <line x1="89" y1="0" x2="89" y2="25"></line> <line x1="92" y1="0" x2="92" y2="25"></line> <line x1="97" y1="0" x2="97" y2="25"></line> <line x1="107" y1="0" x2="107" y2="25"></line> <line x1="112" y1="0" x2="112" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">240873</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
 </svg></td>
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-118c43b6-2ae0-40d3-a3f5-2529caead0d2" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-118c43b6-2ae0-40d3-a3f5-2529caead0d2" class="xr-section-summary">Data variables: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>atl06_quality_summary</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">int8</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-34d25787-3fc1-4bb4-bd96-ff6fd034de07" class="xr-var-attrs-in" type="checkbox"><label for="attrs-34d25787-3fc1-4bb4-bd96-ff6fd034de07" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b1110da2-88b0-45f2-be80-9ead93fef841" class="xr-var-data-in" type="checkbox"><label for="data-b1110da2-88b0-45f2-be80-9ead93fef841" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>The ATL06_quality_summary parameter indicates the best-quality subset of all ATL06 data. A zero in this parameter implies that no data-quality tests have found a problem with the segment, a one implies that some potential problem has been found. Users who select only segments with zero values for this flag can be relatively certain of obtaining high-quality data, but will likely miss a significant fraction of usable data, particularly in cloudy, rough, or low-surface-reflectance conditions.</dd><dt><span>flag_meanings :</span></dt><dd>best_quality potential_problem</dd><dt><span>flag_values :</span></dt><dd>[0 1]</dd><dt><span>long_name :</span></dt><dd>ATL06_Quality_Summary</dd><dt><span>source :</span></dt><dd>section 4.3</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_max :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd></dl></div><div class="xr-var-data">
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-b006b953-d128-44a9-b104-ce6b6edf7b2d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-b006b953-d128-44a9-b104-ce6b6edf7b2d" class="xr-section-summary">Data variables: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>atl06_quality_summary</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">int8</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;</div><input id="attrs-d0f019e3-89dc-4613-90e8-548c3e39a1ce" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d0f019e3-89dc-4613-90e8-548c3e39a1ce" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bb846688-3a4e-40d2-9713-21f78e96d454" class="xr-var-data-in" type="checkbox"><label for="data-bb846688-3a4e-40d2-9713-21f78e96d454" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>The ATL06_quality_summary parameter indicates the best-quality subset of all ATL06 data. A zero in this parameter implies that no data-quality tests have found a problem with the segment, a one implies that some potential problem has been found. Users who select only segments with zero values for this flag can be relatively certain of obtaining high-quality data, but will likely miss a significant fraction of usable data, particularly in cloudy, rough, or low-surface-reflectance conditions.</dd><dt><span>flag_meanings :</span></dt><dd>best_quality potential_problem</dd><dt><span>flag_values :</span></dt><dd>[0 1]</dd><dt><span>long_name :</span></dt><dd>ATL06_Quality_Summary</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - Top Level Fitting Routine</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_max :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1957,17 +2032,17 @@ Attributes:
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Bytes</th>
-<td>236.05 kiB</td>
-<td>76.49 kiB</td>
+<td>235.23 kiB</td>
+<td>9.77 kiB</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Shape</th>
-<td>(241711,)</td>
-<td>(78325,)</td>
+<td>(240873,)</td>
+<td>(10000,)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">5 chunks in 11 graph layers</td>
+<td colspan="2">26 chunks in 11 graph layers</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Data type</th>
@@ -1976,12 +2051,55 @@ Attributes:
 </tbody>
 </table></td>
 <td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="38" y1="0" x2="38" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="84" y1="0" x2="84" y2="25"></line> <line x1="91" y1="0" x2="91" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">241711</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="44" y1="0" x2="44" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="59" y1="0" x2="59" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="78" y1="0" x2="78" y2="25"></line> <line x1="83" y1="0" x2="83" y2="25"></line> <line x1="89" y1="0" x2="89" y2="25"></line> <line x1="92" y1="0" x2="92" y2="25"></line> <line x1="97" y1="0" x2="97" y2="25"></line> <line x1="107" y1="0" x2="107" y2="25"></line> <line x1="112" y1="0" x2="112" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">240873</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
 </svg></td>
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>h_li</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-b5f8e566-92eb-4bb9-b9ed-bf37feb3c94d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b5f8e566-92eb-4bb9-b9ed-bf37feb3c94d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-dcfeaa65-dc8d-434f-a0f3-ff2b063a101d" class="xr-var-data-in" type="checkbox"><label for="data-dcfeaa65-dc8d-434f-a0f3-ff2b063a101d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>physicalMeasurement</dd><dt><span>description :</span></dt><dd>Standard land-ice segment height determined by land ice algorithm, corrected for first-photon bias, representing the median- based height of the selected PEs</dd><dt><span>long_name :</span></dt><dd>Land Ice height</dd><dt><span>source :</span></dt><dd>section 4.4</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>fpb_warning_flag</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">int8</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;</div><input id="attrs-a2f4a2cc-b2ba-49bc-8bab-42a6f4bdf4f4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a2f4a2cc-b2ba-49bc-8bab-42a6f4bdf4f4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3334ba27-2032-4349-ad55-3f509f9f7ed9" class="xr-var-data-in" type="checkbox"><label for="data-3334ba27-2032-4349-ad55-3f509f9f7ed9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>To flag that segments have potentially erroneous FPB corrections, the ATL06 algorithm sets fpb_warning_flag to 1 if full_sat_fract is greater than 0.90 (strong beams) or greater than 0.40 (weak beams) for either of the two ATL03 20 m segments that are used as inputs to each ATL06 40 m segment. Otherwise, fpb_warning_flag is set to 0.</dd><dt><span>flag_meanings :</span></dt><dd>best_quality potential_problem</dd><dt><span>flag_values :</span></dt><dd>[0 1]</dd><dt><span>long_name :</span></dt><dd>fpb_warning_flag</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - FPB Corrections</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_max :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>235.23 kiB</td>
+<td>9.77 kiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(240873,)</td>
+<td>(10000,)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">26 chunks in 11 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">int8 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="44" y1="0" x2="44" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="59" y1="0" x2="59" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="78" y1="0" x2="78" y2="25"></line> <line x1="83" y1="0" x2="83" y2="25"></line> <line x1="89" y1="0" x2="89" y2="25"></line> <line x1="92" y1="0" x2="92" y2="25"></line> <line x1="97" y1="0" x2="97" y2="25"></line> <line x1="107" y1="0" x2="107" y2="25"></line> <line x1="112" y1="0" x2="112" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">240873</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>h_li</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;</div><input id="attrs-8db3cd0d-1b2b-458b-b52d-b6822622e12c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8db3cd0d-1b2b-458b-b52d-b6822622e12c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-730372a2-cbcb-45e3-97d9-fca71b7b4986" class="xr-var-data-in" type="checkbox"><label for="data-730372a2-cbcb-45e3-97d9-fca71b7b4986" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>physicalMeasurement</dd><dt><span>description :</span></dt><dd>Standard land-ice segment height determined by land ice algorithm, corrected for first-photon bias, representing the median- based height of the selected PEs</dd><dt><span>long_name :</span></dt><dd>Land Ice height</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - Top Level Fitting Routine</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2001,16 +2119,16 @@ Attributes:
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Bytes</th>
 <td>0.92 MiB</td>
-<td>305.96 kiB</td>
+<td>39.06 kiB</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Shape</th>
-<td>(241711,)</td>
-<td>(78325,)</td>
+<td>(240873,)</td>
+<td>(10000,)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">5 chunks in 11 graph layers</td>
+<td colspan="2">26 chunks in 11 graph layers</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Data type</th>
@@ -2019,12 +2137,12 @@ Attributes:
 </tbody>
 </table></td>
 <td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="38" y1="0" x2="38" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="84" y1="0" x2="84" y2="25"></line> <line x1="91" y1="0" x2="91" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">241711</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="44" y1="0" x2="44" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="59" y1="0" x2="59" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="78" y1="0" x2="78" y2="25"></line> <line x1="83" y1="0" x2="83" y2="25"></line> <line x1="89" y1="0" x2="89" y2="25"></line> <line x1="92" y1="0" x2="92" y2="25"></line> <line x1="97" y1="0" x2="97" y2="25"></line> <line x1="107" y1="0" x2="107" y2="25"></line> <line x1="112" y1="0" x2="112" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">240873</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
 </svg></td>
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>h_li_sigma</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-554c775b-67fd-4853-bf0a-ce15a4623380" class="xr-var-attrs-in" type="checkbox"><label for="attrs-554c775b-67fd-4853-bf0a-ce15a4623380" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9a3b7bb1-50ce-4cc4-85d4-bc4ec70f92ab" class="xr-var-data-in" type="checkbox"><label for="data-9a3b7bb1-50ce-4cc4-85d4-bc4ec70f92ab" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>Propagated error due to sampling error and FPB correction from the land ice algorithm</dd><dt><span>long_name :</span></dt><dd>Expected RMS segment misfit</dd><dt><span>source :</span></dt><dd>section 4.4</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>h_li_sigma</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;</div><input id="attrs-bb2d1c2e-d226-4e58-94cd-f74a3278aeeb" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bb2d1c2e-d226-4e58-94cd-f74a3278aeeb" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-85ba12e3-52e5-4d3b-bb8c-abf6ca3f7f7e" class="xr-var-data-in" type="checkbox"><label for="data-85ba12e3-52e5-4d3b-bb8c-abf6ca3f7f7e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>Propagated error due to sampling error and FPB correction from the land ice algorithm</dd><dt><span>long_name :</span></dt><dd>Expected RMS segment misfit</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - Top Level Fitting Routine</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2044,16 +2162,16 @@ Attributes:
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Bytes</th>
 <td>0.92 MiB</td>
-<td>305.96 kiB</td>
+<td>39.06 kiB</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Shape</th>
-<td>(241711,)</td>
-<td>(78325,)</td>
+<td>(240873,)</td>
+<td>(10000,)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">5 chunks in 11 graph layers</td>
+<td colspan="2">26 chunks in 11 graph layers</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Data type</th>
@@ -2062,12 +2180,12 @@ Attributes:
 </tbody>
 </table></td>
 <td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="38" y1="0" x2="38" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="84" y1="0" x2="84" y2="25"></line> <line x1="91" y1="0" x2="91" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">241711</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="44" y1="0" x2="44" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="59" y1="0" x2="59" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="78" y1="0" x2="78" y2="25"></line> <line x1="83" y1="0" x2="83" y2="25"></line> <line x1="89" y1="0" x2="89" y2="25"></line> <line x1="92" y1="0" x2="92" y2="25"></line> <line x1="97" y1="0" x2="97" y2="25"></line> <line x1="107" y1="0" x2="107" y2="25"></line> <line x1="112" y1="0" x2="112" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">240873</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
 </svg></td>
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>segment_id</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-2ffde9ef-d635-4c45-859c-d068f6c6bd50" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2ffde9ef-d635-4c45-859c-d068f6c6bd50" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ed5478c1-bf68-4ed5-9065-b91726617edd" class="xr-var-data-in" type="checkbox"><label for="data-ed5478c1-bf68-4ed5-9065-b91726617edd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>referenceInformation</dd><dt><span>description :</span></dt><dd>Segment number, counting from the equator. Equal to the segment_id for the second of the two 20m ATL03 segments included in the 40m ATL06 segment</dd><dt><span>long_name :</span></dt><dd>Reference Point, m</dd><dt><span>source :</span></dt><dd>section 3.1.2.1</dd><dt><span>units :</span></dt><dd>1</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>segment_id</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;</div><input id="attrs-16825f1b-4c52-4cb0-a6c2-7d20b8b9094b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-16825f1b-4c52-4cb0-a6c2-7d20b8b9094b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2db052af-2862-4f08-affa-ef39261ae31c" class="xr-var-data-in" type="checkbox"><label for="data-2db052af-2862-4f08-affa-ef39261ae31c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>referenceInformation</dd><dt><span>description :</span></dt><dd>Segment number, counting from the equator. Equal to the segment_id for the second of the two 20m ATL03 segments included in the 40m ATL06 segment</dd><dt><span>long_name :</span></dt><dd>Reference Point, m</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - Top Level Fitting Routine</dd><dt><span>units :</span></dt><dd>1</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2087,16 +2205,16 @@ Attributes:
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Bytes</th>
 <td>1.84 MiB</td>
-<td>611.91 kiB</td>
+<td>78.12 kiB</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Shape</th>
-<td>(241711,)</td>
-<td>(78325,)</td>
+<td>(240873,)</td>
+<td>(10000,)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">5 chunks in 11 graph layers</td>
+<td colspan="2">26 chunks in 11 graph layers</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Data type</th>
@@ -2105,12 +2223,12 @@ Attributes:
 </tbody>
 </table></td>
 <td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="38" y1="0" x2="38" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="84" y1="0" x2="84" y2="25"></line> <line x1="91" y1="0" x2="91" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">241711</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="44" y1="0" x2="44" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="59" y1="0" x2="59" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="78" y1="0" x2="78" y2="25"></line> <line x1="83" y1="0" x2="83" y2="25"></line> <line x1="89" y1="0" x2="89" y2="25"></line> <line x1="92" y1="0" x2="92" y2="25"></line> <line x1="97" y1="0" x2="97" y2="25"></line> <line x1="107" y1="0" x2="107" y2="25"></line> <line x1="112" y1="0" x2="112" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">240873</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
 </svg></td>
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>sigma_geo_h</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(78325,), meta=np.ndarray&gt;</div><input id="attrs-1b249e69-098f-441b-a92c-255910457a6c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1b249e69-098f-441b-a92c-255910457a6c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6ef3b3c4-f75e-44e9-9ac0-d99f14badd10" class="xr-var-data-in" type="checkbox"><label for="data-6ef3b3c4-f75e-44e9-9ac0-d99f14badd10" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>Total vertical geolocation error due to PPD and POD, including the effects of horizontal geolocation error on the segment vertical error.</dd><dt><span>long_name :</span></dt><dd>Vertical Geolocation Error</dd><dt><span>source :</span></dt><dd>ATBD Section 3.10</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>sigma_geo_h</span></div><div class="xr-var-dims">(delta_time)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10000,), meta=np.ndarray&gt;</div><input id="attrs-4d44b8db-e54c-4bfa-8766-92f7dd4cb476" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4d44b8db-e54c-4bfa-8766-92f7dd4cb476" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-725edb47-a675-4d21-8416-586cd3a3efe3" class="xr-var-data-in" type="checkbox"><label for="data-725edb47-a675-4d21-8416-586cd3a3efe3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>contentType :</span></dt><dd>qualityInformation</dd><dt><span>description :</span></dt><dd>Total vertical geolocation error due to PPD and POD, including the effects of horizontal geolocation error on the segment vertical error.</dd><dt><span>long_name :</span></dt><dd>Vertical Geolocation Error</dd><dt><span>source :</span></dt><dd>ATL06 ATBD - Segment Geolocation</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2130,16 +2248,16 @@ Attributes:
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Bytes</th>
 <td>0.92 MiB</td>
-<td>305.96 kiB</td>
+<td>39.06 kiB</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Shape</th>
-<td>(241711,)</td>
-<td>(78325,)</td>
+<td>(240873,)</td>
+<td>(10000,)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">5 chunks in 11 graph layers</td>
+<td colspan="2">26 chunks in 11 graph layers</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Data type</th>
@@ -2148,33 +2266,33 @@ Attributes:
 </tbody>
 </table></td>
 <td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="38" y1="0" x2="38" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="84" y1="0" x2="84" y2="25"></line> <line x1="91" y1="0" x2="91" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">241711</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="44" y1="0" x2="44" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="59" y1="0" x2="59" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="78" y1="0" x2="78" y2="25"></line> <line x1="83" y1="0" x2="83" y2="25"></line> <line x1="89" y1="0" x2="89" y2="25"></line> <line x1="92" y1="0" x2="92" y2="25"></line> <line x1="97" y1="0" x2="97" y2="25"></line> <line x1="107" y1="0" x2="107" y2="25"></line> <line x1="112" y1="0" x2="112" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">240873</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
 </svg></td>
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-338562c8-c0c9-4fe5-a6ad-77b2c810f25b" class="xr-section-summary-in" type="checkbox"><label for="section-338562c8-c0c9-4fe5-a6ad-77b2c810f25b" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>delta_time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-3c3f06a3-7a90-47e6-aeff-ce236d8500c7" class="xr-index-data-in" type="checkbox"><label for="index-3c3f06a3-7a90-47e6-aeff-ce236d8500c7" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-07-18 01:00:46.678760592',
-               '2022-07-18 01:00:46.681322640',
-               '2022-07-18 01:00:46.684008720',
-               '2022-07-18 01:00:46.686753504',
-               '2022-07-18 01:00:46.689526560',
-               '2022-07-18 01:00:46.692315280',
-               '2022-07-18 01:00:46.695049040',
-               '2022-07-18 01:00:46.700724096',
-               '2022-07-18 01:00:46.703545872',
-               '2022-07-18 01:00:46.706366832',
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-56bc833f-bab7-486d-a751-41f4800340c8" class="xr-section-summary-in" type="checkbox"><label for="section-56bc833f-bab7-486d-a751-41f4800340c8" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>delta_time</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-c4976c0b-384d-4026-aaba-1f54badbad70" class="xr-index-data-in" type="checkbox"><label for="index-c4976c0b-384d-4026-aaba-1f54badbad70" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-07-18 01:00:40.698453696',
+               '2022-07-18 01:00:40.704002080',
+               '2022-07-18 01:00:40.706800224',
+               '2022-07-18 01:00:40.708376224',
+               '2022-07-18 01:00:41.070171808',
+               '2022-07-18 01:00:41.072562016',
+               '2022-07-18 01:00:41.078919344',
+               '2022-07-18 01:00:41.081860336',
+               '2022-07-18 01:00:41.084743024',
+               '2022-07-18 01:00:41.087598144',
                ...
-               '2022-07-26 00:49:18.806914512',
-               '2022-07-26 00:49:18.809737328',
-               '2022-07-26 00:49:18.812559600',
-               '2022-07-26 00:49:18.815380608',
-               '2022-07-26 00:49:18.818200224',
-               '2022-07-26 00:49:18.821015744',
-               '2022-07-26 00:49:18.823827088',
-               '2022-07-26 00:49:18.826637808',
-               '2022-07-26 00:49:18.829449568',
-               '2022-07-26 00:49:18.832263232'],
-              dtype='datetime64[ns]', name='delta_time', length=241711, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-e7c907d9-2aed-4e5f-9321-fc9098ef0e97" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-e7c907d9-2aed-4e5f-9321-fc9098ef0e97" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Description :</span></dt><dd>The land_ice_height group contains the primary set of derived ATL06 products. This includes geolocation, height, and standard error and quality measures for each segment. This group is sparse, meaning that parameters are provided only for pairs of segments for which at least one beam has a valid surface-height measurement.</dd><dt><span>data_rate :</span></dt><dd>Data within this group are sparse.  Data values are provided only for those ICESat-2 20m segments where at least one beam has a valid land ice height measurement.</dd></dl></div></li></ul></div></div>
+               '2022-07-26 00:49:18.806962816',
+               '2022-07-26 00:49:18.809785632',
+               '2022-07-26 00:49:18.812607856',
+               '2022-07-26 00:49:18.815428816',
+               '2022-07-26 00:49:18.818248416',
+               '2022-07-26 00:49:18.821063936',
+               '2022-07-26 00:49:18.823875152',
+               '2022-07-26 00:49:18.826685936',
+               '2022-07-26 00:49:18.829497600',
+               '2022-07-26 00:49:18.832311504'],
+              dtype='datetime64[ns]', name='delta_time', length=240873, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-021a03d7-396f-4452-a910-8a37665fd658" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-021a03d7-396f-4452-a910-8a37665fd658" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>data_rate :</span></dt><dd>Data within this group are sparse.  Data values are provided only for those ICESat-2 20m segments where at least one beam has a valid land ice height measurement.</dd><dt><span>description :</span></dt><dd>The land_ice_height group contains the primary set of derived ATL06 products. This includes geolocation, height, and standard error and quality measures for each segment. This group is sparse, meaning that parameters are provided only for pairs of segments for which at least one beam has a valid surface-height measurement.</dd></dl></div></li></ul></div></div>
 </div>
 </div>
 </section>
@@ -2184,7 +2302,7 @@ Attributes:
 </section>
 <section id="alternative-access-method-without-earthaccess" class="level2">
 <h2 class="anchored" data-anchor-id="alternative-access-method-without-earthaccess">Alternative Access Method without <code>earthaccess</code></h2>
-<p>An alternative approach to accessing data is outlined in some notebooks in the <a href="https://nasa-openscapes.github.io/earthdata-cloud-cookbook/appendix/authentication.html">Earthdata Cloud Cookbook Appendix</a>! The <code>earthaccess</code> package uses these methods for it’s back end. See <a href="https://github.com/NASA-Openscapes/earthdata-cloud-cookbook/tree/main/appendix/appendix-alternate-in-cloud-access">this GitHub folder</a>.</p>
+<p>An alternative approach to accessing data is outlined in some notebooks in the <a href="https://nasa-openscapes.github.io/earthdata-cloud-cookbook/appendix/authentication.html">Earthdata Cloud Cookbook Appendix</a>! The <code>earthaccess</code> package uses these methods for its back end. See <a href="https://github.com/NASA-Openscapes/earthdata-cloud-cookbook/tree/main/appendix/appendix-alternate-in-cloud-access">this GitHub folder</a>.</p>
 
 
 </section>
