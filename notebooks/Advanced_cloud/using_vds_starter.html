@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Virtual Data Set Starter Notebook – PO.DAAC Cookbook</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -68,19 +71,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../quarto_text/UsingVirtualDatasets.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-7087e1fe497f498abc06882b41efe3b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-162db78277f886d171294950585e82d7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-7087e1fe497f498abc06882b41efe3b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-66bb1de59051dcd28834a266a56490aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-e01782e4cdd784b98fd96796b60da0fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-66bb1de59051dcd28834a266a56490aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -4801,7 +4803,8 @@ Attributes: (12/53)
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>THETA</span></div><div class="xr-var-dims">(time, Z, latitude, longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 25, 180, 360), meta=np.ndarray&gt;</div><input id="attrs-29cd7d13-22a6-47e2-92fb-a2890b354e66" class="xr-var-attrs-in" type="checkbox"><label for="attrs-29cd7d13-22a6-47e2-92fb-a2890b354e66" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-741f5a1e-580e-4cf0-956a-71c733d0e0a3" class="xr-var-data-in" type="checkbox"><label for="data-741f5a1e-580e-4cf0-956a-71c733d0e0a3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Potential temperature </dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>comment :</span></dt><dd>Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure. Note: the equation of state is a modified UNESCO formula by Jackett and McDougall (1995), which uses the model variable potential temperature as input assuming a horizontally and temporally constant pressure of $p_0=-g ho_{0} z$.</dd><dt><span>valid_min :</span></dt><dd>-2.9179372787475586</dd><dt><span>valid_max :</span></dt><dd>36.425140380859375</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>THETA</span></div><div class="xr-var-dims">(time, Z, latitude, longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 25, 180, 360), meta=np.ndarray&gt;</div><input id="attrs-29cd7d13-22a6-47e2-92fb-a2890b354e66" class="xr-var-attrs-in" type="checkbox"><label for="attrs-29cd7d13-22a6-47e2-92fb-a2890b354e66" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-741f5a1e-580e-4cf0-956a-71c733d0e0a3" class="xr-var-data-in" type="checkbox"><label for="data-741f5a1e-580e-4cf0-956a-71c733d0e0a3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Potential temperature </dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>comment :</span></dt><dd>Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure. Note: the equation of state is a modified UNESCO formula by Jackett and McDougall (1995), which uses the model variable potential temperature as input assuming a horizontally and temporally constant pressure of $p_0=-g 
+ho_{0} z$.</dd><dt><span>valid_min :</span></dt><dd>-2.9179372787475586</dd><dt><span>valid_max :</span></dt><dd>36.425140380859375</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -5543,7 +5546,8 @@ Attributes: (12/53)
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>THETA</span></div><div class="xr-var-dims">(time, latitude, longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 20, 20), meta=np.ndarray&gt;</div><input id="attrs-baaf0fa8-cf0c-4066-93c6-b6d857bee6a2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-baaf0fa8-cf0c-4066-93c6-b6d857bee6a2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-05bc3df7-8b20-4dc9-9316-4d6a1d690885" class="xr-var-data-in" type="checkbox"><label for="data-05bc3df7-8b20-4dc9-9316-4d6a1d690885" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Potential temperature </dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>comment :</span></dt><dd>Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure. Note: the equation of state is a modified UNESCO formula by Jackett and McDougall (1995), which uses the model variable potential temperature as input assuming a horizontally and temporally constant pressure of $p_0=-g ho_{0} z$.</dd><dt><span>valid_min :</span></dt><dd>-2.9179372787475586</dd><dt><span>valid_max :</span></dt><dd>36.425140380859375</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>THETA</span></div><div class="xr-var-dims">(time, latitude, longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 20, 20), meta=np.ndarray&gt;</div><input id="attrs-baaf0fa8-cf0c-4066-93c6-b6d857bee6a2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-baaf0fa8-cf0c-4066-93c6-b6d857bee6a2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-05bc3df7-8b20-4dc9-9316-4d6a1d690885" class="xr-var-data-in" type="checkbox"><label for="data-05bc3df7-8b20-4dc9-9316-4d6a1d690885" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Potential temperature </dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>comment :</span></dt><dd>Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure. Note: the equation of state is a modified UNESCO formula by Jackett and McDougall (1995), which uses the model variable potential temperature as input assuming a horizontally and temporally constant pressure of $p_0=-g 
+ho_{0} z$.</dd><dt><span>valid_min :</span></dt><dd>-2.9179372787475586</dd><dt><span>valid_max :</span></dt><dd>36.425140380859375</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -6285,7 +6289,8 @@ Attributes: (12/53)
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>THETA</span></div><div class="xr-var-dims">(time, Z, latitude, longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 25, 180, 360), meta=np.ndarray&gt;</div><input id="attrs-c32360b6-9a1a-4ebf-8ad5-1f480e16fb2b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c32360b6-9a1a-4ebf-8ad5-1f480e16fb2b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-64c3b05b-44fe-4feb-8e2c-fd45add3480e" class="xr-var-data-in" type="checkbox"><label for="data-64c3b05b-44fe-4feb-8e2c-fd45add3480e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Potential temperature </dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>comment :</span></dt><dd>Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure. Note: the equation of state is a modified UNESCO formula by Jackett and McDougall (1995), which uses the model variable potential temperature as input assuming a horizontally and temporally constant pressure of $p_0=-g ho_{0} z$.</dd><dt><span>valid_min :</span></dt><dd>-2.9179372787475586</dd><dt><span>valid_max :</span></dt><dd>36.425140380859375</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>THETA</span></div><div class="xr-var-dims">(time, Z, latitude, longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 25, 180, 360), meta=np.ndarray&gt;</div><input id="attrs-c32360b6-9a1a-4ebf-8ad5-1f480e16fb2b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c32360b6-9a1a-4ebf-8ad5-1f480e16fb2b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-64c3b05b-44fe-4feb-8e2c-fd45add3480e" class="xr-var-data-in" type="checkbox"><label for="data-64c3b05b-44fe-4feb-8e2c-fd45add3480e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Potential temperature </dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>comment :</span></dt><dd>Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure. Note: the equation of state is a modified UNESCO formula by Jackett and McDougall (1995), which uses the model variable potential temperature as input assuming a horizontally and temporally constant pressure of $p_0=-g 
+ho_{0} z$.</dd><dt><span>valid_min :</span></dt><dd>-2.9179372787475586</dd><dt><span>valid_max :</span></dt><dd>36.425140380859375</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
