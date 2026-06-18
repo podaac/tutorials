@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Virtual dataset reader and plotter – PO.DAAC Cookbook</title>
+<title>read-swot_l2_lr_ssh_basic_verd – PO.DAAC Cookbook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -78,9 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-14f9b607c0a402753ac412aaf8dbf662.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-fd40781acc123d3b21c9ec2eea1935f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-14f9b607c0a402753ac412aaf8dbf662.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-63cb0de977f7c0860d3378e9d7f4fc43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-283480758a06257f2e64414e07b49890.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-63cb0de977f7c0860d3378e9d7f4fc43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -293,7 +293,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Virtual dataset reader and plotter</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1381,7 +1381,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#example-for-nasa-cmr-shortname-swot_l2_lr_ssh_basic_d" id="toc-example-for-nasa-cmr-shortname-swot_l2_lr_ssh_basic_d" class="nav-link active" data-scroll-target="#example-for-nasa-cmr-shortname-swot_l2_lr_ssh_basic_d">Example for NASA CMR Shortname: SWOT_L2_LR_SSH_Basic_D</a></li>
+  <li><a href="#virtual-dataset-reader-and-plotter" id="toc-virtual-dataset-reader-and-plotter" class="nav-link active" data-scroll-target="#virtual-dataset-reader-and-plotter">Virtual dataset reader and plotter</a>
+  <ul class="collapse">
+  <li><a href="#example-for-nasa-cmr-shortname-swot_l2_lr_ssh_basic_d" id="toc-example-for-nasa-cmr-shortname-swot_l2_lr_ssh_basic_d" class="nav-link" data-scroll-target="#example-for-nasa-cmr-shortname-swot_l2_lr_ssh_basic_d">Example for NASA CMR Shortname: SWOT_L2_LR_SSH_Basic_D</a></li>
   <li><a href="#necessary-enviroment-includes" id="toc-necessary-enviroment-includes" class="nav-link" data-scroll-target="#necessary-enviroment-includes">Necessary enviroment includes</a></li>
   <li><a href="#earthdata-cloud-authentication" id="toc-earthdata-cloud-authentication" class="nav-link" data-scroll-target="#earthdata-cloud-authentication">1. Earthdata Cloud authentication</a></li>
   <li><a href="#perform-cmr-search-request-and-open-vds-reference-file" id="toc-perform-cmr-search-request-and-open-vds-reference-file" class="nav-link" data-scroll-target="#perform-cmr-search-request-and-open-vds-reference-file">2. Perform CMR search request and Open VDS reference file</a>
@@ -1396,35 +1398,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="#we-will-choose-pass-289-over-a-region-off-central-california-around-123w-34n-121w-36n" id="toc-we-will-choose-pass-289-over-a-region-off-central-california-around-123w-34n-121w-36n" class="nav-link" data-scroll-target="#we-will-choose-pass-289-over-a-region-off-central-california-around-123w-34n-121w-36n">We will choose pass 289 over a region off central California around 123W, 34N, 121W, 36N</a></li>
   <li><a href="#c.-use-case-3-spatially-plot-just-a-specific-cyclepass-from-our-previous-time-series-plot-one-time-step" id="toc-c.-use-case-3-spatially-plot-just-a-specific-cyclepass-from-our-previous-time-series-plot-one-time-step" class="nav-link" data-scroll-target="#c.-use-case-3-spatially-plot-just-a-specific-cyclepass-from-our-previous-time-series-plot-one-time-step">3c. Use case 3: Spatially plot just a specific cycle/pass from our previous time series (plot one time step)</a></li>
   </ul></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 <!-- Google Tag Manager (noscript) -->
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Virtual dataset reader and plotter</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<p><img src="https://img.shields.io/badge/PO.DAAC-Contribution-%20?color=grey&amp;labelColor=blue" class="img-fluid"></p>
+<blockquote class="blockquote">
+<p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/Advanced_cloud/read-SWOT_L2_LR_SSH_Basic_verD.ipynb">this link</a>.</p>
+</blockquote>
+<section id="virtual-dataset-reader-and-plotter" class="level1">
+<h1>Virtual dataset reader and plotter</h1>
 <section id="example-for-nasa-cmr-shortname-swot_l2_lr_ssh_basic_d" class="level3">
 <h3 class="anchored" data-anchor-id="example-for-nasa-cmr-shortname-swot_l2_lr_ssh_basic_d">Example for NASA CMR Shortname: SWOT_L2_LR_SSH_Basic_D</h3>
 <section id="author-ed-armstrong-po.daac" class="level4">
@@ -6707,6 +6700,7 @@ Attributes: (12/22)
 </div>
 
 
+</section>
 </section>
 </section>
 

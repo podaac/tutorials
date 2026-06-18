@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Example of Opening an Icechunk Store In-Cloud – PO.DAAC Cookbook</title>
+<title>open_icechunk – PO.DAAC Cookbook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -80,9 +80,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-14f9b607c0a402753ac412aaf8dbf662.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-fd40781acc123d3b21c9ec2eea1935f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-14f9b607c0a402753ac412aaf8dbf662.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-63cb0de977f7c0860d3378e9d7f4fc43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-283480758a06257f2e64414e07b49890.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-63cb0de977f7c0860d3378e9d7f4fc43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -1383,7 +1383,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#requirements-and-python-environment" id="toc-requirements-and-python-environment" class="nav-link active" data-scroll-target="#requirements-and-python-environment">Requirements and Python environment</a>
+  <li><a href="#example-of-opening-an-icechunk-store-in-cloud" id="toc-example-of-opening-an-icechunk-store-in-cloud" class="nav-link active" data-scroll-target="#example-of-opening-an-icechunk-store-in-cloud">Example of Opening an Icechunk Store In-Cloud</a></li>
+  <li><a href="#requirements-and-python-environment" id="toc-requirements-and-python-environment" class="nav-link" data-scroll-target="#requirements-and-python-environment">Requirements and Python environment</a>
   <ul class="collapse">
   <li><a href="#define-a-function-to-access-the-icechunk-store" id="toc-define-a-function-to-access-the-icechunk-store" class="nav-link" data-scroll-target="#define-a-function-to-access-the-icechunk-store">1. Define a function to access the icechunk store</a></li>
   <li><a href="#access-store-and-open-data-with-xarray" id="toc-access-store-and-open-data-with-xarray" class="nav-link" data-scroll-target="#access-store-and-open-data-with-xarray">2. Access store and open data with Xarray</a></li>
@@ -1392,31 +1393,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../quarto_text/CloudOptimizedFormats.html">Cloud Optimized Data Formats</a></li><li class="breadcrumb-item"><a href="../../quarto_text/UsingVirtualDatasets.html">Using Virtual Datasets</a></li><li class="breadcrumb-item"><a href="../../notebooks/Advanced_cloud/open_icechunk.html">Opening an Icechunk Store</a></li></ol></nav></header>
 
 <!-- Google Tag Manager (noscript) -->
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../quarto_text/Advanced.html">Advanced Cloud</a></li><li class="breadcrumb-item"><a href="../../quarto_text/CloudOptimizedFormats.html">Cloud Optimized Data Formats</a></li><li class="breadcrumb-item"><a href="../../quarto_text/UsingVirtualDatasets.html">Using Virtual Datasets</a></li><li class="breadcrumb-item"><a href="../../notebooks/Advanced_cloud/open_icechunk.html">Opening an Icechunk Store</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">Example of Opening an Icechunk Store In-Cloud</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<p><img src="https://img.shields.io/badge/PO.DAAC-Contribution-%20?color=grey&amp;labelColor=blue" class="img-fluid"></p>
+<blockquote class="blockquote">
+<p>From the PO.DAAC Cookbook, to access the GitHub version of the notebook, follow <a href="https://github.com/podaac/tutorials/blob/master/notebooks/Advanced_cloud/open_icechunk.ipynb">this link</a>.</p>
+</blockquote>
+<section id="example-of-opening-an-icechunk-store-in-cloud" class="level2">
+<h2 class="anchored" data-anchor-id="example-of-opening-an-icechunk-store-in-cloud">Example of Opening an Icechunk Store In-Cloud</h2>
 <section id="author-dean-henze-po.daac" class="level4">
 <h4 class="anchored" data-anchor-id="author-dean-henze-po.daac"><em>Author: Dean Henze, PO.DAAC</em></h4>
 <p>This notebook demonstrates opening a virtual dataset (VDS) stored as an Icechunk store (note this technology is currently experimental, although it is gaining momentum). For a general overview of VDS’s see the <a href="https://podaac.github.io/tutorials/quarto_text/UsingVirtualDatasets.html">Using Virutal Datasets chapter</a> on the PO.DAAC Cookbook.</p>
@@ -1426,6 +1417,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>s3://podaac-ops-cumulus-public/virtual_collections/SASSIE_ECCO_V1R1/SASSIE_ECCO_L4_DAILY_V1R1_virtual_s3.icechunk/</p>
 <p><strong>Monthly snapshots:</strong></p>
 <p>s3://podaac-ops-cumulus-public/virtual_collections/SASSIE_ECCO_V1R1/SASSIE_ECCO_L4_SNAPSHOT_V1R1_virtual_s3.icechunk/</p>
+</section>
 </section>
 <section id="requirements-and-python-environment" class="level2">
 <h2 class="anchored" data-anchor-id="requirements-and-python-environment">Requirements and Python environment</h2>
@@ -5467,8 +5459,7 @@ Attributes: (12/49)
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>THETA</span></div><div class="xr-var-dims">(time, k, j, i)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 15, 270, 450), meta=np.ndarray&gt;</div><input id="attrs-8b4227c1-5b0e-4212-a4a5-b3ff0485b6f8" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8b4227c1-5b0e-4212-a4a5-b3ff0485b6f8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-987b6a0f-dd61-436a-9a18-3b1e50deb0cc" class="xr-var-data-in" type="checkbox"><label for="data-987b6a0f-dd61-436a-9a18-3b1e50deb0cc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Potential temperature </dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>comment :</span></dt><dd>Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure. Note: the equation of state is a modified UNESCO formula by Jackett and McDougall (1995), which uses the model variable potential temperature as input assuming a horizontally and temporally constant pressure of $p_0=-g 
-ho_{0} z$.</dd><dt><span>valid_min :</span></dt><dd>-2.6241772174835205</dd><dt><span>valid_max :</span></dt><dd>10.097210884094238</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>THETA</span></div><div class="xr-var-dims">(time, k, j, i)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 15, 270, 450), meta=np.ndarray&gt;</div><input id="attrs-8b4227c1-5b0e-4212-a4a5-b3ff0485b6f8" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8b4227c1-5b0e-4212-a4a5-b3ff0485b6f8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-987b6a0f-dd61-436a-9a18-3b1e50deb0cc" class="xr-var-data-in" type="checkbox"><label for="data-987b6a0f-dd61-436a-9a18-3b1e50deb0cc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>coverage_content_type :</span></dt><dd>modelResult</dd><dt><span>long_name :</span></dt><dd>Potential temperature </dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>degree_C</dd><dt><span>comment :</span></dt><dd>Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure. Note: the equation of state is a modified UNESCO formula by Jackett and McDougall (1995), which uses the model variable potential temperature as input assuming a horizontally and temporally constant pressure of $p_0=-g ho_{0} z$.</dd><dt><span>valid_min :</span></dt><dd>-2.6241772174835205</dd><dt><span>valid_max :</span></dt><dd>10.097210884094238</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
