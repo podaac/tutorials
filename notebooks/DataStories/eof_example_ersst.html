@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -75,14 +78,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-63cb0de977f7c0860d3378e9d7f4fc43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-283480758a06257f2e64414e07b49890.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-63cb0de977f7c0860d3378e9d7f4fc43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-d89a72bfbd7e0b9c3705c5cccbc9cf0d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-ee9a89ec392f23ae65306dbae8ac1c75.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d89a72bfbd7e0b9c3705c5cccbc9cf0d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -2216,27 +2219,24 @@ Version 5 based on Version 4</dd><dt><span>creator_url :</span></dt><dd>https://
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    ax.set_xticklabels([<span class="bu">str</span>(xt) <span class="cf">for</span> xt <span class="kw">in</span> xticks])</span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>fig2.text(<span class="fl">0.5</span>, <span class="fl">0.025</span>, <span class="st">"n month of year"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>fig2.text(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="st">"SST (K)"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, rotation<span class="op">=</span><span class="dv">90</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>Text(0.05, 0.5, 'SST (K)')</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eof_example_ersst_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="eof_example_ersst_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <div id="cdd056fb-fe02-4b99-8417-d8b5f27ac19a" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot before and after cycle removal, for first 200 timestamps:</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>fig3, axes3 <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, lat, lon <span class="kw">in</span> <span class="bu">zip</span>(axes3.flatten(), lat_testpoints, lon_testpoints):</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(sst_detrend.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'m-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'SST detrended'</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(sst_nocycle.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'k-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'SST seasonal cycle removed'</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>fig3.text(<span class="fl">0.5</span>, <span class="fl">0.025</span>, <span class="st">"n month since "</span> <span class="op">+</span> <span class="bu">str</span>(sst[<span class="st">'time'</span>].data[<span class="dv">0</span>]), ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>fig3.text(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="st">"SST (K)"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, rotation<span class="op">=</span><span class="dv">90</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>axes3[<span class="dv">0</span>,<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot before and after cycle removal, for first 200 timestamps:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>fig3, axes3 <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, lat, lon <span class="kw">in</span> <span class="bu">zip</span>(axes3.flatten(), lat_testpoints, lon_testpoints):</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(sst_detrend.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'m-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'SST detrended'</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(sst_nocycle.isel(time<span class="op">=</span><span class="bu">range</span>(n_ts)).sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon), <span class="st">'k-'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'SST seasonal cycle removed'</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>fig3.text(<span class="fl">0.5</span>, <span class="fl">0.025</span>, <span class="st">"n month since "</span> <span class="op">+</span> <span class="bu">str</span>(sst[<span class="st">'time'</span>].data[<span class="dv">0</span>]), ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>fig3.text(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="st">"SST (K)"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>axes3[<span class="dv">0</span>,<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2253,38 +2253,35 @@ Version 5 based on Version 4</dd><dt><span>creator_url :</span></dt><dd>https://
 <h2 class="anchored" data-anchor-id="variance-map">3.1 Variance map</h2>
 <p>Plot a variance map as a sanity check.</p>
 <div id="f2a97ea6-379a-4d87-ac17-11f14d24ca6a" class="cell" data-tags="[]" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sstvar <span class="op">=</span> sst_nocycle.var(dim<span class="op">=</span>[<span class="st">'time'</span>], skipna<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sstvar <span class="op">=</span> sst_nocycle.var(dim<span class="op">=</span>[<span class="st">'time'</span>], skipna<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/opt/coiled/env/lib/python3.11/site-packages/xarray/core/nputils.py:183: RuntimeWarning: Degrees of freedom &lt;= 0 for slice.
   result = getattr(npmodule, name)(values, axis=axis, **kwargs)</code></pre>
 </div>
 </div>
 <div id="024cdfdf-5b83-49da-8eb1-a15e33a2f38b" class="cell" data-tags="[]" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> EqualEarth(central_longitude<span class="op">=</span><span class="dv">180</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>figvar <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>axvar <span class="op">=</span> plt.axes(projection<span class="op">=</span>proj)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>sstvar.plot(</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">1</span>, <span class="co"># vmax of 1 used since there are a few points with anomolously high values.</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    transform<span class="op">=</span>PlateCarree(), </span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'Spectral_r'</span>, cbar_kwargs<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"("</span><span class="op">+</span><span class="vs">r"</span><span class="dv">$^</span><span class="er">\</span><span class="vs">circ</span><span class="dv">$</span><span class="vs">"</span><span class="op">+</span><span class="st">"C)$^2$"</span>}</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>axvar.coastlines(color<span class="op">=</span><span class="st">'.5'</span>)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>axvar.set_title(<span class="st">"Variance of SST anomalies"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>Text(0.5, 1.0, 'Variance of SST anomalies')</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> EqualEarth(central_longitude<span class="op">=</span><span class="dv">180</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>figvar <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>axvar <span class="op">=</span> plt.axes(projection<span class="op">=</span>proj)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>sstvar.plot(</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">1</span>, <span class="co"># vmax of 1 used since there are a few points with anomolously high values.</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    transform<span class="op">=</span>PlateCarree(), </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'Spectral_r'</span>, cbar_kwargs<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"("</span><span class="op">+</span><span class="vs">r"</span><span class="dv">$^</span><span class="er">\</span><span class="vs">circ</span><span class="dv">$</span><span class="vs">"</span><span class="op">+</span><span class="st">"C)$^2$"</span>}</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>axvar.coastlines(color<span class="op">=</span><span class="st">'.5'</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>axvar.set_title(<span class="st">"Variance of SST anomalies"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eof_example_ersst_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="eof_example_ersst_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <div id="85f72dc5-a898-4761-a9b7-c4d047a6a29b" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sst_nocycle <span class="op">=</span> sst_nocycle.where(sstvar <span class="op">&lt;</span> <span class="dv">2</span>, drop<span class="op">=</span><span class="va">False</span>) <span class="co"># Remove a few points with anomolously high variances.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sst_nocycle <span class="op">=</span> sst_nocycle.where(sstvar <span class="op">&lt;</span> <span class="dv">2</span>, drop<span class="op">=</span><span class="va">False</span>) <span class="co"># Remove a few points with anomolously high variances.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="fit-eof-model-and-compute-pcs-eofs-and-explained-variances" class="level2">
@@ -2293,72 +2290,72 @@ Version 5 based on Version 4</dd><dt><span>creator_url :</span></dt><dd>https://
 <section id="model-fit" class="level4">
 <h4 class="anchored" data-anchor-id="model-fit"><strong>Model fit</strong></h4>
 <div id="11dfc2b8-5229-4c49-bbe8-950cedc8718f" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>wgts <span class="op">=</span> np.cos(np.deg2rad(sst_nocycle[<span class="st">'lat'</span>]))<span class="op">**</span><span class="fl">0.5</span> <span class="co"># Common practice to weight by latitude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>wgts <span class="op">=</span> np.cos(np.deg2rad(sst_nocycle[<span class="st">'lat'</span>]))<span class="op">**</span><span class="fl">0.5</span> <span class="co"># Common practice to weight by latitude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="2b1f6dc5-02c3-4cb5-9f82-e535410e5de3" class="cell" data-tags="[]" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> xe.models.EOF(</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    n_modes<span class="op">=</span><span class="dv">6</span>,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    use_weights<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    standardize<span class="op">=</span><span class="va">False</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>model.fit(sst_nocycle, dim<span class="op">=</span><span class="st">'time'</span>, weights<span class="op">=</span>wgts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> xe.models.EOF(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    n_modes<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    use_weights<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    standardize<span class="op">=</span><span class="va">False</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>model.fit(sst_nocycle, dim<span class="op">=</span><span class="st">'time'</span>, weights<span class="op">=</span>wgts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="compute-pcs-scores-eofs-components-and-explained-variances" class="level4">
 <h4 class="anchored" data-anchor-id="compute-pcs-scores-eofs-components-and-explained-variances"><strong>Compute PCs (scores), EOFs (components), and explained variances</strong></h4>
 <div id="435256e0-fe31-46be-85b8-0df72793afd7" class="cell" data-tags="[]" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>expvar <span class="op">=</span> model.explained_variance_ratio()</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>expvar.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>expvar <span class="op">=</span> model.explained_variance_ratio()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>expvar.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>array([0.15566093, 0.04830667, 0.03850468, 0.0346849 , 0.03283792,
        0.02758786])</code></pre>
 </div>
 </div>
 <div id="d955ba88-0136-44f5-aa4e-1f9bab2485df" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PC's ("scores"):</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The package automatically normalizes the returned PC's. We back out the raw PC's as well (following https://github.com/nicrie/xeofs/issues/81):</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>scores_normed <span class="op">=</span> model.scores()</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>svals <span class="op">=</span> model.singular_values()</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> scores_normed <span class="op">*</span> svals</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PC's ("scores"):</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The package automatically normalizes the returned PC's. We back out the raw PC's as well (following https://github.com/nicrie/xeofs/issues/81):</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>scores_normed <span class="op">=</span> model.scores()</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>svals <span class="op">=</span> model.singular_values()</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> scores_normed <span class="op">*</span> svals</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="b5dab6b2-685d-4735-8d05-d05eca2b29a7" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EOFs ("components"):</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span> model.components()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EOFs ("components"):</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span> model.components()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="rescale-pcs-and-eofs-to-match-publication" class="level4">
 <h4 class="anchored" data-anchor-id="rescale-pcs-and-eofs-to-match-publication"><strong>Rescale PCs and EOFs to match publication</strong></h4>
 <p>Since <em>mode=EOF*PC</em>, we can divide a factor of <em>c</em> from <em>PC</em> if we multiply <em>EOF</em> by that same <em>c</em>. We do this here so that our amplitudes resemble those of Messie and Chavez (2011). Turns out we get the right scaling if <em>c=50</em> for mode 1 and <em>c=25</em> for the remaining modes.</p>
 <div id="99e3230d-688b-4513-b6a5-df4af87af66e" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>components_scaled <span class="op">=</span> xr.where(components[<span class="st">'mode'</span>]<span class="op">==</span><span class="dv">1</span>, components<span class="op">*</span><span class="dv">50</span>, components<span class="op">*</span><span class="dv">25</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>scores_scaled <span class="op">=</span> xr.where(scores[<span class="st">'mode'</span>]<span class="op">==</span><span class="dv">1</span>, scores<span class="op">/</span><span class="dv">50</span>, scores<span class="op">/</span><span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>components_scaled <span class="op">=</span> xr.where(components[<span class="st">'mode'</span>]<span class="op">==</span><span class="dv">1</span>, components<span class="op">*</span><span class="dv">50</span>, components<span class="op">*</span><span class="dv">25</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>scores_scaled <span class="op">=</span> xr.where(scores[<span class="st">'mode'</span>]<span class="op">==</span><span class="dv">1</span>, scores<span class="op">/</span><span class="dv">50</span>, scores<span class="op">/</span><span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
 <section id="plot-eofs-and-pcs" class="level2">
 <h2 class="anchored" data-anchor-id="plot-eofs-and-pcs">3.3 Plot EOFs and PC’s</h2>
 <div id="aa3dd194-1baf-4866-b0ac-d0ad4ba4c11a" class="cell" data-tags="[]" data-execution_count="23">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">## EOFs</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>fig4 <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>axes4 <span class="op">=</span> []</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> EqualEarth(central_longitude<span class="op">=</span><span class="dv">180</span>)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    axes4.append(plt.subplot(<span class="dv">3</span>, <span class="dv">2</span>, i, projection<span class="op">=</span>proj))</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes4:</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    ax.coastlines(color<span class="op">=</span><span class="st">'.5'</span>)</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">7</span>), axes4):</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    components_scaled.sel(mode<span class="op">=</span>i).plot(</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax, vmin<span class="op">=-</span><span class="dv">2</span>, vmax<span class="op">=</span><span class="dv">2</span>, add_labels<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>        transform<span class="op">=</span>PlateCarree(), </span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>        cmap<span class="op">=</span><span class="st">'seismic'</span>, cbar_kwargs<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"("</span><span class="op">+</span><span class="vs">r"</span><span class="dv">$^</span><span class="er">\</span><span class="vs">circ</span><span class="dv">$</span><span class="vs">"</span><span class="op">+</span><span class="st">"C)"</span>}</span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"Mode "</span><span class="op">+</span><span class="bu">str</span>(i)<span class="op">+</span><span class="st">": "</span><span class="op">+</span><span class="bu">str</span>(<span class="bu">round</span>(expvar.values[i<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">1</span>))<span class="op">+</span><span class="st">"%"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">## EOFs</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>fig4 <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>axes4 <span class="op">=</span> []</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> EqualEarth(central_longitude<span class="op">=</span><span class="dv">180</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    axes4.append(plt.subplot(<span class="dv">3</span>, <span class="dv">2</span>, i, projection<span class="op">=</span>proj))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes4:</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    ax.coastlines(color<span class="op">=</span><span class="st">'.5'</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">7</span>), axes4):</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    components_scaled.sel(mode<span class="op">=</span>i).plot(</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax, vmin<span class="op">=-</span><span class="dv">2</span>, vmax<span class="op">=</span><span class="dv">2</span>, add_labels<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>        transform<span class="op">=</span>PlateCarree(), </span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>        cmap<span class="op">=</span><span class="st">'seismic'</span>, cbar_kwargs<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"("</span><span class="op">+</span><span class="vs">r"</span><span class="dv">$^</span><span class="er">\</span><span class="vs">circ</span><span class="dv">$</span><span class="vs">"</span><span class="op">+</span><span class="st">"C)"</span>}</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"Mode "</span><span class="op">+</span><span class="bu">str</span>(i)<span class="op">+</span><span class="st">": "</span><span class="op">+</span><span class="bu">str</span>(<span class="bu">round</span>(expvar.values[i<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">1</span>))<span class="op">+</span><span class="st">"%"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2368,25 +2365,25 @@ Version 5 based on Version 4</dd><dt><span>creator_url :</span></dt><dd>https://
 </div>
 </div>
 <div id="85bf1b4b-7e4e-4411-9331-4930673a2028" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">## PC's</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The format of the ERSST timestamps cannot be read by matplotlib without additional packages.</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Instead, convert them to numpy.datetime64:</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>timestamps_np <span class="op">=</span> [np.datetime64(<span class="bu">str</span>(t)) <span class="cf">for</span> t <span class="kw">in</span> sst[<span class="st">'time'</span>].data]</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>fig5, axes5 <span class="op">=</span> plt.subplots(<span class="dv">6</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>zeroline <span class="op">=</span> np.zeros(<span class="bu">len</span>(timestamps_np)) <span class="co"># For use with matplotlib's fill_between()</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>), axes5):</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    scores_i <span class="op">=</span> scores_scaled.sel(mode<span class="op">=</span>i).values</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    pos_score <span class="op">=</span> scores_i <span class="op">&gt;</span> <span class="dv">0</span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(timestamps_np, scores_i, zeroline, where<span class="op">=</span>pos_score, facecolor<span class="op">=</span><span class="st">'lightcoral'</span>, interpolate<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(timestamps_np, scores_i, zeroline, where<span class="op">=~</span>pos_score, facecolor<span class="op">=</span><span class="st">'royalblue'</span>, interpolate<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    ax.plot(timestamps_np, scores_i, color<span class="op">=</span><span class="st">'lightgrey'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    ax.grid(axis<span class="op">=</span><span class="st">'x'</span>)</span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"year"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"M"</span><span class="op">+</span><span class="bu">str</span>(i)<span class="op">+</span><span class="st">": "</span><span class="op">+</span><span class="bu">str</span>(<span class="bu">round</span>(expvar.values[i<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">1</span>))<span class="op">+</span><span class="st">"%"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">## PC's</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The format of the ERSST timestamps cannot be read by matplotlib without additional packages.</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Instead, convert them to numpy.datetime64:</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>timestamps_np <span class="op">=</span> [np.datetime64(<span class="bu">str</span>(t)) <span class="cf">for</span> t <span class="kw">in</span> sst[<span class="st">'time'</span>].data]</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>fig5, axes5 <span class="op">=</span> plt.subplots(<span class="dv">6</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>zeroline <span class="op">=</span> np.zeros(<span class="bu">len</span>(timestamps_np)) <span class="co"># For use with matplotlib's fill_between()</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>), axes5):</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    scores_i <span class="op">=</span> scores_scaled.sel(mode<span class="op">=</span>i).values</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    pos_score <span class="op">=</span> scores_i <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(timestamps_np, scores_i, zeroline, where<span class="op">=</span>pos_score, facecolor<span class="op">=</span><span class="st">'lightcoral'</span>, interpolate<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(timestamps_np, scores_i, zeroline, where<span class="op">=~</span>pos_score, facecolor<span class="op">=</span><span class="st">'royalblue'</span>, interpolate<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    ax.plot(timestamps_np, scores_i, color<span class="op">=</span><span class="st">'lightgrey'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    ax.grid(axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"year"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"M"</span><span class="op">+</span><span class="bu">str</span>(i)<span class="op">+</span><span class="st">": "</span><span class="op">+</span><span class="bu">str</span>(<span class="bu">round</span>(expvar.values[i<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">1</span>))<span class="op">+</span><span class="st">"%"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
