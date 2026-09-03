@@ -103,4 +103,4 @@ Jacob Spier ([@Originaljsx](https://github.com/Originaljsx))
 
 PO.DAAC Summer Intern 2026, NYU Courant Institute School of Mathematics, Computing, and Data Science
 
-Original repository: [https://github.com/Originaljsx/SWOT-Data-in-Action-Figures](https://github.com/Originaljsx/SWOT-Data-in-Action-Figures/tree/6549415cb0a15f3b40a0a3cd50f84e12ad18fb13); Last Accessed 09/23/2026
+Original repository: [https://github.com/Originaljsx/SWOT-Data-in-Action-Figures](https://github.com/Originaljsx/SWOT-Data-in-Action-Figures/tree/6549415cb0a15f3b40a0a3cd50f84e12ad18fb13); Last Accessed 09/03/2026
