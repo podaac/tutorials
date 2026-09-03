@@ -2,13 +2,15 @@
 
 Author: Jacob Spier ([@Originaljsx](https://github.com/Originaljsx)) - JPL Summer Intern 2026, NYU Courant Institute School of Mathematics, Computing, and Data Science
 
-Original repository: [https://github.com/Originaljsx/SWOT-Data-in-Action-Figures](https://github.com/Originaljsx/SWOT-Data-in-Action-Figures); Last Accessed 09/03/2026
+Original repository: [https://github.com/Originaljsx/SWOT-Data-in-Action-Figures](https://github.com/Originaljsx/SWOT-Data-in-Action-Figures)
 
 Repository in PO.DAAC Github: https://github.com/podaac/tutorials/tree/master/notebooks/DataStories/Sea_Surface_to_Sea_Life 
 
+3 Sept 2026
+
 ---
 
-The following guide details reproducible figure code for two figures from the [From Sea Surface to Sea Life: SWOT, PACE, and NISAR Watch Gulf Stream Frontal Eddies Together](https://www.earthdata.nasa.gov/learn/data-in-action/from-sea-surface-sea-life-swot-pace-nisar-watch-gulf-stream-frontal-eddie) Data in Action, covering a coincident SWOT / NISAR / VIIRS / PACE overpass off the U.S. Southeast coast on 2025-12-28 (SWOT cycle_pass 043_410, NISAR GCOV 008_170).
+The following guide details reproducible figure code for two figures from the [From Sea Surface to Sea Life: SWOT, PACE, and NISAR Watch Gulf Stream Frontal Eddies Together](https://www.earthdata.nasa.gov/learn/data-in-action/from-sea-surface-sea-life-swot-pace-nisar-watch-gulf-stream-frontal-eddie) Data in Action, covering a coincident SWOT / NISAR / VIIRS / PACE overpass off the U.S. Southeast coast on 2025-12-28 (SWOT cycle_pass 043_410, NISAR GCOV 008_170). Please review the Data in Action for a discussion and interpretation of the figures, and for additional context. 
 
 
 ## Figure 1 — SWOT x NISAR x MUR x PACE mosaic (2x2)
@@ -60,7 +62,7 @@ pip install -r requirements.txt
 ## Data
 
 The satellite data is **not** included — you download it yourself (free NASA
-Earthdata and AVISO accounts). See **[DATA.md](DATA.md)** for exactly what to
+Earthdata and AVISO accounts). See **[DATA.md](https://github.com/podaac/tutorials/blob/master/notebooks/DataStories/Sea_Surface_to_Sea_Life/DATA.md)** for exactly what to
 download and where to get it, then place the files in the shared data root
 (`~/Data/<source>/...`, outside the repo):
 
