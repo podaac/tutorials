@@ -1,0 +1,18 @@
+# Python dependencies for the SWOT Data in Action figure scripts.
+#
+# cartopy and rasterio depend on system libraries (GEOS, PROJ, GDAL) and are much
+# easier to install via conda. If pip install fails on those two, use the conda
+# route instead:  conda env create -f environment.yml
+#
+# The .ipynb / .py script pairs are kept in sync with jupytext (optional; only
+# needed if you want to regenerate one from the other).
+
+numpy
+xarray
+netCDF4        # NetCDF backend for xarray + OPeNDAP (ETOPO streaming)
+h5py           # NISAR .h5 GCOV reader
+scipy          # uniform_filter (NISAR smoothing)
+matplotlib
+cartopy        # map projections / coastlines  (needs GEOS + PROJ)
+rasterio       # NISAR GCOV warp/reproject      (needs GDAL)
+jupytext       # optional: .py <-> .ipynb pairing
