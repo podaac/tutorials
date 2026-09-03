@@ -1,6 +1,6 @@
-# SWOT Data in Action Figures
+# SWOT PACE NISAR Data in Action Figures
 
-The Dataa In Action article can be found at [https://www.earthdata.nasa.gov/learn/data-in-action/from-sea-surface-sea-life-swot-pace-nisar-watch-gulf-stream-frontal-eddies](https://www.earthdata.nasa.gov/learn/data-in-action/from-sea-surface-sea-life-swot-pace-nisar-watch-gulf-stream-frontal-eddies)
+The Data In Action article can be found at [https://www.earthdata.nasa.gov/learn/data-in-action/from-sea-surface-sea-life-swot-pace-nisar-watch-gulf-stream-frontal-eddies](https://www.earthdata.nasa.gov/learn/data-in-action/from-sea-surface-sea-life-swot-pace-nisar-watch-gulf-stream-frontal-eddies)
 
 Reproducible figure code for two SWOT "Data in Action" figures, covering a
 coincident SWOT / NISAR / VIIRS / PACE overpass off the U.S. Southeast coast on
