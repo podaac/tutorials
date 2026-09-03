@@ -1,0 +1,26 @@
+# Conda environment for the SWOT Data in Action figure scripts.
+#
+# The recommended install path: cartopy and rasterio pull in GEOS/PROJ/GDAL, which
+# conda-forge provides as prebuilt binaries (avoids the common pip build failures).
+#
+#   conda env create -f environment.yml
+#   conda activate swot-dia
+#
+# Then follow DATA.md to download the input data into ./data/.
+
+name: swot-dia
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.10
+  - numpy
+  - xarray
+  - netcdf4        # NetCDF backend + OPeNDAP (ETOPO streaming)
+  - h5py           # NISAR .h5 GCOV reader
+  - scipy
+  - matplotlib
+  - cartopy        # map projections / coastlines
+  - rasterio       # NISAR GCOV warp/reproject
+  - libgdal-netcdf # GDAL netCDF driver plugin — REQUIRED for rasterio to read
+                   # the NISAR GCOV bands (NETCDF: subdatasets in the .h5)
+  - jupytext       # optional: .py <-> .ipynb pairing
