@@ -1460,7 +1460,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>Authored by Nicholas Tarpinian, <em>PO.DAAC</em></p>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>The following instructions describe how to connect to <a href="https://gis.earthdata.nasa.gov/portal/home/index.html">Earthdata GIS (EGIS)</a> endpoints programattically. This guide shows how to connect to the recently released Surface Water and Ocean Topography (SWOT) Feature Service of the <a href="https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_RiverSP_D">SWOT_L2_HR_RiverSP_D</a> River Reach collection.</p>
+<p>The following instructions describe how to connect to <a href="https://gis.earthdata.nasa.gov/portal/home/index.html">Earthdata GIS (EGIS)</a> endpoints programattically. This guide shows how to connect to the recently released Surface Water and Ocean Topography (SWOT) Feature Service of the <a href="https://www.earthdata.nasa.gov/data/catalog/pocloud-swot-l2-hr-riversp-d-d">SWOT_L2_HR_RiverSP_D</a> River Reach collection.</p>
 <p>For more details on these services and the latest available services, please visit the <a href="https://podaac.github.io/tutorials/notebooks/GIS/SWOT_Rivers_EGIS_Services.html">EGIS SWOT Feature Service page</a>:</p>
 <p><a href="https://gis.earthdata.nasa.gov/portal/home/item.html?id=bcedc71373f04a75bbe3bbc465c07050">SWOT_L2_HR_RiverSP_reach_vD</a></p>
 <p><a href="https://gis.earthdata.nasa.gov/portal/home/item.html?id=9e2609d5ff384ec69796ec1433b30390">SWOT_L2_HR_RiverSP_reach_vD_BASIC</a></p>
@@ -1484,7 +1484,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The SWOT Rivers Feature Service endpoint can be queried through the ArcGIS REST endpoint. To reach the query URL of the service, first open the URL endpoint by selecting ‘View’ in the bottom right corner of the service landing page under <a href="https://gis.earthdata.nasa.gov/portal/home/item.html?id=7f510639ede7482d822b8b2b5b0e7423">‘URL’</a> and then select the feature service layer, as shown below:</p>
+<p>The SWOT Rivers Feature Service endpoint can be queried through the ArcGIS REST endpoint. To reach the query URL of the service, first open the URL endpoint by selecting ‘View’ in the bottom right corner of the service landing page under <a href="https://gis.earthdata.nasa.gov/portal/home/item.html?id=9e2609d5ff384ec69796ec1433b30390">‘URL’</a> and then select the feature service layer, as shown below:</p>
 <nop>
 <div style="width: 600px;">
 <img src="../../images/EGIS_SWOT_Images/EGIS_SWOT_Python_1.png" class="img-fluid">
@@ -1494,7 +1494,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <img src="../../images/EGIS_SWOT_Images/EGIS_SWOT_Python_2.png" class="img-fluid">
 </div>
 <p>Next all the way at the end of the webpage you will reach the <code>Supported Operations</code> section which is where you will select <code>Query</code>. That query URL will now be used to search through the feature service.</p>
-<p>https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query</p>
+<p>https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query</p>
 <nop>
 <div style="width: 700px;">
 <img src="../../images/EGIS_SWOT_Images/EGIS_SWOT_Python_3.png" class="img-fluid">
@@ -1502,9 +1502,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>We will utilize the Python package <a href="https://leafmap.org/">leafmap</a> to plot data pulled through the service onto an interactive map.</p>
 <p>You can use <a href="http://bboxfinder.com/">bbox finder</a> to search for an area of interest, which helps in getting a quicker response time.</p>
 <p>Here we will be searching for Lake Powell, USA.</p>
-<div id="9e4ee1dc" class="cell" data-execution_count="13">
+<div id="9e4ee1dc" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> <span class="st">"-112.188137,36.323246,-109.644802,37.995725"</span>  <span class="co"># xmin,ymin,xmax,ymax</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"1=1"</span>,</span>
@@ -1538,8 +1538,8 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","id":370332,
 </div>
 </div>
 <p>We can also search by a specific river name, for example the Colorado River. (River names are found in the attribute table, or also in the SWORD database https://www.swordexplorer.com/)</p>
-<div id="1c822cc3" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
+<div id="1c822cc3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"river_name='Colorado River'"</span>,  <span class="co"># Change to your river reach of interest</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"*"</span>,</span>
@@ -1567,10 +1567,10 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","id":13817,"
 </div>
 </div>
 <p>Next example shows how to plot a specific river reach based on its <code>reach_id</code> and create a time series chart.</p>
-<div id="8e9e5910" class="cell" data-execution_count="17">
+<div id="8e9e5910" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>reach_id_value <span class="op">=</span> <span class="dv">77250000051</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"reach_id='77250000051'"</span>, <span class="co"># Change to your reach_id of interest</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"time_str,wse"</span>,</span>
@@ -1620,8 +1620,8 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{
 </div>
 </div>
 <p>You also have the option to search through time.</p>
-<div id="0011ea5d" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
+<div id="0011ea5d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"time_str &gt;= '2025-05-07T00:00:00Z' AND time_str &lt;= '2025-05-07T23:59:59Z'"</span>,</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"*"</span>,</span>
@@ -1652,10 +1652,10 @@ First 500 chars of response: {"type":"FeatureCollection","features":[{"type":"Fe
 <section id="bonus" class="level3">
 <h3 class="anchored" data-anchor-id="bonus">Bonus</h3>
 <p>If you would like to create a longer time series chart of a river reach, use SWOT Version C (2.0) collection, which is also available as a feature service.</p>
-<div id="1c544ecf" class="cell" data-execution_count="22">
+<div id="1c544ecf" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>reach_id_value <span class="op">=</span> <span class="dv">77250000211</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/image/rest/services/C2799438299_POCLOUD/SWOT_L2_HR_RiverSP_reach_vC_BASIC/FeatureServer/1/query"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C2799438299_POCLOUD/SWOT_L2_HR_RiverSP_reach_vC_BASIC/FeatureServer/1/query"</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"reach_id='77250000211'"</span>,</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"time_str,wse"</span>,</span>
