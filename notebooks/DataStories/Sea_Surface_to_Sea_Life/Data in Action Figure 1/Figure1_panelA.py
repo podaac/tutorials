@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Figure 1 panel (a): SWOT geostrophic speed over MUR L4 SST
 #
 # MUR L4 SST background, SWOT geostrophic speed swath on top, box marking the
@@ -7,7 +6,6 @@
 #
 # Run top-to-bottom, or `python Figure1_panelA.py`.
 
-# %%
 import os
 import sys
 
@@ -22,10 +20,8 @@ import figure1_common as c
 
 KEY = "panelA"
 
-# %% [markdown]
 # ## Load
 
-# %%
 c.set_piece_dir(os.path.join(HERE, "pieces"))
 
 nisar = c.load_nisar(c.NISAR_FILE)                 # footprint box only (VH)
@@ -40,10 +36,8 @@ etopo = c.load_etopo()                             # globe-inset bathymetry (or 
 
 print(f"SST_CLIM = {c.set_sst_clim(mur, wide_extent)} degC")
 
-# %% [markdown]
 # ## Draw
 
-# %%
 def draw_panel_a(ax, pc):
     """MUR SST bg + SWOT geostrophic speed swath + NISAR footprint box."""
     pm = ax.pcolormesh(mur["lon"], mur["lat"], mur["sst"], cmap=c.SST_CMAP,
@@ -55,10 +49,8 @@ def draw_panel_a(ax, pc):
     c.coast(ax, "k")
     return pm
 
-# %% [markdown]
 # ## Pieces
 
-# %%
 print("Pieces:")
 c.save_panel_pieces(
     KEY, wide_extent, draw_panel_a,

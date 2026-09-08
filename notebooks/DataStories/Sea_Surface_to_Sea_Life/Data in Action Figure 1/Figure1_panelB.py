@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Figure 1 panel (b): SWOT ADT + geostrophic velocity over MIOST v3 ADT
 #
 # MIOST v3 ADT background, SWOT ADT swath, the 4 black swath-edge bars, the SWOT
@@ -7,7 +6,6 @@
 #
 # Run top-to-bottom, or `python Figure1_panelB.py`.
 
-# %%
 import os
 import sys
 
@@ -22,10 +20,8 @@ import figure1_common as c
 
 KEY = "panelB"
 
-# %% [markdown]
 # ## Load
 
-# %%
 c.set_piece_dir(os.path.join(HERE, "pieces"))
 
 nisar = c.load_nisar(c.NISAR_FILE)                 # footprint outline + box (VH)
@@ -39,10 +35,8 @@ miost_adt = c.load_grid_field(c.MIOST_FILE, c.GRID_ADT_VAR,
 
 print(f"ADT_CLIM = {c.set_adt_clim(swot, miost_adt)} cm")
 
-# %% [markdown]
 # ## Draw
 
-# %%
 def draw_panel_b(ax, pc):
     """MIOST v3 ADT bg + SWOT ADT swath + black swath bars + geostrophic quiver."""
     ax.pcolormesh(miost_adt["lon"], miost_adt["lat"], miost_adt["val"],
@@ -54,10 +48,8 @@ def draw_panel_b(ax, pc):
     c.draw_nisar_footprint(ax, nisar, pc)
     c.coast(ax, "k")
 
-# %% [markdown]
 # ## Pieces
 
-# %%
 print("Pieces:")
 c.save_panel_pieces(
     KEY, box_extent, draw_panel_b,

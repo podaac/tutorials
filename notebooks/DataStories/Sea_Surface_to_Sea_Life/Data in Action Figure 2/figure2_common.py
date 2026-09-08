@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Figure 2 common: shared config, loaders, draw primitives, modular piece renderer
 #
 # Shared by the composite script and the panel scripts, so each can be run on its
@@ -12,7 +11,6 @@
 #
 # Nothing here draws on import; the panel scripts load only the data they need.
 
-# %%
 import os
 import re
 import glob
@@ -28,10 +26,8 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 
-# %% [markdown]
 # ## Config
 
-# %%
 # Input data is resolved by glob pattern at load time (see data_path below).
 # Raw inputs live under the shared data root, organised as
 # DATA_ROOT/<SOURCE>/<LEVEL>/... so each product is downloaded only once and
@@ -164,10 +160,8 @@ def set_piece_dir(path):
     os.makedirs(PIECE_DIR, exist_ok=True)
     return PIECE_DIR
 
-# %% [markdown]
 # ## Loaders
 
-# %%
 def parse_swot_id(path):
     m = re.search(r"_(\d{3}_\d{3})_\d{8}T", path)
     return m.group(1) if m else "pass"
@@ -315,10 +309,8 @@ def set_sst_clim(viirs, pct=(2, 98)):
     SST_CLIM = (float(np.floor(s[0])), float(np.ceil(s[1])))
     return SST_CLIM
 
-# %% [markdown]
 # ## Draw primitives
 
-# %%
 def draw_swot_adt(ax, swot, pc, **kw):
     return ax.pcolormesh(swot["lon"], swot["lat"], np.ma.masked_invalid(swot["adt"]),
                          cmap=ADT_CMAP, vmin=ADT_CLIM[0], vmax=ADT_CLIM[1],
@@ -362,10 +354,8 @@ def coast(ax, color="k"):
     except Exception as exc:
         warnings.warn(f"coastlines unavailable: {exc}")
 
-# %% [markdown]
 # ## Colorbar specs (shared by the composites and the piece exports)
 
-# %%
 def adt_cbar():
     return dict(cmap=ADT_CMAP, clim=ADT_CLIM,
                 label="Absolute dynamic topography (cm)",
@@ -389,7 +379,6 @@ def chl_cbar():
                 ticks=[float(np.log10(c)) for c in _CHL_CONC],
                 ticklabels=[f"{c:g}" for c in _CHL_CONC])
 
-# %% [markdown]
 # ## Modular piece renderer
 #
 # Each panel -> a bare map (data fills the canvas edge-to-edge), a lat ruler, a
@@ -397,7 +386,6 @@ def chl_cbar():
 # the lon/lat spans, so in PlateCarree pixel<->degree is linear across the whole
 # canvas; the rulers share that width/height and therefore pixel-align to the map.
 
-# %%
 def fmt_lon(x):
     x = ((x + 180) % 360) - 180
     h = "W" if x < 0 else ("E" if x > 0 else "")
