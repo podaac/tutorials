@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Figure 2 panel (c): VIIRS chlorophyll a
 #
 # VIIRS L2 chlor_a on a log10 color scale with the custom white->green->blue map,
@@ -7,7 +6,6 @@
 #
 # Run top-to-bottom, or `python Figure2_panelC.py`.
 
-# %%
 import os
 import sys
 
@@ -22,20 +20,16 @@ if HERE not in sys.path:
 
 import figure2_common as c
 
-# %% [markdown]
 # ## Load
 
-# %%
 c.set_piece_dir(os.path.join(HERE, "pieces"))
 
 nisar = c.load_nisar_footprint()
 swot = c.load_swot()                               # swath-edge bars only
 chlor = c.load_viirs_chlor()
 
-# %% [markdown]
 # ## Draw
 
-# %%
 def draw_panel_c(ax, pc):
     """VIIRS log10(chlor_a) (clouds/masked -> white) + SWOT swath bars."""
     chl_cmap = c.CHLOR_CMAP.copy()
@@ -59,10 +53,8 @@ panelC = dict(key="panelC_chl", letter="c", extent=c.ZOOM_EXTENT, draw=draw_pane
               subtitle=f"VIIRS {chlor['time'][:16].replace('T', ' ')} UTC",
               colorbars=[c.chl_cbar()])
 
-# %% [markdown]
 # ## Pieces
 
-# %%
 print("Pieces:")
 c.save_panel_pieces(panelC)
 print("Done.")

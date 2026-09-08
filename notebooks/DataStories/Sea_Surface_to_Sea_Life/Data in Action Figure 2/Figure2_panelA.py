@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Figure 2 panel (a): SWOT L2 absolute dynamic topography
 #
 # Rendered in both variants: panelA_miost (MIOST v3 ADT in the background) and
@@ -9,7 +8,6 @@
 #
 # Run top-to-bottom, or `python Figure2_panelA.py`.
 
-# %%
 import os
 import sys
 
@@ -22,10 +20,8 @@ if HERE not in sys.path:
 
 import figure2_common as c
 
-# %% [markdown]
 # ## Load
 
-# %%
 c.set_piece_dir(os.path.join(HERE, "pieces"))
 
 nisar = c.load_nisar_footprint()
@@ -33,10 +29,8 @@ swot = c.load_swot()
 miost_adt = c.load_grid_field()
 print(f"ADT_CLIM = {c.ADT_CLIM} cm")
 
-# %% [markdown]
 # ## Draw
 
-# %%
 def draw_panel_a(ax, pc, with_miost=True):
     """SWOT ADT swath over optional MIOST ADT bg + swath bars + NISAR footprint."""
     if with_miost:
@@ -70,10 +64,8 @@ panelA_nomiost = dict(key="panelA_nomiost", letter="a", extent=c.ZOOM_EXTENT,
                       subtitle=f"SWOT {swot['time'].replace('T', ' ')} UTC",
                       colorbars=[c.adt_cbar()])
 
-# %% [markdown]
 # ## Pieces
 
-# %%
 print("Pieces:")
 for panel in (panelA_miost, panelA_nomiost):
     c.save_panel_pieces(panel)

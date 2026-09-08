@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Figure 2 panel (b): VIIRS sea surface temperature
 #
 # VIIRS L2 SST masked to the chlorophyll panel's valid pixels (keep SST where
@@ -8,7 +7,6 @@
 #
 # Run top-to-bottom, or `python Figure2_panelB.py`.
 
-# %%
 import os
 import sys
 
@@ -24,10 +22,8 @@ if HERE not in sys.path:
 
 import figure2_common as c
 
-# %% [markdown]
 # ## Load
 
-# %%
 c.set_piece_dir(os.path.join(HERE, "pieces"))
 
 nisar = c.load_nisar_footprint()
@@ -35,10 +31,8 @@ swot = c.load_swot()                               # swath-edge bars only
 viirs = c.load_viirs_swath()
 print(f"SST_CLIM = {c.set_sst_clim(viirs)} degC")
 
-# %% [markdown]
 # ## Draw
 
-# %%
 def draw_panel_b(ax, pc):
     """VIIRS SST (clouds/masked -> white) + SWOT swath bars."""
     sst_cmap = plt.get_cmap(c.SST_CMAP).copy()
@@ -60,10 +54,8 @@ panelB = dict(key="panelB_sst", letter="b", extent=c.ZOOM_EXTENT, draw=draw_pane
               subtitle=f"VIIRS {viirs['time'][:16].replace('T', ' ')} UTC",
               colorbars=[c.sst_cbar()])
 
-# %% [markdown]
 # ## Pieces
 
-# %%
 print("Pieces:")
 c.save_panel_pieces(panelB)
 print("Done.")

@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Figure 1 common: shared config, loaders, draw primitives, modular piece renderer
 #
 # Shared by the composite script and the four panel scripts, so each can be run on
@@ -12,7 +11,6 @@
 #
 # Nothing here draws on import; the panel scripts load only the data they need.
 
-# %%
 import os
 import re
 import glob
@@ -34,10 +32,8 @@ from rasterio.warp import calculate_default_transform, reproject, Resampling
 from rasterio.transform import array_bounds
 from scipy.ndimage import uniform_filter
 
-# %% [markdown]
 # ## Config
 
-# %%
 # Raw input data lives under the shared data root, organised as
 # DATA_ROOT/<SOURCE>/<LEVEL>/... so each product is downloaded only once and
 # reused across projects. Defaults to ~/Data. Override with the DATA_ROOT env
@@ -174,10 +170,8 @@ def set_piece_dir(path):
     os.makedirs(PIECE_DIR, exist_ok=True)
     return PIECE_DIR
 
-# %% [markdown]
 # ## Loaders
 
-# %%
 def parse_swot_id(path):
     m = re.search(r"_(\d{3}_\d{3})_\d{8}T", path)
     return m.group(1) if m else "pass"
@@ -408,10 +402,8 @@ def load_etopo(url=ETOPO_URL, stride=ETOPO_STRIDE, timeout=ETOPO_TIMEOUT):
         return None
     return result.get("out")
 
-# %% [markdown]
 # ## Color limits (set once from the loaded data, read by the draw functions)
 
-# %%
 def set_adt_clim(swot, grid=None, pct=(2, 98)):
     """ADT color limits shared by the SWOT swath and the MIOST grid (cm)."""
     global ADT_CLIM
@@ -439,10 +431,8 @@ def set_nisar_clim(nisar):
     NISAR_CLIM = (float(nisar["clip"][0]), float(nisar["clip"][1]))
     return NISAR_CLIM
 
-# %% [markdown]
 # ## Draw primitives
 
-# %%
 def draw_swot_adt(ax, swot, pc, **kw):
     return ax.pcolormesh(swot["lon"], swot["lat"], swot["adt"], cmap=ADT_CMAP,
                          vmin=ADT_CLIM[0], vmax=ADT_CLIM[1], shading="auto",
@@ -529,7 +519,6 @@ def draw_globe_inset(fig, rect, wide_extent, etopo=None):
                   (wide_extent[2], wide_extent[3]), ccrs.PlateCarree(), lw=1.5)
     return axg
 
-# %% [markdown]
 # ## Modular piece renderer
 #
 # Each panel -> a bare map (data fills the canvas edge-to-edge), a lat ruler, a
@@ -537,7 +526,6 @@ def draw_globe_inset(fig, rect, wide_extent, etopo=None):
 # the lon/lat spans, so in PlateCarree pixel<->degree is linear across the whole
 # canvas; the rulers share that width/height and therefore pixel-align to the map.
 
-# %%
 def fmt_lon(x):
     x = ((x + 180) % 360) - 180
     h = "W" if x < 0 else ("E" if x > 0 else "")

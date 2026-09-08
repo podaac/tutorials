@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Data in Action Figure 2 -- SWOT L2 ADT x VIIRS SST & chlorophyll triptych (1x3)
 #
 # All three panels share the inner-shelf zoom 80.25 W .. 79 W, 30.25 N .. 32 N.
@@ -16,7 +15,6 @@
 #
 # Run top-to-bottom, or `python Figure2.py`.
 
-# %%
 import os
 import sys
 
@@ -36,10 +34,8 @@ if HERE not in sys.path:
 
 import figure2_common as c
 
-# %% [markdown]
 # ## Load
 
-# %%
 c.set_piece_dir(os.path.join(HERE, "pieces"))
 
 nisar = c.load_nisar_footprint()
@@ -51,10 +47,8 @@ chlor = c.load_viirs_chlor()
 c.set_sst_clim(viirs)
 print(f"ADT_CLIM = {c.ADT_CLIM} cm   SST_CLIM = {c.SST_CLIM} degC")
 
-# %% [markdown]
 # ## Per-panel draw functions (data + coast + overlays only; no ticks/title/bar)
 
-# %%
 def draw_panel_a(ax, pc, with_miost=True):
     """SWOT ADT swath over optional MIOST ADT bg + swath bars + NISAR footprint."""
     if with_miost:
@@ -108,13 +102,11 @@ def draw_panel_c(ax, pc):
     c.coast(ax, "k")
     return pm
 
-# %% [markdown]
 # ## Panel registry
 #
 # Panel (a) has two variants (MIOST background / none); both share the (a) letter
 # and colorbar but render into distinct piece keys + composites.
 
-# %%
 panelA_miost = dict(key="panelA_miost", letter="a", extent=c.ZOOM_EXTENT,
                     draw=draw_panel_a_miost,
                     title="SWOT L2 absolute dynamic topography over MIOST",
@@ -138,10 +130,8 @@ panelC = dict(key="panelC_chl", letter="c", extent=c.ZOOM_EXTENT, draw=draw_pane
 
 all_panels = [panelA_miost, panelA_nomiost, panelB, panelC]
 
-# %% [markdown]
 # ## Composites (layout references, one per version of panel a)
 
-# %%
 def style_axis(ax, label):
     gl = ax.gridlines(draw_labels=True, linewidth=0.3, color="gray",
                       alpha=0.5, linestyle=":")
@@ -188,10 +178,8 @@ make_composite([panelA_miost, panelB, panelC],
 make_composite([panelA_nomiost, panelB, panelC],
                os.path.join(HERE, "Figure2_composite_nomiost.png"), suptitle)
 
-# %% [markdown]
 # ## Modular pieces
 
-# %%
 print("Pieces:")
 for p in all_panels:
     c.save_panel_pieces(p)

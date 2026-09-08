@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Figure 1 panel (c): NISAR L2 GCOV VH gamma-naught backscatter
 #
 # The cross-pol VH band is warped to EPSG:4326, converted linear power -> dB,
@@ -9,7 +8,6 @@
 #
 # Run top-to-bottom, or `python Figure1_panelC.py`.
 
-# %%
 import os
 import sys
 
@@ -24,10 +22,8 @@ import figure1_common as c
 
 KEY = "panelC"
 
-# %% [markdown]
 # ## Load
 
-# %%
 c.set_piece_dir(os.path.join(HERE, "pieces"))
 
 nisar = c.load_nisar(c.NISAR_FILE, c.NISAR_POL)    # VHVH
@@ -37,10 +33,8 @@ print(f"NISAR_CLIM = {c.set_nisar_clim(nisar)} dB ({c.NISAR_POL})")
 swot = c.load_swot(c.SWOT_EXPERT_FILE,
                    (box_extent[2], box_extent[3]), (box_extent[0], box_extent[1]))
 
-# %% [markdown]
 # ## Draw
 
-# %%
 def draw_panel_c(ax, pc):
     """NISAR GCOV VH grayscale + SWOT swath edges + footprint."""
     c.draw_nisar(ax, nisar, pc)
@@ -48,10 +42,8 @@ def draw_panel_c(ax, pc):
     c.draw_nisar_footprint(ax, nisar, pc, color="0.4", lw=1.0)
     c.coast(ax, "k")
 
-# %% [markdown]
 # ## Pieces
 
-# %%
 print("Pieces:")
 c.save_panel_pieces(
     KEY, box_extent, draw_panel_c,

@@ -1,4 +1,3 @@
-# %% [markdown]
 # # Data in Action Figure 1 -- SWOT x NISAR x MUR x PACE mosaic (2x2)
 #
 # * **(a)** MUR L4 SST + SWOT geostrophic speed swath + NISAR footprint box
@@ -11,7 +10,6 @@
 #
 # Run top-to-bottom, or `python Figure1.py`.
 
-# %%
 import os
 import sys
 
@@ -30,10 +28,8 @@ if HERE not in sys.path:
 
 import figure1_common as c
 
-# %% [markdown]
 # ## Load
 
-# %%
 c.set_piece_dir(os.path.join(HERE, "pieces"))
 
 etopo = c.load_etopo()                             # globe-inset bathymetry (or None)
@@ -60,10 +56,8 @@ c.set_sst_clim(mur, wide_extent)
 print(f"ADT_CLIM = {c.ADT_CLIM} cm   SST_CLIM = {c.SST_CLIM} degC   "
       f"NISAR_CLIM = {c.NISAR_CLIM} dB")
 
-# %% [markdown]
 # ## Per-panel draw functions (data + coast + overlays only; no ticks/title/bar)
 
-# %%
 def draw_panel_a(ax, pc):
     """MUR SST bg + SWOT geostrophic speed swath + NISAR footprint box."""
     pm = ax.pcolormesh(mur["lon"], mur["lat"], mur["sst"], cmap=c.SST_CMAP,
@@ -103,10 +97,9 @@ def draw_panel_d(ax, pc):
     c.draw_nisar_footprint(ax, nisar, pc, color="w", lw=1.0)
     c.coast(ax, "w")
 
-# %% [markdown]
+
 # ## Panel registry (drives both the composite and the modular pieces)
 
-# %%
 panels = [
     dict(key="panelA", letter="a", extent=wide_extent, draw=draw_panel_a,
          title="SWOT geostrophic speed over MUR SST",
@@ -135,10 +128,8 @@ panels = [
          colorbars=[]),
 ]
 
-# %% [markdown]
 # ## Composite (layout reference)
 
-# %%
 def style_axis(ax, label):
     gl = ax.gridlines(draw_labels=True, linewidth=0.3, color="gray",
                       alpha=0.5, linestyle=":")
@@ -184,10 +175,8 @@ def make_composite(panels):
 
 make_composite(panels)
 
-# %% [markdown]
 # ## Modular pieces
 
-# %%
 print("Pieces:")
 for p in panels:
     c.save_panel_pieces(p["key"], p["extent"], p["draw"], p["title"], p["subtitle"],
