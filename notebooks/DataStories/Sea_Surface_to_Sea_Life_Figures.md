@@ -10,7 +10,7 @@ Repository in PO.DAAC Github: https://github.com/podaac/tutorials/tree/master/no
 
 ---
 
-The following guide details reproducible figure code for two figures from the [From Sea Surface to Sea Life: SWOT, PACE, and NISAR Watch Gulf Stream Frontal Eddies Together](https://www.earthdata.nasa.gov/learn/data-in-action/from-sea-surface-sea-life-swot-pace-nisar-watch-gulf-stream-frontal-eddie) Data in Action, covering a coincident SWOT / NISAR / VIIRS / PACE overpass off the U.S. Southeast coast on 2025-12-28 (SWOT cycle_pass 043_410, NISAR GCOV 008_170). Please review the Data in Action for a discussion and interpretation of the figures, and for additional context. 
+The following guide details reproducible figure code for two figures from the [From Sea Surface to Sea Life: SWOT, PACE, and NISAR Watch Gulf Stream Frontal Eddies Together](https://www.earthdata.nasa.gov/learn/data-in-action/from-sea-surface-sea-life-swot-pace-nisar-watch-gulf-stream-frontal-eddies) Data in Action, covering a coincident SWOT / NISAR / VIIRS / PACE overpass off the U.S. Southeast coast on 2025-12-28 (SWOT cycle_pass 043_410, NISAR GCOV 008_170). Please review the Data in Action for a discussion and interpretation of the figures, and for additional context. 
 
 
 ## Figure 1 — SWOT x NISAR x MUR x PACE mosaic (2x2)
