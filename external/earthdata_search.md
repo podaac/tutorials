@@ -26,6 +26,40 @@ We can click on the (i) icon for the dataset to read more details, including the
 
 ![*Figure caption: Refine search, set temporal bounds, get more information*](../images/refine_ecco.png)
 
+#### 2.a. User Example 1: Searching for a specific *type* of data product
+
+**Example:** Searching for level 4 ocean current data archived at PO.DAAC
+
+When searching for ocean current data, using a single keyword search for `ocean currents` returns a broad mix of collections — model output, altimetry-derived products, in-situ drifter data, and more. The **Filters** panel on the left lets us combine several search filters to narrow this down:
+
+1. **Keyword search**: start broad with `ocean current` in the search bar
+2. **Keywords** (Science Keywords) filter: *Oceans > Ocean Circulation* > Ocean Currents*
+3. **Organizations** filter: select `PO.DAAC` to restrict to data archived at this DAAC
+4. **Processing Levels** filter: check `4 - Gridded Model Output` for an analysis-ready gridded product rather than raw along-track satellite passes
+
+![*Figure caption: Combining keyword, Science Keywords, Organization, and Processing Level filters to find ocean current data*](https://podaac.github.io/tutorials/images/EarthDataSearch/ed_search_2a_1.png) (https://podaac.github.io/tutorials/images/EarthDataSearch/ed_search_2a_2.png)
+
+Combining multiple search filters narrows down ~500 collections to a short, specific list of ~30.
+
+#### 2.b. User Example 2: Searching for data within a spatial area of interest
+
+**Example:** Searching for highest available resolution level 4 data within known spatial bounds
+
+1. Use the **Spatial** search tool above the map (the icons at the top of the search panel) to define the area. You can:
+   - Draw a **rectangle**, **polygon**, or **circle** directly on the map,
+   - Enter a single **point** (lat/lon) with a search radius,
+   - Or upload a **Shapefile, KML, GeoJSON, or GeoRSS** file
+
+Earthdata Search immediately filters the collection list to only those with data intersecting the drawn area, updating live as you adjust the shape
+
+2. **Keywords** (Science Keywords) filter: *Oceans > Ocean Circulation* > Ocean Currents*
+3. **Processing Levels** filter: check `4 - Gridded Model Output` for an analysis-ready gridded product rather than raw along-track satellite passes
+4. **Horizontal Data Resolution** filter: check `4 - 10 to 50km` to view the collections with the highest resolution for this area
+
+Combining multiple search filters narrows down ~11,000 collections to a short, specific list of 4.
+
+![*Figure caption: Drawing a spatial polygon to restrict search results to a specific region and combining Science Keywords, Processing Level, and Horizontal Data Resolution filters to find ocean current data*](https://podaac.github.io/tutorials/images/EarthDataSearch/ed_search_2b_1.png) (https://podaac.github.io/tutorials/images/EarthDataSearch/ed_search_2b_2.png)
+
 ### Step 3. Explore the dataset details, including Cloud Access information
 
 Once we clicked the (i), scrolling down the info page for the dataset we will see Cloud Access information, such as:
