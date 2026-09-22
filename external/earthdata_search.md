@@ -58,7 +58,7 @@ Earthdata Search immediately filters the collection list to only those with data
 
 Combining multiple search filters narrows down ~11,000 collections to a short, specific list of 4.
 
-![*Figure caption: Drawing a spatial polygon to restrict search results to a specific region and combining Science Keywords, Processing Level, and Horizontal Data Resolution filters to find ocean current data*](https://podaac.github.io/tutorials/images/EarthDataSearch/ed_search_2b_1.png) (https://podaac.github.io/tutorials/images/EarthDataSearch/ed_search_2b_2.png)
+![*Figure caption: Drawing a spatial polygon to restrict search results to a specific region and combining Science Keywords, Processing Level, and Horizontal Data Resolution filters to find ocean current data*](../images/EarthDataSearch/ed_search_2b_1.png) (../images/EarthDataSearch/ed_search_2b_2.png)
 
 ### Step 3. Explore the dataset details, including Cloud Access information
 
