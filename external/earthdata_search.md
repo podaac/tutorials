@@ -37,7 +37,7 @@ When searching for ocean current data, using a single keyword search for `ocean 
 3. **Organizations** filter: select `PO.DAAC` to restrict to data archived at this DAAC
 4. **Processing Levels filter: check 4 - Gridded Model Output to browse the gridded products rather than data on un-gridded satellite passes
 
-![*Figure caption: Combining keyword, Science Keywords, Organization, and Processing Level filters to find ocean current data*](https://podaac.github.io/tutorials/images/EarthDataSearch/ed_search_2a_1.png) (https://podaac.github.io/tutorials/images/EarthDataSearch/ed_search_2a_2.png)
+![*Figure caption: Combining keyword, Science Keywords, Organization, and Processing Level filters to find ocean current data*](../images/EarthDataSearch/ed_search_2a_1.png) (../images/EarthDataSearch/ed_search_2a_2.png)
 
 Combining multiple search filters narrows down ~500 collections to a short, specific list of ~30.
 
