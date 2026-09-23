@@ -33,11 +33,13 @@ Searching for level 4 ocean current data archived at PO.DAAC
 When searching for ocean current data, using a single keyword search for `ocean currents` returns a broad mix of collections — model output, altimetry-derived products, in-situ drifter data, and more. The **Filters** panel on the left lets us combine several search filters to narrow this down:
 
 1. **Keyword search**: start broad with `ocean current` in the search bar
-2. **Keywords** (Science Keywords) filter: *Oceans > Ocean Circulation* > Ocean Currents*
+2. **Keywords** (Science Keywords) filter: *Oceans > Ocean Circulation > Ocean Currents*
 3. **Organizations** filter: select `PO.DAAC` to restrict to data archived at this DAAC
-4. **Processing Levels filter: check `4 - Gridded Model Output` to browse the gridded products rather than data on un-gridded satellite passes
+4. **Processing Levels** filter: check `4 - Gridded Model Output` to browse the gridded products rather than data on un-gridded satellite passes
 
-![*Figure caption: Combining keyword, Science Keywords, Organization, and Processing Level filters to find ocean current data*](../images/EarthDataSearch/ed_search_2a_1.png) ![](../images/EarthDataSearch/ed_search_2a_2.png)
+![](../images/EarthDataSearch/ed_search_2a_1.png) 
+![](../images/EarthDataSearch/ed_search_2a_2.png)
+*Figure caption: Combining keyword, Science Keywords, Organization, and Processing Level filters to find ocean current data*
 
 Combining multiple search filters narrows down ~500 collections to a short, specific list of ~30.
 
@@ -52,13 +54,16 @@ Searching for highest available resolution level 4 data within known spatial bou
 
 Earthdata Search immediately filters the collection list to only those with data intersecting the drawn area, updating live as you adjust the shape
 
-2. **Keywords** (Science Keywords) filter: *Oceans > Ocean Circulation* > Ocean Currents*
+2. **Keywords** (Science Keywords) filter: *Oceans > Ocean Circulation > Ocean Currents*
 3. **Processing Levels** filter: check `4 - Gridded Model Output` for an analysis-ready gridded product rather than raw along-track satellite passes
 4. **Horizontal Data Resolution** filter: check `4 - 10 to 50km` to browse the gridded products rather than data on un-gridded satellite passes
 
 Combining multiple search filters narrows down ~11,000 collections to a short, specific list of 4.
 
-![*Figure caption: Drawing a spatial polygon to restrict search results to a specific region and combining Science Keywords, Processing Level, and Horizontal Data Resolution filters to find ocean current data*](../images/EarthDataSearch/ed_search_2b_1.png) ![](../images/EarthDataSearch/ed_search_2b_2.png)
+![](../images/EarthDataSearch/ed_search_2b_1.png)
+![](../images/EarthDataSearch/ed_search_2b_2.png)
+*Figure caption: Drawing a spatial polygon to restrict search results to a specific region and combining Science Keywords, Processing Level, and Horizontal Data Resolution filters to find ocean current data*
+
 
 ### Step 3. Explore the dataset details, including Cloud Access information
 
