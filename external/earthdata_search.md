@@ -37,7 +37,8 @@ When searching for ocean current data, using a single keyword search for `ocean 
 3. **Organizations** filter: select `PO.DAAC` to restrict to data archived at this DAAC
 4. **Processing Levels** filter: check `4 - Gridded Model Output` to browse the gridded products rather than data on un-gridded satellite passes
 
-![](../images/EarthDataSearch/ed_search_2a_1.png) 
+![](../images/EarthDataSearch/ed_search_2a_1.png)
+
 ![](../images/EarthDataSearch/ed_search_2a_2.png)
 *Figure caption: Combining keyword, Science Keywords, Organization, and Processing Level filters to find ocean current data*
 
@@ -48,8 +49,8 @@ Combining multiple search filters narrows down ~500 collections to a short, spec
 Searching for highest available resolution level 4 data within known spatial bounds
 
 1. Use the **Spatial** search tool above the map (the icons at the top of the search panel) to define the area. You can:
-   - Draw a **rectangle**, **polygon**, or **circle** directly on the map,
-   - Enter a single **point** (lat/lon) with a search radius,
+   - Draw a **rectangle**, **polygon**, or **circle** directly on the map
+   - Enter a single **point** (lat/lon) with a search radius
    - Or upload a **Shapefile, KML, GeoJSON, or GeoRSS** file
 
 Earthdata Search immediately filters the collection list to only those with data intersecting the drawn area, updating live as you adjust the shape
@@ -61,6 +62,7 @@ Earthdata Search immediately filters the collection list to only those with data
 Combining multiple search filters narrows down ~11,000 collections to a short, specific list of 4.
 
 ![](../images/EarthDataSearch/ed_search_2b_1.png)
+
 ![](../images/EarthDataSearch/ed_search_2b_2.png)
 *Figure caption: Drawing a spatial polygon to restrict search results to a specific region and combining Science Keywords, Processing Level, and Horizontal Data Resolution filters to find ocean current data*
 
