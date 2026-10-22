@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>swot_river_time_series_tutorial_in_r – PO.DAAC Cookbook</title>
+<title>SWOT River Time-Series Tutorial in R – PO.DAAC Cookbook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -81,9 +81,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0d24dfcb717af764faf68066ed72e09f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-3923334d528236adcfd567a80f64afa7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-0d24dfcb717af764faf68066ed72e09f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-2f92931d232d9d3ec7e03cd702e5919a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-290c8dfe7150f1290df820cf353826ee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-2f92931d232d9d3ec7e03cd702e5919a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -293,7 +293,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">SWOT River Time-Series Tutorial in R</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1413,28 +1413,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#swot-river-time-series-tutorial-in-r" id="toc-swot-river-time-series-tutorial-in-r" class="nav-link active" data-scroll-target="#swot-river-time-series-tutorial-in-r">SWOT River Time-Series Tutorial in R</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 <!-- Google Tag Manager (noscript) -->
                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNP7MLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SWOT River Time-Series Tutorial in R</h1>
+</div>
 
 
 
-<section id="swot-river-time-series-tutorial-in-r" class="level1">
-<h1>SWOT River Time-Series Tutorial in R</h1>
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <p>Navid Khizri (NASA JPL PO.DAAC Summer Intern; Alaska Pacific University Student)</p>
+<p>Created: Aug 2026</p>
+<p>Last Updated: Oct 2026</p>
 <p><strong>Summary</strong></p>
 <p>This introductory tutorial guides students through plotting a river water surface elevation (WSE) time series in R using observations from NASA’s Surface Water and Ocean Topography (SWOT) mission. Students will learn how to locate river reach identifiers (reach_id) in the SWOT River Database (SWORD), request observations via the Hydrocron API, clean missing-data placeholders, and visualize the results using base R.</p>
 <p><strong>Requirements</strong></p>
@@ -1459,11 +1469,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>Visit the interactive dashboard:</p>
 <p><strong><a href="https://www.swordexplorer.com/" class="uri">https://www.swordexplorer.com/</a></strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><img src="../../images/SWOT_RiverDB_Basin.png?raw=true" class="img-fluid"></p>
+<p><img src="../../images/SWOT_RiverDB_Basin.png" class="img-fluid"></p>
 <p>Click on the North American basin, then click on one of the numbers that has your river in it. I will click on Alaska which is #81.</p>
-<p><img src="../../images/Alaska.png?raw=true" class="img-fluid"></p>
+<p><img src="../../images/Alaska.png" class="img-fluid"></p>
 <p>After clicking on the basin you will see colorful lines which represent reach_ids. You can zoom in on the map into the river area of interest.</p>
-<p><img src="../../images/Area_Of_interest.png?raw=true" class="img-fluid"></p>
+<p><img src="../../images/Area_Of_interest.png" class="img-fluid"></p>
 <p>The example in this tutorial uses reaches from the Kuskokwim River in Southwestern Alaska. In the right-hand corner, you can see fields that are available. For now, just keep reach_id selected. Hovering the mouse over a river reach will display information about that reach, including the reach ID. When you find your reach ID, note it because will use it later when creating a time series.</p>
 <p><strong>What is Hydrocron?</strong></p>
 <p>Hydrocron is an API developed by NASA’s PO.DAAC that provides time-series hydrology data from SWOT in formats such as GeoJSON and CSV. At the time of the making of this tutorial each request retrieves data for a <strong>single reach_id</strong>.</p>
@@ -1545,24 +1555,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid</span>() <span class="co"># Improves readability for students</span></span>
 <span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Fetch, Clean, and Plot SWOT Data</strong></p>
-<p>In this example, we request all observations for reach <code>81181700021</code> from 2023–2026. A user can change these inputs to request different time periods and/or river IDs. User only needs to re-run the cell below when modifying the query parameters(reach_id,start_time,end_time).</p>
-<p>Note: At the time of writing this tutorial, there is a limit on how much data the API can query. If you’re reach is too large, consider breaking the query up into smaller requests. If interested in 2023 to 2027 data, you could do two queries: 2023-10-01 to 2025-05-31 and 2025-06-01 to 2027-07-25.</p>
+<p>In this example, we request all observations for reach <code>81181700021</code> from 2025-06-01 through 2026-07-25. A user can change these inputs to request different time periods and/or river IDs. User only needs to re-run the cell below when modifying the query parameters(reach_id,start_time,end_time).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_raw <span class="ot">&lt;-</span> <span class="fu">get_reach_data</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">reach_id   =</span> <span class="st">"81181700021"</span>, <span class="co"># Insert your reach ID here</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">start_time =</span> <span class="st">"2025-06-01T00:00:00Z"</span>, <span class="co"># Insert Start Date</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">end_time   =</span> <span class="st">"2027-07-25T00:00:00Z"</span>  <span class="co"># Insert End Date</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">end_time   =</span> <span class="st">"2026-07-25T00:00:00Z"</span>  <span class="co"># Insert End Date</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>## No encoding supplied: defaulting to UTF-8.</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">clean_hydrocron</span>(data_raw)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_reach</span>(data, <span class="at">title =</span> <span class="st">"Kuskokwim River"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><img src="SWOT_River_Time_Series_Tutorial_in_R4_files/figure-gfm/unnamed-chunk-7-1.png" class="img-fluid"></p>
+<p><img src="../../images/Kuskokwim.png" class="img-fluid"></p>
 <p><strong>Conclusion</strong></p>
 <p>You successfully retrieved SWOT river surface elevation data using Hydrocron, cleaned missing data, and plotted a time series. This workflow can be reused for any river reach available in the SWORD database.</p>
 <p>SWOT offers valuable high-resolution hydrologic data — especially for remote and ungauged regions like rural Alaska — unlocking new opportunities for hydrology education, research, and community impact.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1986,7 +1994,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/podaac/tutorials/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
