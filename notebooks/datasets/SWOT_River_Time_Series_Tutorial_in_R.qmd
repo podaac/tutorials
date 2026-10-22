@@ -1,7 +1,12 @@
-SWOT River Time-Series Tutorial in R
-================
+---
+title: "SWOT River Time-Series Tutorial in R"
+---
 Navid Khizri (NASA JPL PO.DAAC Summer Intern; Alaska Pacific University
 Student)
+
+Created: Aug 2026
+
+Last Updated: Oct 2026
 
 **Summary**
 
@@ -62,17 +67,17 @@ Visit the interactive dashboard:
 ``` r
 library(knitr)
 ```
-![](../../images/SWOT_RiverDB_Basin.png?raw=true)
+![](../../images/SWOT_RiverDB_Basin.png)
 
 Click on the North American basin, then click on one of the numbers that
 has your river in it. I will click on Alaska which is \#81.
 
-![](../../images/Alaska.png?raw=true)
+![](../../images/Alaska.png)
 
 After clicking on the basin you will see colorful lines which represent
 reach_ids. You can zoom in on the map into the river area of interest.
 
-![](../../images/Area_Of_interest.png?raw=true)
+![](../../images/Area_Of_interest.png)
 
 The example in this tutorial uses reaches from the Kuskokwim River in
 Southwestern Alaska. In the right-hand corner, you can see fields that
@@ -187,21 +192,15 @@ plot_reach <- function(data, title = "SWOT River Time-Series") {
 **Fetch, Clean, and Plot SWOT Data**
 
 In this example, we request all observations for reach `81181700021`
-from 2023–2026. A user can change these inputs to request different time
+from 2025-06-01 through 2026-07-25. A user can change these inputs to request different time
 periods and/or river IDs. User only needs to re-run the cell below when
 modifying the query parameters(reach_id,start_time,end_time).
-
-Note: At the time of writing this tutorial, there is a limit on how much
-data the API can query. If you’re reach is too large, consider breaking
-the query up into smaller requests. If interested in 2023 to 2027 data,
-you could do two queries: 2023-10-01 to 2025-05-31 and 2025-06-01 to
-2027-07-25.
 
 ``` r
 data_raw <- get_reach_data(
   reach_id   = "81181700021", # Insert your reach ID here
   start_time = "2025-06-01T00:00:00Z", # Insert Start Date
-  end_time   = "2027-07-25T00:00:00Z"  # Insert End Date
+  end_time   = "2026-07-25T00:00:00Z"  # Insert End Date
 )
 ```
 
@@ -213,7 +212,7 @@ data <- clean_hydrocron(data_raw)
 plot_reach(data, title = "Kuskokwim River")
 ```
 
-![](SWOT_River_Time_Series_Tutorial_in_R4_files/figure-gfm/unnamed-chunk-7-1.png)
+![](../../images/Kuskokwim.png)
 
 **Conclusion**
 
