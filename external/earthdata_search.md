@@ -50,8 +50,8 @@ Combining multiple search filters narrows down ~500 collections to a short, spec
 Searching for highest available resolution level 4 data within known spatial bounds
 
 1. Use the **Spatial** search tool above the map (the icons at the top of the search panel) to define the area. You can:
-   - Draw a **rectangle**, **polygon**, or **circle** directly on the map,
-   - Enter a single **point** (lat/lon) with a search radius,
+   - Draw a **rectangle**, **polygon**, or **circle** directly on the map
+   - Enter a single **point** (lat/lon) with a search radius
    - Or upload a **Shapefile, KML, GeoJSON, or GeoRSS** file
 
 Earthdata Search immediately filters the collection list to only those with data intersecting the drawn area, updating live as you adjust the shape
