@@ -1477,7 +1477,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="import-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="import-libraries">Import libraries</h3>
-<div id="ee51ad88" class="cell" data-execution_count="12">
+<div id="ee51ad88" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> leafmap</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipysheet</span>
@@ -1494,7 +1494,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <img src="../../images/EGIS_SWOT_Images/EGIS_SWOT_Python_2.png" class="img-fluid">
 </div>
 <p>Next all the way at the end of the webpage you will reach the <code>Supported Operations</code> section which is where you will select <code>Query</code>. That query URL will now be used to search through the feature service.</p>
-<p>https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query</p>
+<p>https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_Attributes/FeatureServer/1/query</p>
 <nop>
 <div style="width: 700px;">
 <img src="../../images/EGIS_SWOT_Images/EGIS_SWOT_Python_3.png" class="img-fluid">
@@ -1502,9 +1502,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>We will utilize the Python package <a href="https://leafmap.org/">leafmap</a> to plot data pulled through the service onto an interactive map.</p>
 <p>You can use <a href="http://bboxfinder.com/">bbox finder</a> to search for an area of interest, which helps in getting a quicker response time.</p>
 <p>Here we will be searching for Lake Powell, USA.</p>
-<div id="9e4ee1dc" class="cell">
+<div id="9e4ee1dc" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> <span class="st">"-112.188137,36.323246,-109.644802,37.995725"</span>  <span class="co"># xmin,ymin,xmax,ymax</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_Attributes/FeatureServer/1/query"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"1=1"</span>,</span>
@@ -1514,7 +1514,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"inSR"</span>: <span class="st">"4326"</span>,</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"spatialRel"</span>: <span class="st">"esriSpatialRelIntersects"</span>,</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"f"</span>: <span class="st">"geojson"</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">10000</span>,  <span class="co"># max record number of features server can return</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">2000</span>,  <span class="co"># max record number of features server can return</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
@@ -1523,28 +1523,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"response:"</span>, response.text[:<span class="dv">500</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Status code: 200
-response: {"type":"FeatureCollection","features":[{"type":"Feature","id":370332,"geometry":{"type":"LineString","coordinates":[[-110.47415790399998,37.256347604000041],[-110.47313850199998,37.256992075000028],[-110.47245964499996,37.257313554000064],[-110.47144021599996,37.257958011000028],[-110.46973923199994,37.259302495000043],[-110.46837650099997,37.26064847300006],[-110.46769682999997,37.261078088000033],[-110.46599990999999,37.261827616000062],[-110.46532021499996,37.262257217000069],[-110.464299508</code></pre>
+response: {"type":"FeatureCollection","features":[{"type":"Feature","id":3137850,"geometry":{"type":"LineString","coordinates":[[-111.57499145899999,36.85156082900005],[-111.57478348599994,36.850750528000049],[-111.57464686299994,36.850480752000067],[-111.57457754099994,36.850210652000044],[-111.57376187299997,36.849132848000067],[-111.57328674999997,36.848594268000056],[-111.57294622699999,36.848055038000041],[-111.57260369399995,36.847245380000061],[-111.57239978899997,36.846975926000027],[-111.57212456</code></pre>
 </div>
 </div>
-<div id="8c9bfd89" class="cell" data-execution_count="14">
+<div id="8c9bfd89" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates a map with the queried data with leafmap</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="fl">37.05</span>, <span class="op">-</span><span class="fl">111.3</span>], zoom<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="st">"Lake Powell Features"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"1dfb63d52bba4c929e272a6a5dd2ff0f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"df7df24a7dbd4e63aac80cfa85606667","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
 <p>We can also search by a specific river name, for example the Colorado River. (River names are found in the attribute table, or also in the SWORD database https://www.swordexplorer.com/)</p>
-<div id="1c822cc3" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
+<div id="1c822cc3" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_Attributes/FeatureServer/1/query"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"river_name='Colorado River'"</span>,  <span class="co"># Change to your river reach of interest</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"*"</span>,</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"f"</span>: <span class="st">"geojson"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">10000</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">2000</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
@@ -1553,30 +1553,30 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","id":370332,
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"response:"</span>, response.text[:<span class="dv">500</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Status code: 200
-response: {"type":"FeatureCollection","features":[{"type":"Feature","id":13817,"geometry":{"type":"LineString","coordinates":[[-115.05913648399996,32.000165692000053],[-115.05935570299999,31.99980826500007],[-115.05967313099995,31.999813122000035],[-115.05966515199998,32.000191820000055],[-115.05974486099996,32.000427547000072],[-115.05975424599995,32.000986902000079],[-115.05986982199994,32.001529841000036],[-115.06011237299998,32.002074723000078],[-115.06048304099994,32.002567447000047],[-115.0609852449</code></pre>
+response: {"type":"FeatureCollection","features":[{"type":"Feature","id":67862,"geometry":{"type":"LineString","coordinates":[[-97.515016754999976,30.217330747000062],[-97.515133274999982,30.217873436000048],[-97.515253859999973,30.218145486000026],[-97.515661690999991,30.220044895000058],[-97.515715888999978,30.220586876000027],[-97.515703695999946,30.22139879100007],[-97.515761958999974,30.221670134000078],[-97.515725376999967,30.224105876000067],[-97.516016703999981,30.225462595000067],[-97.51601263999</code></pre>
 </div>
 </div>
-<div id="a34ec4da" class="cell" data-execution_count="16">
+<div id="a34ec4da" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="dv">40</span>, <span class="op">-</span><span class="dv">100</span>], zoom<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="st">"Colorado River Features"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"3fff9d7049624142b9987c62cace20d8","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"82a6aa04d8e141c1b09183b312944b69","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
-<p>Next example shows how to plot a specific river reach based on its <code>reach_id</code> and create a time series chart.</p>
-<div id="8e9e5910" class="cell">
+<p>Next example shows how to plot a specific river reach based on its <code>reach_id</code> and create a time series chart by searching through time.</p>
+<div id="8e9e5910" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>reach_id_value <span class="op">=</span> <span class="dv">77250000051</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_Attributes/FeatureServer/1/query"</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"reach_id='77250000051'"</span>, <span class="co"># Change to your reach_id of interest</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="ss">f"reach_id='</span><span class="sc">{</span>reach_id_value<span class="sc">}</span><span class="ss">' AND time_str &gt;= '2024-01-01T00:00:00Z' AND time_str &lt;= '2024-12-31T23:59:59Z'"</span>, <span class="co"># Change to your reach_id of interest and time range</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"time_str,wse"</span>,</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"f"</span>: <span class="st">"geojson"</span>,</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orderByFields"</span>: <span class="st">"time_str ASC"</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">500</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">2000</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
@@ -1585,10 +1585,10 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","id":13817,"
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"response:"</span>, response.text[:<span class="dv">500</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Status code: 200
-response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-111.68443226199997,36.746592557000042],[-111.68276167799996,36.747683910000035],[-111.68242803499999,36.747956262000059],[-111.68142517599995,36.748556975000042],[-111.67974973599996,36.749107436000031],[-111.67908050599999,36.74943578400007],[-111.67874636599998,36.749654041000042],[-111.67673720799996,36.750476801000048],[-111.67606605399999,36.75058879200003],[-111.67506026999996,36.7508</code></pre>
+response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-111.68443226199997,36.746592557000042],[-111.68276167799996,36.747683910000035],[-111.68242803499999,36.747956262000059],[-111.68142517699994,36.748556975000042],[-111.67974973599996,36.749107436000031],[-111.67908050599999,36.74943578400007],[-111.67874636599998,36.749654041000042],[-111.67673720799996,36.750476801000048],[-111.67606605399999,36.75058879200003],[-111.67506026999996,36.7508</code></pre>
 </div>
 </div>
-<div id="7d19c064" class="cell" data-execution_count="18">
+<div id="7d19c064" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> [f[<span class="st">"properties"</span>] <span class="cf">for</span> f <span class="kw">in</span> geojson[<span class="st">"features"</span>]]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(records)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
@@ -1608,80 +1608,71 @@ response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{
 </div>
 </div>
 </div>
-<div id="3d27ee66" class="cell" data-execution_count="19">
+<div id="3d27ee66" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the reach_id on the map</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="dv">40</span>, <span class="op">-</span><span class="dv">100</span>], zoom<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="ss">f"Reach ID:</span><span class="sc">{</span>reach_id_value<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"32e5c8a976154d0f9aa99582e9fa2d14","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"0ddad7be3a984a5bbb0695061d4ea729","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
-<p>You also have the option to search through time.</p>
+<p>You also have the option to search through time on the entire river reach dataset.</p>
 <div id="0011ea5d" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_BASIC/FeatureServer/1/query"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_Attributes/FeatureServer/1/query"</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"time_str &gt;= '2025-05-07T00:00:00Z' AND time_str &lt;= '2025-05-07T23:59:59Z'"</span>,</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"*"</span>,</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"f"</span>: <span class="st">"geojson"</span>,</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orderByFields"</span>: <span class="st">"time_str ASC"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">5000</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">2000</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>geojson <span class="op">=</span> response.json()</span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Status code:"</span>, response.status_code)</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"First 500 chars of response:"</span>, response.text[:<span class="dv">500</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Status code: 200
-First 500 chars of response: {"type":"FeatureCollection","features":[{"type":"Feature","id":74519,"geometry":{"type":"LineString","coordinates":[[102.23623453100004,77.248313629000052],[102.23629178900006,77.248045112000057],[102.23591987900005,77.247503018000032],[102.23463249200006,77.246682287000056],[102.23444658800008,77.246411240000043],[102.23401750700003,77.246137661000034],[102.23383162300007,77.245866613000032],[102.23211553300007,77.244772291000061],[102.23144340400006,77.244496176000041],[102.23101445000003,77.2</code></pre>
 </div>
-</div>
-<div id="ae637fba" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="dv">40</span>, <span class="op">-</span><span class="dv">100</span>], zoom<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="st">"Time Filtered Features"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"ab69fc65f2694e7f9aa0adeacef302a5","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
+<div id="ae637fba" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> leafmap.Map(center<span class="op">=</span>[<span class="dv">40</span>, <span class="op">-</span><span class="dv">100</span>], zoom<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>m.add_geojson(geojson, layer_name<span class="op">=</span><span class="st">"Time Filtered Features"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </nop></nop></nop></section>
 <section id="bonus" class="level3">
 <h3 class="anchored" data-anchor-id="bonus">Bonus</h3>
-<p>If you would like to create a longer time series chart of a river reach, use SWOT Version C (2.0) collection, which is also available as a feature service.</p>
-<div id="1c544ecf" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>reach_id_value <span class="op">=</span> <span class="dv">77250000211</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C2799438299_POCLOUD/SWOT_L2_HR_RiverSP_reach_vC_BASIC/FeatureServer/1/query"</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="st">"reach_id='77250000211'"</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"time_str,wse"</span>,</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"f"</span>: <span class="st">"geojson"</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orderByFields"</span>: <span class="st">"time_str ASC"</span>,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">10000</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>geojson <span class="op">=</span> response.json()</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Status code:"</span>, response.status_code)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"response:"</span>, response.text[:<span class="dv">500</span>])</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> [f[<span class="st">"properties"</span>] <span class="cf">for</span> f <span class="kw">in</span> geojson[<span class="st">"features"</span>]]</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(records)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">"time_str"</span>], df[<span class="st">"wse"</span>], marker<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"time_str"</span>)</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Water Surface Elevation (wse) meters"</span>)</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f"Time Series for reach_id=</span><span class="sc">{</span>reach_id_value<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you would like to create a longer time series chart of a river reach.</p>
+<div id="1c544ecf" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>reach_id_value <span class="op">=</span> <span class="dv">77250000051</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gis.earthdata.nasa.gov/portal/rest/services/C3233944997_POCLOUD/SWOT_L2_HR_RiverSP_reach_vD_Attributes/FeatureServer/1/query"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"where"</span>: <span class="ss">f"reach_id='</span><span class="sc">{</span>reach_id_value<span class="sc">}</span><span class="ss">'"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"outFields"</span>: <span class="st">"time_str,wse"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"f"</span>: <span class="st">"geojson"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orderByFields"</span>: <span class="st">"time_str ASC"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"resultRecordCount"</span>: <span class="dv">10000</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>geojson <span class="op">=</span> response.json()</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Status code:"</span>, response.status_code)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"response:"</span>, response.text[:<span class="dv">500</span>])</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> [f[<span class="st">"properties"</span>] <span class="cf">for</span> f <span class="kw">in</span> geojson[<span class="st">"features"</span>]]</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(records)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">25</span>, <span class="dv">5</span>))</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">"time_str"</span>], df[<span class="st">"wse"</span>], marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"time_str"</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Water Surface Elevation (wse) meters"</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f"Time Series for reach_id=</span><span class="sc">{</span>reach_id_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Status code: 200
-response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-111.68443226199997,36.746592557000042],[-111.68276167799996,36.747683910000035],[-111.68242803499999,36.747956262000059],[-111.68142517599995,36.748556975000042],[-111.67974973599996,36.749107436000031],[-111.67908050599999,36.74943578400007],[-111.67874636599998,36.749654041000042],[-111.67673720799996,36.750476801000048],[-111.67606605399999,36.75058879200003],[-111.67506026999996,36.7508</code></pre>
+response: {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-111.68443226199997,36.746592557000042],[-111.68276167799996,36.747683910000035],[-111.68242803499999,36.747956262000059],[-111.68142517699994,36.748556975000042],[-111.67974973599996,36.749107436000031],[-111.67908050599999,36.74943578400007],[-111.67874636599998,36.749654041000042],[-111.67673720799996,36.750476801000048],[-111.67606605399999,36.75058879200003],[-111.67506026999996,36.7508</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
