@@ -52,20 +52,39 @@ podaac-data-downloader -c SWOT_L2_LR_SSH_Basic_D -d ./data -sd 2025-05-06T00:00:
 
 #### **SWOT Data Versioning**
 
-SWOT Science Data Products transitioned from Version C to Version D. For more details please see this [package](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/KaRIn_VersionD_Summary20250423.pdf).
+**As of October 2026, the most up to date SWOT data product version is version D.** Users are encouraged to only use Version D products, as the time series in now complete (~March 30, 2023 onward).
+
+Version D products have been generated for all measurements spanning the start of the calibration phase to present and consist of:
+
+``` bash
+1. Reprocessed products for measurements from the start of the calibration phase (~March 30, 2023) through cycle 32 (~May 18, 2025). Reprocessed version D products can be identified by the “PGD0” identifier in the file names.
+2. Forward-processed products for measurements from cycle 33 (~May 19, 2025) onward. Forward-processed version D products can be identified by the “PID0” identifier in the file names.
+```
+
+The release note for the Version D products can be found at the [following link](https://www.earthdata.nasa.gov/data/platforms/space-based-platforms/swot/resources#toc-swot-documents), along with other relevant documents, noting that the actual reprocessing period is as described above.
+
+As a reminder, users should always use the product granules with the highest product counter.
+
+**Previous Versions (for reference and historical record, may be out of date)**
+
+In April 2025, SWOT Science Data Products began the transition from Version C to Version D. from Version C to Version D. For more details please see this [package](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/KaRIn_VersionD_Summary20250423.pdf).
 
 See the [Version D product release notes](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/SWOT_VersionD_KaRIn_Products_Release_Note_20250423b.pdf) The CRID for KaRIn Version D products have values of:
 
+``` bash
 1. PGD0 for reprocessed Version D products spanning measurements from March 30, 2023 to April 27, 2025 (repeat cycles 475-578 of calibration phase, and repeat cycles 1-31 of science phase).
 2. PID0 for forward-processed Version D products spanning April 28, 2025 onward (~repeat cycle 32 onward).
+```
 
 The best available science data processing algorithms in early 2025 were applied into the operational forward processing and reprocessing of KaRIn data to generate both the PID0 and PGD0 products.
 
 See the [Version C product release notes](https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/releases/SWOT_VersionC_KaRIn_Products_Release_Note_20241014.pdf) for more information about the latest release. Note that version C has used different versions of data processing algorithms, as indicated in the Composite Release Identifier (CRID) in the filename of KaRIn science data products. The CRID values are as follows:
 
+``` bash
 1. PGC0 for reprocessed version C products spanning March 30, 2023 to January 25, 2024 (repeat cycles 475-578 of calibration phase, and repeat cycles 1-9 of science phase). This reprocessing of the original data is now complete.
 2. PIC0 for forward-processed version C products spanning January 25, 2024 to October 15, 2024 (repeat cycle 10 to part of repeat cycle 22 of science phase).
 3. PIC2 for forward-processed version C products spanning October 16, 2024 to May 5, 2025 (part of cycle 22 to cycle 32 of science phase).
+```
 
 The best available science data processing algorithms in early 2024 were applied into the operational forward processing and reprocessing of KaRIn data to generate both the PIC0 and PGC0 products. The PIC2 products have resolved several algorithm and product issues that were identified in the PIC0/PGC0 products.
 The PIC2 products have resolved several algorithm and product issues that were identified in the PIC0/PGC0 products.
