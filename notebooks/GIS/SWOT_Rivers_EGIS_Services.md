@@ -12,7 +12,7 @@ The following are the available service endpoints for each SWOT Rivers version a
 
 [Web Feature Service (WFS)](https://gis.earthdata.nasa.gov/portal/home/item.html?id=07fefd476cb74ee08a2912d218c28db8)
 
-[OGC Feature Layer](https://gis.earthdata.nasa.gov/portal/home/item.html?id=82f1018f181d4c87b7332070ce405c11)
+[OGC Feature Layer](https://gis.earthdata.nasa.gov/portal/home/item.html?id=82f1018f181d4c87b7332070ce405c11) (Currently Unavailable)
 
 ### SWOT_L2_HR_RiverSP_reach_vD_BASIC (03/28/23 - Present; 1:5,000 - 1:10,000,000 zoom level extent)
 [Feature Service](https://gis.earthdata.nasa.gov/portal/home/item.html?id=9e2609d5ff384ec69796ec1433b30390)
@@ -21,7 +21,7 @@ The following are the available service endpoints for each SWOT Rivers version a
 
 [Web Feature Service (WFS)](https://gis.earthdata.nasa.gov/portal/home/item.html?id=547731e6fcf441219608ae595200e54b)
 
-[OGC Feature Layer](https://gis.earthdata.nasa.gov/portal/home/item.html?id=e82be6d44293457ca6efca32ecbfdcfa)
+[OGC Feature Layer](https://gis.earthdata.nasa.gov/portal/home/item.html?id=e82be6d44293457ca6efca32ecbfdcfa) (Currently Unavailable)
 
 ### SWOT_L2_HR_RiverSP_reach_vC_BASIC (03/29/23 - 05/03/25; 1:5,000 - 1:10,000,000 zoom level extent)
 [Feature Service](https://gis.earthdata.nasa.gov/portal/home/item.html?id=e48d60fc61364ba9ad1fede4b8731f0b)
@@ -30,4 +30,4 @@ The following are the available service endpoints for each SWOT Rivers version a
 
 [Web Feature Service (WFS)](https://gis.earthdata.nasa.gov/portal/home/item.html?id=5f1979529c704368a4d15b53b4eba5cf)
 
-[OGC Feature Layer](https://gis.earthdata.nasa.gov/portal/home/item.html?id=e1ecabb8985242928494b5455a1a0aa0)
+[OGC Feature Layer](https://gis.earthdata.nasa.gov/portal/home/item.html?id=e1ecabb8985242928494b5455a1a0aa0) (Currently Unavailable)
