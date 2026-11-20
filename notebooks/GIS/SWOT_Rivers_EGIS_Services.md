@@ -23,11 +23,8 @@ The following are the available service endpoints for each SWOT Rivers version a
 
 [OGC Feature Layer](https://gis.earthdata.nasa.gov/portal/home/item.html?id=e82be6d44293457ca6efca32ecbfdcfa) (Currently Unavailable)
 
-### SWOT_L2_HR_RiverSP_reach_vC_BASIC (03/29/23 - 05/03/25; 1:5,000 - 1:10,000,000 zoom level extent)
-[Feature Service](https://gis.earthdata.nasa.gov/portal/home/item.html?id=e48d60fc61364ba9ad1fede4b8731f0b)
+### SWOT_L2_HR_RiverSP_vC Retirement
 
-[Map Image Service](https://gis.earthdata.nasa.gov/portal/home/item.html?id=b94fdb23da64409ca0fc30d386770508)
+SWOT vC EGIS services have been deprecated as of Dec 1, 2026 due to data products themselves having been retired Dec 1, 2026. See this data alert from more information: https://www.earthdata.nasa.gov/data/alerts-outages swot-version-d-reprocessing-complete-version-c-retired-december-1-2026
 
-[Web Feature Service (WFS)](https://gis.earthdata.nasa.gov/portal/home/item.html?id=5f1979529c704368a4d15b53b4eba5cf)
-
-[OGC Feature Layer](https://gis.earthdata.nasa.gov/portal/home/item.html?id=e1ecabb8985242928494b5455a1a0aa0) (Currently Unavailable)
+Users are encouraged to use the SWOT vD data and corresponding EGIS services.
